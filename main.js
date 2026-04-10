@@ -90,12 +90,11 @@ if (langSelector) {
 }
 
 function changeLanguage(langCode) {
-    const googleSelect = document.querySelector('.goog-te-combo');
+    const googleSelect = document.querySelector('select.goog-te-combo');
     if (googleSelect) {
         googleSelect.value = langCode;
-        googleSelect.dispatchEvent(new Event('change'));
+        googleSelect.dispatchEvent(new Event('change', { bubbles: true }));
     } else {
-        // If Google Translate hasn't loaded yet, try again in a bit
         setTimeout(() => changeLanguage(langCode), 500);
     }
 }
@@ -106,7 +105,8 @@ window.addEventListener('load', () => {
     const savedLangName = localStorage.getItem('preferred-lang-name');
     
     if (savedLang && savedLang !== 'en') {
-        currentLangText.innerText = savedLangName;
-        changeLanguage(savedLang);
+        if (currentLangText) currentLangText.innerText = savedLangName;
+        // Wait a bit for the widget to be ready
+        setTimeout(() => changeLanguage(savedLang), 1000);
     }
 });
