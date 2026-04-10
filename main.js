@@ -8,20 +8,6 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Hero Slideshow Logic
-const slides = document.querySelectorAll('.hero-slide');
-let currentSlide = 0;
-
-function nextSlide() {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-}
-
-if (slides.length > 0) {
-    setInterval(nextSlide, 5000);
-}
-
 // Reveal Animations on Scroll
 const revealElements = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver((entries) => {
@@ -79,7 +65,7 @@ window.addEventListener('load', () => {
     const savedLang = localStorage.getItem('preferred-lang');
     const savedLangName = localStorage.getItem('preferred-lang-name');
     
-    if (savedLang && savedLang !== 'en') {
+    if (savedLang && savedLang !== 'ko') { // Base language is now 'ko'
         if (currentLangText) currentLangText.innerText = savedLangName;
         setTimeout(() => changeLanguage(savedLang), 1000);
     }

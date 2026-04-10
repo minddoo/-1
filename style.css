@@ -197,7 +197,8 @@ nav ul li a:hover, nav ul li a.active {
 .hero {
     height: 100vh;
     min-height: 800px;
-    background: var(--bg-light);
+    background: url('assets/hero-1.jpg') no-repeat center center;
+    background-size: cover;
     position: relative;
     padding-top: 100px;
     display: flex;
@@ -205,39 +206,18 @@ nav ul li a:hover, nav ul li a.active {
     overflow: hidden;
 }
 
-.hero-slideshow {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-}
-
-.hero-slide {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 1.5s ease;
-    display: flex;
-    align-items: center;
-}
-
-.hero-slide.active {
-    opacity: 1;
-}
-
-.hero-slide::after {
+.hero::after {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(to right, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0) 80%);
+    z-index: 1;
 }
 
 .hero-content {
     position: relative;
     z-index: 10;
     max-width: 750px;
-    animation: fadeInUp 1s ease-out;
 }
 
 .hero-badge {
