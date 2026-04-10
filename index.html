@@ -21,6 +21,23 @@
             </ul>
         </nav>
         <div class="nav-actions">
+            <div class="language-selector">
+                <div class="selected-lang">
+                    <i class="fa-solid fa-globe"></i>
+                    <span id="current-lang">English</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="lang-dropdown">
+                    <div class="lang-option" data-lang="en">English</div>
+                    <div class="lang-option" data-lang="ko">한국어</div>
+                    <div class="lang-option" data-lang="zh-CN">简体中文</div>
+                    <div class="lang-option" data-lang="ja">日本語</div>
+                    <div class="lang-option" data-lang="vi">Tiếng Việt</div>
+                    <div class="lang-option" data-lang="th">ไทย</div>
+                    <div class="lang-option" data-lang="es">Español</div>
+                    <div class="lang-option" data-lang="fr">Français</div>
+                </div>
+            </div>
             <a href="#" class="btn-login">Sign In</a>
             <a href="#" class="btn-signup">Get Started</a>
         </div>
@@ -126,6 +143,19 @@
         </div>
     </footer>
 
+    <div id="google_translate_element" style="visibility:hidden;position:absolute;z-index:-1;"></div>
+    
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'ko,en,zh-CN,ja,vi,th,es,fr,de,ru',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="main.js"></script>
 </body>
 </html>
