@@ -1053,51 +1053,6 @@ ul {
 
 /* Process Section */
 
-/* Guide / Article Section */
-.guide-section {
-    padding: 120px 0;
-    background: var(--secondary);
-    color: var(--white);
-    border-radius: 60px 60px 0 0;
-}
-
-.guide-container {
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 80px;
-    align-items: center;
-}
-
-.guide-content h2 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 30px;
-    line-height: 1.1;
-}
-
-.guide-list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.guide-item {
-    display: flex;
-    gap: 20px;
-    padding: 24px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    transition: var(--transition);
-}
-
-.guide-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(10px);
-}
-
-.card-footer i {
-    font-size: 1.2rem;
-}
 
 /* Reality Section (Dark Mode) */
 .reality-section {
