@@ -135,18 +135,3 @@ if (slider) {
         slideInterval = setInterval(nextSlide, 5000);
     });
 }
-
-// Hero Background Slider
-const heroSlides = document.querySelectorAll('.hero-slide');
-let currentHeroSlide = 0;
-
-if (heroSlides.length > 0) {
-    function nextHeroSlide() {
-        heroSlides[currentHeroSlide].classList.remove('active');
-        currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
-        heroSlides[currentHeroSlide].classList.add('active');
-    }
-
-    // Change slide every 6 seconds
-    setInterval(nextHeroSlide, 6000);
-}
