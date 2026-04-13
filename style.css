@@ -478,11 +478,40 @@ ul {
 }
 
 .spotlight-badge {
-    background: #ffff00 !important; /* Yellow highlight from screenshot */
-    color: var(--text-dark) !important;
-    font-size: 1.1rem !important;
-    text-transform: none !important;
-    letter-spacing: normal !important;
+    display: inline-flex;
+    gap: 8px;
+    margin-top: 100px; /* Moves it further down from the Korea banner */
+    padding: 10px 0;
+    color: var(--text-dark);
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.spotlight-badge .word {
+    opacity: 0;
+    transform: translateY(10px);
+    display: inline-block;
+}
+
+.reveal.active .spotlight-badge .word {
+    animation: wordAppear 0.3s forwards;
+}
+
+/* Staggered delays for words */
+.spotlight-badge .word:nth-child(1) { animation-delay: 0.1s; }
+.spotlight-badge .word:nth-child(2) { animation-delay: 0.2s; }
+.spotlight-badge .word:nth-child(3) { animation-delay: 0.3s; }
+.spotlight-badge .word:nth-child(4) { animation-delay: 0.4s; }
+.spotlight-badge .word:nth-child(5) { animation-delay: 0.5s; }
+.spotlight-badge .word:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes wordAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Expectations Slider */
