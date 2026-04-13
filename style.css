@@ -422,6 +422,116 @@ ul {
     to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
+/* Cinematic Film Reel Section */
+.film-reel-section {
+    background: #000;
+    padding: 60px 0;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Film Perforations (Sprocket Holes) */
+.film-reel-section::before,
+.film-reel-section::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background-image: repeating-linear-gradient(90deg, 
+        transparent 0, transparent 40px, 
+        #fff 40px, #fff 55px);
+    opacity: 0.15;
+    z-index: 2;
+}
+
+.film-reel-section::before { top: 15px; }
+.film-reel-section::after { bottom: 15px; }
+
+.film-strip-marquee {
+    display: flex;
+    white-space: nowrap;
+}
+
+.film-track {
+    display: flex;
+    animation: scrollFilm 40s linear infinite;
+}
+
+@keyframes scrollFilm {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.film-frame {
+    flex: 0 0 auto;
+    width: 500px;
+    margin: 0 40px;
+    position: relative;
+    padding: 20px;
+    background: #111;
+    border: 10px solid #000;
+}
+
+.film-frame img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    filter: sepia(30%) contrast(110%) brightness(90%);
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.frame-meta {
+    position: absolute;
+    top: 35px;
+    left: 35px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.3);
+    padding: 4px 8px;
+    border-radius: 4px;
+    z-index: 10;
+}
+
+.rec-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #e74c3c;
+    border-radius: 50%;
+    margin: 0 5px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.frame-caption {
+    margin-top: 15px;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    font-style: italic;
+    text-align: center;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .film-frame {
+        width: 320px;
+        margin: 0 20px;
+    }
+    .film-frame img {
+        height: 200px;
+    }
+}
+
 /* Checkit Global Programs Section */
 .programs-section {
     padding: 140px 0;
