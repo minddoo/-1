@@ -14,6 +14,19 @@
     <!-- CSS & Icons -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Translate Integration -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ko',
+                includedLanguages: 'en,ja,zh-CN,vi,th,ru',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
     <div class="bg-gradient"></div>
@@ -29,6 +42,22 @@
                 <a href="#about">Why Us?</a>
                 <a href="#process">The Process</a>
                 <a href="#guide">Guide</a>
+                
+                <div class="language-selector">
+                    <div class="current-lang">
+                        <i class="fa-solid fa-globe"></i>
+                        <span id="current-lang">English</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="lang-dropdown">
+                        <div class="lang-option" data-lang="en">English</div>
+                        <div class="lang-option" data-lang="ko">한국어</div>
+                        <div class="lang-option" data-lang="ja">日本語</div>
+                        <div class="lang-option" data-lang="zh-CN">简体中文</div>
+                        <div class="lang-option" data-lang="vi">Tiếng Việt</div>
+                    </div>
+                </div>
+
                 <a href="#contact" class="nav-btn">Consult Now</a>
             </nav>
         </div>
@@ -150,12 +179,12 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" style="padding: 140px 0; background: var(--white);">
-            <div class="container" style="text-align: center;">
+        <section id="contact" class="contact-section">
+            <div class="container">
                 <div class="reveal">
-                    <h2 style="font-size: 3.5rem; font-weight: 800; margin-bottom: 24px;">Start Your Consultation</h2>
-                    <p style="font-size: 1.3rem; color: var(--text-light); margin-bottom: 48px;">Free coordination support. Professional medical interpretation included.</p>
-                    <a href="https://wa.me/+821051093459" target="_blank" class="btn-main" style="background: #25D366; box-shadow: 0 12px 30px rgba(37, 211, 102, 0.25);">
+                    <h2>Start Your Consultation</h2>
+                    <p>Free coordination support. Professional medical interpretation included.</p>
+                    <a href="https://wa.me/+821051093459" target="_blank" class="btn-whatsapp">
                         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
                     </a>
                 </div>
@@ -191,30 +220,10 @@
         </div>
     </footer>
 
-    <!-- Reveal & Interaction Script -->
-    <script>
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        window.addEventListener("load", reveal);
+    <!-- Hidden Google Translate Element -->
+    <div id="google_translate_element" style="display:none;"></div>
 
-        window.addEventListener("scroll", function() {
-            var navbar = document.getElementById("navbar");
-            if (window.scrollY > 50) {
-                navbar.classList.add("scrolled");
-            } else {
-                navbar.classList.remove("scrolled");
-            }
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="main.js"></script>
 </body>
 </html>

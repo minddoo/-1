@@ -1,5 +1,5 @@
 // Sticky Header effect
-const header = document.getElementById('main-header');
+const header = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
         header.classList.add('scrolled');
