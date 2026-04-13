@@ -55,6 +55,11 @@ function changeLanguage(langCode) {
     if (googleSelect) {
         googleSelect.value = langCode;
         googleSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        
+        // Hide the Google Translate toolbar if it appears
+        const frame = document.querySelector('.goog-te-banner-frame');
+        if (frame) frame.style.display = 'none';
+        document.body.style.top = '0';
     } else {
         setTimeout(() => changeLanguage(langCode), 500);
     }
@@ -65,9 +70,10 @@ window.addEventListener('load', () => {
     const savedLang = localStorage.getItem('preferred-lang');
     const savedLangName = localStorage.getItem('preferred-lang-name');
     
-    if (savedLang && savedLang !== 'ko') { // Base language is now 'ko'
+    if (savedLang && savedLang !== 'ko') {
         if (currentLangText) currentLangText.innerText = savedLangName;
-        setTimeout(() => changeLanguage(savedLang), 1000);
+        // Wait a bit more for Google script to initialize
+        setTimeout(() => changeLanguage(savedLang), 1500);
     }
 });
 
