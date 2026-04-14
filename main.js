@@ -53,14 +53,20 @@ if (langSelector) {
 function changeLanguage(langCode) {
     const googleSelect = document.querySelector('select.goog-te-combo');
     if (googleSelect) {
-        googleSelect.value = langCode;
+        // If langCode is 'en' (source language), we want to show original
+        const targetValue = (langCode === 'en') ? '' : langCode;
+        
+        googleSelect.value = targetValue;
         googleSelect.dispatchEvent(new Event('change', { bubbles: true }));
         
         // Hide the Google Translate toolbar if it appears
-        const frame = document.querySelector('.goog-te-banner-frame');
-        if (frame) frame.style.display = 'none';
-        document.body.style.top = '0';
+        setTimeout(() => {
+            const frame = document.querySelector('.goog-te-banner-frame');
+            if (frame) frame.style.display = 'none';
+            document.body.style.top = '0';
+        }, 800);
     } else {
+        // Retry if Google Translate isn't loaded yet
         setTimeout(() => changeLanguage(langCode), 500);
     }
 }
@@ -70,9 +76,9 @@ window.addEventListener('load', () => {
     const savedLang = localStorage.getItem('preferred-lang');
     const savedLangName = localStorage.getItem('preferred-lang-name');
     
-    if (savedLang && savedLang !== 'ko') {
+    if (savedLang && savedLang !== 'en') {
         if (currentLangText) currentLangText.innerText = savedLangName;
-        // Wait a bit more for Google script to initialize
+        // Wait for Google script to fully initialize
         setTimeout(() => changeLanguage(savedLang), 1500);
     }
 });
