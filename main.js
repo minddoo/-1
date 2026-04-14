@@ -116,10 +116,13 @@ function changeLanguage(langCode) {
     const cookieValue = (langCode === 'en') ? '/en/en' : `/en/${langCode}`;
     setCookie('googtrans', cookieValue, 1);
 
-    // 2. Update Legal Terms instantly
+    // 2. Update Document Lang Attribute for SEO and Accessibility
+    document.documentElement.lang = langCode;
+
+    // 3. Update Legal Terms instantly (Pre-translated, will be skipped by Google via .notranslate)
     updateLegalContent(langCode);
 
-    // 3. Trigger Google Translate
+    // 4. Trigger Google Translate Engine
     const googleSelect = document.querySelector('select.goog-te-combo');
     if (googleSelect) {
         const targetValue = (langCode === 'en') ? '' : langCode;
