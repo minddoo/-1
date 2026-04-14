@@ -30,6 +30,12 @@ if (langSelector) {
     langSelector.addEventListener('click', (e) => {
         e.stopPropagation();
         langDropdown.classList.toggle('show');
+        
+        // If user clicks the main button, also trigger translation for the current selection
+        const savedLang = localStorage.getItem('preferred-lang') || 'en';
+        if (savedLang !== 'en') {
+            changeLanguage(savedLang);
+        }
     });
 
     document.addEventListener('click', () => {
@@ -70,12 +76,21 @@ function changeLanguage(langCode) {
         googleSelect.value = targetValue;
         googleSelect.dispatchEvent(new Event('change', { bubbles: true }));
         
-        // Hide UI artifacts
-        setTimeout(() => {
+        // Hide UI artifacts (Google Translate Top Bar)
+        const hideGoogleBar = () => {
             const frame = document.querySelector('.goog-te-banner-frame');
-            if (frame) frame.style.display = 'none';
+            if (frame) {
+                frame.style.display = 'none';
+                frame.style.visibility = 'hidden';
+            }
             document.body.style.top = '0';
-        }, 800);
+        };
+
+        // Run multiple times to ensure we catch it as it loads
+        hideGoogleBar();
+        setTimeout(hideGoogleBar, 500);
+        setTimeout(hideGoogleBar, 1500);
+        setTimeout(hideGoogleBar, 3000);
     } else {
         // Retry logic if DOM isn't ready
         setTimeout(() => changeLanguage(langCode), 500);

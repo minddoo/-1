@@ -22,13 +22,18 @@
     --radius: 24px;
 }
 
-/* Google Translate Widget Positioning */
-#google_translate_element {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-    opacity: 0;
-    pointer-events: none;
+/* Google Translate Banner Folding */
+.goog-te-banner-frame {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+body {
+    top: 0 !important;
+}
+
+.goog-te-gadget {
+    font-family: 'Pretendard', sans-serif !important;
 }
 
 
