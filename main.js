@@ -48,7 +48,6 @@ if (langSelector) {
             localStorage.setItem('preferred-lang-name', langName);
         });
     });
-    });
 }
 
 // Cookie Helpers for Translation
