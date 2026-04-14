@@ -1766,8 +1766,90 @@ ul {
     text-decoration: underline;
 }
 
+/* PIPA Agreement Styling */
+.auth-terms {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.terms-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+    opacity: 0.8;
+}
+
+.terms-box {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 12px;
+    max-height: 100px;
+    overflow-y: auto;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+.terms-lang strong {
+    display: block;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.terms-lang p {
+    margin-bottom: 12px;
+}
+
+.terms-lang hr {
+    border: none;
+    border-top: 1px dashed rgba(0, 0, 0, 0.1);
+    margin: 12px 0;
+}
+
+.pipa-checkbox-wrap {
+    font-size: 0.75rem !important;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.pipa-checkbox-wrap input {
+    margin-top: 2px;
+}
+
+/* Custom Scrollbar for Terms Box */
+.terms-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.terms-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.terms-box::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+}
+
+.terms-box::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
 @media (max-width: 480px) {
     .modal-container {
         padding: 40px 24px;
     }
+    .terms-box {
+        max-height: 80px;
+    }
 }
+

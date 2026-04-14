@@ -797,12 +797,52 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
+                        <label>Preferred Checkup Item / Hospital</label>
                         <div class="input-icon-wrap">
-                            <i class="fa-solid fa-lock"></i>
-                            <input type="password" placeholder="Min. 8 characters" required>
+                            <i class="fa-solid fa-hospital"></i>
+                            <input type="text" placeholder="e.g. Brain MRI / Seoul Hospital" required>
                         </div>
                     </div>
+
+                    <!-- Personal Information Agreement (PIPA) -->
+                    <div class="auth-terms">
+                        <label class="terms-label">Personal Information Collection & Usage Agreement (PIPA)</label>
+                        <div class="terms-box">
+                            <div class="terms-lang">
+                                <strong>[KOREAN / 한국어]</strong>
+                                <p>1. 수집 항목: 성함, 생년월일(앞 6자리), 연락처, 이메일, 한국 내 주소, 희망 검진 항목, 선택 병원, 병원 수령 결과지 및 서류 일체. 2. 목적: 예약 지원, 행정 코디네이션, 통번역 및 결과지 관리. 3. 보유 기간: 서비스 종료 후 1년. 4. 법적 고지: 체킷 글로벌은 의료법상 환자 유치 업체가 아닌 예약 지원 및 행정·통번역 서비스를 제공하는 기술 플랫폼입니다.</p>
+                                
+                                <hr>
+                                <strong>[ENGLISH]</strong>
+                                <p>1. Items Collected: Name, DOB (6 digits), Contact, Email, Address, Checkup items, Hospital choice, Medical reports/results. 2. Purpose: Reservation support, coordination, translation, and results management. 3. Retention: 1 year after service. 4. Legal: Checkit Global is NOT a medical referral/brokerage service. We provide administrative coordination and translation support.</p>
+                                
+                                <hr>
+                                <strong>[JAPANESE / 日本語]</strong>
+                                <p>1. 収集項目: 氏名, 生年月日(6桁), 連絡先, メール, 住所, 受診項目, 病院選択, 結果表の収集. 2. 目的: 予約支援及び行政・通訳サポート. 3. 保育期間: 1年. 4. 法的告知: 本サービスは医療法上の患者誘致業者ではありません。</p>
+                                
+                                <hr>
+                                <strong>[CHINESE / 简体中文]</strong>
+                                <p>1. 收集项目: 姓名, 出生日期(6位), 联系方式, 地址, 检查项目, 结果报告. 2. 目的: 预约协助及行政、翻译支持. 3. 保留期限: 1年. 4. 法律声明: 本平台并非医疗服务法规定的患者招徕机构。</p>
+                                
+                                <hr>
+                                <strong>[VIETNAMESE / Tiếng Việt]</strong>
+                                <p>1. Thông tin thu thập: Họ tên, ngày sinh (6 số), liên hệ, địa chỉ, hạng mục khám, kết quả. 2. Mục đích: Đặt lịch, hành chính và thông dịch. 3. Lưu trữ: 1 năm. 4. Pháp lý: Checkit Global không phải môi giới bệnh nhân.</p>
+                                
+                                <hr>
+                                <strong>[THAI / ภาษาไทย]</strong>
+                                <p>1. ข้อมูลที่เก็บรวบรวม: ชื่อ, วันเกิด (6 หลัก), ที่อยู่, รายการตรวจ, ผลตรวจ. 2. วัตถุประสงค์: สนับสนุนการจองและแปลภาษา. 3. การเก็บรักษา: 1 ปี. 4. กฎหมาย: เราไม่ใช่ตัวแทนแนะนำผู้ป่วย</p>
+                                
+                                <hr>
+                                <strong>[RUSSIAN / Русский]</strong>
+                                <p>1. Сбор данных: Имя, дата рождения, контакты, адрес, результаты обследований. 2. Цель: Координация и перевод. 3. Срок хранения: 1 год. 4. Статус: Checkit Global не является медицинским агентом.</p>
+                            </div>
+                        </div>
+                        <label class="remember-me pipa-checkbox-wrap">
+                            <input type="checkbox" id="pipa-agree-signup" required>
+                            <span>I agree to the collection and use of personal information (Required)</span>
+                        </label>
+                    </div>
+
                     <button type="submit" class="btn-primary auth-submit">Create Account</button>
                 </form>
 

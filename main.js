@@ -217,6 +217,14 @@ if (authModal && loginBtn) {
     authForms.forEach(form => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            // Check for PIPA agreement if it's the signup form
+            const pipaCheckbox = form.querySelector('#pipa-agree-signup');
+            if (pipaCheckbox && !pipaCheckbox.checked) {
+                alert('Please agree to the Personal Information Collection & Usage terms.');
+                return;
+            }
+
             const submitBtn = form.querySelector('.auth-submit');
             const originalText = submitBtn.innerText;
             
