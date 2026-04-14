@@ -248,7 +248,7 @@ function initGoogleLogin() {
     }
 
     google.accounts.id.initialize({
-        client_id: "818434232492-checkit-43341.apps.googleusercontent.com", // Provided by user
+        client_id: "818434232492-08aep4imjpju5k1jo2ci1b209eufgtj2.apps.googleusercontent.com", // Verified Client ID
         callback: handleGoogleSignIn
     });
 
