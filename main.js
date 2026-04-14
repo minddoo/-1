@@ -119,31 +119,40 @@ function changeLanguage(langCode) {
     // 2. Update Document Lang Attribute for SEO and Accessibility
     document.documentElement.lang = langCode;
 
-    // 3. Update Legal Terms instantly (Pre-translated, will be skipped by Google via .notranslate)
+    // 3. Update Legal Terms instantly
     updateLegalContent(langCode);
 
-    // 4. Trigger Google Translate Engine
-    const googleSelect = document.querySelector('select.goog-te-combo');
-    if (googleSelect) {
-        const targetValue = (langCode === 'en') ? '' : langCode;
-        googleSelect.value = targetValue;
-        googleSelect.dispatchEvent(new Event('change', { bubbles: true }));
-        
-        const hideGoogleBar = () => {
-            const frame = document.querySelector('.goog-te-banner-frame');
-            if (frame) {
-                frame.style.display = 'none';
-                frame.style.visibility = 'hidden';
+    // 4. Trigger Google Translate Engine - Avoid Infinite Loops
+    const triggerGoogle = () => {
+        const googleSelect = document.querySelector('select.goog-te-combo');
+        if (googleSelect) {
+            const targetValue = (langCode === 'en') ? '' : langCode;
+            if (googleSelect.value !== targetValue) {
+                googleSelect.value = targetValue;
+                googleSelect.dispatchEvent(new Event('change', { bubbles: true }));
             }
-            document.body.style.top = '0';
-        };
-        hideGoogleBar();
-        setTimeout(hideGoogleBar, 500);
-        setTimeout(hideGoogleBar, 1500);
-        setTimeout(hideGoogleBar, 3000);
-    } else {
-        setTimeout(() => changeLanguage(langCode), 500);
-    }
+            
+            const hideGoogleBar = () => {
+                const frame = document.querySelector('.goog-te-banner-frame');
+                if (frame) {
+                    frame.style.display = 'none';
+                    frame.style.visibility = 'hidden';
+                }
+                document.body.style.top = '0';
+            };
+            hideGoogleBar();
+            setTimeout(hideGoogleBar, 500);
+            setTimeout(hideGoogleBar, 1500);
+        } else {
+            // Only retry a few times to avoid infinite logic
+            if (!window.googleTranslateRetryCount) window.googleTranslateRetryCount = 0;
+            if (window.googleTranslateRetryCount < 10) {
+                window.googleTranslateRetryCount++;
+                setTimeout(triggerGoogle, 500);
+            }
+        }
+    };
+    triggerGoogle();
 }
 
 // Check for saved language preference on load
@@ -231,13 +240,60 @@ const modalClose = document.getElementById('modal-close');
 const authTabs = document.querySelectorAll('.auth-tab');
 const authForms = document.querySelectorAll('.auth-form');
 
+// Google Login Initialization
+function initGoogleLogin() {
+    if (typeof google === 'undefined') {
+        setTimeout(initGoogleLogin, 500);
+        return;
+    }
+
+    google.accounts.id.initialize({
+        client_id: "818434232492-checkit-43341.apps.googleusercontent.com", // Provided by user
+        callback: handleGoogleSignIn
+    });
+
+    google.accounts.id.renderButton(
+        document.getElementById("google-login-btn"),
+        { theme: "outline", size: "large", width: "100%" }
+    );
+}
+
+function handleGoogleSignIn(response) {
+    // Decode JWT token (simple client-side decode)
+    const base64Url = response.credential.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    const user = JSON.parse(jsonPayload);
+    
+    // Save session
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userName', user.name);
+    localStorage.setItem('userEmail', user.email);
+    localStorage.setItem('userPicture', user.picture);
+    
+    updateAuthUI();
+    
+    // Close modal if open
+    const authModal = document.getElementById('auth-modal');
+    if (authModal) {
+        authModal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+}
+
 if (authModal && loginBtn) {
     // Open Modal
     loginBtn.addEventListener('click', (e) => {
-        if (localStorage.getItem('isLoggedIn')) return; // If logged in, maybe go to profile (but we'll keep it simple for now)
+        if (localStorage.getItem('isLoggedIn')) return;
         e.preventDefault();
         authModal.classList.add('show');
-        document.body.style.overflow = 'hidden'; // Prevent scroll
+        document.body.style.overflow = 'hidden';
+        
+        // Init Google button when modal opens
+        initGoogleLogin();
     });
 
     // Close Modal
@@ -289,6 +345,7 @@ if (authModal && loginBtn) {
 
             setTimeout(() => {
                 const nameInput = form.querySelector('input[type="text"]');
+                const passwordInput = form.querySelector('input[type="password"]');
                 const displayName = nameInput ? nameInput.value : 'User';
                 
                 // Save state

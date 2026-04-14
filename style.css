@@ -1727,11 +1727,14 @@ ul {
     z-index: 2;
 }
 
-.social-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 16px;
+.social-grid-single {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#google-login-btn {
+    width: 100%;
 }
 
 .social-btn-auth {
@@ -1782,16 +1785,16 @@ ul {
 }
 
 .terms-box {
-    background: rgba(0, 0, 0, 0.03);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(46, 204, 113, 0.04);
+    border: 1.5px solid rgba(46, 204, 113, 0.1);
     border-radius: 12px;
-    padding: 12px;
-    max-height: 100px;
+    padding: 16px;
+    max-height: 120px;
     overflow-y: auto;
-    font-size: 0.75rem;
-    line-height: 1.5;
-    color: var(--text-light);
-    margin-bottom: 10px;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    margin-bottom: 12px;
 }
 
 .terms-lang strong {
