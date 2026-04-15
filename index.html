@@ -37,7 +37,7 @@
     <!-- Navigation -->
     <header id="navbar" class="glass-nav">
         <div class="container nav-container">
-            <a href="#home" class="logo">
+            <a href="javascript:void(0)" onclick="showView('home')" class="logo">
                 <img src="assets/logo.png" alt="CHECKIT" class="nav-logo">
                 <span>CHECKIT<span class="logo-accent">GLOBAL</span></span>
             </a>
@@ -69,6 +69,8 @@
     </header>
 
     <main>
+        <!-- Home View -->
+        <div id="home-view">
         <!-- Hero Section: Cartoon-Style Journey Map -->
         <section id="home" class="hero">
             <div class="container">
@@ -711,6 +713,97 @@
                 </div>
             </div>
         </section>
+        </div>
+
+        <!-- My Page View (Initially Hidden) -->
+        <div id="mypage-view" class="hidden-view">
+            <section class="mypage-hero">
+                <div class="container">
+                    <div class="mypage-header-wrap reveal active">
+                        <div class="mypage-welcome">
+                            <h1>My Healthcare <span class="highlight">Dashboard</span></h1>
+                            <p>Manage your medical journey and check-up documents in one place.</p>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <!-- Main Status -->
+                        <div class="dashboard-card status-summary reveal active">
+                            <div class="card-header">
+                                <h3>Current Status</h3>
+                                <span class="status-badge-inline">Active</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="timeline-simple">
+                                    <div class="timeline-step completed">
+                                        <div class="step-dot"></div>
+                                        <div class="step-info">
+                                            <span>Reservation</span>
+                                            <small>Completed on 2026.04.10</small>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-step current">
+                                        <div class="step-dot"></div>
+                                        <div class="step-info">
+                                            <span>Preparation</span>
+                                            <small>Fastings & Guide review</small>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-step pending">
+                                        <div class="step-dot"></div>
+                                        <div class="step-info">
+                                            <span>Exam Day</span>
+                                            <small>Scheduled: 2026.04.18</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documents Grid -->
+                        <div class="dashboard-card docs-list reveal active">
+                            <div class="card-header">
+                                <h3>Your Documents</h3>
+                                <a href="#" class="view-all">See All</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="doc-item">
+                                    <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                                    <div class="doc-meta">
+                                        <span>Official Receipt.pdf</span>
+                                        <small>Available now</small>
+                                    </div>
+                                    <button class="btn-download"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                                <div class="doc-item locked">
+                                    <div class="doc-icon"><i class="fa-solid fa-file-medical"></i></div>
+                                    <div class="doc-meta">
+                                        <span>Medical Report (ENG)</span>
+                                        <small>Pending (Post-exam)</small>
+                                    </div>
+                                    <button class="btn-download" disabled><i class="fa-solid fa-lock"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="dashboard-card quick-actions reveal active">
+                            <div class="card-header">
+                                <h3>Direct Support</h3>
+                            </div>
+                            <div class="card-body">
+                                <a href="https://wa.me/+821051093459" class="action-btn whatsapp">
+                                    <i class="fa-brands fa-whatsapp"></i> Chat with Coordinator
+                                </a>
+                                <button class="action-btn outline">
+                                    <i class="fa-solid fa-calendar-check"></i> Reschedule Request
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -877,7 +970,10 @@
                 </div>
 
                 <div class="mypage-section">
-                    <h4 class="section-title">Settings</h4>
+                    <h4 class="section-title">Actions</h4>
+                    <button id="btn-mypage-detail" class="btn-primary auth-submit" style="margin-bottom: 12px;">
+                        <i class="fa-solid fa-chart-line"></i> Go to My Page
+                    </button>
                     <button id="logout-btn" class="btn-secondary auth-submit">
                         <i class="fa-solid fa-right-from-bracket"></i> Sign Out
                     </button>

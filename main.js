@@ -448,7 +448,37 @@ if (mypageModal && mypageClose) {
                 location.reload();
             }
         });
+        }
+
+    const mypageDetailBtn = document.getElementById('btn-mypage-detail');
+    if (mypageDetailBtn) {
+        mypageDetailBtn.addEventListener('click', () => {
+            showView('mypage');
+        });
     }
+}
+
+// Global View Switcher
+function showView(viewName) {
+    const homeView = document.getElementById('home-view');
+    const mypageView = document.getElementById('mypage-view');
+    
+    if (viewName === 'mypage') {
+        if (homeView) homeView.classList.add('hidden-view');
+        if (mypageView) mypageView.classList.remove('hidden-view');
+        // Close modal if open
+        const mypageModal = document.getElementById('mypage-modal');
+        if (mypageModal) {
+            mypageModal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    } else {
+        if (homeView) homeView.classList.remove('hidden-view');
+        if (mypageView) mypageView.classList.add('hidden-view');
+    }
+    
+    // Always scroll to top on view change
+    window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 function updateAuthUI() {
