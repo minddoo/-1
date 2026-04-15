@@ -2207,6 +2207,14 @@ ul {
     border-bottom-right-radius: 4px;
 }
 
+.chat-inline-logo {
+    height: 20px;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 8px;
+    margin-top: -2px;
+}
+
 .msg-time {
     font-size: 0.72rem;
     opacity: 0.6;

@@ -89,6 +89,23 @@ const legalTranslations = {
     }
 };
 
+const welcomeMessages = {
+    'ko': '안녕하세요. CHECKIT을 선택해주셔서 감사합니다!! 고객님을 위한 1:1 CHECKIT의 친절하고 정확한 서포트를 진행하겠습니다. CHECKIT을 통해 한국에서의 좋은 건강검진을 경험하길 바랍니다 !',
+    'en': 'Hello. Thank you for choosing CHECKIT!! We will provide friendly and accurate 1:1 CHECKIT support for you. We hope you have a great health check-up experience in Korea through CHECKIT!',
+    'ja': 'こんにちは。CHECKITを選んでいただきありがとうございます！！お客様のための1:1 CHECKITの親切で正確なサポートを進行いたします。CHECKITを通じて韓国での良い健康診断を経験されることを願っています！',
+    'zh-CN': '您好。感谢您选择CHECKIT！！我们将为您提供亲切且准确的1:1 CHECKIT支持。希望您能通过CHECKIT在韩国体验到优质的健康检查！',
+    'vi': 'Xin chào. Cảm ơn bạn đã lựa chọn CHECKIT!! Chúng tôi sẽ thực hiện hỗ trợ 1:1 của CHECKIT một cách thân thiện và chính xác cho bạn. Hy vọng bạn sẽ có trải nghiệm khám sức khỏe tốt tại Hàn Quốc thông qua CHECKIT!',
+    'th': 'สวัสดีค่ะ ขอบคุณที่เลือก CHECKIT!! เราจะดำเนินการสนับสนุนแบบ 1:1 ของ CHECKIT ที่เป็นกันเองและแม่นยำเพื่อคุณ หวังว่าคุณจะได้รับประสบการณ์การตรวจสุขภาพที่ดีในเกาหลีผ่าน CHECKIT นะคะ!',
+    'ru': 'Здравствуйте. Благодарим вас за выбор CHECKIT!! Мы обеспечим дружелюбную и точную поддержку 1:1 от CHECKIT для вас. Надеемся, что вы получите отличный опыт прохождения медицинского обследования в Корее через CHECKIT!'
+};
+
+function updateWelcomeMessage(langCode) {
+    const welcomeText = document.getElementById('welcome-text');
+    if (welcomeText) {
+        welcomeText.innerText = welcomeMessages[langCode] || welcomeMessages['en'];
+    }
+}
+
 function updateLegalContent(langCode) {
     const pipaContent = document.getElementById('pipa-content');
     if (pipaContent) {
@@ -121,6 +138,7 @@ function changeLanguage(langCode) {
 
     // 3. Update Legal Terms instantly
     updateLegalContent(langCode);
+    updateWelcomeMessage(langCode);
 
     // 4. Trigger Google Translate Engine - Avoid Infinite Loops
     const triggerGoogle = () => {
@@ -167,6 +185,7 @@ window.addEventListener('load', () => {
     
     // Update legal terms box immediately
     updateLegalContent(savedLang);
+    updateWelcomeMessage(savedLang);
 
     if (savedLang !== 'en') {
         const cookieValue = `/en/${savedLang}`;
@@ -519,6 +538,9 @@ let dashboardInitialized = false;
 function initDashboard() {
     console.log("initDashboard called");
     if (dashboardInitialized) return;
+
+    const savedLang = localStorage.getItem('preferred-lang') || 'en';
+    updateWelcomeMessage(savedLang);
 
     const chatMessages = document.getElementById('chat-messages');
     const chatInput = document.getElementById('chat-input');
