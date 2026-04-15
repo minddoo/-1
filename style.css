@@ -389,9 +389,6 @@ ul {
     }
 }
 
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(46, 204, 113, 0.35);
-}
 
 .hero-image-wrap {
     position: relative;
@@ -1897,9 +1894,25 @@ ul {
 @media (max-width: 480px) {
     .modal-container {
         padding: 40px 24px;
+        margin: 20px auto;
     }
     .terms-box {
-        max-height: 80px;
+        max-height: 120px; /* Increased slightly for better readability */
+    }
+}
+
+/* Fix for short viewports to prevent modal clipping */
+@media (max-height: 750px) {
+    .modal-overlay {
+        align-items: flex-start;
+        padding: 40px 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .modal-container {
+        margin: auto;
+        transform: translateY(0) scale(1) !important;
     }
 }
 
