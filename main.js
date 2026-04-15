@@ -470,10 +470,11 @@ window.showView = function(viewName) {
     const homeView = document.getElementById('home-view');
     const mypageView = document.getElementById('mypage-view');
     const mypageModal = document.getElementById('mypage-modal');
+    const navbar = document.getElementById('navbar');
     
     if (viewName === 'mypage') {
-        // Explicit alert to confirm the function is reached
-        alert('Checkit Service Hub로 전환을 시작합니다. 잠시만 기다려주세요.'); 
+        // Hide global navbar to prevent overlap with chat header
+        if (navbar) navbar.style.display = 'none';
         
         if (homeView) {
             homeView.classList.add('hidden-view');
@@ -494,6 +495,9 @@ window.showView = function(viewName) {
             initDashboard();
         }
     } else if (viewName === 'home') {
+        // Show global navbar
+        if (navbar) navbar.style.display = 'block';
+        
         if (homeView) {
             homeView.classList.remove('hidden-view');
             homeView.style.display = 'block';

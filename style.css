@@ -2613,3 +2613,8 @@ input:checked + .slider:before {
     }
 }
 
+/* View Switching Utility */
+.hidden-view {
+    display: none !important;
+}
+
