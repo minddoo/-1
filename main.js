@@ -575,20 +575,62 @@ function initDashboard() {
     window.showChatBlock = function(blockType) {
         let blockHtml = '';
         let welcomeText = '';
+        const lang = localStorage.getItem('preferred-lang') || 'en';
+        const consultationData = JSON.parse(localStorage.getItem('consultationData') || '{}');
+        const checkupType = consultationData.type || 'General';
 
         switch(blockType) {
             case 'booking':
-                welcomeText = "Great! Let's find the best hospital for you. Here are our top recommendations in Seoul based on your profile.";
+                welcomeText = "Great! Based on your preference, here are the top 5 medical institutions in Korea. You can view their detailed programs in your language by clicking the buttons below.";
+                
+                const hospitals = [
+                    { 
+                        name: "KMI (Korea Medical Institute)", 
+                        tag: "#8_Centers_Nationwide #Efficiency", 
+                        url: "https://www.kmi.or.kr/checkup/program",
+                        desc: "Best for affordable and standardized checkups."
+                    },
+                    { 
+                        name: "Hanaro Medical Foundation", 
+                        tag: "#Professional_Screening #Detailed", 
+                        url: "https://www.hanaromf.com/program/program01.jsp",
+                        desc: "Specialized in customized precision screening."
+                    },
+                    { 
+                        name: "Severance Hospital", 
+                        tag: "#Tertiary_Care #Advanced", 
+                        url: "https://severance.healthcare/severance/program/index.do",
+                        desc: "High-end medical services at a top university hospital."
+                    },
+                    { 
+                        name: "Samsung Medical Center", 
+                        tag: "#High-Tech #Accuracy", 
+                        url: "https://www.samsunghospital.com/home/health/program/individual/basic_info.do",
+                        desc: "Leading technology and expert consultation."
+                    },
+                    { 
+                        name: "Seran General Hospital", 
+                        tag: "#Central_Seoul #Accessibility", 
+                        url: "https://www.seran.co.kr/05_center/center01_03.php",
+                        desc: "Comprehensive screening in the heart of Seoul."
+                    }
+                ];
+
                 blockHtml = `
-                    <div class="system-block">
-                        <div class="block-icon"><i class="fa-solid fa-hospital"></i></div>
-                        <div class="block-content">
-                            <p><strong>Step 1: Hospital Matching</strong></p>
-                            <span>View detailed programs from SNU and Asan Medical Center.</span>
-                            <div class="block-actions">
-                                <button class="btn-block-primary">Open Hospital List</button>
-                            </div>
-                        </div>
+                    <div class="hospital-list-grid" style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+                        ${hospitals.map(h => {
+                            const proxyUrl = `https://translate.google.com/translate?sl=ko&tl=${lang}&u=${encodeURIComponent(h.url)}`;
+                            return `
+                                <div class="hospital-card" style="background: white; border-radius: 16px; padding: 16px; border: 1px solid #edf2f7; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                        <h5 style="margin:0; font-weight:800; color:var(--text-dark);">${h.name}</h5>
+                                        <span style="font-size:0.7rem; color:var(--primary); font-weight:700;">${h.tag}</span>
+                                    </div>
+                                    <p style="font-size:0.8rem; color:#64748b; margin-bottom:12px;">${h.desc}</p>
+                                    <a href="${proxyUrl}" target="_blank" class="btn-block-primary" style="display:block; text-align:center; text-decoration:none; padding:10px; font-size:0.85rem; border-radius:10px;">View ${checkupType} Program</a>
+                                </div>
+                            `;
+                        }).join('')}
                     </div>
                 `;
                 break;
