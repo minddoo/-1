@@ -694,14 +694,17 @@ function initDashboard() {
                                         </div>
                                         
                                         <div id="${hospitalId}" class="hospital-programs">
-                                            ${h.programs.map((p, pIdx) => `
-                                                <div class="program-box">
-                                                    <div class="program-header-box">
-                                                        <span class="program-tag notranslate" onclick="event.stopPropagation(); openProgramModal(${i}, ${pIdx})">${p.title}</span>
-                                                    </div>
-                                                    ${p.items ? `<div class="program-items-list">${p.items}</div>` : ''}
+                                            <div class="program-category-group">
+                                                <div class="category-label"><i class="fa-solid fa-clipboard-check"></i> 종합검진 (Comprehensive)</div>
+                                                <div class="program-tags-container">
+                                                    ${h.programs.map((p, pIdx) => `
+                                                        <div class="program-item-chip" onclick="event.stopPropagation(); openProgramModal(${i}, ${pIdx})">
+                                                            <span class="chip-title notranslate">${p.title}</span>
+                                                            <i class="fa-solid fa-chevron-right chip-arrow"></i>
+                                                        </div>
+                                                    `).join('')}
                                                 </div>
-                                            `).join('')}
+                                            </div>
                                         </div>
                                     </li>
                                 `;
