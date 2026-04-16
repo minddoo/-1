@@ -2687,16 +2687,77 @@ input:checked + .slider:before {
     box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
-.chip-title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-dark);
+.hospital-list-item.selected {
+    border: 2px solid var(--primary) !important;
+    background: rgba(46, 204, 113, 0.03) !important;
+    box-shadow: var(--shadow-premium);
 }
 
-.chip-arrow {
+.btn-toggle-programs {
+    padding: 6px 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    color: #475569;
     font-size: 0.75rem;
-    color: #cbd5e1;
+    font-weight: 600;
+    cursor: pointer;
     transition: var(--transition);
+}
+
+.btn-toggle-programs:hover {
+    background: #f1f5f9;
+}
+
+.btn-select-hospital {
+    padding: 6px 12px;
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2);
+}
+
+.btn-select-hospital:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+}
+
+.program-modal-footer {
+    padding: 20px 24px;
+    background: white;
+    border-top: 1px solid #f1f5f9;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-select-program {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+.btn-select-program:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
 }
 
 .program-item-chip:hover .chip-arrow {

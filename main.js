@@ -1302,13 +1302,14 @@ function initDashboard() {
                                 const proxyUrl = h.url;
                                 const hospitalId = `hospital-${i}`;
                                 return `
-                                    <li class="hospital-list-item" style="padding: 12px 10px; border-bottom: ${i === hospitals.length - 1 ? 'none' : '1px solid #f1f5f9'}; border-radius: 12px; transition: var(--transition); cursor: pointer;" onclick="toggleHospitalPrograms('${hospitalId}')">
-                                        <div class="notranslate" style="font-weight: 800; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 4px;">${h.name}</div>
-                                        <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 8px;"><i class="fa-solid fa-location-dot" style="margin-right:4px;"></i>${h.loc}</div>
-                                        <div style="display: flex; gap: 8px;">
-                                            <a href="${proxyUrl}" target="_blank" onclick="event.stopPropagation()" style="display: inline-block; padding: 6px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.75rem; font-weight: 600;">홈페이지 / 정보 보기</a>
-                                            <button class="btn-toggle-programs" onclick="event.stopPropagation(); toggleHospitalPrograms('${hospitalId}')">검진 항목 보기</button>
-                                        </div>
+                                        <li id="li-hospital-${i}" class="hospital-list-item" style="padding: 12px 10px; border-bottom: ${i === hospitals.length - 1 ? 'none' : '1px solid #f1f5f9'}; border-radius: 12px; transition: var(--transition); cursor: pointer;" onclick="toggleHospitalPrograms('${hospitalId}')">
+                                            <div class="notranslate" style="font-weight: 800; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 4px;">${h.name}</div>
+                                            <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 8px;"><i class="fa-solid fa-location-dot" style="margin-right:4px;"></i>${h.loc}</div>
+                                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                                <a href="${proxyUrl}" target="_blank" onclick="event.stopPropagation()" style="display: inline-block; padding: 6px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.75rem; font-weight: 600;">홈페이지 / 정보 보기</a>
+                                                <button class="btn-toggle-programs" onclick="event.stopPropagation(); toggleHospitalPrograms('${hospitalId}')">검진 항목 보기</button>
+                                                <button class="btn-select-hospital" onclick="event.stopPropagation(); selectHospital(${i}, '${hospitalId}')">이 병원으로 선택</button>
+                                            </div>
                                         
                                         <div id="${hospitalId}" class="hospital-programs">
                                             ${h.categories.map((cat, catIdx) => `
@@ -1433,10 +1434,56 @@ function initDashboard() {
                 </div>
             `;
         }
+        
+        // Add Selection Button to Modal
+        html += `
+            <div class="program-modal-footer">
+                <button class="btn-select-program" onclick="selectProgram(${hIdx}, ${catIdx}, ${pIdx})">
+                    이 프로그램으로 선택하기
+                </button>
+            </div>
+        `;
+        
         container.innerHTML = html;
 
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
+    };
+
+    window.selectHospital = function(hIdx, hospitalId) {
+        // Toggle programs list
+        const el = document.getElementById(hospitalId);
+        if (el && !el.classList.contains('active')) {
+            window.toggleHospitalPrograms(hospitalId);
+        }
+        
+        // Highlight selection
+        document.querySelectorAll('.hospital-list-item').forEach(item => item.classList.remove('selected'));
+        const li = document.getElementById(`li-hospital-${hIdx}`);
+        if (li) li.classList.add('selected');
+        
+        console.log(`Hospital ${hIdx} pre-selected. Now pick a program.`);
+    };
+
+    window.selectProgram = function(hIdx, catIdx, pIdx) {
+        const hospitals = JSON.parse(document.body.getAttribute('data-hospitals') || '[]');
+        const hospital = hospitals[hIdx];
+        const program = hospital.categories[catIdx].programs[pIdx];
+        
+        // Close modal
+        window.closeProgramModal();
+        
+        // Feedback message
+        setTimeout(() => {
+            const confirmMsg = `확인되었습니다! **${hospital.name}**의 **${program.title}** 프로그램을 선택하셨습니다. <br><br>예약 및 추가 상담을 이어가시겠습니까?`;
+            window.appendMessage('coord', confirmMsg);
+            
+            // Highlight the chip in the background UI if needed, but chat bubbles are ephemeral.
+            // We can add a "Selected" state to the hospital card
+            document.querySelectorAll('.hospital-list-item').forEach(item => item.classList.remove('selected'));
+            const li = document.getElementById(`li-hospital-${hIdx}`);
+            if (li) li.classList.add('selected');
+        }, 300);
     };
 
     window.closeProgramModal = function() {
