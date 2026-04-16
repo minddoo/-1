@@ -589,11 +589,51 @@ function initDashboard() {
                         loc: "서울(광화문,여의도,강남), 수원, 대구, 부산, 광주, 제주", 
                         url: "https://www.kmi.or.kr/HLCHK/PERSONAL",
                         programs: [
-                            { title: "화이트 (White)", items: "" },
-                            { title: "실버 (Silver)", items: "" },
-                            { title: "골드(남) (Gold Male)", items: "" },
-                            { title: "골드(여) (Gold Female)", items: "" },
-                            { title: "카네이션 (Carnation)", items: "" }
+                            { 
+                                title: "화이트 (White)", 
+                                items: "",
+                                details: {
+                                    "기초 및 신체 계측": ["신체계측 (신장, 체중, 비만도)", "시력, 청력 검사", "혈압 측정", "심전도 검사"],
+                                    "장비 및 영상 검사": ["위내시경 (일반/수면 선택)", "상복부 초음파 (간, 담낭, 췌장, 비장, 신장)", "흉부 X-선 촬영"],
+                                    "진단 의학 검사": ["혈액 60여종 (빈혈, 간 기능, 당뇨, 신장 등)", "소변 검사 (17종)", "고지혈증 및 심혈관 검사"]
+                                }
+                            },
+                            { 
+                                title: "실버 (Silver)", 
+                                items: "",
+                                details: {
+                                    "화이트 항목 포함": ["위내시경, 복부초음파 등 화이트 모든 항목 포함"],
+                                    "추가 영상 정밀": ["갑상선 초음파", "경동맥 초음파", "유방 초음파 (여) / 전립선 초음파 (남)"],
+                                    "선택 항목 (택 1)": ["폐 CT", "요추 CT", "경추 CT", "골밀도 검사 (여)"]
+                                }
+                            },
+                            { 
+                                title: "골드(남) (Gold Male)", 
+                                items: "",
+                                details: {
+                                    "실버 항목 포함": ["실버 모든 항목 포함"],
+                                    "남성 특화 정밀": ["심장 초음파 (심혈관 정밀)", "남성 호르몬 검사"],
+                                    "추가 선택 (택 1)": ["뇌 MRI", "뇌 MRA", "대장 내시경 (수면)"]
+                                }
+                            },
+                            { 
+                                title: "골드(여) (Gold Female)", 
+                                items: "",
+                                details: {
+                                    "실버 항목 포함": ["실버 모든 항목 포함"],
+                                    "여성 특화 정밀": ["심장 초음파", "내분비 정밀 검사"],
+                                    "추가 선택 (택 1)": ["뇌 MRI", "뇌 MRA", "대장 내시경 (수면)"]
+                                }
+                            },
+                            { 
+                                title: "카네이션 (Carnation)", 
+                                items: "",
+                                details: {
+                                    "효도 특화 항목": ["골밀도 검사 (골다공증 정밀)", "동맥경화 검사", "치매 선별 검사"],
+                                    "정밀 영상 검사": ["심장 초음파", "경동맥 초음파", "복부 초음파"],
+                                    "생활 습관 병": ["통풍 검사", "전해질 검사", "무기질 검사"]
+                                }
+                            }
                         ]
                     },
                     { 
@@ -645,21 +685,21 @@ function initDashboard() {
                                 const proxyUrl = `https://translate.google.com/translate?sl=ko&tl=${lang}&u=${encodeURIComponent(h.url)}`;
                                 const hospitalId = `hospital-${i}`;
                                 return `
-                                    <li style="padding: 12px 0; border-bottom: ${i === hospitals.length - 1 ? 'none' : '1px solid #f1f5f9'};">
+                                    <li class="hospital-list-item" style="padding: 12px 10px; border-bottom: ${i === hospitals.length - 1 ? 'none' : '1px solid #f1f5f9'}; border-radius: 12px; transition: var(--transition); cursor: pointer;" onclick="toggleHospitalPrograms('${hospitalId}')">
                                         <div class="notranslate" style="font-weight: 800; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 4px;">${h.name}</div>
                                         <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 8px;"><i class="fa-solid fa-location-dot" style="margin-right:4px;"></i>${h.loc}</div>
-                                        <div style="display: flex; gap: 8px;">
+                                        <div style="display: flex; gap: 8px;" onclick="event.stopPropagation()">
                                             <a href="${proxyUrl}" target="_blank" style="display: inline-block; padding: 6px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.75rem; font-weight: 600;">홈페이지 / 정보 보기</a>
-                                            <button onclick="toggleHospitalPrograms('${hospitalId}')" class="btn-toggle-programs">검진 항목 보기</button>
+                                            <button class="btn-toggle-programs">검진 항목 보기</button>
                                         </div>
                                         
                                         <div id="${hospitalId}" class="hospital-programs">
-                                            ${h.programs.map(p => `
+                                            ${h.programs.map((p, pIdx) => `
                                                 <div class="program-box">
                                                     <div class="program-header-box">
-                                                        <span class="program-tag notranslate">${p.title}</span>
+                                                        <span class="program-tag notranslate" onclick="event.stopPropagation(); openProgramModal(${i}, ${pIdx})">${p.title}</span>
                                                     </div>
-                                                    <div class="program-items-list">${p.items}</div>
+                                                    ${p.items ? `<div class="program-items-list">${p.items}</div>` : ''}
                                                 </div>
                                             `).join('')}
                                         </div>
@@ -703,7 +743,13 @@ function initDashboard() {
         }
 
         if (welcomeText) window.appendMessage('coord', welcomeText);
-        if (blockHtml) setTimeout(() => window.appendMessage('system', blockHtml, 'system'), 500);
+        if (blockHtml) {
+            setTimeout(() => {
+                window.appendMessage('system', blockHtml, 'system');
+                // Store hospitals in body for easier access by modal
+                document.body.setAttribute('data-hospitals', JSON.stringify(hospitals));
+            }, 500);
+        }
     };
 
     window.toggleHospitalPrograms = function(id) {
@@ -716,6 +762,73 @@ function initDashboard() {
             }
         }
     };
+
+    window.openProgramModal = function(hIdx, pIdx) {
+        const hospitals = JSON.parse(document.body.getAttribute('data-hospitals') || '[]');
+        const hospital = hospitals[hIdx];
+        if (!hospital) return;
+        const program = hospital.programs[pIdx];
+        if (!program || !program.details) {
+            console.log("No detailed items for this program yet.");
+            return;
+        }
+
+        const modal = document.getElementById('program-modal');
+        const hospitalNameEl = document.getElementById('modal-hospital-name');
+        const programNameEl = document.getElementById('modal-program-name');
+        const container = document.getElementById('program-items-container');
+
+        hospitalNameEl.innerText = hospital.name;
+        programNameEl.innerText = program.title;
+        
+        let html = '';
+        const icons = {
+            "기초": "fa-stethoscope",
+            "장비": "fa-microscope",
+            "진단": "fa-vial",
+            "영상": "fa-x-ray",
+            "항목": "fa-list-check",
+            "선택": "fa-plus-circle",
+            "특화": "fa-star"
+        };
+
+        for (const [cat, items] of Object.entries(program.details)) {
+            let iconClass = "fa-circle-dot";
+            for (const key in icons) {
+                if (cat.includes(key)) {
+                    iconClass = icons[key];
+                    break;
+                }
+            }
+            
+            html += `
+                <div class="item-cat-box">
+                    <h5><i class="fa-solid ${iconClass}"></i> ${cat}</h5>
+                    <ul>
+                        ${items.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closeProgramModal = function() {
+        const modal = document.getElementById('program-modal');
+        if (modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    };
+
+    // Close button listener
+    document.getElementById('program-modal-close').addEventListener('click', window.closeProgramModal);
+    document.getElementById('program-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'program-modal') window.closeProgramModal();
+    });
 
     // Handle Sidebar Navigation as Shortcuts
     dashLinks.forEach(link => {

@@ -982,6 +982,30 @@
             </div>
         </div>
     </div>
+    
+    <!-- Program Details Modal -->
+    <div id="program-modal" class="modal-overlay">
+        <div class="modal-container reveal-modal" style="max-width: 700px;">
+            <button class="modal-close" id="program-modal-close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-content-wrap">
+                <div class="program-modal-header">
+                    <div id="modal-hospital-name" class="hospital-sub">KMI 한국의학연구소</div>
+                    <h2 id="modal-program-name">화이트 (White)</h2>
+                </div>
+                
+                <div class="program-modal-body">
+                    <div id="program-items-container" class="items-grid">
+                        <!-- Categories and items will be injected here -->
+                    </div>
+                </div>
+
+                <div class="program-modal-footer">
+                    <p class="disclaimer">※ 병원 사정에 따라 상세 항목 및 장비는 변경될 수 있습니다.</p>
+                    <button class="btn-primary" onclick="closeProgramModal()" style="width: 100%; border-radius: 12px; padding: 14px;">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="main.js"></script>
