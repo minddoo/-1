@@ -2788,7 +2788,18 @@ input:checked + .slider:before {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.modal-content-wrap {
+/* Final Fix for Program Modal Layout */
+#program-modal .modal-container {
+    max-width: 800px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0; /* Remove default padding to allow header/footer to span full width */
+    overflow: hidden;
+    background: white;
+}
+
+#program-modal .modal-content-wrap {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -2796,35 +2807,37 @@ input:checked + .slider:before {
 
 .program-modal-header {
     flex: 0 0 auto;
-    padding: 0 24px 10px 24px;
+    padding: 32px 40px 10px 40px;
+    background: white;
+    z-index: 20;
 }
 
 .program-modal-body {
     flex: 1 1 auto;
     overflow-y: auto;
-    padding: 0 10px;
+    padding: 0 40px;
 }
 
 .items-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
-    padding-bottom: 40px; /* Space for footer overlap avoidance */
+    padding-bottom: 30px; /* Internal spacing */
 }
 
 .program-modal-footer {
     flex: 0 0 auto;
     background: white;
-    padding: 24px;
+    padding: 20px 40px 32px 40px;
     border-top: 1px solid #f1f5f9;
-    box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+    z-index: 20;
 }
 
-.program-modal-footer .disclaimer {
-    font-size: 0.75rem;
-    color: #94a3b8;
-    margin-bottom: 12px;
-    text-align: center;
+#modal-program-name {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin-bottom: 0px;
 }
 
 /* Chip Select Button */
