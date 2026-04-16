@@ -1318,7 +1318,10 @@ function initDashboard() {
                                                     <div class="program-tags-container">
                                                         ${cat.programs.map((p, pIdx) => `
                                                             <div class="program-item-chip" onclick="event.stopPropagation(); openProgramModal(${i}, ${catIdx}, ${pIdx})">
-                                                                <span class="chip-title notranslate">${p.title}</span>
+                                                                <div style="display: flex; align-items: center; gap: 8px;">
+                                                                    <span class="chip-title notranslate">${p.title}</span>
+                                                                    <button class="btn-chip-select" onclick="event.stopPropagation(); selectProgram(${i}, ${catIdx}, ${pIdx})">선택</button>
+                                                                </div>
                                                                 <i class="fa-solid fa-chevron-right chip-arrow"></i>
                                                             </div>
                                                         `).join('')}
@@ -1434,15 +1437,6 @@ function initDashboard() {
                 </div>
             `;
         }
-        
-        // Add Selection Button to Modal
-        html += `
-            <div class="program-modal-footer">
-                <button class="btn-select-program" onclick="selectProgram(${hIdx}, ${catIdx}, ${pIdx})">
-                    이 프로그램으로 선택하기
-                </button>
-            </div>
-        `;
         
         container.innerHTML = html;
 
