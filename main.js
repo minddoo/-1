@@ -692,10 +692,9 @@ function initDashboard() {
         if (stepConsultation) stepConsultation.style.display = 'none';
         
         const data = JSON.parse(savedData);
-        const finalDocs = data.docs + (data.docsOther ? ', ' + data.docsOther : '');
         
-        // Render minimal history summary
-        window.appendMessage('user', `이전 상담 신청 내역을 불러왔습니다.<br><b>종류:</b> ${data.type}`);
+        // Render FULL history summary exactly as filled
+        window.appendMessage('user', generateConsultationSummaryHtml(data));
         
         // Immediately show hospitals
         setTimeout(() => window.showChatBlock('booking'), 600);
@@ -765,6 +764,24 @@ function updateAuthUI() {
 window.addEventListener('DOMContentLoaded', updateAuthUI);
 
 // --- Consultation Form Integration Functions ---
+function generateConsultationSummaryHtml(data) {
+    const finalDocs = data.docs + (data.docsOther ? ', ' + data.docsOther : '');
+    return `
+        <div class="consultation-summary" style="font-size: 0.9rem; line-height: 1.6;">
+            <strong style="display:block; margin-bottom:8px; font-size:1rem; border-bottom:1px solid rgba(255,255,255,0.3); padding-bottom:5px;">📋 Medical Consultation Request</strong>
+            • <b>Name:</b> ${data.name} (${data.dob})<br>
+            • <b>Contact:</b> ${data.phone} / ${data.email}<br>
+            • <b>Schedule:</b> ${data.arrival} ~ ${data.departure}<br>
+            • <b>Preferred Period:</b> ${data.period} (${data.time === 'AM' ? 'Morning' : 'Afternoon'})<br>
+            • <b>Type:</b> ${data.type}<br>
+            • <b>Hospital:</b> ${data.hospitalOpt === 'Yes' ? data.prefHospital : 'Request Recommended List'}<br>
+            • <b>Results:</b> ${data.reception}<br>
+            • <b>Documents:</b> ${finalDocs || 'None'}<br>
+            ${data.address ? `• <b>Address:</b> ${data.address}` : ''}
+        </div>
+    `;
+}
+
 function renderInlineConsultationForm() {
     const container = document.getElementById('inline-consultation-form-container');
     if (!container) return;
@@ -913,21 +930,7 @@ window.handleInlineFormSubmit = function() {
 
     // 1. Send User Bubble (Rich Format)
     if (window.appendMessage) {
-        const summary = `
-            <div class="consultation-summary" style="font-size: 0.9rem; line-height: 1.6;">
-                <strong style="display:block; margin-bottom:8px; font-size:1rem; border-bottom:1px solid rgba(255,255,255,0.3); padding-bottom:5px;">📋 Medical Consultation Request</strong>
-                • <b>Name:</b> ${data.name} (${data.dob})<br>
-                • <b>Contact:</b> ${data.phone} / ${data.email}<br>
-                • <b>Schedule:</b> ${data.arrival} ~ ${data.departure}<br>
-                • <b>Preferred Period:</b> ${data.period} (${data.time === 'AM' ? 'Morning' : 'Afternoon'})<br>
-                • <b>Type:</b> ${data.type}<br>
-                • <b>Hospital:</b> ${data.hospitalOpt === 'Yes' ? data.prefHospital : 'Request Recommended List'}<br>
-                • <b>Results:</b> ${data.reception}<br>
-                • <b>Documents:</b> ${finalDocs || 'None'}<br>
-                ${data.address ? `• <b>Address:</b> ${data.address}` : ''}
-            </div>
-        `;
-        window.appendMessage('user', summary);
+        window.appendMessage('user', generateConsultationSummaryHtml(data));
     }
 
     // 2. Hide Form Block
