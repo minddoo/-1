@@ -588,51 +588,82 @@ function initDashboard() {
                         name: "KMI 한국의학연구소", 
                         loc: "서울(광화문,여의도,강남), 수원, 대구, 부산, 광주, 제주", 
                         url: "https://www.kmi.or.kr/HLCHK/PERSONAL",
-                        programs: [
-                            { 
-                                title: "화이트 (White)", 
-                                items: "",
-                                details: {
-                                    "기초 및 신체 계측": ["신체계측 (신장, 체중, 비만도)", "시력, 청력 검사", "혈압 측정", "심전도 검사"],
-                                    "장비 및 영상 검사": ["위내시경 (일반/수면 선택)", "상복부 초음파 (간, 담낭, 췌장, 비장, 신장)", "흉부 X-선 촬영"],
-                                    "진단 의학 검사": ["혈액 60여종 (빈혈, 간 기능, 당뇨, 신장 등)", "소변 검사 (17종)", "고지혈증 및 심혈관 검사"]
-                                }
+                        categories: [
+                            {
+                                name: "종합검진 (Comprehensive)",
+                                icon: "fa-clipboard-check",
+                                programs: [
+                                    { 
+                                        title: "화이트 (White)", 
+                                        details: {
+                                            "기초 및 신체 계측": ["신체계측 (신장, 체중, 비만도)", "시력, 청력 검사", "혈압 측정", "심전도 검사"],
+                                            "장비 및 영상 검사": ["위내시경 (일반/수면 선택)", "상복부 초음파 (간, 담낭, 췌장, 비장, 신장)", "흉부 X-선 촬영"],
+                                            "진단 의학 검사": ["혈액 60여종 (빈혈, 간 기능, 당뇨, 신장 등)", "소변 검사 (17종)", "고지혈증 및 심혈관 검사"]
+                                        }
+                                    },
+                                    { 
+                                        title: "실버 (Silver)", 
+                                        details: {
+                                            "화이트 항목 포함": ["위내시경, 복부초음파 등 화이트 모든 항목 포함"],
+                                            "추가 영상 정밀": ["갑상선 초음파", "경동맥 초음파", "유방 초음파 (여) / 전립선 초음파 (남)"],
+                                            "선택 항목 (택 1)": ["폐 CT", "요추 CT", "경추 CT", "골밀도 검사 (여)"]
+                                        }
+                                    },
+                                    { 
+                                        title: "골드(남) (Gold Male)", 
+                                        details: {
+                                            "실버 항목 포함": ["실버 모든 항목 포함"],
+                                            "남성 특화 정밀": ["심장 초음파 (심혈관 정밀)", "남성 호르몬 검사"],
+                                            "추가 선택 (택 1)": ["뇌 MRI", "뇌 MRA", "대장 내시경 (수면)"]
+                                        }
+                                    },
+                                    { 
+                                        title: "골드(여) (Gold Female)", 
+                                        details: {
+                                            "실버 항목 포함": ["실버 모든 항목 포함"],
+                                            "여성 특화 정밀": ["심장 초음파", "내분비 정밀 검사"],
+                                            "추가 선택 (택 1)": ["뇌 MRI", "뇌 MRA", "대장 내시경 (수면)"]
+                                        }
+                                    },
+                                    { 
+                                        title: "카네이션 (Carnation)", 
+                                        details: {
+                                            "효도 특화 항목": ["골밀도 검사 (골다공증 정밀)", "동맥경화 검사", "치매 선별 검사"],
+                                            "정밀 영상 검사": ["심장 초음파", "경동맥 초음파", "복부 초음파"],
+                                            "생활 습관 병": ["통풍 검사", "전해질 검사", "무기질 검사"]
+                                        }
+                                    }
+                                ]
                             },
-                            { 
-                                title: "실버 (Silver)", 
-                                items: "",
-                                details: {
-                                    "화이트 항목 포함": ["위내시경, 복부초음파 등 화이트 모든 항목 포함"],
-                                    "추가 영상 정밀": ["갑상선 초음파", "경동맥 초음파", "유방 초음파 (여) / 전립선 초음파 (남)"],
-                                    "선택 항목 (택 1)": ["폐 CT", "요추 CT", "경추 CT", "골밀도 검사 (여)"]
-                                }
-                            },
-                            { 
-                                title: "골드(남) (Gold Male)", 
-                                items: "",
-                                details: {
-                                    "실버 항목 포함": ["실버 모든 항목 포함"],
-                                    "남성 특화 정밀": ["심장 초음파 (심혈관 정밀)", "남성 호르몬 검사"],
-                                    "추가 선택 (택 1)": ["뇌 MRI", "뇌 MRA", "대장 내시경 (수면)"]
-                                }
-                            },
-                            { 
-                                title: "골드(여) (Gold Female)", 
-                                items: "",
-                                details: {
-                                    "실버 항목 포함": ["실버 모든 항목 포함"],
-                                    "여성 특화 정밀": ["심장 초음파", "내분비 정밀 검사"],
-                                    "추가 선택 (택 1)": ["뇌 MRI", "뇌 MRA", "대장 내시경 (수면)"]
-                                }
-                            },
-                            { 
-                                title: "카네이션 (Carnation)", 
-                                items: "",
-                                details: {
-                                    "효도 특화 항목": ["골밀도 검사 (골다공증 정밀)", "동맥경화 검사", "치매 선별 검사"],
-                                    "정밀 영상 검사": ["심장 초음파", "경동맥 초음파", "복부 초음파"],
-                                    "생활 습관 병": ["통풍 검사", "전해질 검사", "무기질 검사"]
-                                }
+                            {
+                                name: "개별정밀 프로그램 (Specialized)",
+                                icon: "fa-microscope",
+                                programs: [
+                                    { 
+                                        title: "폐정밀 (Lung)", 
+                                        details: { "주요 검사항목": ["저선량 흉부 CT (폐암 조기 진단)", "폐기능 검사", "종양 표지자 (CYFRA 21-1, NSE)"] }
+                                    },
+                                    { 
+                                        title: "심혈관정밀 (Cardio)", 
+                                        details: { "주요 검사항목": ["심장 초음파 (심장 구조/기능)", "경동맥 초음파 (혈관벽 두께/협착)", "심전도", "심혈관 표지자 검사 (NT-proBNP)"] }
+                                    },
+                                    { 
+                                        title: "소화기정밀 (Digestive)", 
+                                        details: { "주요 검사항목": ["위 내시경", "대장 내시경 (선택 시)", "상복부 초음파 (간, 담낭, 췌장 등)", "헬리코박터 검사"] }
+                                    },
+                                    { 
+                                        title: "뇌혈관정밀 (Brain)", 
+                                        details: { "주요 검사항목": ["뇌 MRI (뇌 구조)", "뇌 MRA (뇌혈관)", "경동맥 초음파", "치매 선별 검사"] }
+                                    },
+                                    { 
+                                        title: "여성정밀 (Female)", 
+                                        details: { "주요 검사항목": ["유방 초음파 (유방암 정밀)", "자궁/난소 초음파", "인유두종 바이러스(HPV) 검사", "골밀도 검사"] }
+                                    },
+                                    { 
+                                        title: "알레르기정밀 (Allergy)", 
+                                        details: { "주요 검사항목": ["MAST 알레르기 혈액 검사 (108종)", "총 IgE 검사", "호산구 분획 검사"] }
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -640,40 +671,64 @@ function initDashboard() {
                         name: "하나로의료재단", 
                         loc: "서울(종로, 강남)", 
                         url: "https://www.hanaromf.com/program/prog01/prog01_01.jsp",
-                        programs: [
-                            { title: "기본 종합검진", items: "20대 이상의 한국인에게 가장 취약한 각종 암(위암,대장암,간암,자궁경부암,유방암,갑상선암)의 조기진단과 각종 성인병 조기진단 및 예방을 위한 기본형 종합검진 프로그램 (소요시간: 2시간)" },
-                            { title: "종합건강검진", items: "연령 및 질환 위험도에 따른 단계별 정밀 프로그램 (브론즈, 실버, 골드, 플래티늄)" },
-                            { title: "특화정밀검진", items: "여성, 남성, 결혼 예비자, 뇌, 심장, 폐, 소화기, 혈액 정밀 등 부위별 집중 패키지" }
+                        categories: [
+                            {
+                                name: "종합검진 (Comprehensive)",
+                                icon: "fa-clipboard-check",
+                                programs: [
+                                    { title: "기본 종합검진", items: "20대 이상의 한국인에게 가장 취약한 각종 암의 조기진단과 각종 성인병 조기진단 및 예방을 위한 프로그램." },
+                                    { title: "종합건강검진", items: "연령 및 질환 위험도에 따른 단계별 정밀 프로그램 (브론즈, 실버, 골드, 플래티늄)" },
+                                    { title: "특화정밀검진", items: "여성, 남성, 결혼 예비자, 뇌, 심장, 폐, 소화기, 혈액 정밀 등 부위별 집중 패키지" }
+                                ]
+                            }
                         ]
                     },
                     { 
                         name: "세브란스병원 센터", 
                         loc: "서울(신촌, 강남)", 
                         url: "https://severance.healthcare/severance/program/index.do",
-                        programs: [
-                            { title: "기본 검진", items: "세브란스 프리미엄 성인 필수 정밀 검사 중심의 기본형." },
-                            { title: "프리미엄/플래티넘", items: "정밀도 높은 심층 검사와 첨단 장비를 활용한 고품격 프로그램." },
-                            { title: "분야별 정밀", items: "심장, 뇌졸중, SAFE암 등 특정 질환 집중 조기 진단 패키지." }
+                        categories: [
+                            {
+                                name: "종합검진 (Comprehensive)",
+                                icon: "fa-clipboard-check",
+                                programs: [
+                                    { title: "기본 검진", items: "세브란스 프리미엄 성인 필수 정밀 검사 중심의 기본형." },
+                                    { title: "프리미엄/플래티넘", items: "정밀도 높은 심층 검사와 첨단 장비를 활용한 고품격 프로그램." },
+                                    { title: "분야별 정밀", items: "심장, 뇌졸중, SAFE암 등 특정 질환 집중 조기 진단 패키지." }
+                                ]
+                            }
                         ]
                     },
                     { 
                         name: "삼성서울병원 센터", 
                         loc: "서울(일원동)", 
                         url: "https://www.samsunghospital.com/home/health/program/individual/basic_info.do",
-                        programs: [
-                            { title: "라이프스테이지별", items: "연령 및 생애 주기별 특성에 맞춘 맞춤형 건강검진 코스." },
-                            { title: "분야별 정밀", items: "암, 심혈관 등 특정 분야에 집중된 고해상도 정밀 검사 패키지." },
-                            { title: "프리미엄", items: "전담 교수 상담과 최첨단 장비(PET-CT 등) 중심의 프리미엄 검진." }
+                        categories: [
+                            {
+                                name: "종합검진 (Comprehensive)",
+                                icon: "fa-clipboard-check",
+                                programs: [
+                                    { title: "라이프스테이지별", items: "연령 및 생애 주기별 특성에 맞춘 맞춤형 건강검진 코스." },
+                                    { title: "분야별 정밀", items: "암, 심혈관 등 특정 분야에 집중된 고해상도 정밀 검사 패키지." },
+                                    { title: "프리미엄", items: "전담 교수 상담과 최첨단 장비 중심의 프리미엄 검진." }
+                                ]
+                            }
                         ]
                     },
                     { 
                         name: "세란병원 센터", 
                         loc: "서울(종로/독립문)", 
                         url: "https://www.seran.co.kr/05_center/center01_03.php",
-                        programs: [
-                            { title: "베이직/그린/블루", items: "합리적인 비용의 실속형 종합검진 및 핵심 정밀 항목 조합." },
-                            { title: "실버/골드", items: "뇌 MRI/MRA, 특수 혈액검사 등이 추가된 고화질 정밀 검진." },
-                            { title: "크리스탈", items: "PET-CT 및 전신 정밀 검사가 포함된 세란병원 최고급 프로그램." }
+                        categories: [
+                            {
+                                name: "종합검진 (Comprehensive)",
+                                icon: "fa-clipboard-check",
+                                programs: [
+                                    { title: "베이직/그린/블루", items: "실속형 종합검진 및 핵심 정밀 항목 조합." },
+                                    { title: "실버/골드", items: "뇌 MRI/MRA, 특수 혈액검사 등이 추가된 고화질 정밀 검진." },
+                                    { title: "크리스탈", items: "PET-CT 및 전신 정밀 검사가 포함된 최고급 프로그램." }
+                                ]
+                            }
                         ]
                     }
                 ];
@@ -694,17 +749,19 @@ function initDashboard() {
                                         </div>
                                         
                                         <div id="${hospitalId}" class="hospital-programs">
-                                            <div class="program-category-group">
-                                                <div class="category-label"><i class="fa-solid fa-clipboard-check"></i> 종합검진 (Comprehensive)</div>
-                                                <div class="program-tags-container">
-                                                    ${h.programs.map((p, pIdx) => `
-                                                        <div class="program-item-chip" onclick="event.stopPropagation(); openProgramModal(${i}, ${pIdx})">
-                                                            <span class="chip-title notranslate">${p.title}</span>
-                                                            <i class="fa-solid fa-chevron-right chip-arrow"></i>
-                                                        </div>
-                                                    `).join('')}
+                                            ${h.categories.map((cat, catIdx) => `
+                                                <div class="program-category-group">
+                                                    <div class="category-label"><i class="fa-solid ${cat.icon || 'fa-clipboard-check'}"></i> ${cat.name}</div>
+                                                    <div class="program-tags-container">
+                                                        ${cat.programs.map((p, pIdx) => `
+                                                            <div class="program-item-chip" onclick="event.stopPropagation(); openProgramModal(${i}, ${catIdx}, ${pIdx})">
+                                                                <span class="chip-title notranslate">${p.title}</span>
+                                                                <i class="fa-solid fa-chevron-right chip-arrow"></i>
+                                                            </div>
+                                                        `).join('')}
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            `).join('')}
                                         </div>
                                     </li>
                                 `;
@@ -766,11 +823,12 @@ function initDashboard() {
         }
     };
 
-    window.openProgramModal = function(hIdx, pIdx) {
+    window.openProgramModal = function(hIdx, catIdx, pIdx) {
         const hospitals = JSON.parse(document.body.getAttribute('data-hospitals') || '[]');
         const hospital = hospitals[hIdx];
         if (!hospital) return;
-        const program = hospital.programs[pIdx];
+        
+        const program = hospital.categories[catIdx].programs[pIdx];
         if (!program || !program.details) {
             console.log("No detailed items for this program yet.");
             return;
