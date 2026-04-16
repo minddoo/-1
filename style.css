@@ -2840,8 +2840,9 @@ input:checked + .slider:before {
     margin-bottom: 0px;
 }
 
-/* Chip Select Button */
+/* Chip Select Button - Hidden by default, shown when hospital is 'selected' */
 .btn-chip-select {
+    display: none; /* Hidden by default */
     padding: 4px 12px;
     background: var(--primary);
     color: white;
@@ -2852,6 +2853,10 @@ input:checked + .slider:before {
     cursor: pointer;
     transition: var(--transition);
     margin-left: 8px;
+}
+
+.hospital-list-item.selected .btn-chip-select {
+    display: inline-block; /* Show only when hospital is selected */
 }
 
 .btn-chip-select:hover {
