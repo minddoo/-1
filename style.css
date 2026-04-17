@@ -378,66 +378,66 @@ ul {
 }
 
 .template-frame-container {
-    width: 520px; /* FIXED WIDTH to ensure side margins are identical for all 6 photos */
+    width: 100%;
     margin: 0 auto;
     background: transparent;
     padding: 0;
     position: relative;
-}
-
-@media (max-width: 992px) {
-    .template-frame-container {
-        width: 100%;
-        max-width: 450px;
-    }
+    display: flex;
+    justify-content: center;
 }
 
 .template-frame-inner {
     width: 100%;
+    background: transparent;
     position: relative;
-    overflow: visible;
+    display: flex;
+    justify-content: center;
 }
 
 .image-slider-track {
-    display: block;
     width: 100%;
     position: relative;
-    min-height: 500px; /* Ensure enough vertical presence */
 }
 
 .img-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: none; /* Discrete toggle instead of absolute stack to prevent collapse */
     width: 100%;
-    display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     background: transparent;
-    padding: 2px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.6s ease-in-out, visibility 0.6s;
-    z-index: 1;
 }
 
 .img-slide.active {
-    opacity: 1;
-    visibility: visible;
-    z-index: 10;
-    position: relative; /* Let the active slide define the height */
+    display: flex;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .img-slide img {
-    width: 100%; /* Force fill the 520px container for consistent margins */
-    height: auto; 
-    object-fit: contain; 
+    width: 500px; /* FIXED WIDTH: Ensures large, uniform presence for all original photos */
+    height: auto; /* Preserves 100% original aspect ratio */
+    max-width: 95%; /* Responsive safety */
     display: block;
-    border-radius: 24px;
-    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.2); 
-    transform: none;
-    transition: transform 0.3s ease;
+    border-radius: 24px; /* USER REQUEST: Rounded corners */
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.18); 
     image-rendering: -webkit-optimize-contrast;
+}
+
+@media (max-width: 992px) {
+    .img-slide img {
+        width: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    .img-slide img {
+        width: 320px;
+    }
 }
 
 .img-slide {
