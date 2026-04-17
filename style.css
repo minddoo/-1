@@ -377,13 +377,12 @@ ul {
 
 .mobile-frame-container {
     width: 300px;
-    height: 600px;
-    background: #1e293b; /* Phone body color */
-    border-radius: 44px;
-    padding: 12px;
+    height: 448px; /* Matched to 686x1024 ratio (~0.67) to prevent cropping while 'filling' */
+    background: #1e293b; 
+    border-radius: 40px;
+    padding: 10px;
     box-shadow: 0 50px 100px -20px rgba(0,0,0,0.25), 
-                0 30px 60px -30px rgba(0,0,0,0.3),
-                inset 0 -2px 6px 0 rgba(255,255,255,0.1);
+                0 30px 60px -30px rgba(0,0,0,0.3);
     position: relative;
     border: 4px solid #334155;
 }
@@ -391,7 +390,7 @@ ul {
 @media (max-width: 600px) {
     .mobile-frame-container {
         width: 260px;
-        height: 520px;
+        height: 388px;
     }
 }
 
@@ -399,10 +398,9 @@ ul {
     width: 100%;
     height: 100%;
     background: white;
-    border-radius: 34px;
+    border-radius: 30px;
     overflow: hidden;
     position: relative;
-    background: #f8fafc;
 }
 
 .image-slider-track {
@@ -419,26 +417,38 @@ ul {
     align-items: center;
     justify-content: center;
     background: white;
+    position: relative;
 }
 
 .img-slide img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* CRITICAL: Original photo visible without cropping */
+    width: 100%;
+    height: 100%;
+    object-fit: fill; /* Filled now because container ratio matches image ratio */
     display: block;
+}
+
+.logo-hider {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    background: white; /* Perfectly masks the diamond logo on the screenshots */
+    z-index: 10;
 }
 
 .phone-dynamic-island {
     position: absolute;
-    top: 22px;
+    top: 18px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90px;
-    height: 24px;
+    width: 80px;
+    height: 20px;
     background: #1e293b;
     border-radius: 20px;
     z-index: 20;
 }
+
 
 @keyframes slideUpFade {
     from { opacity: 0; transform: translateY(20px); }
