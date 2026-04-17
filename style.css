@@ -377,7 +377,7 @@ ul {
 
 .template-frame-container {
     width: 380px;
-    height: 620px; /* Increased height to give 'Full' look for 686x1024 content while using contain */
+    height: 570px; /* Refined to match 686x1024 content perfectly, minimizing white space */
     background: white;
     border-radius: 12px;
     padding: 0;
@@ -389,7 +389,7 @@ ul {
 @media (max-width: 600px) {
     .template-frame-container {
         width: 300px;
-        height: 480px;
+        height: 450px;
     }
 }
 
@@ -400,6 +400,45 @@ ul {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
+}
+
+/* Phase Indicator Styling */
+.workflow-phase-container {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.phase-label {
+    background: #e2e8f0;
+    color: #475569;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+}
+
+.phase-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.step-text-container {
+    min-height: 220px; /* Reduced from 320px for tighter layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.step-item h2 {
+    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    line-height: 1.2;
+    min-height: 2.4em; /* Enforces exactly 2 lines of space */
+    margin-top: 15px;
+    word-break: keep-all; /* Better Korean wrapping */
 }
 
 .image-slider-track {
@@ -423,12 +462,6 @@ ul {
     height: 100%;
     object-fit: contain; /* Full visibility: no cropping of original data */
     display: block;
-}
-
-/* No-zoom for all steps to ensure '원본 안 짤리게' */
-.step-1 img, .step-3 img {
-    transform: none;
-    object-position: center;
 }
 
 /* Maintain sharpness for scaled images */
