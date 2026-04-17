@@ -293,15 +293,17 @@ ul {
 }
 
 .step-badge {
-    display: inline-block;
-    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
     background: var(--primary);
     color: white;
     font-weight: 800;
-    font-size: 0.8rem;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    letter-spacing: 0.1em;
+    border-radius: 50%; /* Circular numeric badge */
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
 }
 
 .hero-text-side h2 {
@@ -435,9 +437,35 @@ ul {
 
 .step-item h2 {
     font-size: clamp(1.8rem, 4.5vw, 2.5rem);
-    line-height: 1.2;
-    min-height: 2.4em; /* Enforces exactly 2 lines of space */
-    margin-top: 15px;
+    line-height: 1.25;
+    min-height: 2.5em; /* Enforces exactly 2 lines of space */
+    margin-top: 20px;
+    word-break: keep-all; 
+}
+
+.image-slider-track {
+    display: flex;
+    height: 100%;
+    width: 600%; /* 6 images */
+    transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.img-slide {
+    width: 16.666%; /* 1/6th */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.img-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* CHANGED to cover: force-fills the frame to remove all top/bottom white bars */
+    display: block;
+    image-rendering: -webkit-optimize-contrast;
+}
     word-break: keep-all; /* Better Korean wrapping */
 }
 
