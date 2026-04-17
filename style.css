@@ -417,7 +417,6 @@ ul {
     align-items: center;
     justify-content: center;
     background: white;
-    position: relative;
 }
 
 .img-slide img {
@@ -427,15 +426,6 @@ ul {
     display: block;
 }
 
-.logo-hider {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    width: 40px;
-    height: 40px;
-    background: white; /* Perfectly masks the diamond logo on the screenshots */
-    z-index: 10;
-}
 
 .phone-dynamic-island {
     position: absolute;
