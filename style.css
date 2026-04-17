@@ -403,41 +403,45 @@ ul {
 }
 
 .image-slider-track {
-    display: flex;
+    display: block; /* Removed flex sliding */
     height: 100%;
-    width: 600%; /* 6 images */
-    transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+    width: 100%; 
+    position: relative;
 }
 
 .img-slide {
-    width: 16.666%; /* 1/6th */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     background: transparent;
-    padding: 15px; /* Spells space for the rounded corners and shadow */
+    padding: 15px;
+    opacity: 0; /* Hidden by default */
+    visibility: hidden;
+    transition: opacity 0.6s ease-in-out, visibility 0.6s;
+    z-index: 1;
+}
+
+.img-slide.active {
+    opacity: 1; /* Fade in when active */
+    visibility: visible;
+    z-index: 10;
 }
 
 .img-slide img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* USER REQUEST: Original uncropped photos */
+    object-fit: contain; 
     display: block;
-    border-radius: 24px; /* USER REQUEST: Rounded corners */
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); /* Premium Soft Shadow */
-    transform: none; /* REMOVED all scaling to ensure NO cropping */
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+    transform: none;
     transition: transform 0.3s ease;
     image-rendering: -webkit-optimize-contrast;
-}
-    word-break: keep-all; /* Better Korean wrapping */
-}
-
-.image-slider-track {
-    display: flex;
-    height: 100%;
-    width: 600%; /* 6 images */
-    transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .img-slide {

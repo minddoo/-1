@@ -383,10 +383,10 @@ if (stepItems.length > 0) {
         stepItems.forEach(item => item.classList.remove('active'));
         if (stepItems[index]) stepItems[index].classList.add('active');
 
-        // Update Image Track
-        if (imageTrack) {
-            imageTrack.style.transform = `translateX(-${index * (100 / totalHeroSteps)}%)`;
-        }
+        // Update Image Items (One by one, no sliding)
+        const imgSlides = document.querySelectorAll('.img-slide');
+        imgSlides.forEach(slide => slide.classList.remove('active'));
+        if (imgSlides[index]) imgSlides[index].classList.add('active');
         
         currentHeroStep = index;
     }
