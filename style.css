@@ -422,26 +422,17 @@ ul {
 .img-slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* CRITICAL: Show 100% of original image without cropping */
     display: block;
-    transition: transform 0.3s ease;
 }
 
-/* Specific Zoom to hide gray margins and keep 'White Content' filling the frame */
-.step-1 img {
-    transform: scale(1.22); /* Zoom in to eliminate side gray */
-    object-position: center 30%; /* Focus on the profile card */
-}
+/* Specific scaling removed to preserve original content as requested */
 
-.step-3 img {
-    transform: scale(1.15); /* Focus strictly on the white form card */
-    object-position: center;
-}
-
-/* Maintain sharpness for scaled images */
+/* Maintain sharpness */
 .img-slide img {
     image-rendering: -webkit-optimize-contrast;
 }
+
 
 
 @keyframes slideUpFade {
