@@ -388,10 +388,11 @@ ul {
 
 @media (max-width: 600px) {
     .template-frame-container {
-        width: 300px;
-        height: 440px;
+        width: 280px;
+        height: 380px; /* Reduced from 440px for a more compact mobile view */
     }
 }
+
 
 .template-frame-inner {
     width: 100%;
