@@ -378,35 +378,31 @@ ul {
 }
 
 .template-frame-container {
-    width: 380px;
-    height: 520px; /* Standard height for floating content */
+    width: 100%;
+    max-width: 580px; /* Enlarge visibility significantly */
+    margin: 0 auto;
     background: transparent;
     padding: 0;
     position: relative;
-    border: none;
-    box-shadow: none;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 992px) {
     .template-frame-container {
-        width: 300px;
-        height: 420px;
+        max-width: 450px;
     }
 }
 
 .template-frame-inner {
     width: 100%;
-    height: 100%;
-    background: transparent;
-    overflow: visible; /* Allows the shadow to breathe */
     position: relative;
+    overflow: visible;
 }
 
 .image-slider-track {
-    display: block; /* Removed flex sliding */
-    height: 100%;
-    width: 100%; 
+    display: block;
+    width: 100%;
     position: relative;
+    min-height: 500px; /* Ensure enough vertical presence */
 }
 
 .img-slide {
@@ -414,30 +410,36 @@ ul {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     background: transparent;
-    padding: 15px;
-    opacity: 0; /* Hidden by default */
+    padding: 2px;
+    opacity: 0;
     visibility: hidden;
     transition: opacity 0.6s ease-in-out, visibility 0.6s;
     z-index: 1;
 }
 
 .img-slide.active {
-    opacity: 1; /* Fade in when active */
+    opacity: 1;
     visibility: visible;
     z-index: 10;
+    position: relative; /* Let the active slide define the height */
 }
 
 .img-slide img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: auto; /* Original Aspect Ratio preservation */
+    max-height: 80vh; 
     object-fit: contain; 
     display: block;
     border-radius: 24px;
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.2); 
+    transform: none;
+    transition: transform 0.3s ease;
+    image-rendering: -webkit-optimize-contrast;
+}
     box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
     transform: none;
     transition: transform 0.3s ease;
