@@ -144,19 +144,118 @@ function setCookie(name, value, days) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
 
+// Hero Workflow Translations
+const workflowTranslations = {
+    'ko': {
+        phase: '병원 및 프로그램 선정',
+        steps: [
+            '개인 맞춤형 프로필 생성 후<br><span class="highlight">전담 1:1 관리의 시작</span>',
+            '24시간 채팅 상담 서비스 및<br><span class="highlight">전문 다국어 지원 모듈 기능</span>',
+            '고객의 입출국 일자와<br><span class="highlight">희망 기간 및 상세 요구 파악</span>',
+            '니즈에 적합한 병원 리스트와<br><span class="highlight">의료기관 즉시 확인 기능</span>',
+            '병원별 프로그램 항목 비교와<br><span class="highlight">본인 맞춤형 검진 자동 매칭</span>',
+            '최종 병원 및 프로그램 결정 후<br><span class="highlight">본격적인 예약 절차 진행</span>'
+        ]
+    },
+    'en': {
+        phase: 'Hospital & Program Selection',
+        steps: [
+            'Create a Personalized Profile<br><span class="highlight">Start 1:1 Professional Care</span>',
+            '24H Chat-Based Consultation<br><span class="highlight">& Multilingual Support Service</span>',
+            'Entrance & Departure Logistics<br><span class="highlight">Analyzing Detailed Requirements</span>',
+            'Tailored Hospital & Program List<br><span class="highlight">Real-Time Availability Check</span>',
+            'Comparing Specialized Programs<br><span class="highlight">Auto-Matching Your Best Fit</span>',
+            'Finalize Selection & Decision<br><span class="highlight">Starting the Booking Support</span>'
+        ]
+    },
+    'ja': {
+        phase: '病院及びプログラム選定',
+        steps: [
+            '個別化されたプロフィールの作成<br><span class="highlight">1:1専任管理のスタート</span>',
+            '24時間チャット相談および<br><span class="highlight">専門多言語支援モジュール</span>',
+            '出入国の日程と<br><span class="highlight">希望期間および詳細要件の把握</span>',
+            'ニーズに合った病院リストと<br><span class="highlight">医療機関の即時確認機能</span>',
+            '病院別プログラムの比較と<br><span class="highlight">本人に合わせた検診マッチング</span>',
+            '最終的な病院およびプログラムの選択<br><span class="highlight">本格的な予約手続きの開始</span>'
+        ]
+    },
+    'zh-CN': {
+        phase: '医院及项目选择',
+        steps: [
+            '创建个人定制档案<br><span class="highlight">开启 1:1 专属管理服务</span>',
+            '24小时在线咨询服务<br><span class="highlight">及专业多语种支持模块</span>',
+            '出入境日程及<br><span class="highlight">详细需求分析与评估</span>',
+            '定制化医院及项目清单<br><span class="highlight">实时资源确认与对接</span>',
+            '对比各院特色检查项目<br><span class="highlight">自动匹配最佳健康方案</span>',
+            '敲定最终医院及项目<br><span class="highlight">启动正式预约行政支持</span>'
+        ]
+    },
+    'vi': {
+        phase: 'Lựa chọn Bệnh viện & Chương trình',
+        steps: [
+            'Tạo Hồ sơ Cá nhân hóa<br><span class="highlight">Bắt đầu Hỗ trợ 1:1 Chuyên nghiệp</span>',
+            'Tư vấn qua Chat 24/7 và<br><span class="highlight">Mô-đun Hỗ trợ Đa ngôn ngữ</span>',
+            'Lịch trình Nhập cảnh/Xuất cảnh<br><span class="highlight">Phân tích Yêu cầu Chi tiết</span>',
+            'Danh sách Bệnh viện Phù hợp<br><span class="highlight">Kiểm tra Trạng thái Thời gian Thực</span>',
+            'So sánh Các Chương trình Khám<br><span class="highlight">Tự động Khớp với Nhu cầu</span>',
+            'Chốt Bệnh viện & Chương trình<br><span class="highlight">Bắt đầu Quy trình Đặt lịch</span>'
+        ]
+    },
+    'th': {
+        phase: 'การเลือกโรงพยาบาลและโปรแกรม',
+        steps: [
+            'สร้างโปรไฟล์ส่วนบุคคล<br><span class="highlight">เริ่มต้นการดูแลแบบ 1:1</span>',
+            'ให้คำปรึกษาผ่านแชท 24 ชม.<br><span class="highlight">และโมดูลรองรับหลายภาษา</span>',
+            'กำหนดการเดินทางและ<br><span class="highlight">การวิเคราะห์ความต้องการเชิงลึก</span>',
+            'รายการโรงพยาบาลที่เหมาะสม<br><span class="highlight">ตรวจสอบพิกัดได้แบบเรียลไทม์</span>',
+            'เปรียบเทียบรายการโปรแกรมตรวจ<br><span class="highlight">จับคู่สิ่งที่เหมาะสมกับคุณที่สุด</span>',
+            'ยืนยันโรงพยาบาลและโปรแกรม<br><span class="highlight">เริ่มขั้นตอนการจองอย่างเป็นทางการ</span>'
+        ]
+    },
+    'ru': {
+        phase: 'Выбор клиники и программы',
+        steps: [
+            'Создание личного профиля<br><span class="highlight">Начало персонального сопровождения</span>',
+            'Круглосуточный чат-сервис и<br><span class="highlight">многоязычный модуль поддержки</span>',
+            'График прилета и вылета,<br><span class="highlight">анализ детальных требований</span>',
+            'Список подходящих клиник<br><span class="highlight">Мгновенная проверка доступности</span>',
+            'Сравнение медицинских программ<br><span class="highlight">Авто-подбор под ваши нужды</span>',
+            'Финальный выбор клиники<br><span class="highlight">Запуск процедуры бронирования</span>'
+        ]
+    }
+};
+
+function updateWorkflowContent(langCode) {
+    const data = workflowTranslations[langCode] || workflowTranslations['en'];
+    
+    // Update Phase
+    const phaseTitle = document.querySelector('.phase-title');
+    if (phaseTitle) phaseTitle.innerText = data.phase;
+    
+    // Update Step H2s
+    const stepItems = document.querySelectorAll('.step-item');
+    stepItems.forEach((item, index) => {
+        const h2 = item.querySelector('h2');
+        if (h2 && data.steps[index]) {
+            h2.innerHTML = data.steps[index];
+        }
+    });
+}
+
 function changeLanguage(langCode) {
     // 1. Set the Google Translate Cookie
     const cookieValue = (langCode === 'en') ? '/en/en' : `/en/${langCode}`;
     setCookie('googtrans', cookieValue, 1);
 
-    // 2. Update Document Lang Attribute for SEO and Accessibility
+    // 2. Update Document Lang Attribute
     document.documentElement.lang = langCode;
 
-    // 3. Update Legal Terms instantly
+    // 3. Update Native Content instantly
     updateLegalContent(langCode);
     updateWelcomeMessage(langCode);
+    updateWorkflowContent(langCode); // Manual high-quality Hero translation
 
-    // 4. Trigger Google Translate Engine - Avoid Infinite Loops
+    // 4. Trigger Google Translate Engine for the rest of the page
     const triggerGoogle = () => {
         const googleSelect = document.querySelector('select.goog-te-combo');
         if (googleSelect) {
@@ -176,9 +275,7 @@ function changeLanguage(langCode) {
             };
             hideGoogleBar();
             setTimeout(hideGoogleBar, 500);
-            setTimeout(hideGoogleBar, 1500);
         } else {
-            // Only retry a few times to avoid infinite logic
             if (!window.googleTranslateRetryCount) window.googleTranslateRetryCount = 0;
             if (window.googleTranslateRetryCount < 10) {
                 window.googleTranslateRetryCount++;
@@ -199,16 +296,18 @@ window.addEventListener('load', () => {
         currentLangText.innerText = savedLangName;
     }
     
-    // Update legal terms box immediately
+    // Update native translation fields immediately
     updateLegalContent(savedLang);
     updateWelcomeMessage(savedLang);
+    updateWorkflowContent(savedLang);
 
     if (savedLang !== 'en') {
         const cookieValue = `/en/${savedLang}`;
         setCookie('googtrans', cookieValue, 1);
-        setTimeout(() => changeLanguage(savedLang), 1500);
+        setTimeout(() => changeLanguage(savedLang), 1000);
     }
 });
+
 
 // Smooth Scroll for Nav Links
 document.querySelectorAll('nav a').forEach(anchor => {

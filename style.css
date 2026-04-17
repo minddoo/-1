@@ -379,68 +379,28 @@ ul {
 
 .template-frame-container {
     width: 380px;
-    height: 570px; /* Refined to match 686x1024 content perfectly, minimizing white space */
-    background: white;
-    border-radius: 12px;
+    height: 520px; /* Adjusted height for the new floating card effect */
+    background: transparent; /* REMOVED white background to eliminate bars */
+    border-radius: 20px;
     padding: 0;
-    box-shadow: 0 30px 60px -12px rgba(0,0,0,0.12);
     position: relative;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: none;
+    box-shadow: none;
 }
 
 @media (max-width: 600px) {
     .template-frame-container {
         width: 300px;
-        height: 450px;
+        height: 410px;
     }
 }
 
 .template-frame-inner {
     width: 100%;
     height: 100%;
-    background: white;
-    border-radius: 10px;
+    background: transparent;
     overflow: hidden;
     position: relative;
-}
-
-/* Phase Indicator Styling */
-.workflow-phase-container {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.phase-label {
-    background: #e2e8f0;
-    color: #475569;
-    font-size: 0.75rem;
-    font-weight: 800;
-    padding: 4px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.05em;
-}
-
-.phase-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #64748b;
-}
-
-.step-text-container {
-    min-height: 220px; /* Reduced from 320px for tighter layout */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.step-item h2 {
-    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
-    line-height: 1.25;
-    min-height: 2.5em; /* Enforces exactly 2 lines of space */
-    margin-top: 20px;
-    word-break: keep-all; 
 }
 
 .image-slider-track {
@@ -456,14 +416,20 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: transparent;
+    padding: 20px; /* Spells space for the shadow to be visible */
 }
 
 .img-slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* CHANGED to cover: force-fills the frame to remove all top/bottom white bars */
+    object-fit: cover;
     display: block;
+    border-radius: 24px; /* USER REQUEST: Circular/Rounded corners */
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.3), 
+                0 0 20px rgba(0,0,0,0.05); /* Premium Floating Card Look */
+    transform: scale(1.22); /* AGGRESSIVE CROP: Cuts off any baked-in white bars from the source files */
+    transition: transform 0.4s ease;
     image-rendering: -webkit-optimize-contrast;
 }
     word-break: keep-all; /* Better Korean wrapping */
