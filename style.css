@@ -375,30 +375,29 @@ ul {
     position: relative;
 }
 
-.mobile-frame-container {
-    width: 300px;
-    height: 448px; /* Matched to 686x1024 ratio (~0.67) to prevent cropping while 'filling' */
-    background: #1e293b; 
-    border-radius: 40px;
-    padding: 10px;
-    box-shadow: 0 50px 100px -20px rgba(0,0,0,0.25), 
-                0 30px 60px -30px rgba(0,0,0,0.3);
+.template-frame-container {
+    width: 380px;
+    height: 560px;
+    background: white;
+    border-radius: 16px;
+    padding: 2px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
     position: relative;
-    border: 4px solid #334155;
+    border: 1px solid rgba(0,0,0,0.08);
 }
 
 @media (max-width: 600px) {
-    .mobile-frame-container {
-        width: 260px;
-        height: 388px;
+    .template-frame-container {
+        width: 300px;
+        height: 440px;
     }
 }
 
-.mobile-frame-inner {
+.template-frame-inner {
     width: 100%;
     height: 100%;
     background: white;
-    border-radius: 30px;
+    border-radius: 14px;
     overflow: hidden;
     position: relative;
 }
@@ -417,26 +416,31 @@ ul {
     align-items: center;
     justify-content: center;
     background: white;
+    overflow: hidden; /* CRITICAL for visual zoom to work */
 }
 
 .img-slide img {
     width: 100%;
     height: 100%;
-    object-fit: fill; /* Filled now because container ratio matches image ratio */
+    object-fit: cover;
     display: block;
+    transition: transform 0.3s ease;
 }
 
+/* Specific Zoom to hide gray margins and keep 'White Content' filling the frame */
+.step-1 img {
+    transform: scale(1.22); /* Zoom in to eliminate side gray */
+    object-position: center 30%; /* Focus on the profile card */
+}
 
-.phone-dynamic-island {
-    position: absolute;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 20px;
-    background: #1e293b;
-    border-radius: 20px;
-    z-index: 20;
+.step-3 img {
+    transform: scale(1.15); /* Focus strictly on the white form card */
+    object-position: center;
+}
+
+/* Maintain sharpness for scaled images */
+.img-slide img {
+    image-rendering: -webkit-optimize-contrast;
 }
 
 
