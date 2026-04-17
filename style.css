@@ -377,28 +377,27 @@ ul {
 
 .template-frame-container {
     width: 380px;
-    height: 560px;
+    height: 620px; /* Increased height to give 'Full' look for 686x1024 content while using contain */
     background: white;
-    border-radius: 16px;
-    padding: 2px;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 30px 60px -12px rgba(0,0,0,0.12);
     position: relative;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
 @media (max-width: 600px) {
     .template-frame-container {
-        width: 280px;
-        height: 380px; /* Reduced from 440px for a more compact mobile view */
+        width: 300px;
+        height: 480px;
     }
 }
-
 
 .template-frame-inner {
     width: 100%;
     height: 100%;
     background: white;
-    border-radius: 14px;
+    border-radius: 10px;
     overflow: hidden;
     position: relative;
 }
@@ -417,23 +416,25 @@ ul {
     align-items: center;
     justify-content: center;
     background: white;
-    overflow: hidden; /* CRITICAL for visual zoom to work */
 }
 
 .img-slide img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* CRITICAL: Show 100% of original image without cropping */
+    object-fit: contain; /* Full visibility: no cropping of original data */
     display: block;
 }
 
-/* Specific scaling removed to preserve original content as requested */
+/* No-zoom for all steps to ensure '원본 안 짤리게' */
+.step-1 img, .step-3 img {
+    transform: none;
+    object-position: center;
+}
 
-/* Maintain sharpness */
+/* Maintain sharpness for scaled images */
 .img-slide img {
     image-rendering: -webkit-optimize-contrast;
 }
-
 
 
 @keyframes slideUpFade {
