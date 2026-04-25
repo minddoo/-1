@@ -1466,6 +1466,8 @@ ul {
 
 /* Slider Controls */
 .slider-dots {
+    padding: 10px 0;
+    align-items: center;
     display: flex;
     justify-content: center;
     gap: 12px;
@@ -1473,6 +1475,7 @@ ul {
 }
 
 .dot {
+    display: inline-block;
     width: 8px;
     height: 8px;
     border-radius: 50%;
