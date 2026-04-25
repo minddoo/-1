@@ -24,6 +24,20 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// Initialization for Landing Page Options
+document.addEventListener('DOMContentLoaded', () => {
+    const optInCheckbox = document.getElementById('unlimited-opt-in');
+    if (optInCheckbox) {
+        // Sync with localStorage
+        const isOptedIn = localStorage.getItem('unlimited_opt_in') === 'true';
+        optInCheckbox.checked = isOptedIn;
+        
+        optInCheckbox.addEventListener('change', function() {
+            localStorage.setItem('unlimited_opt_in', this.checked);
+        });
+    }
+});
+
 // Reveal Animations on Scroll
 const revealElements = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver((entries) => {
@@ -1571,6 +1585,7 @@ function initDashboard() {
             case 'change-request':
                 const changeCount = parseInt(localStorage.getItem('changeCount') || '0');
                 const isUnlimited = localStorage.getItem('isUnlimited') === 'true';
+                const isOptedIn = localStorage.getItem('unlimited_opt_in') === 'true';
                 
                 welcomeText = "일정 변경 및 추가 항목 요청 서비스입니다. 원하시는 변경 사항을 말씀해 주세요.";
                 
@@ -1598,6 +1613,19 @@ function initDashboard() {
                                 <div class="block-actions">
                                     <button class="btn-block-primary" onclick="window.processChangeRequest()" style="background: #3498db;">변경 요청하기 (잔여: ${remaining}회)</button>
                                 </div>
+                                ${!isOptedIn ? `
+                                <div style="margin-top: 15px; padding: 10px; background: #f8fafc; border-radius: 8px; font-size: 0.8rem;">
+                                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                        <input type="checkbox" onchange="localStorage.setItem('unlimited_opt_in', this.checked); window.showChatBlock('change-request')" style="accent-color: var(--primary);">
+                                        <span>3회 초과 시 무제한 옵션($30) 미리 선택하기</span>
+                                    </label>
+                                </div>
+                                ` : `
+                                <div style="margin-top: 15px; padding: 10px; background: #f0fdf4; border-radius: 8px; font-size: 0.8rem; border: 1px solid #dcfce7;">
+                                    <p style="color: #166534; font-weight: 700; margin: 0;"><i class="fa-solid fa-check-circle"></i> 무제한 옵션이 선택되었습니다.</p>
+                                    <p style="margin: 4px 0 0; color: #166534;">3회 초과 시 $30 결제 안내가 제공됩니다.</p>
+                                </div>
+                                `}
                             </div>
                         </div>
                     `;
@@ -1609,11 +1637,11 @@ function initDashboard() {
                                 <p><strong style="color: #e67e22;">무료 변경 횟수 도달</strong></p>
                                 <span style="color: #7f8c8d;">기본 제공되는 3회의 변경 기회를 모두 사용하셨습니다.</span>
                                 <div style="background: white; padding: 12px; border-radius: 10px; border: 1px solid #f39c1244; margin-bottom: 15px;">
-                                    <p style="font-size: 0.85rem; margin: 0; color: #444;"><b>무제한 변경 옵션 (선택사항)</b></p>
+                                    <p style="font-size: 0.85rem; margin: 0; color: #444;"><b>무제한 변경 옵션</b></p>
                                     <p style="font-size: 0.75rem; margin: 5px 0 0; color: #666;">30달러 결제 시, 이후 모든 일정 변경 및 항목 추가 요청이 무제한으로 가능합니다.</p>
                                 </div>
                                 <div class="block-actions" style="display:flex; flex-direction:column; gap:10px;">
-                                    <button class="btn-block-primary" style="background: linear-gradient(135deg, #f39c12, #e67e22); color:white; border:none; padding: 12px;" onclick="window.payForUnlimitedChanges()">무제한 옵션 활성화 (30 USD)</button>
+                                    <button class="btn-block-primary" style="background: linear-gradient(135deg, #f39c12, #e67e22); color:white; border:none; padding: 12px;" onclick="window.payForUnlimitedChanges()">무제한 옵션 결제하기 (30 USD)</button>
                                     <button class="btn-block-secondary" style="background:transparent; border: 1px solid #ddd; padding: 8px; border-radius:8px; font-size: 0.8rem;" onclick="window.appendMessage('coord', '추가 변경 없이 현재 예약을 유지합니다.')">현재 예약 유지하기</button>
                                 </div>
                             </div>
