@@ -1568,6 +1568,59 @@ function initDashboard() {
                     </div>
                 `;
                 break;
+            case 'change-request':
+                const changeCount = parseInt(localStorage.getItem('changeCount') || '0');
+                const isUnlimited = localStorage.getItem('isUnlimited') === 'true';
+                
+                welcomeText = "일정 변경 및 추가 항목 요청 서비스입니다. 원하시는 변경 사항을 말씀해 주세요.";
+                
+                if (isUnlimited) {
+                    blockHtml = `
+                        <div class="system-block" style="border-left: 4px solid var(--primary); background: linear-gradient(to right, #f0fdf4, #ffffff);">
+                            <div class="block-icon" style="background: rgba(46, 204, 113, 0.2);"><i class="fa-solid fa-crown" style="color: #f1c40f;"></i></div>
+                            <div class="block-content">
+                                <p><strong style="color: var(--primary);">무제한 변경 모드 활성화됨</strong></p>
+                                <span style="color: #475569;">고객님은 프리미엄 무제한 변경 권한을 보유하고 계십니다.</span>
+                                <div class="block-actions">
+                                    <button class="btn-block-primary" onclick="window.processChangeRequest()" style="box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);">새로운 변경 요청하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (changeCount < 3) {
+                    const remaining = 3 - changeCount;
+                    blockHtml = `
+                        <div class="system-block" style="border-left: 4px solid #3498db;">
+                            <div class="block-icon" style="background: rgba(52, 152, 219, 0.1); color: #3498db;"><i class="fa-solid fa-calendar-plus"></i></div>
+                            <div class="block-content">
+                                <p><strong>일정 및 항목 변경 요청</strong></p>
+                                <span>현재 <b style="color: #3498db;">${changeCount}/3회</b> 무료 요청을 사용하셨습니다.</span>
+                                <div class="block-actions">
+                                    <button class="btn-block-primary" onclick="window.processChangeRequest()" style="background: #3498db;">변경 요청하기 (잔여: ${remaining}회)</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    blockHtml = `
+                        <div class="system-block" style="border-left: 4px solid #f39c12; background: #fffcf5;">
+                            <div class="block-icon" style="background: rgba(243, 156, 18, 0.1); color: #f39c12;"><i class="fa-solid fa-gem"></i></div>
+                            <div class="block-content">
+                                <p><strong style="color: #e67e22;">무료 변경 횟수 도달</strong></p>
+                                <span style="color: #7f8c8d;">기본 제공되는 3회의 변경 기회를 모두 사용하셨습니다.</span>
+                                <div style="background: white; padding: 12px; border-radius: 10px; border: 1px solid #f39c1244; margin-bottom: 15px;">
+                                    <p style="font-size: 0.85rem; margin: 0; color: #444;"><b>무제한 변경 옵션 (선택사항)</b></p>
+                                    <p style="font-size: 0.75rem; margin: 5px 0 0; color: #666;">30달러 결제 시, 이후 모든 일정 변경 및 항목 추가 요청이 무제한으로 가능합니다.</p>
+                                </div>
+                                <div class="block-actions" style="display:flex; flex-direction:column; gap:10px;">
+                                    <button class="btn-block-primary" style="background: linear-gradient(135deg, #f39c12, #e67e22); color:white; border:none; padding: 12px;" onclick="window.payForUnlimitedChanges()">무제한 옵션 활성화 (30 USD)</button>
+                                    <button class="btn-block-secondary" style="background:transparent; border: 1px solid #ddd; padding: 8px; border-radius:8px; font-size: 0.8rem;" onclick="window.appendMessage('coord', '추가 변경 없이 현재 예약을 유지합니다.')">현재 예약 유지하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                break;
         }
 
         if (welcomeText) window.appendMessage('coord', welcomeText);
@@ -1797,10 +1850,17 @@ function initDashboard() {
     if (dashLogoutBtn) {
         dashLogoutBtn.addEventListener('click', () => {
             if (confirm('Are you sure you want to sign out?')) {
-                // Keep consultationData for session continuity as requested
+                // Keep consultationData and change info for session continuity
                 const consultationData = localStorage.getItem('consultationData');
+                const changeCount = localStorage.getItem('changeCount');
+                const isUnlimited = localStorage.getItem('isUnlimited');
+                
                 localStorage.clear();
+                
                 if (consultationData) localStorage.setItem('consultationData', consultationData);
+                if (changeCount) localStorage.setItem('changeCount', changeCount);
+                if (isUnlimited) localStorage.setItem('isUnlimited', isUnlimited);
+                
                 location.reload();
             }
         });
@@ -2160,3 +2220,50 @@ if (document.getElementById('paypal-button-container')) {
         }
     }).render('#paypal-button-container');
 }
+
+// --- Schedule Change & Unlimited Logic ---
+window.processChangeRequest = function() {
+    let changeCount = parseInt(localStorage.getItem('changeCount') || '0');
+    const isUnlimited = localStorage.getItem('isUnlimited') === 'true';
+
+    if (!isUnlimited && changeCount >= 3) {
+        window.showChatBlock('change-request');
+        return;
+    }
+
+    const request = prompt("변경 원하시는 일정이나 추가 항목을 입력해 주세요:");
+    if (request) {
+        if (!isUnlimited) {
+            changeCount++;
+            localStorage.setItem('changeCount', changeCount.toString());
+        }
+        
+        window.appendMessage('user', `변경 요청: ${request}`);
+        setTimeout(() => {
+            window.appendMessage('coord', "요청하신 변경 사항을 접수했습니다. 담당 부서 확인 후 답변 드리겠습니다.");
+            // Refresh the block to show updated count
+            setTimeout(() => window.showChatBlock('change-request'), 1000);
+        }, 1000);
+    }
+};
+
+window.payForUnlimitedChanges = function() {
+    if (confirm("30달러를 결제하고 무제한 변경 옵션을 활성화하시겠습니까?")) {
+        // Simulating payment
+        const paymentMsg = `
+            <div class="system-block" style="background: #e3f2fd; border: 1px solid #bbdefb; text-align: center; padding: 15px;">
+                <i class="fa-solid fa-credit-card" style="color: #1976d2; font-size: 1.5rem; margin-bottom: 10px; display: block;"></i>
+                <strong style="color: #0d47a1;">30 USD 결제가 완료되었습니다</strong>
+                <p style="font-size: 0.85rem; color: #1976d2; margin-top: 5px;">무제한 변경 권한이 활성화되었습니다.</p>
+            </div>
+        `;
+        window.appendMessage('system', paymentMsg, 'system');
+        
+        localStorage.setItem('isUnlimited', 'true');
+        
+        setTimeout(() => {
+            window.appendMessage('coord', "결제가 완료되었습니다! 이제부터 횟수 제한 없이 자유롭게 일정 변경 및 항목 추가 요청이 가능합니다.");
+            window.showChatBlock('change-request');
+        }, 1500);
+    }
+};
