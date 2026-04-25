@@ -32,6 +32,7 @@
     
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
 </head>
 <body>
     <div class="bg-gradient"></div>
@@ -686,6 +687,33 @@
 
 
 
+
+        <!-- Payment Section -->
+        <section id="payment" class="payment-section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="section-badge">Secure Checkout</span>
+                    <h2>Secure Your Premium Support</h2>
+                    <p>Start your worry-free medical journey today with our Total-Safe Global Plan.</p>
+                </div>
+
+                <div class="payment-card reveal">
+                    <div class="pay-info">
+                        <div class="pay-plan-name">Total-Safe Global Plan</div>
+                        <div class="pay-amount">300 <span>USD</span></div>
+                        <ul class="pay-features">
+                            <li><i class="fa-solid fa-shield-check"></i> Complete Risk Protection</li>
+                            <li><i class="fa-solid fa-headset"></i> 1:1 Premium Coordination</li>
+                            <li><i class="fa-solid fa-file-invoice-dollar"></i> Full Document Support</li>
+                        </ul>
+                    </div>
+                    <div class="pay-action">
+                        <div id="paypal-button-container"></div>
+                        <p class="pay-security"><i class="fa-solid fa-lock"></i> Secured by PayPal</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Contact Section -->
         <section id="contact" class="contact-section">
