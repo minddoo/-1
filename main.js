@@ -1,4 +1,4 @@
-// Firebase Initialization
+﻿// Firebase Initialization
 const firebaseConfig = {
     apiKey: "AIzaSyDAdW_vJHUHuDaun2Kh94uC8ywlfOdyPco",
     authDomain: "checkit-43341.firebaseapp.com",
@@ -1506,7 +1506,7 @@ function initDashboard() {
                                 const hospitalId = `hospital-${i}`;
                                 return `
                                         <li id="li-hospital-${i}" class="hospital-list-item" style="padding: 12px 10px; border-bottom: ${i === hospitals.length - 1 ? 'none' : '1px solid #f1f5f9'}; border-radius: 12px; transition: var(--transition); cursor: pointer;" onclick="toggleHospitalPrograms('${hospitalId}')">
-                                            <div class="notranslate" style="font-weight: 800; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 4px;">${h.name}</div>
+                                            <div class="" style="font-weight: 800; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 4px;">${h.name}</div>
                                             <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 8px;"><i class="fa-solid fa-location-dot" style="margin-right:4px;"></i>${h.loc}</div>
                                             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                                                 <a href="${proxyUrl}" target="_blank" onclick="event.stopPropagation()" style="display: inline-block; padding: 6px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.75rem; font-weight: 600;">홈페이지 / 정보 보기</a>
@@ -1521,7 +1521,7 @@ function initDashboard() {
                                                     <div class="program-tags-container">
                                                         ${cat.programs.map((p, pIdx) => `
                                                             <div class="program-item-chip" onclick="event.stopPropagation(); openProgramModal(${i}, ${catIdx}, ${pIdx})">
-                                                                <span class="chip-title notranslate">${p.title}</span>
+                                                                <span class="chip-title ">${p.title}</span>
                                                                 <i class="fa-solid fa-chevron-right chip-arrow"></i>
                                                             </div>
                                                         `).join('')}
@@ -1672,7 +1672,7 @@ function initDashboard() {
                     <div class="selection-item">
                         <div class="selection-info">
                             <span class="selection-cat">${cat.name}</span>
-                            <span class="selection-title notranslate">${p.title}</span>
+                            <span class="selection-title ">${p.title}</span>
                         </div>
                         <button class="btn-confirm-selection" onclick="selectProgram(${hIdx}, ${catIdx}, ${pIdx})">선택하기</button>
                     </div>
@@ -1864,7 +1864,7 @@ function generateConsultationSummaryHtml(data) {
             • <b>Schedule:</b> ${data.arrival} ~ ${data.departure}<br>
             • <b>Preferred Period:</b> ${data.period} (${data.time === 'AM' ? 'Morning' : 'Afternoon'})<br>
             • <b>Type:</b> ${data.type}<br>
-            • <b>Hospital:</b> ${data.hospitalOpt === 'Yes' ? `<span class="notranslate">${data.prefHospital}</span>` : 'Request Recommended List'}<br>
+            • <b>Hospital:</b> ${data.hospitalOpt === 'Yes' ? `<span class="">${data.prefHospital}</span>` : 'Request Recommended List'}<br>
             • <b>Results:</b> ${data.reception}<br>
             • <b>Documents:</b> ${finalDocs || 'None'}<br>
             ${data.address ? `• <b>Address:</b> ${data.address}` : ''}
@@ -1881,7 +1881,7 @@ function renderInlineConsultationForm() {
     const savedEmail = localStorage.getItem('userEmail') || '';
 
     container.innerHTML = `
-        <div class="chat-form-box notranslate" style="margin: 15px 0 0 0; padding: 20px; background: rgba(255,255,255,0.8); border-radius: 20px; border: 1.5px solid rgba(46, 204, 113, 0.2);">
+        <div class="chat-form-box " style="margin: 15px 0 0 0; padding: 20px; background: rgba(255,255,255,0.8); border-radius: 20px; border: 1.5px solid rgba(46, 204, 113, 0.2);">
             <div class="c-form-group">
                 <label style="display:block; margin-bottom:5px; font-weight:700; font-size:0.85rem;">Full Name</label>
                 <input type="text" id="c-name" value="${savedName}" placeholder="Name of test-taker" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
@@ -2107,3 +2107,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
