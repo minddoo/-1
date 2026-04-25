@@ -27,15 +27,57 @@ window.addEventListener('scroll', () => {
 // Initialization for Landing Page Options
 document.addEventListener('DOMContentLoaded', () => {
     const optInCheckbox = document.getElementById('unlimited-opt-in');
+    const qtyInput = document.getElementById('product-qty');
+    const plusBtn = document.querySelector('.qty-btn.plus');
+    const minusBtn = document.querySelector('.qty-btn.minus');
+    const totalDisplay = document.getElementById('total-price-amount');
+    const basePriceDisplay = document.getElementById('base-price-display');
+    const mainImg = document.getElementById('main-product-image');
+    const thumbs = document.querySelectorAll('.thumb');
+
+    function updateTotalPrice() {
+        const basePrice = 300;
+        const extraPrice = optInCheckbox && optInCheckbox.checked ? 30 : 0;
+        const qty = qtyInput ? parseInt(qtyInput.value) : 1;
+        const total = (basePrice + extraPrice) * qty;
+        
+        if (totalDisplay) totalDisplay.innerText = `$${total.toFixed(2)}`;
+        if (basePriceDisplay) basePriceDisplay.innerText = `$${basePrice.toFixed(2)}`;
+        
+        // Save to localStorage for sync
+        if (optInCheckbox) localStorage.setItem('unlimited_opt_in', optInCheckbox.checked);
+    }
+
     if (optInCheckbox) {
-        // Sync with localStorage
         const isOptedIn = localStorage.getItem('unlimited_opt_in') === 'true';
         optInCheckbox.checked = isOptedIn;
-        
-        optInCheckbox.addEventListener('change', function() {
-            localStorage.setItem('unlimited_opt_in', this.checked);
+        optInCheckbox.addEventListener('change', updateTotalPrice);
+    }
+
+    if (plusBtn && minusBtn && qtyInput) {
+        plusBtn.addEventListener('click', () => {
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+            updateTotalPrice();
+        });
+        minusBtn.addEventListener('click', () => {
+            if (parseInt(qtyInput.value) > 1) {
+                qtyInput.value = parseInt(qtyInput.value) - 1;
+                updateTotalPrice();
+            }
         });
     }
+
+    if (thumbs.length > 0 && mainImg) {
+        thumbs.forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                thumbs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                mainImg.src = this.querySelector('img').src;
+            });
+        });
+    }
+
+    updateTotalPrice();
 });
 
 // Reveal Animations on Scroll
@@ -2232,12 +2274,13 @@ if (document.getElementById('paypal-button-container')) {
             label:  'paypal'
         },
         createOrder: function(data, actions) {
+            const totalStr = document.getElementById('total-price-amount').innerText.replace('$', '');
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: '300.00'
+                        value: totalStr
                     },
-                    description: 'Total-Safe Global Plan'
+                    description: 'Checkit Korea Health Check Concierge Service'
                 }]
             });
         },
