@@ -1,4 +1,4 @@
-﻿// Firebase Initialization
+// Firebase Initialization
 const firebaseConfig = {
     apiKey: "AIzaSyDAdW_vJHUHuDaun2Kh94uC8ywlfOdyPco",
     authDomain: "checkit-43341.firebaseapp.com",
@@ -2106,5 +2106,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+});
+
+// Translation Optimization & Brand Protection
+document.addEventListener('DOMContentLoaded', () => {
+    // Protect brand names from being translated awkwardly
+    const brandElements = document.querySelectorAll('.nav-logo, .brand-name, .logo-text');
+    brandElements.forEach(el => el.classList.add('notranslate'));
+
+    // Monitor for Google Translate changes to fix layout issues
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
+                document.body.classList.add('translated');
+                // Adjust specific elements that might break during translation
+                document.querySelectorAll('.bulletin-post p').forEach(p => {
+                    p.style.wordBreak = 'break-word';
+                });
+            }
+        });
+    });
+
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['lang']
+    });
 });
 
