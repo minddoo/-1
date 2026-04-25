@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalDisplay = document.getElementById('total-price-amount');
     const basePriceDisplay = document.getElementById('base-price-display');
     const mainImg = document.getElementById('main-product-image');
-    const thumbs = document.querySelectorAll('.thumb');
 
     function updateTotalPrice() {
         const basePrice = 300;
@@ -67,15 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (thumbs.length > 0 && mainImg) {
-        thumbs.forEach(thumb => {
-            thumb.addEventListener('click', function() {
-                thumbs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                mainImg.src = this.querySelector('img').src;
-            });
-        });
-    }
 
     updateTotalPrice();
 });
