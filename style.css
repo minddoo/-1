@@ -1667,7 +1667,7 @@ ul {
 /* Reality Section (Dark Mode) */
 .reality-section {
     padding: 120px 0;
-    background: #0f172a; /* Deep Slate */
+    background: linear-gradient(180deg, #1e293b 0%, #020617 100%); /* Deep Dark Gradient */
     color: var(--white);
     position: relative;
     overflow: hidden;
