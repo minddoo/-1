@@ -109,6 +109,7 @@ ul {
     justify-content: space-between;
     align-items: center;
     padding-left: 0;
+    gap: 20px;
 }
 
 .logo {
@@ -160,11 +161,12 @@ ul {
 }
 
 .nav-btn {
-    padding: 12px 28px;
+    padding: 10px 20px;
     background: var(--primary);
     color: var(--white) !important;
-    border-radius: 12px;
+    border-radius: 10px;
     font-weight: 800;
+    font-size: 0.85rem;
     box-shadow: 0 8px 20px rgba(46, 204, 113, 0.2);
 }
 
@@ -177,12 +179,12 @@ ul {
 .language-selector {
     position: relative;
     cursor: pointer;
-    padding: 8px 16px;
+    padding: 6px 12px;
     background: var(--white);
     border: 1px solid var(--primary-light);
-    border-radius: 12px;
+    border-radius: 10px;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -1968,9 +1970,6 @@ ul {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin: 0 10px;
-    padding-left: 10px;
-    border-left: 1px solid rgba(0,0,0,0.05);
 }
 
 .nav-icon {
