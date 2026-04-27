@@ -1316,6 +1316,11 @@ ul {
     color: white;
 }
 
+.contact-card.whatsapp .card-icon {
+    background: #25D366;
+    color: white;
+}
+
 .contact-card .card-info {
     flex: 1;
 }
