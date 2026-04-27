@@ -1863,12 +1863,13 @@ ul {
 /* Footer Section */
 .main-footer {
     padding: 100px 0 40px;
-    background: var(--white);
+    background: #fcfcfc;
+    border-top: 1px solid #f1f5f9;
 }
 
-.footer-main {
+.footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1.5fr 1fr;
     gap: 60px;
     margin-bottom: 80px;
 }
@@ -1877,28 +1878,81 @@ ul {
     margin-bottom: 30px;
 }
 
+.footer-brand p {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.footer-grid h4 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.footer-grid h4::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--primary);
+}
+
+.biz-details {
+    list-style: none;
+    padding: 0;
+}
+
+.biz-details li {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.biz-details li strong {
+    color: var(--text-dark);
+    font-weight: 700;
+    display: inline-block;
+    width: 90px;
+}
+
+.contact-item {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
 .social-links {
     display: flex;
     gap: 15px;
+    margin-top: 25px;
 }
 
 .social-btn {
     width: 44px;
     height: 44px;
-    border-radius: 50%;
-    background: var(--bg-color);
+    border-radius: 12px;
+    background: var(--white);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
     color: var(--text-main);
+    font-size: 1.2rem;
     transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .social-btn:hover {
     background: var(--primary);
     color: var(--white);
     transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(46, 204, 113, 0.2);
 }
 
 .footer-bottom {
@@ -1906,6 +1960,7 @@ ul {
     padding-top: 40px;
     border-top: 1px solid #f1f5f9;
     color: var(--text-light);
+    font-size: 0.85rem;
 }
 
 /* Expert Authority Section */
