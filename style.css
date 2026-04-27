@@ -3491,6 +3491,19 @@ body {
     color: var(--primary);
 }
 
+.pay-title-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.pay-title-logo img {
+    height: 50px;
+    width: auto;
+}
+
 .section-head { text-align: center; margin-bottom: 80px; width: 100%; } .section-head h2 { font-size: 3rem; font-weight: 800; color: var(--text-dark); margin: 15px 0 20px; } .section-head p { font-size: 1.2rem; color: var(--text-light); max-width: 700px; margin: 0 auto; } .section-badge { display: inline-block; padding: 8px 20px; background: rgba(46, 204, 113, 0.1); color: var(--primary); border-radius: 30px; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; }
 
 /* Payment Section Redesign */
