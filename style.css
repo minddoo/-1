@@ -1700,24 +1700,25 @@ ul {
 
 .reality-card {
     width: 100%;
-    background: rgba(255, 255, 255, 0.9); /* Bright background for contrast */
+    background: #0f172a;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: 40px;
     border-radius: var(--radius);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     transition: var(--transition);
-    color: #1e293b; /* Dark text for visibility */
+    color: #ffffff;
+    text-align: left;
 }
 
-.reality-card h3 { color: #0f172a !important; margin-bottom: 20px; }
-.reality-card ul li { color: #334155 !important; }
+.reality-card h3 { color: #ff4d4d !important; margin-bottom: 20px; }
+.reality-card ul li { color: #ffffff !important; margin-bottom: 12px; }
 
 .reality-card:hover {
-    background: #ffffff;
-    border-color: rgba(231, 76, 60, 0.3);
+    background: #1e293b;
+    border-color: rgba(255, 77, 77, 0.3);
     transform: scale(1.02);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
 .reality-icon {
