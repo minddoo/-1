@@ -806,18 +806,22 @@
                 <div class="contact-wrapper reveal">
                     <!-- Chat Icons -->
                     <div class="contact-chat-links">
-                        <a href="https://line.me/ti/p/~checkit082" class="chat-icon-btn line" title="LINE">
+                        <a href="https://line.me/ti/p/~checkit082" class="chat-icon-btn line" title="LINE" target="_blank">
                             <i class="fa-brands fa-line"></i>
                             <span>LINE</span>
                         </a>
-                        <a href="https://wa.me/821051093459" class="chat-icon-btn whatsapp" title="WhatsApp">
+                        <a href="https://wa.me/821051093459" class="chat-icon-btn whatsapp" title="WhatsApp" target="_blank">
                             <i class="fa-brands fa-whatsapp"></i>
                             <span>WhatsApp</span>
                         </a>
+                        <a href="javascript:void(0)" class="chat-icon-btn gmail" id="toggle-email-form" title="Email Form">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>Email</span>
+                        </a>
                     </div>
 
-                    <!-- Email Form -->
-                    <div class="email-form-container">
+                    <!-- Email Form (Hidden by default) -->
+                    <div id="email-form-wrapper" class="email-form-container" style="display: none;">
                         <form action="https://formspree.io/f/mykladvb" method="POST" class="premium-form">
                             <div class="form-row">
                                 <div class="form-group">

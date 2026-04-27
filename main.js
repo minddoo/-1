@@ -134,9 +134,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (wishlistNav) {
-        wishlistNav.addEventListener('click', () => {
-            alert('Your Wish List items are shown by the red heart icons on products.');
+    // Contact Form Toggle
+    const toggleEmailBtn = document.getElementById('toggle-email-form');
+    const emailFormWrapper = document.getElementById('email-form-wrapper');
+
+    if (toggleEmailBtn && emailFormWrapper) {
+        toggleEmailBtn.addEventListener('click', () => {
+            if (emailFormWrapper.style.display === 'none') {
+                emailFormWrapper.style.display = 'block';
+                emailFormWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                emailFormWrapper.style.display = 'none';
+            }
         });
     }
 

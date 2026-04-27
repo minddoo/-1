@@ -1313,6 +1313,7 @@ ul {
 
 .chat-icon-btn.line i { color: #06C755; }
 .chat-icon-btn.whatsapp i { color: #25D366; }
+.chat-icon-btn.gmail i { color: #EA4335; }
 
 .chat-icon-btn:hover {
     color: var(--text-dark);
@@ -1321,6 +1322,7 @@ ul {
 
 .chat-icon-btn.line:hover i { background: #06C755; color: white; }
 .chat-icon-btn.whatsapp:hover i { background: #25D366; color: white; }
+.chat-icon-btn.gmail:hover i { background: #EA4335; color: white; }
 
 .email-form-container {
     background: var(--white);
@@ -1328,6 +1330,12 @@ ul {
     border-radius: 30px;
     box-shadow: var(--shadow-premium);
     border: 1px solid var(--glass-border);
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .premium-form .form-row {
