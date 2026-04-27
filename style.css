@@ -1313,6 +1313,8 @@ ul {
 
 .chat-icon-btn.line i { color: #06C755; }
 .chat-icon-btn.whatsapp i { color: #25D366; }
+.chat-icon-btn.instagram i { color: #E4405F; }
+.chat-icon-btn.facebook i { color: #1877F2; }
 .chat-icon-btn.gmail i { color: #EA4335; }
 
 .chat-icon-btn:hover {
@@ -1322,6 +1324,8 @@ ul {
 
 .chat-icon-btn.line:hover i { background: #06C755; color: white; }
 .chat-icon-btn.whatsapp:hover i { background: #25D366; color: white; }
+.chat-icon-btn.instagram:hover i { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); color: white; }
+.chat-icon-btn.facebook:hover i { background: #1877F2; color: white; }
 .chat-icon-btn.gmail:hover i { background: #EA4335; color: white; }
 
 .email-form-container {
