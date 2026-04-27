@@ -138,16 +138,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleEmailBtn = document.getElementById('toggle-email-form');
     const emailFormWrapper = document.getElementById('email-form-wrapper');
 
-    if (toggleEmailBtn && emailFormWrapper) {
-        toggleEmailBtn.addEventListener('click', () => {
-            if (emailFormWrapper.style.display === 'none') {
-                emailFormWrapper.style.display = 'block';
-                emailFormWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                emailFormWrapper.style.display = 'none';
+    // Q&A Accordion Toggle
+    const qnaQuestions = document.querySelectorAll('.qna-question');
+    qnaQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            const answer = item.querySelector('.qna-answer');
+            const isActive = item.classList.contains('active');
+
+            // Close other items
+            document.querySelectorAll('.qna-item').forEach(qItem => {
+                qItem.classList.remove('active');
+                qItem.querySelector('.qna-answer').style.display = 'none';
+            });
+
+            if (!isActive) {
+                item.classList.add('active');
+                answer.style.display = 'block';
             }
         });
-    }
+    });
 
     updateCartUI();
 
