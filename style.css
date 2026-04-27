@@ -1736,6 +1736,14 @@ ul {
     margin-bottom: 15px; 
     font-size: 1.4rem;
     margin-top: 5px;
+    text-align: left;
+}
+
+.reality-card ul {
+    list-style: none;
+    padding: 0; /* Remove default indentation */
+    margin: 0;
+    text-align: left;
 }
 
 .reality-card ul li { 
@@ -1743,6 +1751,8 @@ ul {
     margin-bottom: 10px;
     font-size: 0.95rem;
     line-height: 1.5;
+    padding-left: 0;
+    text-align: left;
 }
 
 .reality-card:hover {
