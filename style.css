@@ -1666,12 +1666,14 @@ ul {
 
 /* Reality Section (Dark Mode) */
 .reality-section {
-    padding: 120px 0;
-    background: linear-gradient(180deg, #1e293b 0%, #020617 100%); /* Deep Dark Gradient */
-    color: var(--white);
+    padding: 150px 0 120px;
+    background: linear-gradient(180deg, #ffffff 0%, #4b5563 50%, #000000 100%); /* Dramatic White to Black Gradient */
     position: relative;
     overflow: hidden;
 }
+
+.reality-section .section-head h2 { color: #1e293b !important; }
+.reality-section .section-head p { color: #475569 !important; }
 
 .text-white { color: var(--white) !important; }
 .text-light { color: rgba(255,255,255,0.7) !important; }
