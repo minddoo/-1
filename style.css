@@ -1874,8 +1874,31 @@ ul {
     margin-bottom: 80px;
 }
 
-.footer-brand .logo {
-    margin-bottom: 30px;
+.footer-logo-fixed {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    text-decoration: none;
+}
+
+.footer-logo-fixed img {
+    height: 32px;
+    width: auto;
+}
+
+.footer-logo-fixed span {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+}
+
+.footer-simple-tagline {
+    font-size: 1rem;
+    color: var(--text-main);
+    font-weight: 700;
+    margin-top: -10px;
 }
 
 .footer-brand p {
