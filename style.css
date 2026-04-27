@@ -3470,17 +3470,18 @@ body {
 .main-image-wrapper {
     width: 100%;
     background: transparent;
-    border-radius: 0;
+    border-radius: 12px;
     overflow: hidden;
     margin-bottom: 20px;
     display: block;
     border: none;
     padding: 0;
+    aspect-ratio: 3 / 4;
 }
 
 .main-image-wrapper img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     object-fit: cover;
 }
