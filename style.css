@@ -1860,40 +1860,30 @@ ul {
 }
 
 
-/* Footer Section - Refined Layout */
+/* Footer Section - Centered Minimal */
 .main-footer {
     padding: 60px 0 40px;
     background: #ffffff;
     border-top: 1px solid #f1f5f9;
 }
 
-.footer-logo-row {
+.footer-info-centered {
     text-align: center;
     margin-bottom: 40px;
 }
 
-.footer-logo-row img {
-    height: 45px;
-    width: auto;
+.info-block {
+    margin-bottom: 30px;
 }
 
-.footer-info-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    border-top: 1px solid #f8fafc;
-    padding-top: 40px;
-    margin-bottom: 40px;
-}
-
-.info-column h4 {
+.info-block h4 {
     font-size: 1rem;
     font-weight: 800;
     color: var(--text-dark);
     margin-bottom: 15px;
 }
 
-.info-column p {
+.info-block p {
     font-size: 0.85rem;
     color: var(--text-light);
     line-height: 1.8;
@@ -1932,10 +1922,6 @@ ul {
 }
 
 @media (max-width: 768px) {
-    .footer-info-columns {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
     .footer-bottom-row {
         flex-direction: column;
         gap: 15px;
