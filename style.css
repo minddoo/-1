@@ -109,7 +109,8 @@ ul {
     justify-content: space-between;
     align-items: center;
     padding-left: 0;
-    gap: 20px;
+    padding-right: 0;
+    gap: 15px;
     position: relative;
 }
 
@@ -165,13 +166,13 @@ ul {
 }
 
 .nav-btn {
-    padding: 10px 20px;
+    padding: 8px 16px;
     background: var(--primary);
     color: var(--white) !important;
-    border-radius: 10px;
+    border-radius: 8px;
     font-weight: 800;
-    font-size: 0.85rem;
-    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.2);
+    font-size: 0.8rem;
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.15);
 }
 
 .nav-btn:hover {
@@ -183,12 +184,12 @@ ul {
 .language-selector {
     position: relative;
     cursor: pointer;
-    padding: 6px 12px;
-    background: var(--white);
-    border: 1px solid var(--primary-light);
-    border-radius: 10px;
+    padding: 4px 8px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
     gap: 8px;
