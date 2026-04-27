@@ -803,16 +803,42 @@
                     <p>Have questions? Reach out to us anytime through our official channels.</p>
                 </div>
 
-                <div class="contact-icons-row reveal">
-                    <a href="https://line.me/ti/p/~checkit082" class="icon-btn line" title="LINE">
-                        <i class="fa-brands fa-line"></i>
-                    </a>
-                    <a href="mailto:checkit082@gmail.com" class="icon-btn gmail" title="Gmail">
-                        <i class="fa-solid fa-envelope"></i>
-                    </a>
-                    <a href="https://wa.me/821051093459" class="icon-btn whatsapp" title="WhatsApp">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
+                <div class="contact-wrapper reveal">
+                    <!-- Chat Icons -->
+                    <div class="contact-chat-links">
+                        <a href="https://line.me/ti/p/~checkit082" class="chat-icon-btn line" title="LINE">
+                            <i class="fa-brands fa-line"></i>
+                            <span>LINE</span>
+                        </a>
+                        <a href="https://wa.me/821051093459" class="chat-icon-btn whatsapp" title="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                    </div>
+
+                    <!-- Email Form -->
+                    <div class="email-form-container">
+                        <form action="https://formspree.io/f/mykladvb" method="POST" class="premium-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="full-name">Full Name</label>
+                                    <input type="text" id="full-name" name="name" placeholder="Enter your name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" placeholder="email@example.com" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" placeholder="How can we help you?" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                <span>Send Message</span>
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
