@@ -2264,11 +2264,10 @@ if (document.getElementById('paypal-button-container')) {
             label:  'paypal'
         },
         createOrder: function(data, actions) {
-            const totalStr = document.getElementById('total-price-amount').innerText.replace('$', '');
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: totalStr
+                        value: '300.00'
                     },
                     description: 'Checkit Korea Health Check Concierge Service'
                 }]
