@@ -497,7 +497,7 @@ ul {
 
 /* Kinetic Animated Headline */
 .kinetic-viewport {
-    height: 140px; /* Fixed height for animation */
+    height: 240px; /* Fixed height for animation */
     overflow: hidden;
     position: relative;
     margin-bottom: 30px;
@@ -510,7 +510,7 @@ ul {
 }
 
 .kinetic-item {
-    height: 140px;
+    height: 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -519,11 +519,12 @@ ul {
 }
 
 .kinetic-item h2 {
-    font-size: 4rem;
+    font-size: 3.5rem; /* Reduced for multi-line support */
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.04em;
     margin-bottom: 12px;
+    text-align: center;
 }
 
 .kinetic-item .sub-label {
@@ -543,7 +544,7 @@ ul {
 
 @keyframes slideTP {
     0%, 40% { transform: translateY(0); }
-    45%, 95% { transform: translateY(-140px); }
+    45%, 95% { transform: translateY(-240px); }
     100% { transform: translateY(0); }
 }
 
@@ -1746,7 +1747,7 @@ ul {
 }
 
 .reality-card li::before {
-    content: '•';
+    content: '??;
     position: absolute;
     left: 0;
     color: #e74c3c;
@@ -3555,7 +3556,7 @@ input:checked + .slider:before {
 }
 
 .item-cat-box li::before {
-    content: "•";
+    content: "??;
     position: absolute;
     left: 0;
     color: var(--primary);
