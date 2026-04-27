@@ -3575,13 +3575,13 @@ body {
     transform-origin: center center;
 }
 
-/* Info Side Styles */
-.product-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--text-dark);
+.service-period-notice {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: -15px;
     margin-bottom: 25px;
-    line-height: 1.3;
+    line-height: 1.4;
+    font-weight: 500;
 }
 
 .info-table {
