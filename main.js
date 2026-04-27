@@ -66,6 +66,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Cart and Wishlist Logic
+    const addToCartBtn = document.getElementById('add-to-cart-btn');
+    const wishlistBtn = document.getElementById('wishlist-btn');
+
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', () => {
+            const item = {
+                id: 'total-safe-global-plan',
+                name: 'Total-Safe Global Plan',
+                price: 300,
+                qty: parseInt(qtyInput.value),
+                unlimitedChanges: optInCheckbox.checked,
+                timestamp: new Date().getTime()
+            };
+            
+            let cart = JSON.parse(localStorage.getItem('checkit_cart') || '[]');
+            cart.push(item);
+            localStorage.setItem('checkit_cart', JSON.stringify(cart));
+            
+            alert('Added to cart successfully!');
+        });
+    }
+
+    if (wishlistBtn) {
+        wishlistBtn.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            const isWished = icon.classList.contains('fa-solid');
+            
+            if (isWished) {
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+                icon.style.color = 'inherit';
+                alert('Removed from wish list.');
+            } else {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+                icon.style.color = '#e74c3c';
+                alert('Added to wish list!');
+            }
+        });
+    }
+
 
     updateTotalPrice();
 });
