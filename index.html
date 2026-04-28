@@ -41,6 +41,9 @@
     <header id="navbar" class="glass-nav">
         <div class="container nav-container">
             <div class="nav-actions">
+                <a href="javascript:void(0)" class="nav-icon" id="blog-nav" onclick="showView('blog')">
+                    <i class="fa-solid fa-newspaper"></i>
+                </a>
                 <a href="javascript:void(0)" class="nav-icon" id="wishlist-nav">
                     <i class="fa-regular fa-heart"></i>
                 </a>
@@ -862,6 +865,48 @@
                 </div>
             </div>
         </section>
+        </div>
+
+        <!-- Blog View (Initially Hidden) -->
+        <div id="blog-view" class="hidden-view" style="display: none; padding-top: 120px; min-height: 80vh; background: #f8fafc; padding-bottom: 80px;">
+            <div class="container">
+                <div class="section-head reveal">
+                    <h2>CHECKIT Blog</h2>
+                    <p>Discover insights, stories, and the latest updates about Korean healthcare and CHECKIT's services.</p>
+                </div>
+                <div class="blog-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px;">
+                    <!-- Blog Post 1 -->
+                    <div class="blog-card" style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hospital" style="width: 100%; height: 220px; object-fit: cover;">
+                        <div class="blog-content" style="padding: 24px;">
+                            <div class="blog-category" style="color: var(--primary); font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">Guide</div>
+                            <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: #1e293b; font-weight: 700;">Navigating the Korean Healthcare System</h3>
+                            <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">Everything you need to know about getting medical checkups in South Korea as a foreigner.</p>
+                            <a href="#" style="color: var(--primary); font-weight: 600; text-decoration: none; display: inline-block;">Read More <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></a>
+                        </div>
+                    </div>
+                    <!-- Blog Post 2 -->
+                    <div class="blog-card" style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                        <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Doctor" style="width: 100%; height: 220px; object-fit: cover;">
+                        <div class="blog-content" style="padding: 24px;">
+                            <div class="blog-category" style="color: var(--primary); font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">Inside CHECKIT</div>
+                            <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: #1e293b; font-weight: 700;">Why We Built CHECKIT</h3>
+                            <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">The story behind our mission to provide transparent and fair medical coordination for everyone.</p>
+                            <a href="#" style="color: var(--primary); font-weight: 600; text-decoration: none; display: inline-block;">Read More <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></a>
+                        </div>
+                    </div>
+                    <!-- Blog Post 3 -->
+                    <div class="blog-card" style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                        <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tech" style="width: 100%; height: 220px; object-fit: cover;">
+                        <div class="blog-content" style="padding: 24px;">
+                            <div class="blog-category" style="color: var(--primary); font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">Tips</div>
+                            <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: #1e293b; font-weight: 700;">5 Tips for Preparing for a Health Screening</h3>
+                            <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">Maximize the accuracy and comfort of your upcoming comprehensive health screening.</p>
+                            <a href="#" style="color: var(--primary); font-weight: 600; text-decoration: none; display: inline-block;">Read More <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- My Page View (Initially Hidden) -->

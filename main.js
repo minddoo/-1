@@ -831,6 +831,7 @@ window.showView = function(viewName) {
     console.log("Switching view to:", viewName);
     const homeView = document.getElementById('home-view');
     const mypageView = document.getElementById('mypage-view');
+    const blogView = document.getElementById('blog-view');
     const mypageModal = document.getElementById('mypage-modal');
     const navbar = document.getElementById('navbar');
     
@@ -845,6 +846,11 @@ window.showView = function(viewName) {
         if (mypageView) {
             mypageView.classList.remove('hidden-view');
             mypageView.style.display = 'block';
+        }
+        
+        if (blogView) {
+            blogView.classList.add('hidden-view');
+            blogView.style.display = 'none';
         }
         
         // Close modal
@@ -867,6 +873,26 @@ window.showView = function(viewName) {
         if (mypageView) {
             mypageView.classList.add('hidden-view');
             mypageView.style.display = 'none';
+        }
+        if (blogView) {
+            blogView.classList.add('hidden-view');
+            blogView.style.display = 'none';
+        }
+    } else if (viewName === 'blog') {
+        // Show global navbar
+        if (navbar) navbar.style.display = 'block';
+        
+        if (homeView) {
+            homeView.classList.add('hidden-view');
+            homeView.style.display = 'none';
+        }
+        if (mypageView) {
+            mypageView.classList.add('hidden-view');
+            mypageView.style.display = 'none';
+        }
+        if (blogView) {
+            blogView.classList.remove('hidden-view');
+            blogView.style.display = 'block';
         }
     }
     
