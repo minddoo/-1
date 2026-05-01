@@ -2606,20 +2606,27 @@ function initDashboard() {
                 // Simulation: Provide a direct translation style response that doesn't feel like a summary
                 if (lang === 'zh') {
                     langLabel = "CHINESE (中文)";
-                    translated = `[翻译结果 - 全文直译]\n\n您的预约内容如下：\n- 医院：${text.includes('세란') ? 'Seran 医院' : '所选医院'}\n- 状态：已确认\n\n(系统已完成对 "${text.substring(0, 15)}..." 全文的逐字翻译。)`;
+                    if (text.includes('안녕')) translated = "您好。";
+                    else if (text.includes('예약')) translated = "预约确认。";
+                    else translated = `${text} (中文翻译结果)`; 
                 } else if (lang === 'vi') {
                     langLabel = "VIETNAMESE (Tiếng Việt)";
-                    translated = `[Kết quả dịch - Dịch trực tiếp]\n\nNội dung đặt chỗ của bạn như sau:\n- Bệnh viện: ${text.includes('세란') ? 'Bệnh viện Seran' : 'Bệnh viện đã chọn'}\n- Trạng thái: Đã xác nhận\n\n(Hệ thống đã hoàn thành việc dịch từng chữ cho toàn bộ nội dung "${text.substring(0, 15)}...".)`;
+                    if (text.includes('안녕')) translated = "Xin chào.";
+                    else if (text.includes('예약')) translated = "Xác nhận đặt chỗ.";
+                    else translated = `${text} (Kết quả dịch tiếng Việt)`;
+
                 } else {
                     langLabel = "ENGLISH";
-                    translated = `[Translation Result - Full Direct Translation]\n\nYour reservation details are as follows:\n- Hospital: ${text.includes('세란') ? 'Seran Hospital' : 'Selected Hospital'}\n- Status: Confirmed\n\n(System has completed word-for-word translation for the entire text: "${text.substring(0, 15)}...".)`;
+                    if (text.includes('안녕')) translated = "Hello.";
+                    else if (text.includes('예약')) translated = "Reservation confirmed.";
+                    else translated = `${text} (English translation result)`;
                 }
 
                 const resultHtml = `
                     <div style="background: #ffffff; padding: 18px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: left; width: 100%;">
                         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #f1f5f9;">
                             <i class="fa-solid fa-language" style="color: var(--primary); font-size: 0.9rem;"></i>
-                            <span style="font-weight: 800; color: var(--primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Direct Translation (${langLabel})</span>
+                            <span style="font-weight: 800; color: var(--primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Translation (${langLabel})</span>
                         </div>
                         <div style="font-size: 0.95rem; color: #334155; line-height: 1.6; white-space: pre-wrap; font-weight: 500;">
                             ${translated}
