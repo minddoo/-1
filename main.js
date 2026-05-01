@@ -2512,7 +2512,19 @@ function initDashboard() {
     window.reportNoConfirmation = function(hName) {
         window.appendMessage('user', '1일이 지났는데 확정문자를 못 받았어요.');
         setTimeout(() => {
-            window.appendMessage('coord', `불편을 드려 죄송합니다. **${hName}** 측에 예약 확인이 지연되고 있는 것 같습니다. 제가 즉시 병원 담당자에게 확인하여 1시간 내로 다시 안내해 드리겠습니다. 잠시만 더 기다려 주시면 감사하겠습니다.`);
+            const followUpMsg = `병원 확인 후 다시 알림톡 전송 요청하겠습니다. 지연되어 대단히 죄송합니다.
+                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 8px;">
+                    <button style="padding: 10px; font-size: 0.85rem; font-weight: 700; background: #fff; color: #ef4444; border: 1px solid #fee2e2; border-radius: 10px; cursor: pointer;" onclick="window.reportStillNoConfirmation('${hName}')">1일이 지났는데 여전히 못 받았어요</button>
+                    <button style="padding: 10px; font-size: 0.85rem; font-weight: 700; background: #fff; color: #22c55e; border: 1px solid #dcfce7; border-radius: 10px; cursor: pointer;" onclick="window.reportConfirmed('${hName}', '기존 선택')">알림톡을 받았습니다</button>
+                </div>`;
+            window.appendMessage('coord', followUpMsg);
+        }, 600);
+    };
+
+    window.reportStillNoConfirmation = function(hName) {
+        window.appendMessage('user', '1일이 지났는데 여전히 못 받았어요.');
+        setTimeout(() => {
+            window.appendMessage('coord', `정말 죄송합니다. **${hName}** 측과 소통에 차질이 있는 것 같습니다. 제가 지금 바로 병원에 직접 유선 연락을 취하여 긴급 확인 후 10분 내로 안내드리겠습니다.`);
         }, 600);
     };
 
