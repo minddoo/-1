@@ -2577,7 +2577,59 @@ function initDashboard() {
     window.finalPhoneConfirm = function() {
         window.appendMessage('user', '알림톡을 받았어요');
         setTimeout(() => {
-            window.appendMessage('coord', '감사합니다! 받으신 한국어 확정 문자를 이곳에 보내주세요. 내용을 확인하여 다음 단계 안내를 도와드리겠습니다.');
+            const lang = localStorage.getItem('preferred-lang') || 'en';
+            const langName = lang === 'en' ? 'English' : (lang === 'zh' ? 'Chinese' : (lang === 'vi' ? 'Vietnamese' : 'English'));
+            
+            const translateBox = `
+                <div class="translation-box" style="margin-top: 10px; background: #f0f9ff; padding: 15px; border-radius: 12px; border: 1px solid #bae6fd;">
+                    <p style="margin: 0 0 10px 0; font-size: 0.85rem; color: #0369a1; font-weight: 600;">받으신 한국어 알림톡 내용을 아래에 붙여넣어 주세요. ${langName}로 번역해 드립니다.</p>
+                    <textarea id="korean-msg-input" placeholder="여기에 내용을 복사해서 붙여넣어 주세요..." style="width: 100%; min-height: 80px; padding: 10px; border: 1px solid #7dd3fc; border-radius: 8px; font-size: 0.85rem; margin-bottom: 10px; resize: vertical;"></textarea>
+                    <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.85rem;" onclick="window.translateKoreanMsg()">번역하기</button>
+                </div>
+            `;
+            window.appendMessage('coord', translateBox);
+            document.getElementById('korean-msg-input').focus();
+        }, 600);
+    };
+
+    window.translateKoreanMsg = function() {
+        const input = document.getElementById('korean-msg-input');
+        const text = input.value.trim();
+        if (!text) {
+            alert('번역할 내용을 입력해 주세요.');
+            return;
+        }
+
+        window.appendMessage('user', '내용을 붙여넣었습니다.');
+        
+        // Disable input
+        input.disabled = true;
+        const btn = input.nextElementSibling;
+        if (btn) btn.disabled = true;
+
+        setTimeout(() => {
+            window.appendMessage('coord', '분석 중입니다... 잠시만 기다려 주세요. 🔍');
+            
+            setTimeout(() => {
+                const lang = localStorage.getItem('preferred-lang') || 'en';
+                // Simplified mock translation for the demo
+                let translated = `[Translation Result]\n\nYour reservation has been successfully confirmed. Please visit the hospital at the scheduled time.`;
+                
+                if (lang === 'zh') translated = `[翻译结果]\n\n您的预约已成功确认。请按预定时间前往医院。`;
+                if (lang === 'vi') translated = `[Kết quả dịch]\n\nLịch hẹn của bạn đã được xác nhận thành công. Vui lòng đến bệnh viện theo thời gian đã hẹn.`;
+
+                const resultHtml = `
+                    <div style="background: #fff; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; color: #1e293b; line-height: 1.5; white-space: pre-wrap;">
+                        <div style="font-weight: 800; color: var(--primary); margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase;">Translation (${lang.toUpperCase()})</div>
+                        ${translated}
+                    </div>
+                `;
+                window.appendMessage('coord', resultHtml);
+                
+                setTimeout(() => {
+                    window.appendMessage('coord', '번역된 내용이 맞나요? 이제 다음 단계인 **검진 전 주의사항**에 대해 안내해 드리겠습니다.');
+                }, 1000);
+            }, 1500);
         }, 600);
     };
 
