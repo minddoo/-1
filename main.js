@@ -1880,7 +1880,12 @@ function initDashboard() {
                     let content = msg.content;
                     
                     // Patch: Comprehensive update for hospital cards in history
-                    if (content.includes('hospital-integrated-card')) {
+                    if (content.includes('hospital-list-item')) {
+                        // 0. Ensure the container has the required class for scoping
+                        if (!content.includes('hospital-integrated-card')) {
+                            content = content.replace('class="msg-bubble"', 'class="msg-bubble hospital-integrated-card"');
+                            content = content.replace('class="msg-bubble "', 'class="msg-bubble hospital-integrated-card "');
+                        }
                         // 1. Inject search bar if missing
                         if (!content.includes('hospital-search-wrapper')) {
                             const searchBarHtml = `
