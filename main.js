@@ -2378,9 +2378,16 @@ function initDashboard() {
         window.closeSelectionModal();
         window.closeProgramModal();
         
-        // Feedback message
+        // Feedback message with buttons
         setTimeout(() => {
-            const confirmMsg = `확인되었습니다! **${hospital.name}**의 **${program.title}** 프로그램을 선택하셨습니다. <br><br>예약 및 추가 상담을 이어가시겠습니까?`;
+            const confirmMsg = `
+                확인되었습니다! **${hospital.name}**의 **${program.title}** 프로그램을 선택하셨습니다. 
+                <br><br>예약 및 추가 상담을 이어가시겠습니까?
+                <div style="margin-top: 15px; display: flex; gap: 8px;">
+                    <button class="btn-primary" style="padding: 8px 24px; font-size: 0.85rem;" onclick="window.proceedToBooking('${hospital.name}', '${program.title}')">예</button>
+                    <button class="btn-secondary" style="padding: 8px 16px; font-size: 0.85rem; background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0;" onclick="window.openSelectionModal(${hIdx})">다시 선택</button>
+                </div>
+            `;
             window.appendMessage('coord', confirmMsg);
             
             // Highlight the hospital card
@@ -2388,6 +2395,14 @@ function initDashboard() {
             const li = document.getElementById(`li-hospital-${hIdx}`);
             if (li) li.classList.add('selected');
         }, 300);
+    };
+
+    window.proceedToBooking = function(hName, pName) {
+        window.appendMessage('user', '예, 진행해 주세요.');
+        setTimeout(() => {
+            window.appendMessage('coord', `좋습니다! **${hName}**의 **${pName}** 프로그램 예약을 위해 필요한 추가 서류와 절차를 안내해 드리겠습니다. 잠시만 기다려 주세요...`);
+            // Here you could trigger the next workflow step
+        }, 600);
     };
 
     // Close listeners for selection modal
