@@ -2400,8 +2400,28 @@ function initDashboard() {
     window.proceedToBooking = function(hName, pName) {
         window.appendMessage('user', '예, 진행해 주세요.');
         setTimeout(() => {
+            const addQuestion = `혹시 선택하신 프로그램 외에 추가로 검사받고 싶으신 항목이 있으실까요?
+                <div style="margin-top: 15px; display: flex; gap: 8px;">
+                    <button style="padding: 10px 28px; font-size: 0.85rem; font-weight: 800; background: #FFD700; color: #000; border: none; border-radius: 10px; cursor: pointer;" onclick="window.askAdditionalDetail('${hName}', '${pName}')">예</button>
+                    <button style="padding: 10px 28px; font-size: 0.85rem; font-weight: 800; background: #90EE90; color: #000; border: none; border-radius: 10px; cursor: pointer;" onclick="window.finishSelection('${hName}', '${pName}')">아니오</button>
+                </div>`;
+            window.appendMessage('coord', addQuestion);
+        }, 600);
+    };
+
+    window.askAdditionalDetail = function(hName, pName) {
+        window.appendMessage('user', '예, 추가하고 싶은 항목이 있습니다.');
+        setTimeout(() => {
+            window.appendMessage('coord', '어떤 항목을 추가하고 싶으신지 말씀해 주시면, 해당 병원에서 가능한지 확인해 드리겠습니다. (예: 대장내시경 추가, 유전자 검사 추가 등)');
+            // Focus input for user to type
+            document.getElementById('chat-input').focus();
+        }, 600);
+    };
+
+    window.finishSelection = function(hName, pName) {
+        window.appendMessage('user', '아니오, 없습니다.');
+        setTimeout(() => {
             window.appendMessage('coord', `좋습니다! **${hName}**의 **${pName}** 프로그램 예약을 위해 필요한 추가 서류와 절차를 안내해 드리겠습니다. 잠시만 기다려 주세요...`);
-            // Here you could trigger the next workflow step
         }, 600);
     };
 
