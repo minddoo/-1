@@ -2082,10 +2082,18 @@ function initDashboard() {
                                         <li id="li-hospital-${i}" class="hospital-list-item" style="padding: 12px 10px; border-bottom: ${i === hospitals.length - 1 ? 'none' : '1px solid #f1f5f9'}; border-radius: 12px; transition: var(--transition); cursor: pointer;" onclick="toggleHospitalPrograms('${hospitalId}')">
                                             <div class="" style="font-weight: 800; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 4px;">${h.name}</div>
                                             <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 8px;"><i class="fa-solid fa-location-dot" style="margin-right:4px;"></i>${h.loc}</div>
-                                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                                <a href="${proxyUrl}" target="_blank" onclick="event.stopPropagation()" style="display: inline-block; padding: 6px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.75rem; font-weight: 600;">홈페이지 / 정보 보기</a>
-                                                <button class="btn-toggle-programs" onclick="event.stopPropagation(); toggleHospitalPrograms('${hospitalId}')">검진 항목 보기</button>
-                                                <button class="btn-select-hospital" onclick="event.stopPropagation(); selectHospital(${i}, '${hospitalId}')">이 병원으로 선택</button>
+                                            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                                <a href="${proxyUrl}" target="_blank" onclick="event.stopPropagation()" style="display: inline-flex; align-items: center; padding: 6px 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.7rem; font-weight: 600;">
+                                                    <i class="fa-solid fa-house" style="margin-right:4px; font-size: 0.65rem;"></i>홈페이지
+                                                </a>
+                                                <a href="https://search.naver.com/search.naver?query=${encodeURIComponent(h.name)}" target="_blank" onclick="event.stopPropagation()" style="display: inline-flex; align-items: center; padding: 6px 10px; background: #03C75A; border: 1px solid #03C75A; border-radius: 6px; color: white; text-decoration: none; font-size: 0.7rem; font-weight: 600;">
+                                                    <i class="fa-solid fa-n" style="margin-right:4px; font-size: 0.65rem;"></i>네이버
+                                                </a>
+                                                <a href="https://www.google.com/search?q=${encodeURIComponent(h.name)}" target="_blank" onclick="event.stopPropagation()" style="display: inline-flex; align-items: center; padding: 6px 10px; background: #4285F4; border: 1px solid #4285F4; border-radius: 6px; color: white; text-decoration: none; font-size: 0.7rem; font-weight: 600;">
+                                                    <i class="fa-solid fa-g" style="margin-right:4px; font-size: 0.65rem;"></i>구글
+                                                </a>
+                                                <button class="btn-toggle-programs" style="padding: 6px 10px; font-size: 0.7rem;" onclick="event.stopPropagation(); toggleHospitalPrograms('${hospitalId}')">검진 항목</button>
+                                                <button class="btn-select-hospital" style="padding: 6px 10px; font-size: 0.7rem;" onclick="event.stopPropagation(); selectHospital(${i}, '${hospitalId}')">병원 선택</button>
                                             </div>
                                         
                                         <div id="${hospitalId}" class="hospital-programs">
