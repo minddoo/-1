@@ -2084,14 +2084,14 @@ function initDashboard() {
                                             <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 8px;"><i class="fa-solid fa-location-dot" style="margin-right:4px;"></i>${h.loc}</div>
                                             <div style="display: flex; flex-direction: column; gap: 8px;">
                                                 <!-- Row 1: Hospital Details & Selection -->
-                                                <div style="display: flex; gap: 6px; align-items: stretch;">
-                                                    <a href="${proxyUrl}" target="_blank" onclick="event.stopPropagation()" style="flex: 1.2; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; text-decoration: none; font-size: 0.7rem; font-weight: 700; height: 42px; text-align: center; line-height: 1.2;">
+                                                <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-start;">
+                                                    <a href="${proxyUrl}" target="_blank" onclick="event.stopPropagation()" style="display: inline-flex; align-items: center; justify-content: center; padding: 0 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; text-decoration: none; font-size: 0.7rem; font-weight: 700; height: 38px; white-space: nowrap;">
                                                         <i class="fa-solid fa-circle-info" style="margin-right:4px;"></i>View Information
                                                     </a>
-                                                    <button class="btn-toggle-programs" style="flex: 1; padding: 0 4px; font-size: 0.7rem; height: 42px; font-weight: 700; line-height: 1.2;" onclick="event.stopPropagation(); toggleHospitalPrograms('${hospitalId}')">
+                                                    <button class="btn-toggle-programs" style="padding: 0 10px; font-size: 0.7rem; height: 38px; font-weight: 700; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center;" onclick="event.stopPropagation(); toggleHospitalPrograms('${hospitalId}')">
                                                         Examination items
                                                     </button>
-                                                    <button class="btn-select-hospital" style="flex: 1; padding: 0 4px; font-size: 0.7rem; height: 42px; font-weight: 700; line-height: 1.2;" onclick="event.stopPropagation(); selectHospital(${i}, '${hospitalId}')">
+                                                    <button class="btn-select-hospital" style="padding: 0 10px; font-size: 0.7rem; height: 38px; font-weight: 700; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center;" onclick="event.stopPropagation(); selectHospital(${i}, '${hospitalId}')">
                                                         Hospital Selection
                                                     </button>
                                                 </div>
