@@ -2084,24 +2084,24 @@ function initDashboard() {
                                             <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 8px;"><i class="fa-solid fa-location-dot" style="margin-right:4px;"></i>${h.loc}</div>
                                             <div style="display: flex; flex-direction: column; gap: 8px;">
                                                 <!-- Row 1: Hospital Details & Selection -->
-                                                <div style="display: flex; gap: 6px;">
-                                                    <a href="${proxyUrl}" target="_blank" onclick="event.stopPropagation()" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 10px 4px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; text-decoration: none; font-size: 0.75rem; font-weight: 700; height: 42px; text-align: center;">
-                                                        <i class="fa-solid fa-circle-info" style="margin-right:4px;"></i>Info
+                                                <div style="display: flex; gap: 6px; align-items: stretch;">
+                                                    <a href="${proxyUrl}" target="_blank" onclick="event.stopPropagation()" style="flex: 1.2; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; text-decoration: none; font-size: 0.7rem; font-weight: 700; height: 42px; text-align: center; line-height: 1.2;">
+                                                        <i class="fa-solid fa-circle-info" style="margin-right:4px;"></i>View Information
                                                     </a>
-                                                    <button class="btn-toggle-programs" style="flex: 1; padding: 10px 4px; font-size: 0.75rem; height: 42px; font-weight: 700;" onclick="event.stopPropagation(); toggleHospitalPrograms('${hospitalId}')">
+                                                    <button class="btn-toggle-programs" style="flex: 1; padding: 0 4px; font-size: 0.7rem; height: 42px; font-weight: 700; line-height: 1.2;" onclick="event.stopPropagation(); toggleHospitalPrograms('${hospitalId}')">
                                                         Examination items
                                                     </button>
-                                                    <button class="btn-select-hospital" style="flex: 1; padding: 10px 4px; font-size: 0.75rem; height: 42px; font-weight: 700;" onclick="event.stopPropagation(); selectHospital(${i}, '${hospitalId}')">
+                                                    <button class="btn-select-hospital" style="flex: 1; padding: 0 4px; font-size: 0.7rem; height: 42px; font-weight: 700; line-height: 1.2;" onclick="event.stopPropagation(); selectHospital(${i}, '${hospitalId}')">
                                                         Hospital Selection
                                                     </button>
                                                 </div>
-                                                <!-- Row 2: Search Shortcuts -->
-                                                <div style="display: flex; gap: 6px;">
-                                                    <a href="https://search.naver.com/search.naver?query=${encodeURIComponent(h.name)}" target="_blank" onclick="event.stopPropagation()" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 10px; background: #03C75A; border: 1px solid #03C75A; border-radius: 8px; color: white; text-decoration: none; font-size: 0.75rem; font-weight: 700; height: 42px;">
-                                                        <i class="fa-solid fa-n" style="margin-right:6px; font-size: 0.7rem;"></i>Naver Search
+                                                <!-- Row 2: Search Shortcuts (Compacted) -->
+                                                <div style="display: flex; gap: 6px; justify-content: flex-start;">
+                                                    <a href="https://search.naver.com/search.naver?query=${encodeURIComponent(h.name)}" target="_blank" onclick="event.stopPropagation()" style="display: inline-flex; align-items: center; justify-content: center; padding: 0 12px; background: #03C75A; border: 1px solid #03C75A; border-radius: 8px; color: white; text-decoration: none; font-size: 0.75rem; font-weight: 700; height: 36px; min-width: 100px;">
+                                                        <i class="fa-solid fa-n" style="margin-right:6px; font-size: 0.7rem;"></i>Naver
                                                     </a>
-                                                    <a href="https://www.google.com/search?q=${encodeURIComponent(h.name)}" target="_blank" onclick="event.stopPropagation()" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 10px; background: #4285F4; border: 1px solid #4285F4; border-radius: 8px; color: white; text-decoration: none; font-size: 0.75rem; font-weight: 700; height: 42px;">
-                                                        <i class="fa-solid fa-g" style="margin-right:6px; font-size: 0.7rem;"></i>Google Search
+                                                    <a href="https://www.google.com/search?q=${encodeURIComponent(h.name)}" target="_blank" onclick="event.stopPropagation()" style="display: inline-flex; align-items: center; justify-content: center; padding: 0 12px; background: #4285F4; border: 1px solid #4285F4; border-radius: 8px; color: white; text-decoration: none; font-size: 0.75rem; font-weight: 700; height: 36px; min-width: 100px;">
+                                                        <i class="fa-solid fa-g" style="margin-right:6px; font-size: 0.7rem;"></i>Google
                                                     </a>
                                                 </div>
                                             </div>
