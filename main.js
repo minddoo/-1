@@ -2412,14 +2412,39 @@ function initDashboard() {
     window.askAdditionalDetail = function(hName, pName) {
         window.appendMessage('user', '예, 추가하고 싶은 항목이 있습니다.');
         setTimeout(() => {
-            window.appendMessage('coord', '어떤 항목을 추가하고 싶으신지 말씀해 주시면, 해당 병원에서 가능한지 확인해 드리겠습니다. (예: 대장내시경 추가, 유전자 검사 추가 등)');
-            // Focus input for user to type
-            document.getElementById('chat-input').focus();
+            const inputHtml = `
+                <div class="additional-items-box" style="margin-top: 10px; background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <p style="margin: 0 0 10px 0; font-size: 0.85rem; color: #475569; font-weight: 600;">추가하고 싶은 검사 항목을 적어주세요.</p>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="extra-items-input" placeholder="예: 대장내시경, 유전자 검사 등" style="flex: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem;">
+                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="window.submitAdditionalItems('${hName}', '${pName}')">입력 완료</button>
+                    </div>
+                </div>
+            `;
+            window.appendMessage('coord', inputHtml);
+            document.getElementById('extra-items-input').focus();
         }, 600);
     };
 
-    window.finishSelection = function(hName, pName) {
-        window.appendMessage('user', '아니오, 없습니다.');
+    window.submitAdditionalItems = function(hName, pName) {
+        const input = document.getElementById('extra-items-input');
+        const items = input.value.trim();
+        if (!items) {
+            alert('추가하실 항목을 입력해 주세요.');
+            return;
+        }
+
+        window.appendMessage('user', `추가 항목: ${items}`);
+        setTimeout(() => {
+            window.appendMessage('coord', `확인했습니다! **${items}** 항목 추가가 가능한지 **${hName}** 측에 즉시 확인해 보겠습니다. <br><br>그럼 이어서 **${pName}** 프로그램 예약을 위한 절차를 안내해 드리겠습니다.`);
+            window.finishSelection(hName, pName, true); // Pass true to skip the "No" message
+        }, 600);
+    };
+
+    window.finishSelection = function(hName, pName, skipUserMsg = false) {
+        if (!skipUserMsg) {
+            window.appendMessage('user', '아니오, 없습니다.');
+        }
         setTimeout(() => {
             window.appendMessage('coord', `좋습니다! **${hName}**의 **${pName}** 프로그램 예약을 위해 필요한 추가 서류와 절차를 안내해 드리겠습니다. 잠시만 기다려 주세요...`);
         }, 600);
