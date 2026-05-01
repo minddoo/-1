@@ -2114,7 +2114,13 @@ function initDashboard() {
                                 '정보 보기' 버튼을 클릭하시면 해당 의료기관의 상세 프로그램과 항목을 즉시 확인하실 수 있습니다.
                             </p>
                         </div>
-                        <ul style="list-style: none; padding: 0; margin: 0;">
+                        <div class="hospital-search-wrapper" style="margin-bottom: 15px; position: relative;">
+                            <input type="text" id="hospital-search-input" placeholder="원하시는 검사 항목을 검색해 보세요 (예: 위내시경, MRI, 대장)" 
+                                style="width: 100%; padding: 12px 40px 12px 15px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.85rem; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
+                                oninput="window.filterHospitals(this.value)">
+                            <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;"></i>
+                        </div>
+                        <ul id="hospital-main-list" style="list-style: none; padding: 0; margin: 0;">
                             ${hospitals.map((h, i) => {
                                 const proxyUrl = h.url;
                                 const hospitalId = `hospital-${i}`;
@@ -2274,6 +2280,64 @@ function initDashboard() {
             setTimeout(() => {
                 window.appendMessage('system', blockHtml, 'system');
             }, 500);
+        }
+    };
+
+    window.filterHospitals = function(term) {
+        const hospitals = JSON.parse(document.body.getAttribute('data-hospitals') || '[]');
+        const cleanTerm = term.trim().toLowerCase();
+        
+        hospitals.forEach((h, i) => {
+            const li = document.getElementById(`li-hospital-${i}`);
+            if (!li) return;
+
+            if (!cleanTerm) {
+                li.style.display = 'block';
+                return;
+            }
+
+            // Search in name, location, and all programs/items
+            let found = h.name.toLowerCase().includes(cleanTerm) || h.loc.toLowerCase().includes(cleanTerm);
+            
+            if (!found) {
+                h.categories.forEach(cat => {
+                    cat.programs.forEach(p => {
+                        if (p.title.toLowerCase().includes(cleanTerm)) {
+                            found = true;
+                        }
+                        if (!found && p.details) {
+                            for (const catItems of Object.values(p.details)) {
+                                if (catItems.some(item => item.toLowerCase().includes(cleanTerm))) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                    });
+                });
+            }
+
+            li.style.display = found ? 'block' : 'none';
+        });
+
+        // Show empty message if none found
+        let emptyMsg = document.getElementById('hospital-empty-search');
+        const visibleCount = Array.from(document.querySelectorAll('.hospital-list-item')).filter(el => el.style.display !== 'none').length;
+        
+        if (visibleCount === 0) {
+            if (!emptyMsg) {
+                const list = document.getElementById('hospital-main-list');
+                emptyMsg = document.createElement('div');
+                emptyMsg.id = 'hospital-empty-search';
+                emptyMsg.style.padding = '30px 10px';
+                emptyMsg.style.textAlign = 'center';
+                emptyMsg.style.color = '#94a3b8';
+                emptyMsg.style.fontSize = '0.85rem';
+                emptyMsg.innerHTML = `<i class="fa-solid fa-face-frown" style="font-size: 1.5rem; display: block; margin-bottom: 10px;"></i> 검색 결과가 없습니다.<br>검색어를 다시 확인해 주세요.`;
+                list.parentNode.appendChild(emptyMsg);
+            }
+        } else if (emptyMsg) {
+            emptyMsg.remove();
         }
     };
 
