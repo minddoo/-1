@@ -1617,7 +1617,7 @@ function initDashboard() {
                     { 
                         name: "세브란스병원 센터", 
                         loc: "서울(신촌, 강남)", 
-                        url: "https://severance.healthcare/severance/program/index.do",
+                        url: "https://sev.severance.healthcare/sev/patient-carer/appointment/checkup/checkup-program.do",
                         categories: [
                             {
                                 name: "종합검진 (Comprehensive)",
