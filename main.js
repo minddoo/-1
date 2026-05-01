@@ -2568,16 +2568,16 @@ function initDashboard() {
         setTimeout(() => {
             const confirmMsg = `확인했습니다! 수정된 번호(**${phone}**)로 알림톡이 즉시 재발송되도록 조치하겠습니다. 혼선을 드려 다시 한번 사과드립니다.
                 <div style="margin-top: 15px;">
-                    <button style="padding: 10px 30px; font-size: 0.85rem; font-weight: 700; background: #fff; color: #475569; border: 1px solid #e2e8f0; border-radius: 10px; cursor: pointer;" onclick="window.finalPhoneConfirm()">확인</button>
+                    <button style="padding: 10px 30px; font-size: 0.85rem; font-weight: 700; background: #fff; color: #22c55e; border: 1px solid #dcfce7; border-radius: 10px; cursor: pointer;" onclick="window.finalPhoneConfirm()">알림톡을 받았어요</button>
                 </div>`;
             window.appendMessage('coord', confirmMsg);
         }, 600);
     };
 
     window.finalPhoneConfirm = function() {
-        window.appendMessage('user', '확인');
+        window.appendMessage('user', '알림톡을 받았어요');
         setTimeout(() => {
-            window.appendMessage('coord', '네, 감사합니다. 수정된 번호로 발송될 알림톡을 잠시만 기다려 주세요! 추가 문의사항이 있으시면 언제든 말씀해 주세요.');
+            window.appendMessage('coord', '감사합니다! 받으신 한국어 확정 문자를 이곳에 보내주세요. 내용을 확인하여 다음 단계 안내를 도와드리겠습니다.');
         }, 600);
     };
 
