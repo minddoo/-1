@@ -2312,7 +2312,34 @@ function initDashboard() {
     window.filterHospitals = function(term) {
         const hospitals = JSON.parse(document.body.getAttribute('data-hospitals') || '[]');
         const cleanTerm = term.trim().toLowerCase();
+        const searchReadyTerm = cleanTerm.replace(/\s+/g, ''); 
         
+        // Simple mapping for common medical terms (En -> Ko)
+        const termMapping = {
+            'colon': '대장',
+            'colonoscopy': '대장내시경',
+            'gastroscopy': '위내시경',
+            'stomach': '위',
+            'ultrasound': '초음파',
+            'breast': '유방',
+            'prostate': '전립선',
+            'thyroid': '갑상선',
+            'bone': '골밀도',
+            'blood': '혈액',
+            'liver': '간',
+            'brain': '뇌',
+            'lung': '폐',
+            'heart': '심장'
+        };
+        
+        let mappedTerm = searchReadyTerm;
+        for (const [en, ko] of Object.entries(termMapping)) {
+            if (searchReadyTerm.includes(en)) {
+                mappedTerm = ko;
+                break;
+            }
+        }
+
         hospitals.forEach((h, i) => {
             const li = document.getElementById(`li-hospital-${i}`);
             if (!li) return;
@@ -2322,18 +2349,26 @@ function initDashboard() {
                 return;
             }
 
+            const checkMatch = (text) => {
+                if (!text) return false;
+                const cleanText = text.toString().toLowerCase().replace(/\s+/g, '');
+                return cleanText.includes(searchReadyTerm) || cleanText.includes(mappedTerm);
+            };
+
             // Search in name, location, and all programs/items
-            let found = h.name.toLowerCase().includes(cleanTerm) || h.loc.toLowerCase().includes(cleanTerm);
+            let found = checkMatch(h.name) || checkMatch(h.loc);
             
             if (!found) {
                 h.categories.forEach(cat => {
+                    if (found) return;
                     cat.programs.forEach(p => {
-                        if (p.title.toLowerCase().includes(cleanTerm)) {
+                        if (found) return;
+                        if (checkMatch(p.title)) {
                             found = true;
                         }
                         if (!found && p.details) {
                             for (const catItems of Object.values(p.details)) {
-                                if (catItems.some(item => item.toLowerCase().includes(cleanTerm))) {
+                                if (catItems.some(item => checkMatch(item))) {
                                     found = true;
                                     break;
                                 }
