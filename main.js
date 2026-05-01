@@ -2642,9 +2642,14 @@ function initDashboard() {
                 }
 
                 const resultHtml = `
-                    <div style="background: #fff; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; color: #1e293b; line-height: 1.5; white-space: pre-wrap;">
-                        <div style="font-weight: 800; color: var(--primary); margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase;">Translation (${langLabel})</div>
-                        ${translated}
+                    <div style="background: #ffffff; padding: 18px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: left; width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #f1f5f9;">
+                            <i class="fa-solid fa-language" style="color: var(--primary); font-size: 0.9rem;"></i>
+                            <span style="font-weight: 800; color: var(--primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Translation (${langLabel})</span>
+                        </div>
+                        <div style="font-size: 0.95rem; color: #334155; line-height: 1.6; white-space: pre-wrap; font-weight: 500;">
+                            ${translated}
+                        </div>
                     </div>
                 `;
                 window.appendMessage('coord', resultHtml);
