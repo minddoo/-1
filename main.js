@@ -1769,7 +1769,7 @@ function initDashboard() {
                     { 
                         name: "세란병원 센터", 
                         loc: "서울(종로/독립문)", 
-                        url: "https://www.seran.co.kr/05_center/center01_03.php",
+                        url: "https://seran.co.kr/index.php/html/487",
                         categories: [
                             {
                                 name: "종합검진 (Comprehensive)",
