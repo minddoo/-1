@@ -956,9 +956,34 @@ function initDashboard() {
                             <div class="msg-time">${msg.timeStr}</div>
                         </div>
                     `;
-                } else {
                     row.className = 'message-row system';
-                    row.innerHTML = msg.content;
+                    let content = msg.content;
+                    // Patch: If it's a hospital list but missing search bar, inject it
+                    if (content.includes('hospital-integrated-card') && !content.includes('hospital-search-wrapper')) {
+                        const searchBarHtml = `
+                            <div class="hospital-search-wrapper" style="margin-bottom: 15px; position: relative;">
+                                <input type="text" id="hospital-search-input" placeholder="원하시는 검사 항목을 검색해 보세요 (예: 위내시경, MRI, 대장)" 
+                                    style="width: 100%; padding: 12px 40px 12px 15px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.85rem; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
+                                    oninput="window.filterHospitals(this.value)">
+                                <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;"></i>
+                            </div>
+                        `;
+                        // Find the <ul> or end of notice box and inject before it
+                        if (content.includes('<ul')) {
+                            content = content.replace('<ul', `${searchBarHtml}<ul id="hospital-main-list"`);
+                        }
+                        
+                        // Also patch <li> to add IDs if missing
+                        if (content.includes('class="hospital-list-item"') && !content.includes('id="li-hospital-')) {
+                            let parts = content.split('class="hospital-list-item"');
+                            let patchedContent = parts[0];
+                            for (let i = 1; i < parts.length; i++) {
+                                patchedContent += `id="li-hospital-${i-1}" class="hospital-list-item"` + parts[i];
+                            }
+                            content = patchedContent;
+                        }
+                    }
+                    row.innerHTML = content;
                 }
                 chatMessages.appendChild(row);
             });
