@@ -2488,7 +2488,28 @@ function initDashboard() {
             window.appendMessage('user', '아니오, 없습니다.');
         }
         setTimeout(() => {
-            window.appendMessage('coord', `좋습니다! **${hName}**의 **${pName}** 프로그램 예약을 위해 필요한 추가 서류와 절차를 안내해 드리겠습니다. 잠시만 기다려 주세요...`);
+            const waitMsg = `감사합니다! 고객님이 선택하신 **${hName}**의 **${pName}** 프로그램 예약 요청이 담당 코디네이터에게 전달되었습니다.
+                <br><br>의료기관의 예약 상황을 확인하여 최종 확정 문자를 발송해 드릴 예정입니다. 잠시만 기다려 주세요!
+                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 8px;">
+                    <button style="padding: 10px; font-size: 0.85rem; font-weight: 700; background: #fff; color: #ef4444; border: 1px solid #fee2e2; border-radius: 10px; cursor: pointer;" onclick="window.reportNoConfirmation('${hName}')">1일이 지났는데 확정문자를 못받았어요</button>
+                    <button style="padding: 10px; font-size: 0.85rem; font-weight: 700; background: #fff; color: #22c55e; border: 1px solid #dcfce7; border-radius: 10px; cursor: pointer;" onclick="window.reportConfirmed('${hName}', '${pName}')">의료기관에서 확정문자를 받았어요</button>
+                </div>`;
+            window.appendMessage('coord', waitMsg);
+        }, 600);
+    };
+
+    window.reportNoConfirmation = function(hName) {
+        window.appendMessage('user', '1일이 지났는데 확정문자를 못 받았어요.');
+        setTimeout(() => {
+            window.appendMessage('coord', `불편을 드려 죄송합니다. **${hName}** 측에 예약 확인이 지연되고 있는 것 같습니다. 제가 즉시 병원 담당자에게 확인하여 1시간 내로 다시 안내해 드리겠습니다. 잠시만 더 기다려 주시면 감사하겠습니다.`);
+        }, 600);
+    };
+
+    window.reportConfirmed = function(hName, pName) {
+        window.appendMessage('user', '의료기관에서 확정문자를 받았어요.');
+        setTimeout(() => {
+            window.appendMessage('coord', `축하드립니다! **${hName}**의 **${pName}** 프로그램 예약이 최종 확정되었습니다. 🎉<br><br>이제 다음 단계인 **검진 전 준비사항**에 대해 안내해 드릴까요?`);
+            // Here you could move to the 'Preparation' phase in the UI
         }, 600);
     };
 
