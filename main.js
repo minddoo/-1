@@ -909,15 +909,11 @@ function initDashboard() {
     if (dashboardInitialized) return;
 
     const savedLang = localStorage.getItem('preferred-lang') || 'en';
-    updateWelcomeMessage(savedLang);
-
+    
     const chatMessages = document.getElementById('chat-messages');
-    const chatInput = document.getElementById('chat-input');
-    const chatSend = document.getElementById('chat-send');
-    const dashLinks = document.querySelectorAll('.dash-nav-link');
-
-    // Utility: Append Message
-    window.appendMessage = function(sender, content, type = 'text') {
+    
+    // Define appendMessage first so loadChatHistory can use it
+    window.appendMessage = function(sender, content, type = 'text', skipSave = false) {
         const row = document.createElement('div');
         row.className = `message-row ${sender}`;
         
@@ -933,12 +929,58 @@ function initDashboard() {
             `;
         } else if (type === 'system') {
             row.className = 'message-row system';
-            row.innerHTML = content; // Assuming content is pre-formatted HTML for system-block
+            row.innerHTML = content;
         }
 
         chatMessages.appendChild(row);
         chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        if (!skipSave) {
+            const history = JSON.parse(localStorage.getItem('chat_history') || '[]');
+            history.push({ sender, content, type, timeStr });
+            localStorage.setItem('chat_history', JSON.stringify(history));
+        }
     };
+
+    window.loadChatHistory = function() {
+        const history = JSON.parse(localStorage.getItem('chat_history') || '[]');
+        if (history.length > 0) {
+            chatMessages.innerHTML = '';
+            history.forEach(msg => {
+                const row = document.createElement('div');
+                row.className = `message-row ${msg.sender}`;
+                if (msg.type === 'text') {
+                    row.innerHTML = `
+                        <div class="msg-bubble">
+                            ${msg.content}
+                            <div class="msg-time">${msg.timeStr}</div>
+                        </div>
+                    `;
+                } else {
+                    row.className = 'message-row system';
+                    row.innerHTML = msg.content;
+                }
+                chatMessages.appendChild(row);
+            });
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        } else {
+            updateWelcomeMessage(savedLang);
+        }
+    };
+
+    window.loadChatHistory();
+
+    // Restart Consultation
+    window.restartConsultation = function() {
+        if (confirm('모든 상담 기록을 초기화하고 처음부터 다시 시작하시겠습니까?')) {
+            localStorage.removeItem('chat_history');
+            localStorage.removeItem('consultationData');
+            location.reload();
+        }
+    };
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+    const dashLinks = document.querySelectorAll('.dash-nav-link');
 
     // Utility: Show Specific Service Block
     window.showChatBlock = function(blockType) {

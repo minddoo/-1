@@ -997,7 +997,10 @@
                             <i class="fa-solid fa-calendar-plus"></i> Request Change
                         </a>
                     </nav>
-                    <div class="dash-sidebar-footer">
+                    <div class="dash-sidebar-footer" style="padding-top: 20px; border-top: 1px solid #f1f5f9; margin-top: auto; display: flex; flex-direction: column; gap: 8px;">
+                        <button onclick="window.restartConsultation()" style="width: 100%; padding: 12px; background: #fef2f2; color: #ef4444; border: 1px solid #fee2e2; border-radius: 12px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+                            <i class="fa-solid fa-rotate-right"></i> 상담 처음부터 다시 시작
+                        </button>
                         <button id="dash-logout-btn" class="btn-logout-minimal">
                             <i class="fa-solid fa-right-from-bracket"></i> Sign Out
                         </button>
