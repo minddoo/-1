@@ -956,6 +956,7 @@ function initDashboard() {
                             <div class="msg-time">${msg.timeStr}</div>
                         </div>
                     `;
+                } else {
                     row.className = 'message-row system';
                     let content = msg.content;
                     // Patch: If it's a hospital list but missing search bar, inject it
