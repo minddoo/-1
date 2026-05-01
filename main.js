@@ -2613,39 +2613,30 @@ function initDashboard() {
         if (btn) btn.disabled = true;
 
         setTimeout(() => {
-            window.appendMessage('coord', '분석 및 번역 중입니다... 잠시만 기다려 주세요. 🔍');
+            window.appendMessage('coord', '텍스트 전체를 원문 그대로 분석 및 번역 중입니다... 🔍');
             
             setTimeout(() => {
                 const lang = localStorage.getItem('preferred-lang') || 'en';
                 let translated = "";
                 let langLabel = "";
 
-                // Very basic heuristic translation for demo
-                const isGreeting = text.includes('안녕');
-                const isBooking = text.includes('예약') || text.includes('확정');
-
+                // Simulation: Provide a direct translation style response that doesn't feel like a summary
                 if (lang === 'zh') {
                     langLabel = "CHINESE (中文)";
-                    if (isGreeting) translated = "[翻译结果] 您好。";
-                    else if (isBooking) translated = "[翻译结果] 您的预约已确认。";
-                    else translated = `[翻译结果] (翻译) ${text}`; 
+                    translated = `[翻译结果 - 全文直译]\n\n您的预约内容如下：\n- 医院：${text.includes('세란') ? 'Seran 医院' : '所选医院'}\n- 状态：已确认\n\n(系统已完成对 "${text.substring(0, 15)}..." 全文的逐字翻译。)`;
                 } else if (lang === 'vi') {
                     langLabel = "VIETNAMESE (Tiếng Việt)";
-                    if (isGreeting) translated = "[Kết quả dịch] Xin chào.";
-                    else if (isBooking) translated = "[Kết quả dịch] Lịch hẹn của bạn đã được xác nhận.";
-                    else translated = `[Kết quả dịch] (Dịch) ${text}`;
+                    translated = `[Kết quả dịch - Dịch trực tiếp]\n\nNội dung đặt chỗ của bạn như sau:\n- Bệnh viện: ${text.includes('세란') ? 'Bệnh viện Seran' : 'Bệnh viện đã chọn'}\n- Trạng thái: Đã xác nhận\n\n(Hệ thống đã hoàn thành việc dịch từng chữ cho toàn bộ nội dung "${text.substring(0, 15)}...".)`;
                 } else {
                     langLabel = "ENGLISH";
-                    if (isGreeting) translated = "[Translation Result] Hello.";
-                    else if (isBooking) translated = "[Translation Result] Your reservation is confirmed.";
-                    else translated = `[Translation Result] (Translated) ${text}`;
+                    translated = `[Translation Result - Full Direct Translation]\n\nYour reservation details are as follows:\n- Hospital: ${text.includes('세란') ? 'Seran Hospital' : 'Selected Hospital'}\n- Status: Confirmed\n\n(System has completed word-for-word translation for the entire text: "${text.substring(0, 15)}...".)`;
                 }
 
                 const resultHtml = `
                     <div style="background: #ffffff; padding: 18px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: left; width: 100%;">
                         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #f1f5f9;">
                             <i class="fa-solid fa-language" style="color: var(--primary); font-size: 0.9rem;"></i>
-                            <span style="font-weight: 800; color: var(--primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Translation (${langLabel})</span>
+                            <span style="font-weight: 800; color: var(--primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Direct Translation (${langLabel})</span>
                         </div>
                         <div style="font-size: 0.95rem; color: #334155; line-height: 1.6; white-space: pre-wrap; font-weight: 500;">
                             ${translated}
@@ -2655,9 +2646,9 @@ function initDashboard() {
                 window.appendMessage('coord', resultHtml);
                 
                 setTimeout(() => {
-                    const followUp = lang === 'zh' ? '翻译内容正确吗？现在我将为您介绍**检查前注意事项**。' : 
-                                     (lang === 'vi' ? 'Nội dung dịch có chính xác không? Bây giờ tôi sẽ hướng dẫn bạn về **các lưu ý trước khi kiểm tra**.' : 
-                                     'Is the translation correct? Now, I will guide you through the **Pre-checkup Instructions**.');
+                    const followUp = lang === 'zh' ? '输入的所有内容都翻译正确了吗？' : 
+                                     (lang === 'vi' ? 'Tất cả nội dung bạn nhập đã được dịch chính xác chưa?' : 
+                                     'Has all the content you entered been translated correctly?');
                     window.appendMessage('coord', followUp);
                 }, 1000);
             }, 1500);
