@@ -943,6 +943,10 @@ function initDashboard() {
     };
 
     window.loadChatHistory = function() {
+        const cachedHospitals = localStorage.getItem('cached_hospitals');
+        if (cachedHospitals) {
+            document.body.setAttribute('data-hospitals', cachedHospitals);
+        }
         const history = JSON.parse(localStorage.getItem('chat_history') || '[]');
         if (history.length > 0) {
             chatMessages.innerHTML = '';
@@ -965,7 +969,7 @@ function initDashboard() {
                             <div class="hospital-search-wrapper" style="margin-bottom: 15px; position: relative;">
                                 <input type="text" id="hospital-search-input" placeholder="원하시는 검사 항목을 검색해 보세요 (예: 위내시경, MRI, 대장)" 
                                     style="width: 100%; padding: 12px 40px 12px 15px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.85rem; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
-                                    oninput="window.filterHospitals(this.value)">
+                                    oninput="window.filterHospitals(this)">
                                 <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;"></i>
                             </div>
                         `;
@@ -2143,7 +2147,7 @@ function initDashboard() {
                         <div class="hospital-search-wrapper" style="margin-bottom: 15px; position: relative;">
                             <input type="text" id="hospital-search-input" placeholder="원하시는 검사 항목을 검색해 보세요 (예: 위내시경, MRI, 대장)" 
                                 style="width: 100%; padding: 12px 40px 12px 15px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.85rem; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
-                                oninput="window.filterHospitals(this.value)">
+                                oninput="window.filterHospitals(this)">
                             <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;"></i>
                         </div>
                         <ul id="hospital-main-list" style="list-style: none; padding: 0; margin: 0;">
@@ -2180,11 +2184,11 @@ function initDashboard() {
                                         
                                         <div id="${hospitalId}" class="hospital-programs">
                                             ${h.categories.map((cat, catIdx) => `
-                                                <div id="cat-group-${i}-${catIdx}" class="program-category-group">
+                                                <div class="program-category-group">
                                                     <div class="category-label"><i class="fa-solid ${cat.icon || 'fa-clipboard-check'}"></i> ${cat.name}</div>
                                                     <div class="program-tags-container">
                                                         ${cat.programs.map((p, pIdx) => `
-                                                            <div id="chip-${i}-${catIdx}-${pIdx}" class="program-item-chip" onclick="event.stopPropagation(); openProgramModal(${i}, ${catIdx}, ${pIdx})">
+                                                            <div class="program-item-chip" onclick="event.stopPropagation(); openProgramModal(${i}, ${catIdx}, ${pIdx})">
                                                                 <span class="chip-title ">${p.title}</span>
                                                                 <i class="fa-solid fa-chevron-right chip-arrow"></i>
                                                             </div>
@@ -2199,8 +2203,10 @@ function initDashboard() {
                         </ul>
                     </div>
                 `;
-                // Store hospitals in body for easier access by modal
-                document.body.setAttribute('data-hospitals', JSON.stringify(hospitals));
+                // Store hospitals in body and localStorage for persistence
+                const hospitalsJson = JSON.stringify(hospitals);
+                document.body.setAttribute('data-hospitals', hospitalsJson);
+                localStorage.setItem('cached_hospitals', hospitalsJson);
                 break;
             case 'prep':
                 welcomeText = "Preparation is key for a successful check-up. I've prepared a personalized checklist for you.";
@@ -2309,7 +2315,11 @@ function initDashboard() {
         }
     };
 
-    window.filterHospitals = function(term) {
+    window.filterHospitals = function(inputEl) {
+        const term = inputEl.value;
+        const card = inputEl.closest('.hospital-integrated-card');
+        if (!card) return;
+
         const hospitals = JSON.parse(document.body.getAttribute('data-hospitals') || '[]');
         const cleanTerm = term.trim().toLowerCase();
         const searchReadyTerm = cleanTerm.replace(/\s+/g, ''); 
@@ -2341,20 +2351,11 @@ function initDashboard() {
         }
 
         hospitals.forEach((h, i) => {
-            const li = document.getElementById(`li-hospital-${i}`);
-            const progContainer = document.getElementById(`hospital-${i}`);
+            const li = card.querySelector(`[id="li-hospital-${i}"]`);
             if (!li) return;
 
             if (!cleanTerm) {
                 li.style.display = 'block';
-                li.querySelectorAll('.program-item-chip').forEach(chip => {
-                    chip.style.display = 'flex';
-                    chip.style.borderColor = '#e2e8f0';
-                    chip.style.background = '#f8fafc';
-                    chip.style.opacity = '1';
-                });
-                li.querySelectorAll('.program-category-group').forEach(g => g.style.display = 'block');
-                if (progContainer) progContainer.classList.remove('active');
                 return;
             }
 
@@ -2364,69 +2365,41 @@ function initDashboard() {
                 return cleanText.includes(searchReadyTerm) || cleanText.includes(mappedTerm);
             };
 
-            let hospitalMatches = checkMatch(h.name) || checkMatch(h.loc);
-            let anyProgramMatches = false;
-
-            const chips = li.querySelectorAll('.program-item-chip');
-            const catGroups = li.querySelectorAll('.program-category-group');
-            let chipIdx = 0;
-
-            h.categories.forEach((cat, catIdx) => {
-                let categoryHasMatch = false;
-                cat.programs.forEach((p, pIdx) => {
-                    let programMatches = checkMatch(p.title);
-                    if (!programMatches && p.details) {
-                        for (const catItems of Object.values(p.details)) {
-                            if (catItems.some(item => checkMatch(item))) {
-                                programMatches = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    const chip = chips[chipIdx++];
-                    if (chip) {
-                        if (programMatches) {
-                            chip.style.display = 'flex';
-                            chip.style.borderColor = 'var(--primary)';
-                            chip.style.background = 'rgba(46, 204, 113, 0.05)';
-                            chip.style.opacity = '1';
-                            categoryHasMatch = true;
-                            anyProgramMatches = true;
-                        } else {
-                            if (hospitalMatches) {
-                                chip.style.display = 'flex';
-                                chip.style.opacity = '0.4';
-                                chip.style.borderColor = '#e2e8f0';
-                                chip.style.background = '#f8fafc';
-                            } else {
-                                chip.style.display = 'none';
-                            }
-                        }
-                    }
-                });
-                if (catGroups[catIdx]) {
-                    catGroups[catIdx].style.display = (categoryHasMatch || hospitalMatches) ? 'block' : 'none';
-                }
-            });
-
-            const shouldShow = hospitalMatches || anyProgramMatches;
-            li.style.display = shouldShow ? 'block' : 'none';
+            // Search in name, location, and all programs/items
+            let found = checkMatch(h.name) || checkMatch(h.loc);
             
-            if (shouldShow && progContainer && cleanTerm.length > 0) {
-                progContainer.classList.add('active');
+            if (!found) {
+                h.categories.forEach(cat => {
+                    if (found) return;
+                    cat.programs.forEach(p => {
+                        if (found) return;
+                        if (checkMatch(p.title)) {
+                            found = true;
+                        }
+                        if (!found && p.details) {
+                            for (const catItems of Object.values(p.details)) {
+                                if (catItems.some(item => checkMatch(item))) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                    });
+                });
             }
+
+            li.style.display = found ? 'block' : 'none';
         });
 
         // Show empty message if none found
-        let emptyMsg = document.getElementById('hospital-empty-search');
-        const visibleCount = Array.from(document.querySelectorAll('.hospital-list-item')).filter(el => el.style.display !== 'none').length;
+        let emptyMsg = card.querySelector('.hospital-empty-search');
+        const visibleCount = Array.from(card.querySelectorAll('.hospital-list-item')).filter(el => el.style.display !== 'none').length;
         
         if (visibleCount === 0) {
             if (!emptyMsg) {
-                const list = document.getElementById('hospital-main-list');
+                const list = card.querySelector('ul');
                 emptyMsg = document.createElement('div');
-                emptyMsg.id = 'hospital-empty-search';
+                emptyMsg.className = 'hospital-empty-search';
                 emptyMsg.style.padding = '30px 10px';
                 emptyMsg.style.textAlign = 'center';
                 emptyMsg.style.color = '#94a3b8';
