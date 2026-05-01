@@ -2063,7 +2063,17 @@ function initDashboard() {
                 ];
 
                 blockHtml = `
-                    <div class="msg-bubble hospital-integrated-card" style="background: white; border-radius: 12px; padding: 16px; border: 1px solid #edf2f7; width: 90%; align-self: flex-start;">
+                    <div class="msg-bubble hospital-integrated-card" style="background: white; border-radius: 12px; padding: 20px; border: 1px solid #edf2f7; width: 92%; align-self: flex-start; box-shadow: var(--shadow-sm);">
+                        <div class="hospital-notice-box" style="margin-bottom: 20px; padding: 14px; background: #f8fafc; border-radius: 10px; border-left: 4px solid var(--primary);">
+                            <p style="margin: 0 0 8px 0; font-size: 0.8rem; color: #475569; line-height: 1.5;">
+                                <i class="fa-solid fa-circle-info" style="color: var(--primary); margin-right: 6px;"></i>
+                                의료기관의 검진 프로그램 및 비용은 주기적으로 변경될 수 있습니다. CHECKIT에서 제공하는 정보는 실제와 다소 차이가 있을 수 있으니, 정확한 내용은 홈페이지를 통해 한 번 더 확인해 주시기 바랍니다.
+                            </p>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--primary); font-weight: 600;">
+                                <i class="fa-solid fa-arrow-pointer" style="margin-right: 6px;"></i>
+                                '정보 보기' 버튼을 클릭하시면 해당 의료기관의 상세 프로그램과 항목을 즉시 확인하실 수 있습니다.
+                            </p>
+                        </div>
                         <ul style="list-style: none; padding: 0; margin: 0;">
                             ${hospitals.map((h, i) => {
                                 const proxyUrl = h.url;
