@@ -2636,13 +2636,34 @@ function initDashboard() {
                 window.appendMessage('coord', resultHtml);
                 
                 setTimeout(() => {
-                    const followUp = lang === 'zh' ? '输入的所有内容都翻译正确了吗？' : 
-                                     (lang === 'vi' ? 'Tất cả nội dung bạn nhập đã được dịch chính xác chưa?' : 
-                                     'Has all the content you entered been translated correctly?');
-                    window.appendMessage('coord', followUp);
+                    const confirmText = lang === 'zh' ? '您确认好翻译好的内容了吗？' : 
+                                       (lang === 'vi' ? 'Bạn đã kiểm tra kỹ nội dung được dịch chưa?' : 
+                                       'Did you check the translated notification content?');
+                    
+                    const btnHtml = `
+                        <div style="margin-top: 12px; display: flex; gap: 8px;">
+                            <button style="padding: 8px 24px; font-size: 0.85rem; font-weight: 800; background: #FFD700; color: #000; border: none; border-radius: 10px; cursor: pointer;" onclick="window.confirmTranslation(true)">예</button>
+                            <button style="padding: 8px 24px; font-size: 0.85rem; font-weight: 800; background: #90EE90; color: #000; border: none; border-radius: 10px; cursor: pointer;" onclick="window.confirmTranslation(false)">아니오</button>
+                        </div>
+                    `;
+                    window.appendMessage('coord', `${confirmText}${btnHtml}`);
                 }, 1000);
             }, 1500);
         }, 600);
+    };
+
+    window.confirmTranslation = function(isConfirmed) {
+        if (isConfirmed) {
+            window.appendMessage('user', '예, 확인했습니다.');
+            setTimeout(() => {
+                window.appendMessage('coord', '좋습니다! 그럼 이제 가장 중요한 **검진 전 준비사항 및 주의사항**에 대해 안내해 드리겠습니다. 잠시만 기다려 주세요.');
+            }, 600);
+        } else {
+            window.appendMessage('user', '아니오, 아직입니다.');
+            setTimeout(() => {
+                window.appendMessage('coord', '이해하기 어려운 부분이 있으신가요? 내용을 다시 한번 천천히 확인해 보시고, 더 궁금한 점이 있다면 언제든 물어봐 주세요.');
+            }, 600);
+        }
     };
 
     window.reportConfirmed = function(hName, pName) {
