@@ -4243,3 +4243,11 @@ body {
     transform: scale(1.05);
     box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
 }
+
+/* Hide Google Translate Toolbar */
+.goog-te-banner-frame.skiptranslate, .goog-te-banner-frame {
+    display: none !important;
+}
+body {
+    top: 0px !important;
+}
