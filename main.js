@@ -1765,22 +1765,7 @@ function initDashboard() {
                             }
                         ]
                     },
-                    { 
-                        name: "삼성서울병원 센터", 
-                        loc: "서울(일원동)", 
-                        url: "https://www.samsunghospital.com/home/health/program/individual/basic_info.do",
-                        categories: [
-                            {
-                                name: "종합검진 (Comprehensive)",
-                                icon: "fa-clipboard-check",
-                                programs: [
-                                    { title: "라이프스테이지별", items: "연령 및 생애 주기별 특성에 맞춘 맞춤형 건강검진 코스." },
-                                    { title: "분야별 정밀", items: "암, 심혈관 등 특정 분야에 집중된 고해상도 정밀 검사 패키지." },
-                                    { title: "프리미엄", items: "전담 교수 상담과 최첨단 장비 중심의 프리미엄 검진." }
-                                ]
-                            }
-                        ]
-                    },
+
                     { 
                         name: "세란병원 센터", 
                         loc: "서울(종로/독립문)", 
