@@ -4146,3 +4146,100 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
 }
 
+
+/* Premium Selection Modal Styling */
+#selection-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 24px;
+}
+
+.selection-item-card {
+    background: #ffffff;
+    border: 1px solid #eef2f6;
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    cursor: pointer;
+}
+
+.selection-item-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+    border-color: rgba(46, 204, 113, 0.3);
+}
+
+.selection-card-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.selection-icon-circle {
+    width: 52px;
+    height: 52px;
+    background: #f0fdf4;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+}
+
+.selection-item-card:hover .selection-icon-circle {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.selection-card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.selection-tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+.selection-main-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.01em;
+}
+
+.selection-card-right {
+    display: flex;
+    align-items: center;
+}
+
+.btn-premium-select {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2);
+}
+
+.btn-premium-select:hover {
+    background: #27ae60;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+}

@@ -2327,13 +2327,30 @@ function initDashboard() {
         let html = '';
         hospital.categories.forEach((cat, catIdx) => {
             cat.programs.forEach((p, pIdx) => {
+                // Determine icon based on category or title
+                let iconClass = 'fa-clipboard-check';
+                if (cat.name.includes('프리미엄') || p.title.includes('골드') || p.title.includes('크리스탈')) iconClass = 'fa-crown';
+                else if (cat.name.includes('정밀')) iconClass = 'fa-microscope';
+                else if (cat.name.includes('여성')) iconClass = 'fa-venus';
+                else if (cat.name.includes('남성')) iconClass = 'fa-mars';
+                else if (p.title.includes('베이직') || p.title.includes('화이트')) iconClass = 'fa-star-of-life';
+
                 html += `
-                    <div class="selection-item">
-                        <div class="selection-info">
-                            <span class="selection-cat">${cat.name}</span>
-                            <span class="selection-title ">${p.title}</span>
+                    <div class="selection-item-card" onclick="selectProgram(${hIdx}, ${catIdx}, ${pIdx})">
+                        <div class="selection-card-left">
+                            <div class="selection-icon-circle">
+                                <i class="fa-solid ${iconClass}"></i>
+                            </div>
+                            <div class="selection-card-info">
+                                <span class="selection-tag">${cat.name}</span>
+                                <span class="selection-main-title">${p.title}</span>
+                            </div>
                         </div>
-                        <button class="btn-confirm-selection" onclick="selectProgram(${hIdx}, ${catIdx}, ${pIdx})">선택하기</button>
+                        <div class="selection-card-right">
+                            <button class="btn-premium-select" onclick="event.stopPropagation(); selectProgram(${hIdx}, ${catIdx}, ${pIdx})">
+                                선택하기
+                            </button>
+                        </div>
                     </div>
                 `;
             });
