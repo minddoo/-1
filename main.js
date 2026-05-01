@@ -2620,15 +2620,25 @@ function initDashboard() {
                 let translated = "";
                 let langLabel = "";
 
+                // Very basic heuristic translation for demo
+                const isGreeting = text.includes('안녕');
+                const isBooking = text.includes('예약') || text.includes('확정');
+
                 if (lang === 'zh') {
                     langLabel = "CHINESE (中文)";
-                    translated = `[翻译结果]\n\n您的预约已成功确认。请按预定时间前往医院。记得带上您的身份证件。`;
+                    if (isGreeting) translated = "[翻译结果] 您好。";
+                    else if (isBooking) translated = "[翻译结果] 您的预约已确认。";
+                    else translated = `[翻译结果] (翻译) ${text}`; 
                 } else if (lang === 'vi') {
                     langLabel = "VIETNAMESE (Tiếng Việt)";
-                    translated = `[Kết quả dịch]\n\nLịch hẹn của bạn đã được xác nhận thành công. Vui lòng đến bệnh viện theo đúng thời gian đã hẹn. Hãy mang theo giấy tờ tùy thân.`;
+                    if (isGreeting) translated = "[Kết quả dịch] Xin chào.";
+                    else if (isBooking) translated = "[Kết quả dịch] Lịch hẹn của bạn đã được xác nhận.";
+                    else translated = `[Kết quả dịch] (Dịch) ${text}`;
                 } else {
                     langLabel = "ENGLISH";
-                    translated = `[Translation Result]\n\nYour reservation has been successfully confirmed. Please visit the hospital at the scheduled time. Don't forget to bring your ID.`;
+                    if (isGreeting) translated = "[Translation Result] Hello.";
+                    else if (isBooking) translated = "[Translation Result] Your reservation is confirmed.";
+                    else translated = `[Translation Result] (Translated) ${text}`;
                 }
 
                 const resultHtml = `
