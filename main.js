@@ -2180,11 +2180,11 @@ function initDashboard() {
                                         
                                         <div id="${hospitalId}" class="hospital-programs">
                                             ${h.categories.map((cat, catIdx) => `
-                                                <div class="program-category-group">
+                                                <div id="cat-group-${i}-${catIdx}" class="program-category-group">
                                                     <div class="category-label"><i class="fa-solid ${cat.icon || 'fa-clipboard-check'}"></i> ${cat.name}</div>
                                                     <div class="program-tags-container">
                                                         ${cat.programs.map((p, pIdx) => `
-                                                            <div class="program-item-chip" onclick="event.stopPropagation(); openProgramModal(${i}, ${catIdx}, ${pIdx})">
+                                                            <div id="chip-${i}-${catIdx}-${pIdx}" class="program-item-chip" onclick="event.stopPropagation(); openProgramModal(${i}, ${catIdx}, ${pIdx})">
                                                                 <span class="chip-title ">${p.title}</span>
                                                                 <i class="fa-solid fa-chevron-right chip-arrow"></i>
                                                             </div>
@@ -2342,10 +2342,19 @@ function initDashboard() {
 
         hospitals.forEach((h, i) => {
             const li = document.getElementById(`li-hospital-${i}`);
+            const progContainer = document.getElementById(`hospital-${i}`);
             if (!li) return;
 
             if (!cleanTerm) {
                 li.style.display = 'block';
+                li.querySelectorAll('.program-item-chip').forEach(chip => {
+                    chip.style.display = 'flex';
+                    chip.style.borderColor = '#e2e8f0';
+                    chip.style.background = '#f8fafc';
+                    chip.style.opacity = '1';
+                });
+                li.querySelectorAll('.program-category-group').forEach(g => g.style.display = 'block');
+                if (progContainer) progContainer.classList.remove('active');
                 return;
             }
 
@@ -2355,30 +2364,58 @@ function initDashboard() {
                 return cleanText.includes(searchReadyTerm) || cleanText.includes(mappedTerm);
             };
 
-            // Search in name, location, and all programs/items
-            let found = checkMatch(h.name) || checkMatch(h.loc);
-            
-            if (!found) {
-                h.categories.forEach(cat => {
-                    if (found) return;
-                    cat.programs.forEach(p => {
-                        if (found) return;
-                        if (checkMatch(p.title)) {
-                            found = true;
-                        }
-                        if (!found && p.details) {
-                            for (const catItems of Object.values(p.details)) {
-                                if (catItems.some(item => checkMatch(item))) {
-                                    found = true;
-                                    break;
-                                }
+            let hospitalMatches = checkMatch(h.name) || checkMatch(h.loc);
+            let anyProgramMatches = false;
+
+            const chips = li.querySelectorAll('.program-item-chip');
+            const catGroups = li.querySelectorAll('.program-category-group');
+            let chipIdx = 0;
+
+            h.categories.forEach((cat, catIdx) => {
+                let categoryHasMatch = false;
+                cat.programs.forEach((p, pIdx) => {
+                    let programMatches = checkMatch(p.title);
+                    if (!programMatches && p.details) {
+                        for (const catItems of Object.values(p.details)) {
+                            if (catItems.some(item => checkMatch(item))) {
+                                programMatches = true;
+                                break;
                             }
                         }
-                    });
-                });
-            }
+                    }
 
-            li.style.display = found ? 'block' : 'none';
+                    const chip = chips[chipIdx++];
+                    if (chip) {
+                        if (programMatches) {
+                            chip.style.display = 'flex';
+                            chip.style.borderColor = 'var(--primary)';
+                            chip.style.background = 'rgba(46, 204, 113, 0.05)';
+                            chip.style.opacity = '1';
+                            categoryHasMatch = true;
+                            anyProgramMatches = true;
+                        } else {
+                            if (hospitalMatches) {
+                                chip.style.display = 'flex';
+                                chip.style.opacity = '0.4';
+                                chip.style.borderColor = '#e2e8f0';
+                                chip.style.background = '#f8fafc';
+                            } else {
+                                chip.style.display = 'none';
+                            }
+                        }
+                    }
+                });
+                if (catGroups[catIdx]) {
+                    catGroups[catIdx].style.display = (categoryHasMatch || hospitalMatches) ? 'block' : 'none';
+                }
+            });
+
+            const shouldShow = hospitalMatches || anyProgramMatches;
+            li.style.display = shouldShow ? 'block' : 'none';
+            
+            if (shouldShow && progContainer && cleanTerm.length > 0) {
+                progContainer.classList.add('active');
+            }
         });
 
         // Show empty message if none found
