@@ -2575,24 +2575,7 @@ function initDashboard() {
     };
 
     window.finalPhoneConfirm = function() {
-        window.appendMessage('user', '알림톡을 받았어요');
-        setTimeout(() => {
-            const lang = localStorage.getItem('preferred-lang') || 'en';
-            let targetLangName = 'English';
-            if (lang === 'zh') targetLangName = '中文 (Chinese)';
-            if (lang === 'vi') targetLangName = 'Tiếng Việt (Vietnamese)';
-            
-            const translateBox = `
-                <div class="translation-box" style="margin-top: 10px; background: #f0f9ff; padding: 15px; border-radius: 12px; border: 1px solid #bae6fd;">
-                    <p style="margin: 0 0 10px 0; font-size: 0.85rem; color: #0369a1; font-weight: 600;">받으신 한국어 알림톡 내용을 아래에 붙여넣어 주세요. ${targetLangName}로 번역해 드립니다.</p>
-                    <textarea id="korean-msg-input" placeholder="여기에 내용을 복사해서 붙여넣어 주세요..." style="width: 100%; min-height: 80px; padding: 10px; border: 1px solid #7dd3fc; border-radius: 8px; font-size: 0.85rem; margin-bottom: 10px; resize: vertical;"></textarea>
-                    <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.85rem;" onclick="window.translateKoreanMsg()">번역하기</button>
-                </div>
-            `;
-            window.appendMessage('coord', translateBox);
-            const input = document.getElementById('korean-msg-input');
-            if (input) input.focus();
-        }, 600);
+        window.reportConfirmed('수정된 번호', '요청하신');
     };
 
     window.translateKoreanMsg = function() {
@@ -2656,10 +2639,27 @@ function initDashboard() {
     };
 
     window.reportConfirmed = function(hName, pName) {
-        window.appendMessage('user', '의료기관에서 확정문자를 받았어요.');
+        const userMsg = hName === '수정된 번호' ? '알림톡을 받았어요' : 
+                        (hName === '기존 선택' ? '알림톡을 받았습니다' : '의료기관에서 확정문자를 받았어요.');
+        window.appendMessage('user', userMsg);
+        
         setTimeout(() => {
-            window.appendMessage('coord', `축하드립니다! **${hName}**의 **${pName}** 프로그램 예약이 최종 확정되었습니다. 🎉<br><br>이제 다음 단계인 **검진 전 준비사항**에 대해 안내해 드릴까요?`);
-            // Here you could move to the 'Preparation' phase in the UI
+            const lang = localStorage.getItem('preferred-lang') || 'en';
+            let targetLangName = 'English';
+            if (lang === 'zh') targetLangName = '中文 (Chinese)';
+            if (lang === 'vi') targetLangName = 'Tiếng Việt (Vietnamese)';
+            
+            const translateBox = `
+                <div class="translation-box" style="margin-top: 10px; background: #f0f9ff; padding: 15px; border-radius: 12px; border: 1px solid #bae6fd;">
+                    <p style="margin: 0 0 10px 0; font-size: 0.85rem; color: #0369a1; font-weight: 600;">축하드립니다! 🎉 받으신 한국어 알림톡 내용을 아래에 붙여넣어 주세요. ${targetLangName}로 상세 내용을 번역해 드립니다.</p>
+                    <textarea id="korean-msg-input" placeholder="여기에 내용을 복사해서 붙여넣어 주세요..." style="width: 100%; min-height: 80px; padding: 10px; border: 1px solid #7dd3fc; border-radius: 8px; font-size: 0.85rem; margin-bottom: 10px; resize: vertical;"></textarea>
+                    <button class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.85rem;" onclick="window.translateKoreanMsg()">번역하기</button>
+                </div>
+            `;
+            window.appendMessage('coord', translateBox);
+            const allInputs = document.querySelectorAll('#korean-msg-input');
+            const input = allInputs[allInputs.length - 1];
+            if (input) input.focus();
         }, 600);
     };
 
