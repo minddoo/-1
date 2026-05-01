@@ -2469,17 +2469,30 @@ function initDashboard() {
     };
 
     window.submitAdditionalItems = function(hName, pName) {
-        const input = document.getElementById('extra-items-input');
+        // Use a more robust selector to find the active input
+        const allInputs = document.querySelectorAll('#extra-items-input');
+        const input = allInputs[allInputs.length - 1]; // Take the last one added
+        
+        if (!input) {
+            console.error("Additional items input not found");
+            return;
+        }
+
         const items = input.value.trim();
         if (!items) {
             alert('추가하실 항목을 입력해 주세요.');
             return;
         }
 
+        // Disable input and button to prevent double submission
+        input.disabled = true;
+        const btn = input.nextElementSibling;
+        if (btn) btn.disabled = true;
+
         window.appendMessage('user', `추가 항목: ${items}`);
         setTimeout(() => {
             window.appendMessage('coord', `확인했습니다! **${items}** 항목 추가가 가능한지 **${hName}** 측에 즉시 확인해 보겠습니다. <br><br>그럼 이어서 **${pName}** 프로그램 예약을 위한 절차를 안내해 드리겠습니다.`);
-            window.finishSelection(hName, pName, true); // Pass true to skip the "No" message
+            window.finishSelection(hName, pName, true);
         }, 600);
     };
 
@@ -2575,18 +2588,23 @@ function initDashboard() {
     
     // Auto-render or Restore Chat State
     const savedData = localStorage.getItem('consultationData');
+    const chatHistory = localStorage.getItem('chat_history');
+    
     if (savedData) {
-        // Restore history without showing form
-        const stepConsultation = document.getElementById('step-consultation');
-        if (stepConsultation) stepConsultation.style.display = 'none';
-        
-        const data = JSON.parse(savedData);
-        
-        // Render FULL history summary exactly as filled
-        window.appendMessage('user', generateConsultationSummaryHtml(data));
-        
-        // Immediately show hospitals
-        setTimeout(() => window.showChatBlock('booking'), 600);
+        // If we have history, loadChatHistory (called above) handles it.
+        // If we ONLY have savedData but NO history, then we show the summary and trigger booking.
+        if (!chatHistory || JSON.parse(chatHistory).length === 0) {
+            const stepConsultation = document.getElementById('step-consultation');
+            if (stepConsultation) stepConsultation.style.display = 'none';
+            
+            const data = JSON.parse(savedData);
+            window.appendMessage('user', generateConsultationSummaryHtml(data));
+            setTimeout(() => window.showChatBlock('booking'), 600);
+        } else {
+            // Already loaded by loadChatHistory()
+            const stepConsultation = document.getElementById('step-consultation');
+            if (stepConsultation) stepConsultation.style.display = 'none';
+        }
     } else {
         renderInlineConsultationForm();
     }
