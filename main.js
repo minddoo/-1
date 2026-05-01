@@ -1775,9 +1775,13 @@ function initDashboard() {
                                 name: "종합검진 (Comprehensive)",
                                 icon: "fa-clipboard-check",
                                 programs: [
-                                    { title: "베이직/그린/블루", items: "실속형 종합검진 및 핵심 정밀 항목 조합." },
-                                    { title: "실버/골드", items: "뇌 MRI/MRA, 특수 혈액검사 등이 추가된 고화질 정밀 검진." },
-                                    { title: "크리스탈", items: "PET-CT 및 전신 정밀 검사가 포함된 최고급 프로그램." }
+                                    { title: "베이직", items: "세란병원의 실속형 기본 종합검진 프로그램입니다." },
+                                    { title: "그린", items: "핵심적인 정밀 항목들이 포함된 종합 검진 프로그램입니다." },
+                                    { title: "블루", items: "질환별 맞춤 항목이 추가된 보다 정밀한 검진 프로그램입니다." },
+                                    { title: "실버", items: "뇌 MRI/MRA 등 고화질 영상 진단이 포함된 고령층 특화 검진입니다." },
+                                    { title: "골드", items: "심층적인 정밀 검사와 특수 혈액검사가 포함된 프리미엄 프로그램입니다." },
+                                    { title: "크리스탈", items: "전신을 정밀하게 체크하는 세란병원의 최고급 검진 패키지입니다." },
+                                    { title: "크리스탈 PET-CT", items: "PET-CT를 통해 전신의 암 세포 및 미세 질환을 찾아내는 최첨단 프로그램입니다." }
                                 ]
                             }
                         ]
