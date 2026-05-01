@@ -970,12 +970,10 @@ function initDashboard() {
 
     window.loadChatHistory();
 
-    // Restart Consultation
-    window.restartConsultation = function() {
-        if (confirm('모든 상담 기록을 초기화하고 처음부터 다시 시작하시겠습니까?')) {
-            localStorage.removeItem('chat_history');
-            localStorage.removeItem('consultationData');
-            location.reload();
+    // View from Beginning (Scroll to Top)
+    window.viewFromBeginning = function() {
+        if (chatMessages) {
+            chatMessages.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
     const chatInput = document.getElementById('chat-input');
