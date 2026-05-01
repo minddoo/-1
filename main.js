@@ -1915,8 +1915,12 @@ function initDashboard() {
                         if (content.includes('selectHospital(')) {
                             content = content.replaceAll('selectHospital(', 'window.openSelectionModal(');
                         }
-                        if (content.includes('filterHospitals(') && !content.includes('window.filterHospitals(')) {
-                            content = content.replaceAll('filterHospitals(', 'window.filterHospitals(');
+                        if (content.includes('filterHospitals(')) {
+                            if (!content.includes('window.filterHospitals(')) {
+                                content = content.replaceAll('filterHospitals(', 'window.filterHospitals(');
+                            }
+                            content = content.replaceAll('filterHospitals(this.value)', 'filterHospitals(this)');
+                            content = content.replaceAll('filterHospitals()', 'filterHospitals(this)');
                         }
                         if (content.includes('toggleHospitalPrograms(') && !content.includes('window.toggleHospitalPrograms(')) {
                             content = content.replaceAll('toggleHospitalPrograms(', 'window.toggleHospitalPrograms(');
