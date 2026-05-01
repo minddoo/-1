@@ -2524,7 +2524,49 @@ function initDashboard() {
     window.reportStillNoConfirmation = function(hName) {
         window.appendMessage('user', '1일이 지났는데 여전히 못 받았어요.');
         setTimeout(() => {
-            window.appendMessage('coord', `정말 죄송합니다. **${hName}** 측과 소통에 차질이 있는 것 같습니다. 제가 지금 바로 병원에 직접 유선 연락을 취하여 긴급 확인 후 10분 내로 안내드리겠습니다.`);
+            const urgentMsg = `정말 죄송합니다. **${hName}** 측과 소통에 차질이 있는 것 같습니다. 제가 지금 바로 병원에 직접 유선 연락을 취하여 긴급 확인 후 10분 내로 안내드리겠습니다.
+                <br><br>혹시 연락처가 잘못 기재되지는 않았나요?
+                <div style="margin-top: 15px;">
+                    <button style="padding: 10px 20px; font-size: 0.85rem; font-weight: 700; background: #fff; color: #475569; border: 1px solid #e2e8f0; border-radius: 10px; cursor: pointer;" onclick="window.askNewPhoneNumber()">전화번호 재입력</button>
+                </div>`;
+            window.appendMessage('coord', urgentMsg);
+        }, 600);
+    };
+
+    window.askNewPhoneNumber = function() {
+        setTimeout(() => {
+            const inputHtml = `
+                <div class="phone-update-box" style="margin-top: 10px; background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <p style="margin: 0 0 10px 0; font-size: 0.85rem; color: #475569; font-weight: 600;">새로운 연락처를 입력해 주세요.</p>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="tel" id="new-phone-input" placeholder="010-0000-0000" style="flex: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem;">
+                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="window.submitNewPhoneNumber()">수정 완료</button>
+                    </div>
+                </div>
+            `;
+            window.appendMessage('coord', inputHtml);
+            document.getElementById('new-phone-input').focus();
+        }, 300);
+    };
+
+    window.submitNewPhoneNumber = function() {
+        const allInputs = document.querySelectorAll('#new-phone-input');
+        const input = allInputs[allInputs.length - 1];
+        if (!input) return;
+
+        const phone = input.value.trim();
+        if (!phone) {
+            alert('연락처를 입력해 주세요.');
+            return;
+        }
+
+        input.disabled = true;
+        const btn = input.nextElementSibling;
+        if (btn) btn.disabled = true;
+
+        window.appendMessage('user', `연락처 수정: ${phone}`);
+        setTimeout(() => {
+            window.appendMessage('coord', `확인했습니다! 수정된 번호(**${phone}**)로 알림톡이 즉시 재발송되도록 조치하겠습니다. 혼선을 드려 다시 한번 사과드립니다.`);
         }, 600);
     };
 
