@@ -2384,8 +2384,8 @@ function initDashboard() {
                 확인되었습니다! **${hospital.name}**의 **${program.title}** 프로그램을 선택하셨습니다. 
                 <br><br>예약 및 추가 상담을 이어가시겠습니까?
                 <div style="margin-top: 15px; display: flex; gap: 8px;">
-                    <button class="btn-primary" style="padding: 8px 24px; font-size: 0.85rem;" onclick="window.proceedToBooking('${hospital.name}', '${program.title}')">예</button>
-                    <button class="btn-secondary" style="padding: 8px 16px; font-size: 0.85rem; background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0;" onclick="window.openSelectionModal(${hIdx})">다시 선택</button>
+                    <button style="padding: 10px 28px; font-size: 0.85rem; font-weight: 800; background: #FFD700; color: #000; border: none; border-radius: 10px; cursor: pointer; transition: transform 0.2s;" onclick="window.proceedToBooking('${hospital.name}', '${program.title}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">예</button>
+                    <button style="padding: 10px 20px; font-size: 0.85rem; font-weight: 800; background: #90EE90; color: #000; border: none; border-radius: 10px; cursor: pointer; transition: transform 0.2s;" onclick="window.openSelectionModal(${hIdx})" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">다시 고르기</button>
                 </div>
             `;
             window.appendMessage('coord', confirmMsg);
