@@ -3403,6 +3403,9 @@ function initDashboard() {
 
         if (!modal || !titleEl || !bodyEl) return;
 
+        const backBtn = document.getElementById('precaution-back-btn');
+        if (backBtn) backBtn.style.display = 'none';
+
         let content = '';
         let title = '';
 
@@ -3727,6 +3730,15 @@ function initDashboard() {
         const bodyEl = document.getElementById('precaution-modal-body');
 
         if (modal && titleEl && bodyEl) {
+            const backBtn = document.getElementById('precaution-back-btn');
+            if (backBtn) {
+                backBtn.style.display = 'block';
+                let parentType = 'general';
+                if (subType.startsWith('colon')) parentType = 'colon';
+                if (subType.startsWith('stomach')) parentType = 'stomach';
+                backBtn.onclick = () => window.showKmiDetail(parentType);
+            }
+
             titleEl.innerText = data.title;
             bodyEl.innerHTML = `
                 <div style="padding: 10px;">
@@ -3745,6 +3757,12 @@ function initDashboard() {
         if (titleEl) titleEl.innerText = '하프렙산 복용 방법';
         
         if (bodyEl) {
+            const backBtn = document.getElementById('precaution-back-btn');
+            if (backBtn) {
+                backBtn.style.display = 'block';
+                backBtn.onclick = () => window.showKmiSubDetail('colon_purgative');
+            }
+
             bodyEl.innerHTML = `
                 <div style="padding: 10px;">
                     <!-- 1. 구성 및 시간 -->
@@ -3823,10 +3841,6 @@ function initDashboard() {
                         • 약물 분실 및 복용 실패로 인한 재구매 시 10,000원의 비용이 발생합니다.<br>
                         • 대변 색이 맑은 노란색(소변색)이 되어야 준비가 완료된 것입니다.
                     </div>
-                    
-                    <button onclick="window.showKmiSubDetail('colon_purgative')" style="width: 100%; margin-top: 20px; padding: 12px; background: #f1f5f9; border: none; border-radius: 10px; color: #64748b; font-weight: 700; cursor: pointer;">
-                        <i class="fa-solid fa-arrow-left" style="margin-right: 5px;"></i> 이전으로 돌아가기
-                    </button>
                 </div>
             `;
         }
@@ -3839,6 +3853,12 @@ function initDashboard() {
         if (titleEl) titleEl.innerText = '오라팡 복용 방법';
         
         if (bodyEl) {
+            const backBtn = document.getElementById('precaution-back-btn');
+            if (backBtn) {
+                backBtn.style.display = 'block';
+                backBtn.onclick = () => window.showKmiSubDetail('colon_purgative');
+            }
+
             bodyEl.innerHTML = `
                 <div style="padding: 10px;">
                     <!-- 1. 약물 개요 -->
@@ -3903,10 +3923,6 @@ function initDashboard() {
                         • 알약을 한꺼번에 복용할 경우 구토나 복통이 발생할 수 있으니 반드시 나누어 복용하세요.<br>
                         • 수분 섭취량이 부족하면 장 정결이 충분히 되지 않을 수 있습니다.
                     </div>
-                    
-                    <button onclick="window.showKmiSubDetail('colon_purgative')" style="width: 100%; margin-top: 20px; padding: 12px; background: #f1f5f9; border: none; border-radius: 10px; color: #64748b; font-weight: 700; cursor: pointer;">
-                        <i class="fa-solid fa-arrow-left" style="margin-right: 5px;"></i> 이전으로 돌아가기
-                    </button>
                 </div>
             `;
         }
@@ -4038,6 +4054,9 @@ function initDashboard() {
         const bodyEl = document.getElementById('precaution-modal-body');
 
         if (modal && titleEl && bodyEl) {
+            const backBtn = document.getElementById('precaution-back-btn');
+            if (backBtn) backBtn.style.display = 'none';
+
             titleEl.innerText = item.title;
             bodyEl.innerHTML = `
                 <div style="padding: 20px; background: #f0fdf4; border-radius: 16px; border: 1px solid #dcfce7; margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
