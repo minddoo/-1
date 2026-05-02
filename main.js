@@ -3435,19 +3435,45 @@ function initDashboard() {
                 </div>
             `;
             window.appendMessage('system', html, 'system');
-        } else {
-            const titles = {
-                'colon': '대장내시경 주의사항',
-                'stomach': '위내시경 주의사항'
-            };
+        } else if (type === 'colon') {
             const html = `
-                <div class="system-block" style="border-left: 4px solid var(--primary); background: #f8fafc;">
-                    <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-circle-info"></i></div>
+                <div class="system-block" style="border-left: 4px solid #3b82f6; background: #f8fafc; padding-right: 20px;">
+                    <div class="block-icon" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6; border-radius: 12px; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-microscope"></i></div>
                     <div class="block-content" style="width: 100%;">
-                        <p style="margin-top: 5px;"><strong>${titles[type]} 상세 정보</strong></p>
-                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">KMI ${titles[type]}에 대한 세부 안내입니다. (이미지 및 텍스트 데이터 대기 중)</span>
+                        <p style="margin-top: 5px; color: #1e3a8a;"><strong>KMI 대장내시경 주의사항</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">성공적인 검사를 위해 식단 및 장정결제 복용 지침을 반드시 준수해 주세요.</span>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon3')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                                <span>• 검사 3일 전 (식단 조절 시작)</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                            </button>
+                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon2')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                                <span>• 검사 2일 전 (식단 유지)</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                            </button>
+                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon1')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                                <span>• 검사 전날 (반찬 없는 흰죽/미음)</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                            </button>
+                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon_purgative')" style="padding: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #1e40af; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#dbeafe';" onmouseout="this.style.background='#eff6ff';">
+                                <span>• 장정결제 복용 방법 안내</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #60a5fa;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.appendMessage('system', html, 'system');
+        } else {
+            const html = `
+                <div class="system-block" style="border-left: 4px solid #ef4444; background: #f8fafc;">
+                    <div class="block-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border-radius: 12px;"><i class="fa-solid fa-circle-info"></i></div>
+                    <div class="block-content" style="width: 100%;">
+                        <p style="margin-top: 5px;"><strong>위내시경 주의사항 상세 정보</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">KMI 위내시경에 대한 세부 안내입니다. (이미지 및 텍스트 데이터 대기 중)</span>
                         <div style="width: 100%; height: 200px; background: #e2e8f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #94a3b8; border: 2px dashed #cbd5e1;">
-                            <span style="font-weight: 600;">[ ${titles[type]} 세부 정보 영역 ]</span>
+                            <span style="font-weight: 600;">[ 위내시경 세부 정보 영역 ]</span>
                         </div>
                     </div>
                 </div>
@@ -3552,6 +3578,66 @@ function initDashboard() {
                         • <b>모바일 신분증:</b> 건강보험증 앱, PASS 모바일 신분증 가능<br>
                         • <b>불가 항목:</b> 신분증 사본, 사진 캡쳐본은 인정되지 않습니다.<br>
                         • <b>참고:</b> 24년 5월 20일부터 본인확인 절차가 강화되었습니다.
+                    </div>
+                `
+            },
+            'colon3': {
+                title: '검사 3일 전 (식단 조절)',
+                content: `
+                    <div style="background: #fff5f5; padding: 15px; border-radius: 12px; border: 1px solid #feb2b2; margin-bottom: 20px;">
+                        <p style="font-weight: 800; color: #c53030; margin-bottom: 8px;"><i class="fa-solid fa-ban" style="margin-right: 6px;"></i>피해야 할 음식 (섬유질/씨앗)</p>
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: #c53030;">장 내에 남아 검사를 방해할 수 있는 음식들입니다.</p>
+                    </div>
+                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
+                        • <b>잡곡류:</b> 현미, 흑미, 콩, 조, 수수 등 잡곡밥 전체<br>
+                        • <b>채소류:</b> 김치, 나물류, 해조류(미역, 김, 다시마), 버섯류<br>
+                        • <b>과일류:</b> 씨 있는 과일 (수박, 참외, 딸기, 포도, 키위, 토마토 등)<br>
+                        • <b>견과류:</b> 땅콩, 잣, 호두 등
+                    </div>
+                `
+            },
+            'colon2': {
+                title: '검사 2일 전 (식단 유지)',
+                content: `
+                    <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #bbf7d0; margin-bottom: 20px;">
+                        <p style="font-weight: 800; color: #166534; margin-bottom: 8px;"><i class="fa-solid fa-check" style="margin-right: 6px;"></i>드실 수 있는 음식</p>
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: #166534;">소화가 잘 되고 찌꺼기가 남지 않는 음식 위주로 섭취하세요.</p>
+                    </div>
+                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
+                        • <b>주식:</b> 흰쌀밥, 흰죽 (반찬 없이)<br>
+                        • <b>단백질:</b> 계란, 두부, 묵, 생선, 닭가슴살<br>
+                        • <b>음료:</b> 맑은 국물, 우유, 맑은 주스(건더기 없는 것), 커피, 녹차<br>
+                        • <b>기타:</b> 빵(카스텔라 등 부드러운 것), 감자, 바나나
+                    </div>
+                `
+            },
+            'colon1': {
+                title: '검사 전날 (최종 준비)',
+                content: `
+                    <div style="background: #fff9f0; padding: 15px; border-radius: 12px; border: 1px solid #ffeeba; margin-bottom: 20px;">
+                        <p style="font-weight: 800; color: #856404; margin-bottom: 8px;"><i class="fa-solid fa-clock" style="margin-right: 6px;"></i>식이 제한 및 금식 시작</p>
+                    </div>
+                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
+                        • <b>아침/점심:</b> 흰죽 또는 미음 (반찬 없이) 섭취<br>
+                        • <b>오후 2시 이후:</b> <b>금식 시작</b> (물은 섭취 가능)<br>
+                        • <b>장정결제 복용:</b> 병원에서 안내받은 시간에 맞춰 복용을 시작하십시오.<br>
+                        • <b>참고:</b> 저녁 식사는 절대 금지입니다.
+                    </div>
+                `
+            },
+            'colon_purgative': {
+                title: '장정결제 복용 방법',
+                content: `
+                    <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe; margin-bottom: 20px;">
+                        <p style="font-weight: 800; color: #1e40af; margin-bottom: 8px;"><i class="fa-solid fa-glass-water" style="margin-right: 6px;"></i>성공적인 장 정결을 위한 팁</p>
+                    </div>
+                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
+                        1. <b>차갑게 마시기:</b> 약을 차가운 물에 타서 마시면 복용이 수월합니다.<br>
+                        2. <b>사탕 활용:</b> 무색 사탕을 입에 물고 마시면 거부감을 줄일 수 있습니다.<br>
+                        3. <b>추가 수분 섭취:</b> 안내된 양의 물 외에도 충분한 물을 마셔야 장이 깨끗하게 비워집니다.<br>
+                        4. <b>걷기 운동:</b> 약 복용 후 가볍게 걸으면 장 운동이 활발해져 정결 효과가 좋아집니다.<br>
+                        <br>
+                        <span style="color: #ef4444; font-weight: 700;">※ 대변 색이 맑은 노란색(소변색)이 되어야 검사 준비가 완료된 것입니다.</span>
                     </div>
                 `
             }
