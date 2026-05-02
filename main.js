@@ -3309,15 +3309,67 @@ function initDashboard() {
 
     window.showHospitalPrecautions = function(index) {
         const h = window.GLOBAL_HOSPITALS[index];
+        
+        // Special Handling for KMI (Categorized as requested)
+        if (h.name.includes("KMI")) {
+            const html = `
+                <div class="system-block" style="border-left: 4px solid var(--primary); background: #f8fafc; padding-right: 20px;">
+                    <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-list-check"></i></div>
+                    <div class="block-content" style="width: 100%;">
+                        <p style="margin-top: 5px;"><strong>${h.name} 주의사항 카테고리</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">확인하실 주의사항 유형을 선택해 주세요.</span>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <button class="precaution-type-btn" onclick="window.showKmiDetail('general')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>건강검진 전 유의사항</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                            <button class="precaution-type-btn" onclick="window.showKmiDetail('colon')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>대장내시경 주의사항</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                            <button class="precaution-type-btn" onclick="window.showKmiDetail('stomach')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>위내시경 주의사항</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.appendMessage('system', html, 'system');
+        } else {
+            // Default placeholder for other hospitals
+            const html = `
+                <div class="system-block" style="border-left: 4px solid var(--primary); background: #f8fafc; padding-right: 20px;">
+                    <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-file-image"></i></div>
+                    <div class="block-content" style="width: 100%;">
+                        <p style="margin-top: 5px;"><strong>${h.name} 주의사항</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">해당 의료기관의 상세 검진 전 주의사항 이미지입니다. (추후 실제 이미지 데이터가 연결됩니다.)</span>
+                        <div style="width: 100%; height: 250px; background: #e2e8f0; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; border: 2px dashed #cbd5e1;">
+                            <i class="fa-solid fa-image" style="font-size: 2.5rem; margin-bottom: 10px;"></i>
+                            <span style="font-weight: 600;">[ ${h.name} 주의사항 이미지 영역 ]</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.appendMessage('system', html, 'system');
+        }
+    };
+
+    window.showKmiDetail = function(type) {
+        const titles = {
+            'general': '건강검진 전 유의사항',
+            'colon': '대장내시경 주의사항',
+            'stomach': '위내시경 주의사항'
+        };
         const html = `
-            <div class="system-block" style="border-left: 4px solid var(--primary); background: #f8fafc; padding-right: 20px;">
-                <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-file-image"></i></div>
+            <div class="system-block" style="border-left: 4px solid var(--primary); background: #f8fafc;">
+                <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-circle-info"></i></div>
                 <div class="block-content" style="width: 100%;">
-                    <p style="margin-top: 5px;"><strong>${h.name} 주의사항</strong></p>
-                    <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">해당 의료기관의 상세 검진 전 주의사항 이미지입니다. (추후 실제 이미지 데이터가 연결됩니다.)</span>
-                    <div style="width: 100%; height: 250px; background: #e2e8f0; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; border: 2px dashed #cbd5e1;">
-                        <i class="fa-solid fa-image" style="font-size: 2.5rem; margin-bottom: 10px;"></i>
-                        <span style="font-weight: 600;">[ ${h.name} 주의사항 이미지 영역 ]</span>
+                    <p style="margin-top: 5px;"><strong>${titles[type]} 상세 정보</strong></p>
+                    <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">KMI ${titles[type]}에 대한 세부 안내입니다. (이미지 및 텍스트 데이터 대기 중)</span>
+                    <div style="width: 100%; height: 200px; background: #e2e8f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #94a3b8; border: 2px dashed #cbd5e1;">
+                        <span style="font-weight: 600;">[ ${titles[type]} 세부 정보 영역 ]</span>
                     </div>
                 </div>
             </div>
