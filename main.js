@@ -3626,18 +3626,30 @@ function initDashboard() {
                 `
             },
             'colon_purgative': {
-                title: '장정결제 복용 방법',
+                title: '장정결제 복용 방법 선택',
                 content: `
-                    <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #1e40af; margin-bottom: 8px;"><i class="fa-solid fa-glass-water" style="margin-right: 6px;"></i>성공적인 장 정결을 위한 팁</p>
+                    <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #bbf7d0; margin-bottom: 20px; text-align: center;">
+                        <p style="font-weight: 800; color: #166534; font-size: 1rem;">처방받으신 약물을 선택해 주세요.</p>
+                        <p style="font-size: 0.85rem; color: #4b5563; margin-top: 5px;">약물 종류에 따라 복용 방법이 다릅니다.</p>
                     </div>
-                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
-                        1. <b>차갑게 마시기:</b> 약을 차가운 물에 타서 마시면 복용이 수월합니다.<br>
-                        2. <b>사탕 활용:</b> 무색 사탕을 입에 물고 마시면 거부감을 줄일 수 있습니다.<br>
-                        3. <b>추가 수분 섭취:</b> 안내된 양의 물 외에도 충분한 물을 마셔야 장이 깨끗하게 비워집니다.<br>
-                        4. <b>걷기 운동:</b> 약 복용 후 가볍게 걸으면 장 운동이 활발해져 정결 효과가 좋아집니다.<br>
-                        <br>
-                        <span style="color: #ef4444; font-weight: 700;">※ 대변 색이 맑은 노란색(소변색)이 되어야 검사 준비가 완료된 것입니다.</span>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <button onclick="window.showHalfprepDetail()" style="padding: 20px 10px; background: white; border: 2px solid #3b82f6; border-radius: 16px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px;" onmouseover="this.style.background='#eff6ff';" onmouseout="this.style.background='white';">
+                            <div style="width: 40px; height: 40px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #3b82f6; font-size: 1.2rem;">
+                                <i class="fa-solid fa-vial"></i>
+                            </div>
+                            <span style="font-weight: 800; color: #1e40af;">하프렙산</span>
+                            <span style="font-size: 0.7rem; color: #64748b;">(가루약 타입)</span>
+                        </button>
+                        <button onclick="window.showOrapuhDetail()" style="padding: 20px 10px; background: white; border: 2px solid #e2e8f0; border-radius: 16px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.7;" onmouseover="this.style.background='#f8fafc';" onmouseout="this.style.background='white';">
+                            <div style="width: 40px; height: 40px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 1.2rem;">
+                                <i class="fa-solid fa-pills"></i>
+                            </div>
+                            <span style="font-weight: 800; color: #475569;">오라팡</span>
+                            <span style="font-size: 0.7rem; color: #64748b;">(알약 타입)</span>
+                        </button>
+                    </div>
+                    <div style="margin-top: 20px; padding: 12px; background: #fefce8; border-radius: 10px; border: 1px solid #fef08a; font-size: 0.8rem; color: #854d0e;">
+                        <i class="fa-solid fa-triangle-exclamation" style="margin-right: 5px;"></i> 반드시 본인이 처방받은 약물을 확인 후 가이드를 따라주세요.
                     </div>
                 `
             }
@@ -3659,6 +3671,124 @@ function initDashboard() {
             `;
             modal.classList.add('show');
             document.body.style.overflow = 'hidden';
+        }
+    };
+
+    window.showHalfprepDetail = function() {
+        const bodyEl = document.getElementById('precaution-modal-body');
+        const titleEl = document.getElementById('precaution-modal-title');
+        
+        if (titleEl) titleEl.innerText = '하프렙산 복용 방법';
+        
+        if (bodyEl) {
+            bodyEl.innerHTML = `
+                <div style="padding: 10px;">
+                    <!-- 1. 구성 및 시간 -->
+                    <div style="background: #f8fafc; border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
+                        <h5 style="margin-bottom: 10px; color: #1e40af; font-weight: 800;"><i class="fa-solid fa-box-open" style="margin-right: 8px;"></i>약물 구성</h5>
+                        <p style="font-size: 0.9rem; color: #475569; line-height: 1.6;">
+                            • 하프렙산 A제(4포) + B제(4포)<br>
+                            • 500mL 용기(1개)<br>
+                            • 가스제거제(엔도콜 1포)
+                        </p>
+                    </div>
+
+                    <!-- 2. 복용 시간 -->
+                    <div style="margin-bottom: 20px;">
+                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">1. 복용 시간</h5>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div style="background: #eff6ff; padding: 12px; border-radius: 10px;">
+                                <p style="font-weight: 800; font-size: 0.85rem; color: #1e40af; margin-bottom: 8px;">오전 검진자</p>
+                                <p style="font-size: 0.8rem; color: #3b82f6; line-height: 1.5;">
+                                    <b>1차:</b> 전날 저녁 8시<br>
+                                    <b>2차:</b> 당일 새벽 4시
+                                </p>
+                            </div>
+                            <div style="background: #fdf2f8; padding: 12px; border-radius: 10px;">
+                                <p style="font-weight: 800; font-size: 0.85rem; color: #9d174d; margin-bottom: 8px;">오후 검진자</p>
+                                <p style="font-size: 0.8rem; color: #be185d; line-height: 1.5;">
+                                    <b>1차:</b> 당일 오전 6시<br>
+                                    <b>2차:</b> 당일 오전 8시 30분
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. 복용 방법 -->
+                    <div style="margin-bottom: 20px;">
+                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">2. 복용 방법 (1차/2차 동일)</h5>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div style="display: flex; gap: 12px;">
+                                <div style="min-width: 24px; height: 24px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">1</div>
+                                <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+                                    <b>조제:</b> 500mL 용기에 <b>A제 1포 + B제 1포</b>를 넣고 물을 표시선까지 채운 뒤 흔들어 섞습니다.
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <div style="min-width: 24px; height: 24px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">2</div>
+                                <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+                                    <b>1차 복용:</b> 조제한 500mL를 15분 간격으로 두 번에 나누어 30분 동안 마십니다.
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <div style="min-width: 24px; height: 24px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">3</div>
+                                <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+                                    <b>추가 조제 및 복용:</b> 위와 동일한 방법으로 <b>한 번 더(500mL)</b> 조제하여 30분 동안 마십니다.
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <div style="min-width: 24px; height: 24px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">4</div>
+                                <div style="font-size: 0.9rem; color: #065f46; line-height: 1.6;">
+                                    <b>수분 섭취:</b> 빈 용기에 <b>물 500mL</b>를 채워 추가로 마십니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. 가스제거제 -->
+                    <div style="background: #ecfdf5; border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid #a7f3d0;">
+                        <h5 style="margin-bottom: 8px; color: #065f46; font-weight: 800;"><i class="fa-solid fa-wind" style="margin-right: 8px;"></i>3. 가스제거제 복용</h5>
+                        <p style="font-size: 0.85rem; color: #065f46; line-height: 1.6;">
+                            2차 복용 시, <b>마지막으로 마시는 물</b>에 엔도콜(가스제거제) 1포를 섞어서 함께 복용하세요.
+                        </p>
+                    </div>
+
+                    <!-- 5. 유의사항 -->
+                    <div style="background: #fff5f5; border-radius: 12px; padding: 15px; border: 1px solid #feb2b2; font-size: 0.8rem; color: #c53030;">
+                        <p style="font-weight: 800; margin-bottom: 5px;">⚠️ 주의사항</p>
+                        • 약물 분실 및 복용 실패로 인한 재구매 시 10,000원의 비용이 발생합니다.<br>
+                        • 대변 색이 맑은 노란색(소변색)이 되어야 준비가 완료된 것입니다.
+                    </div>
+                    
+                    <button onclick="window.showKmiSubDetail('colon_purgative')" style="width: 100%; margin-top: 20px; padding: 12px; background: #f1f5f9; border: none; border-radius: 10px; color: #64748b; font-weight: 700; cursor: pointer;">
+                        <i class="fa-solid fa-arrow-left" style="margin-right: 5px;"></i> 이전으로 돌아가기
+                    </button>
+                </div>
+            `;
+        }
+    };
+
+    window.showOrapuhDetail = function() {
+        const bodyEl = document.getElementById('precaution-modal-body');
+        const titleEl = document.getElementById('precaution-modal-title');
+        
+        if (titleEl) titleEl.innerText = '오라팡 복용 방법';
+        
+        if (bodyEl) {
+            bodyEl.innerHTML = `
+                <div style="padding: 40px 20px; text-align: center;">
+                    <div style="width: 80px; height: 80px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 2rem; margin: 0 auto 20px;">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                    <h4 style="color: #1e293b; margin-bottom: 10px; font-weight: 800;">데이터 준비 중</h4>
+                    <p style="color: #64748b; font-size: 0.9rem; line-height: 1.6;">
+                        오라팡(알약) 복용 방법 가이드를 제작 중입니다.<br>잠시만 기다려 주세요!
+                    </p>
+                    <button onclick="window.showKmiSubDetail('colon_purgative')" style="width: 100%; margin-top: 30px; padding: 12px; background: #f1f5f9; border: none; border-radius: 10px; color: #64748b; font-weight: 700; cursor: pointer;">
+                        <i class="fa-solid fa-arrow-left" style="margin-right: 5px;"></i> 이전으로 돌아가기
+                    </button>
+                </div>
+            `;
         }
     };
 
