@@ -4258,37 +4258,98 @@ function initDashboard() {
                 `
             },
             'meds_common': {
-                title: '질환별 약 복용법',
+                title: '질환별 약 복용법 (공통)',
                 parent: 'meds',
                 content: `
                     <div style="display: flex; flex-direction: column; gap: 15px;">
-                        <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe;">
-                            <p style="font-weight: 700; color: #1e40af; margin-bottom: 8px;">혈압약 / 심장약 / 간질약</p>
-                            <p style="font-size: 0.85rem; color: #1e40af; line-height: 1.6;">
-                                • 검진 당일 오전 6시 30분경 <strong>소량의 물</strong>과 함께 복용하십시오.<br>
-                                • 단, 내시경 검사 예정자는 의료진과 사전 상의가 필요합니다.
-                            </p>
-                        </div>
                         <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
                             <p style="font-weight: 700; color: #9f1239; margin-bottom: 8px;">당뇨약 / 인슐린 주사</p>
-                            <p style="font-size: 0.85rem; color: #9f1239; line-height: 1.6;">
-                                • <strong>검진 당일 아침에는 절대 복용/투여하지 마십시오.</strong><br>
-                                • 금식 상태에서 투여 시 저혈당 쇼크의 위험이 있습니다.
+                            <p style="font-size: 0.9rem; color: #9f1239; line-height: 1.6; font-weight: 600;">
+                                • <strong>검진 당일 중단</strong>하십시오.
+                            </p>
+                        </div>
+                        <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe;">
+                            <p style="font-weight: 700; color: #1e40af; margin-bottom: 8px;">고혈압약 / 항경련제</p>
+                            <p style="font-size: 0.9rem; color: #1e40af; line-height: 1.6; font-weight: 600;">
+                                • <strong>당일 새벽 6시</strong> 소량의 물과 함께 복용하십시오.
                             </p>
                         </div>
                     </div>
                 `
             },
             'meds_blood': {
-                title: '항응고제 및 항혈소판제',
+                title: '내시경 검사 시 주의 약물',
                 parent: 'meds',
                 content: `
-                    <div style="background: #fef2f2; padding: 15px; border-radius: 12px; border: 1px solid #fee2e2;">
-                        <p style="font-weight: 700; color: #991b1b; margin-bottom: 10px;">아스피린, 플라빅스, 와파린 등</p>
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+                        <p style="font-weight: 700; color: #334155; margin-bottom: 10px;">항혈전제, 항혈소판제, 항응고제</p>
                         <p style="font-size: 0.85rem; color: #475569; line-height: 1.8;">
                             • 조직검사나 용종 제거 시 출혈 위험이 있습니다.<br>
-                            • <strong>반드시 주치의와 상의하여 복용 중단 여부를 결정하십시오.</strong><br>
-                            • 임의로 중단할 경우 심혈관 질환 위험이 있을 수 있습니다.
+                            • <strong>반드시 검사 전 주치의와 상의하여 중단 여부를 확인하십시오.</strong>
+                        </p>
+                    </div>
+                    
+                    <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('meds_list')" style="width: 100%; padding: 15px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                        <span><i class="fa-solid fa-magnifying-glass" style="margin-right: 8px; color: var(--primary);"></i> 주의 약물 리스트 확인하기</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                    </button>
+                `
+            },
+            'meds_list': {
+                title: '주의 약물 리스트',
+                parent: 'meds_blood',
+                content: `
+                    <div style="overflow-x: auto; margin-top: 10px;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.75rem; background: white;">
+                            <thead>
+                                <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                                    <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0; color: #475569; width: 35%;">성분명</th>
+                                    <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0; color: #475569;">약품명 예시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">aspirin</td>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">아스피린프로텍트, 아스트릭스</td>
+                                </tr>
+                                <tr style="background: #f8fafc;">
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">cilostazol</td>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">프레탈, 실로스탄씨알정</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">sapogrelate</td>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">사포디필SR, 안플라그</td>
+                                </tr>
+                                <tr style="background: #f8fafc;">
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">clopidogrel</td>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">클로그렐정75mg, 트롬빅스, 플라빅스정 75mg, 프리그렐정</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">ticagrelor</td>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">브릴란타정60mg, 브릴란타정90mg</td>
+                                </tr>
+                                <tr style="background: #f8fafc;">
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">warfarin</td>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">와파린</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">rivaroxaban</td>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">자렐토, 리록시아</td>
+                                </tr>
+                                <tr style="background: #f8fafc;">
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">dabigatran</td>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">프라닥사캡슐, 다비란캡슐</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">apixaban</td>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">엘리퀴스정</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: 15px; padding: 10px; background: #fff1f2; border-radius: 8px; border: 1px solid #fecdd3;">
+                        <p style="margin: 0; font-size: 0.75rem; color: #be123c; line-height: 1.5;">
+                            ※ 위 리스트는 대표적인 예시이며, 실제 복용 중인 약의 중단 여부는 반드시 담당 주치의와 상의하셔야 합니다.
                         </p>
                     </div>
                 `
