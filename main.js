@@ -3396,7 +3396,54 @@ function initDashboard() {
                 </div>
             `;
             window.appendMessage('system', html, 'system');
+        } else if (h.name.includes("세브란스")) {
+            const html = `
+                <div class="system-block" style="border-left: 4px solid var(--primary); background: #f8fafc; padding-right: 20px;">
+                    <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-list-check"></i></div>
+                    <div class="block-content" style="width: 100%;">
+                        <p style="margin-top: 5px;"><strong>${h.name} 주의사항 카테고리</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 12px; display: block;">확인하실 주의사항 유형을 선택해 주세요.</span>
+                        
+                        <div style="margin-bottom: 12px; padding: 10px; background: #f0f9ff; border-radius: 8px; border-left: 3px solid #7dd3fc;">
+                            <p style="margin: 0; font-size: 0.72rem; color: #0369a1; line-height: 1.5; font-weight: 600;">
+                                <i class="fa-solid fa-circle-info" style="margin-right: 4px;"></i> CHECKIT은 의료기관의 안내 원문을 충실히 정리했지만, 개별 상황에 따라 상세 지침이 다를 수 있습니다. 예약 시 받으신 안내문과 함께 확인해 주세요.
+                            </p>
+                        </div>
+
+                        <a href="https://sev.severance.healthcare/sev/patient-carer/appointment/checkup/guide/preparation.do" target="_blank" style="text-decoration: none; display: block; margin-bottom: 15px;">
+                            <button style="width: 100%; padding: 10px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> 홈페이지 주의사항 직접 확인하기
+                            </button>
+                        </a>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <button class="precaution-type-btn" onclick="window.showSeveranceDetail('diet')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>식사 조절 (금식 안내)</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                            <button class="precaution-type-btn" onclick="window.showSeveranceDetail('meds')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>복용중인 약 안내</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                            <button class="precaution-type-btn" onclick="window.showSeveranceDetail('colon')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>대장내시경 준비</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                            <button class="precaution-type-btn" onclick="window.showSeveranceDetail('stool')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>대변검사 (채변 방법)</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                            <button class="precaution-type-btn" onclick="window.showSeveranceDetail('notice')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>기타 주의사항</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.appendMessage('system', html, 'system');
         } else if (h.name.includes("하나로")) {
+
             const html = `
                 <div class="system-block" style="border-left: 4px solid var(--primary); background: #f8fafc; padding-right: 20px;">
                     <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-list-check"></i></div>
@@ -4028,7 +4075,291 @@ function initDashboard() {
         modal.classList.add('show');
     };
 
+        };
+
+        const data = subData[subType];
+        if (!data) return;
+
+        const modal = document.getElementById('precaution-modal');
+        const titleEl = document.getElementById('precaution-modal-title');
+        const bodyEl = document.getElementById('precaution-modal-body');
+        const backBtn = document.getElementById('precaution-back-btn');
+
+        titleEl.innerText = data.title;
+        bodyEl.innerHTML = `
+            <div style="padding: 10px;">
+                ${data.content}
+            </div>
+        `;
+        
+        if (backBtn) {
+            backBtn.style.display = 'flex';
+            const backTarget = data.parent || 'general';
+            backBtn.onclick = () => window.showHanaroDetail(backTarget);
+        }
+
+        modal.classList.add('show');
+    };
+
+    window.showSeveranceDetail = function(type) {
+        const modal = document.getElementById('precaution-modal');
+        const titleEl = document.getElementById('precaution-modal-title');
+        const bodyEl = document.getElementById('precaution-modal-body');
+        const backBtn = document.getElementById('precaution-back-btn');
+
+        if (backBtn) backBtn.style.display = 'none';
+
+        let title = "세브란스병원 주의사항";
+        let content = "";
+
+        switch(type) {
+            case 'diet':
+                title = "식사 조절 및 금식 안내";
+                content = `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('diet_common')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>검진 3일 전 ~ 전날 준비</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                        </button>
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('diet_today')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>검진 당일 아침 지침</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                        </button>
+                    </div>
+                `;
+                break;
+            case 'meds':
+                title = "복용중인 약 안내";
+                content = `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('meds_common')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>혈압/심장/당뇨약 복용법</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                        </button>
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('meds_blood')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>항응고제/항혈소판제 (아스피린 등)</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                        </button>
+                    </div>
+                `;
+                break;
+            case 'colon':
+                title = "대장내시경 준비";
+                content = `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('colon_diet')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>대장내시경 식이 조절 (3일 전)</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                        </button>
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('colon_med')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>장정결제 복용 주의사항</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                        </button>
+                    </div>
+                `;
+                break;
+            case 'stool':
+                title = "대변검사 (채변 방법)";
+                content = `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('stool_how')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>올바른 채변 방법 및 보관</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                        </button>
+                    </div>
+                `;
+                break;
+            case 'notice':
+                title = "기타 주의사항";
+                content = `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('notice_common')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>귀중품 / 여성 고객 / 운전 안내</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                        </button>
+                    </div>
+                `;
+                break;
+        }
+
+        titleEl.innerText = title;
+        bodyEl.innerHTML = `
+            <div style="padding: 10px;">
+                ${content}
+            </div>
+        `;
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.showSeveranceSubDetail = function(subType) {
+        const subData = {
+            'diet_common': {
+                title: '검진 전 식사 및 금식',
+                parent: 'diet',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 8px;"><i class="fa-solid fa-calendar-minus" style="margin-right: 6px; color: #ef4444;"></i>검진 3일 전부터</p>
+                            <p style="font-size: 0.85rem; color: #64748b; line-height: 1.6;">
+                                • 한약, 건강보조식품, 술은 피해주십시오.<br>
+                                • 과로를 피하고 충분한 휴식을 취하십시오.
+                            </p>
+                        </div>
+                        <div style="background: #fff9f0; padding: 15px; border-radius: 12px; border: 1px solid #ffeeba;">
+                            <p style="font-weight: 700; color: #856404; margin-bottom: 8px;"><i class="fa-solid fa-moon" style="margin-right: 6px;"></i>검진 전날</p>
+                            <p style="font-size: 0.85rem; color: #856404; line-height: 1.6;">
+                                • <strong>저녁 식사</strong>: 오후 7시 이전에 가볍게 마칩니다.<br>
+                                • <strong>완전 금식</strong>: 저녁 9시 이후부터 물, 껌, 사탕 포함 절대 금식입니다.
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            'diet_today': {
+                title: '검진 당일 지침',
+                parent: 'diet',
+                content: `
+                    <div style="background: #fef2f2; padding: 15px; border-radius: 12px; border: 1px solid #fee2e2;">
+                        <p style="font-weight: 700; color: #991b1b; margin-bottom: 10px;"><i class="fa-solid fa-ban" style="margin-right: 6px;"></i>당일 아침 절대 금식</p>
+                        <p style="font-size: 0.9rem; color: #991b1b; line-height: 1.8; font-weight: 600;">
+                            • 물, 담배, 껌 등을 포함하여 아무것도 드시지 마십시오.<br>
+                            • 단, 혈압약 복용자는 오전 6시 30분경 소량의 물과 함께 복용 가능합니다.
+                        </p>
+                    </div>
+                `
+            },
+            'meds_common': {
+                title: '질환별 약 복용법',
+                parent: 'meds',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe;">
+                            <p style="font-weight: 700; color: #1e40af; margin-bottom: 8px;">혈압약 / 심장약 / 간질약</p>
+                            <p style="font-size: 0.85rem; color: #1e40af; line-height: 1.6;">
+                                • 검진 당일 오전 6시 30분경 <strong>소량의 물</strong>과 함께 복용하십시오.<br>
+                                • 단, 내시경 검사 예정자는 의료진과 사전 상의가 필요합니다.
+                            </p>
+                        </div>
+                        <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
+                            <p style="font-weight: 700; color: #9f1239; margin-bottom: 8px;">당뇨약 / 인슐린 주사</p>
+                            <p style="font-size: 0.85rem; color: #9f1239; line-height: 1.6;">
+                                • <strong>검진 당일 아침에는 절대 복용/투여하지 마십시오.</strong><br>
+                                • 금식 상태에서 투여 시 저혈당 쇼크의 위험이 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            'meds_blood': {
+                title: '항응고제 및 항혈소판제',
+                parent: 'meds',
+                content: `
+                    <div style="background: #fef2f2; padding: 15px; border-radius: 12px; border: 1px solid #fee2e2;">
+                        <p style="font-weight: 700; color: #991b1b; margin-bottom: 10px;">아스피린, 플라빅스, 와파린 등</p>
+                        <p style="font-size: 0.85rem; color: #475569; line-height: 1.8;">
+                            • 조직검사나 용종 제거 시 출혈 위험이 있습니다.<br>
+                            • <strong>반드시 주치의와 상의하여 복용 중단 여부를 결정하십시오.</strong><br>
+                            • 임의로 중단할 경우 심혈관 질환 위험이 있을 수 있습니다.
+                        </p>
+                    </div>
+                `
+            },
+            'colon_diet': {
+                title: '대장내시경 식이 조절',
+                parent: 'colon',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: #fef2f2; padding: 15px; border-radius: 12px; border: 1px solid #fee2e2;">
+                            <p style="font-weight: 700; color: #991b1b; margin-bottom: 8px;"><i class="fa-solid fa-circle-xmark" style="margin-right: 6px;"></i>피해야 할 음식 (3일 전부터)</p>
+                            <p style="font-size: 0.85rem; color: #991b1b; line-height: 1.6;">
+                                • 씨 있는 과일 (수박, 참외, 포도, 키위 등)<br>
+                                • 잡곡류 (현미, 흑미, 콩 등)<br>
+                                • 해조류 및 채소 (미역, 김, 나물, 버섯)
+                            </p>
+                        </div>
+                        <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #dcfce7;">
+                            <p style="font-weight: 700; color: #166534; margin-bottom: 8px;"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>권장 음식</p>
+                            <p style="font-size: 0.85rem; color: #166534; line-height: 1.6;">
+                                • 흰쌀밥, 흰죽, 달걀, 두부, 생선, 빵(건더기 없는 것)
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            'colon_med': {
+                title: '장정결제 복용 주의사항',
+                parent: 'colon',
+                content: `
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <p style="font-size: 0.85rem; color: #475569; line-height: 1.8;">
+                            • 약제 종류(플렌뷰산, 오라팡 등)에 따라 복용 방법이 다릅니다.<br>
+                            • <strong>반드시 제공받은 약제 설명서의 지침을 따르십시오.</strong><br>
+                            • 장 정결이 충분하지 않으면 검사가 불가능하거나 정확도가 떨어집니다.
+                        </p>
+                    </div>
+                `
+            },
+            'stool_how': {
+                title: '채변 방법 및 보관',
+                parent: 'stool',
+                content: `
+                    <ul style="font-size: 0.85rem; color: #475569; line-height: 1.8; padding-left: 20px;">
+                        <li><strong>시기</strong>: 검진 전날 저녁 또는 당일 아침에 채취하십시오.</li>
+                        <li><strong>방법</strong>: 채변 용기의 스틱을 이용하여 대변의 3~4곳을 찔러 <strong>콩알 크기(약 5g)</strong>만큼 담아주십시오.</li>
+                        <li><strong>주의</strong>: 대장내시경 하제 복용 전(또는 복용 후 첫 변)에 채취하십시오.</li>
+                        <li><strong>보관</strong>: 채취 후 서늘한 곳이나 냉장 보관하여 검진 당일 지참하십시오.</li>
+                    </ul>
+                `
+            },
+            'notice_common': {
+                title: '기타 일반 주의사항',
+                parent: 'notice',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="background: #f8fafc; padding: 12px; border-radius: 10px;">
+                            <p style="font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">귀중품 및 복장</p>
+                            <p style="font-size: 0.85rem; color: #64748b;">반지, 목걸이 등 귀중품은 분실 위험이 있으므로 착용하지 마십시오.</p>
+                        </div>
+                        <div style="background: #f8fafc; padding: 12px; border-radius: 10px;">
+                            <p style="font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">여성 고객 안내</p>
+                            <p style="font-size: 0.85rem; color: #64748b;">생리 중에는 소변 및 부인과 검사가 제한될 수 있습니다. 가급적 종료 3~5일 후가 적당합니다.</p>
+                        </div>
+                        <div style="background: #fef2f2; padding: 12px; border-radius: 10px; border: 1px solid #fee2e2;">
+                            <p style="font-weight: 700; font-size: 0.9rem; color: #991b1b; margin-bottom: 5px;">진정(수면) 내시경 운전 금지</p>
+                            <p style="font-size: 0.85rem; color: #991b1b;">당일 <strong>자가 운전은 절대 불가</strong>합니다. 반드시 대중교통을 이용하거나 보호자를 동반하십시오.</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        const data = subData[subType];
+        if (!data) return;
+
+        const modal = document.getElementById('precaution-modal');
+        const titleEl = document.getElementById('precaution-modal-title');
+        const bodyEl = document.getElementById('precaution-modal-body');
+        const backBtn = document.getElementById('precaution-back-btn');
+
+        titleEl.innerText = data.title;
+        bodyEl.innerHTML = `
+            <div style="padding: 10px;">
+                ${data.content}
+            </div>
+        `;
+        
+        if (backBtn) {
+            backBtn.style.display = 'flex';
+            const backTarget = data.parent;
+            backBtn.onclick = () => window.showSeveranceDetail(backTarget);
+        }
+
+        modal.classList.add('show');
+    };
+
     window.closePrecautionModal = function() {
+
         const modal = document.getElementById('precaution-modal');
         if (modal) {
             modal.classList.remove('show');
