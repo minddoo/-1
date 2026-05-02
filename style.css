@@ -2834,12 +2834,7 @@ ul {
     font-size: 0.6rem;
 }
 
-.delete-msg-btn:hover {
-    background: #cc0000;
-    transform: scale(1.1);
-}
-
-.message-row:hover .delete-msg-btn {
+.message-row:hover .msg-options-btn {
     display: flex;
 }
 
