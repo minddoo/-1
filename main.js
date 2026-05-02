@@ -1847,6 +1847,35 @@ function initDashboard() {
     
     const chatMessages = document.getElementById('chat-messages');
     
+    window.deleteMessage = function(btn) {
+        if (!confirm('이 메시지를 삭제하시겠습니까?')) return;
+        
+        const row = btn.closest('.message-row');
+        if (!row) return;
+
+        const chatMessages = document.getElementById('chat-messages');
+        if (!chatMessages) return;
+
+        const allRows = Array.from(chatMessages.querySelectorAll('.message-row'));
+        const index = allRows.indexOf(row);
+        
+        if (index !== -1) {
+            // Remove from localStorage
+            const history = JSON.parse(localStorage.getItem('chat_history') || '[]');
+            history.splice(index, 1);
+            localStorage.setItem('chat_history', JSON.stringify(history));
+            
+            // Remove from DOM with animation
+            row.style.opacity = '0';
+            row.style.transform = 'scale(0.9)';
+            row.style.transition = 'all 0.3s ease';
+            
+            setTimeout(() => {
+                row.remove();
+            }, 300);
+        }
+    };
+
     // Define appendMessage first so loadChatHistory can use it
     window.appendMessage = function(sender, content, type = 'text', skipSave = false) {
         const row = document.createElement('div');
@@ -1858,13 +1887,18 @@ function initDashboard() {
         if (type === 'text') {
             row.innerHTML = `
                 <div class="msg-bubble">
+                    <button class="delete-msg-btn" onclick="window.deleteMessage(this)" title="삭제">×</button>
                     ${content}
                     <div class="msg-time">${timeStr}</div>
                 </div>
             `;
         } else if (type === 'system') {
             row.className = 'message-row system';
-            row.innerHTML = content;
+            row.style.position = 'relative';
+            row.innerHTML = `
+                <button class="delete-msg-btn system-delete" onclick="window.deleteMessage(this)" title="삭제" style="right: 10px; top: 10px;">×</button>
+                ${content}
+            `;
         }
 
         chatMessages.appendChild(row);
@@ -1887,13 +1921,19 @@ function initDashboard() {
                 if (msg.type === 'text') {
                     row.innerHTML = `
                         <div class="msg-bubble">
+                            <button class="delete-msg-btn" onclick="window.deleteMessage(this)" title="삭제">×</button>
                             ${msg.content}
                             <div class="msg-time">${msg.timeStr}</div>
                         </div>
                     `;
                 } else {
                     row.className = 'message-row system';
+                    row.style.position = 'relative';
                     let content = msg.content;
+                    
+                    // Add delete button to system message in history too
+                    const deleteBtnHtml = `<button class="delete-msg-btn system-delete" onclick="window.deleteMessage(this)" title="삭제" style="right: 10px; top: 10px;">×</button>`;
+                    content = deleteBtnHtml + content;
                     
                     // Patch: Comprehensive update for hospital cards in history
                     if (content.includes('hospital-list-item')) {
