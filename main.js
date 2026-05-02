@@ -3281,18 +3281,11 @@ function initDashboard() {
                         <div class="hospital-notice-box" style="margin-bottom: 15px; padding: 14px; background: #f8fafc; border-radius: 10px; border-left: 4px solid var(--primary);">
                             <p style="margin: 0; font-size: 0.85rem; color: #475569; line-height: 1.5;">
                                 <i class="fa-solid fa-triangle-exclamation" style="color: var(--primary); margin-right: 6px;"></i>
-                                예약하신 <b>의료기관</b>을 선택하거나, <b>주의사항 키워드</b>(예: 복용약, 금식)를 검색해 보세요.
+                                안내받으실 <b>의료기관</b>을 선택해 주세요.
                             </p>
                         </div>
 
-                        <!-- Search Bar for Precautions Content -->
-                        <div class="precaution-search-wrapper" style="margin-bottom: 15px; position: relative;">
-                            <input type="text" id="precaution-search-input" placeholder="주의사항 키워드 검색 (예: 복용약, 금식, 임신)" 
-                                style="width: 100%; padding: 12px 40px 12px 15px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.85rem; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
-                                oninput="window.searchPrecautions(this)">
-                            <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;"></i>
-                        </div>
-                        
+
                         <div id="precaution-results-container">
                             <ul style="list-style: none; padding: 0; margin: 0;">
                                 ${window.GLOBAL_HOSPITALS.map((h, i) => `
