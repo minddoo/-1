@@ -1847,36 +1847,41 @@ function initDashboard() {
     
     const chatMessages = document.getElementById('chat-messages');
     
-    window.deleteMessage = function(btn) {
-        if (!confirm('이 메시지를 삭제하시겠습니까?')) return;
-        
-        const row = btn.closest('.message-row');
-        if (!row) return;
-
+    window.deleteSelectedMessages = function() {
         const chatMessages = document.getElementById('chat-messages');
-        if (!chatMessages) return;
-
-        const allRows = Array.from(chatMessages.querySelectorAll('.message-row'));
-        const index = allRows.indexOf(row);
+        const checkedInputs = Array.from(chatMessages.querySelectorAll('.msg-check:checked'));
         
-        if (index !== -1) {
-            // Remove from localStorage
-            const history = JSON.parse(localStorage.getItem('chat_history') || '[]');
-            history.splice(index, 1);
-            localStorage.setItem('chat_history', JSON.stringify(history));
-            
-            // Remove from DOM with animation
-            row.style.opacity = '0';
-            row.style.transform = 'scale(0.9)';
-            row.style.transition = 'all 0.3s ease';
-            
-            setTimeout(() => {
-                row.remove();
-            }, 300);
+        if (checkedInputs.length === 0) {
+            alert('삭제할 메시지를 선택해주세요.');
+            return;
         }
+
+        if (!confirm(`선택한 ${checkedInputs.length}개의 메시지를 삭제하시겠습니까?`)) return;
+
+        const history = JSON.parse(localStorage.getItem('chat_history') || '[]');
+        const allRows = Array.from(chatMessages.querySelectorAll('.message-row'));
+        
+        // Filter out deleted indices from history
+        const indicesToDelete = checkedInputs.map(input => allRows.indexOf(input.closest('.message-row'))).sort((a, b) => b - a);
+        
+        indicesToDelete.forEach(idx => {
+            if (idx !== -1) {
+                history.splice(idx, 1);
+                allRows[idx].style.opacity = '0';
+                allRows[idx].style.transform = 'translateX(-20px)';
+                allRows[idx].style.transition = 'all 0.3s ease';
+            }
+        });
+
+        localStorage.setItem('chat_history', JSON.stringify(history));
+
+        setTimeout(() => {
+            indicesToDelete.forEach(idx => {
+                if (idx !== -1) allRows[idx].remove();
+            });
+        }, 300);
     };
 
-    // Define appendMessage first so loadChatHistory can use it
     window.appendMessage = function(sender, content, type = 'text', skipSave = false) {
         const row = document.createElement('div');
         row.className = `message-row ${sender}`;
@@ -1884,10 +1889,12 @@ function initDashboard() {
         const now = new Date();
         const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+        const checkboxHtml = `<input type="checkbox" class="msg-check">`;
+
         if (type === 'text') {
             row.innerHTML = `
+                ${checkboxHtml}
                 <div class="msg-bubble">
-                    <button class="delete-msg-btn" onclick="window.deleteMessage(this)" title="삭제">×</button>
                     ${content}
                     <div class="msg-time">${timeStr}</div>
                 </div>
@@ -1896,7 +1903,7 @@ function initDashboard() {
             row.className = 'message-row system';
             row.style.position = 'relative';
             row.innerHTML = `
-                <button class="delete-msg-btn system-delete" onclick="window.deleteMessage(this)" title="삭제" style="right: 10px; top: 10px;">×</button>
+                ${checkboxHtml}
                 ${content}
             `;
         }
@@ -1918,10 +1925,11 @@ function initDashboard() {
             history.forEach(msg => {
                 const row = document.createElement('div');
                 row.className = `message-row ${msg.sender}`;
+                const checkboxHtml = `<input type="checkbox" class="msg-check">`;
                 if (msg.type === 'text') {
                     row.innerHTML = `
+                        ${checkboxHtml}
                         <div class="msg-bubble">
-                            <button class="delete-msg-btn" onclick="window.deleteMessage(this)" title="삭제">×</button>
                             ${msg.content}
                             <div class="msg-time">${msg.timeStr}</div>
                         </div>
@@ -1931,12 +1939,11 @@ function initDashboard() {
                     row.style.position = 'relative';
                     let content = msg.content;
                     
-                    // Add delete button to system message in history too
-                    const deleteBtnHtml = `<button class="delete-msg-btn system-delete" onclick="window.deleteMessage(this)" title="삭제" style="right: 10px; top: 10px;">×</button>`;
-                    content = deleteBtnHtml + content;
+                    // Add checkbox to system message in history too
+                    content = checkboxHtml + content;
                     
                     // Patch: Comprehensive update for hospital cards in history
-                    if (content.includes('hospital-list-item')) {
+                    if (content.includes('hospital-list-item') && !content.includes('precautions-card')) {
                         // 0. Ensure the container has the required class for scoping
                         if (!content.includes('hospital-integrated-card')) {
                             content = content.replace('class="msg-bubble"', 'class="msg-bubble hospital-integrated-card"');
@@ -3385,6 +3392,43 @@ function initDashboard() {
                 window.appendMessage('system', blockHtml, 'system');
             }, 500);
         }
+    };
+
+    window.searchPrecautions = function(input) {
+        const term = input.value.toLowerCase();
+        const container = document.getElementById('precaution-results-container');
+        if (!container) return;
+
+        const matchedContent = window.PRECAUTION_CONTENT.filter(item => 
+            item.title.includes(term) || 
+            item.keywords.some(k => k.includes(term))
+        );
+
+        let resultsHtml = '';
+
+        if (matchedContent.length > 0) {
+            resultsHtml += '<div style="margin-top: 5px;">';
+            matchedContent.forEach(item => {
+                resultsHtml += `
+                    <div style="padding: 15px; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 12px; margin-bottom: 10px;">
+                        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 10px;">
+                            <div style="background: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #dcfce7;">
+                                <i class="fa-solid ${item.icon}" style="color: var(--primary);"></i>
+                            </div>
+                            <div style="font-weight: 800; color: #166534; font-size: 0.95rem;">${item.title}</div>
+                        </div>
+                        <div style="font-size: 0.88rem; color: #15803d; line-height: 1.6; background: white; padding: 12px; border-radius: 8px;">
+                            ${item.content}
+                        </div>
+                    </div>
+                `;
+            });
+            resultsHtml += '</div>';
+        } else {
+            resultsHtml = '<div style="text-align:center; padding: 30px; color: #94a3b8; font-size: 0.85rem;">검색 결과가 없습니다.</div>';
+        }
+
+        container.innerHTML = resultsHtml;
     };
 
     window.showHospitalPrecautions = function(index) {
