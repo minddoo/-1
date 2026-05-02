@@ -3509,9 +3509,9 @@ function initDashboard() {
         // Add region selection
         const regionMap = {
             "KMI 한국의학연구소": ["KMI 광화문점", "KMI 여의도점", "KMI 강남점", "KMI 수원점", "KMI 대구점", "KMI 부산점", "KMI 광주점", "KMI 제주점"],
-            "하나로 의료재단": ["하나로 종로본원", "하나로 강남센터"],
-            "세브란스 병원": ["신촌 세브란스", "강남 세브란스"],
-            "세란 병원": ["세란병원 (종로/독립문)"]
+            "하나로의료재단": ["하나로 종로본원", "하나로 강남센터"],
+            "세브란스병원 센터": ["신촌 세브란스", "강남 세브란스"],
+            "세란병원 센터": ["세란병원 (종로/독립문)"]
         };
         const regions = regionMap[hospital.name] || [hospital.name];
         
