@@ -1030,16 +1030,34 @@
                             <!-- Welcome Message -->
                             <div class="message-row coord">
                                 <div class="msg-bubble ">
-                                    <button class="delete-msg-btn" onclick="window.deleteMessage(this)" title="삭제">×</button>
                                     <img src="assets/logo.png" class="chat-inline-logo" alt="Checkit Logo">
                                     <span id="welcome-text">안녕하세요. CHECKIT을 선택해주셔서 감사합니다!! 고객님을 위한 1:1 CHECKIT의 친절하고 정확한 서포트를 진행하겠습니다. CHECKIT을 통해 한국에서의 좋은 건강검진을 경험하길 바랍니다 !</span>
                                     <div class="msg-time">09:00 AM</div>
+                                </div>
+                                <div class="msg-options-wrap">
+                                    <div class="msg-options-btn" onclick="window.toggleMsgMenu(this, event)">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </div>
+                                    <div class="msg-options-menu">
+                                        <div class="msg-option-item delete" onclick="window.deleteMessage(this)">
+                                            <i class="fa-solid fa-trash-can"></i> 삭제하기
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Step 1: Detailed Consultation Form -->
                             <div class="message-row system" id="step-consultation" style="position: relative;">
-                                <button class="delete-msg-btn system-delete" onclick="window.deleteMessage(this)" title="삭제" style="right: 10px; top: 10px;">×</button>
+                                <div class="msg-options-wrap">
+                                    <div class="msg-options-btn" onclick="window.toggleMsgMenu(this, event)">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </div>
+                                    <div class="msg-options-menu">
+                                        <div class="msg-option-item delete" onclick="window.deleteMessage(this)">
+                                            <i class="fa-solid fa-trash-can"></i> 삭제하기
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="system-block consultation-block">
                                     <div class="block-icon"><i class="fa-solid fa-file-waveform"></i></div>
                                     <div class="block-content">

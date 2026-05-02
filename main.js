@@ -1845,41 +1845,42 @@ function initDashboard() {
 
     const savedLang = localStorage.getItem('preferred-lang') || 'en';
     
-    const chatMessages = document.getElementById('chat-messages');
-    
-    window.deleteSelectedMessages = function() {
-        const chatMessages = document.getElementById('chat-messages');
-        const checkedInputs = Array.from(chatMessages.querySelectorAll('.msg-check:checked'));
-        
-        if (checkedInputs.length === 0) {
-            alert('삭제할 메시지를 선택해주세요.');
-            return;
-        }
-
-        if (!confirm(`선택한 ${checkedInputs.length}개의 메시지를 삭제하시겠습니까?`)) return;
-
-        const history = JSON.parse(localStorage.getItem('chat_history') || '[]');
-        const allRows = Array.from(chatMessages.querySelectorAll('.message-row'));
-        
-        // Filter out deleted indices from history
-        const indicesToDelete = checkedInputs.map(input => allRows.indexOf(input.closest('.message-row'))).sort((a, b) => b - a);
-        
-        indicesToDelete.forEach(idx => {
-            if (idx !== -1) {
-                history.splice(idx, 1);
-                allRows[idx].style.opacity = '0';
-                allRows[idx].style.transform = 'translateX(-20px)';
-                allRows[idx].style.transition = 'all 0.3s ease';
-            }
+    window.toggleMsgMenu = function(btn, event) {
+        event.stopPropagation();
+        const menu = btn.nextElementSibling;
+        const allMenus = document.querySelectorAll('.msg-options-menu');
+        allMenus.forEach(m => {
+            if (m !== menu) m.classList.remove('show');
         });
+        menu.classList.toggle('show');
+    };
 
-        localStorage.setItem('chat_history', JSON.stringify(history));
+    // Close menus when clicking anywhere else
+    document.addEventListener('click', function() {
+        const allMenus = document.querySelectorAll('.msg-options-menu');
+        allMenus.forEach(m => m.classList.remove('show'));
+    });
 
-        setTimeout(() => {
-            indicesToDelete.forEach(idx => {
-                if (idx !== -1) allRows[idx].remove();
-            });
-        }, 300);
+    window.deleteMessage = function(btn) {
+        if (!confirm('이 메시지를 삭제하시겠습니까?')) return;
+        
+        const row = btn.closest('.message-row');
+        if (!row) return;
+
+        const chatMessages = document.getElementById('chat-messages');
+        const allRows = Array.from(chatMessages.querySelectorAll('.message-row'));
+        const index = allRows.indexOf(row);
+        
+        if (index !== -1) {
+            const history = JSON.parse(localStorage.getItem('chat_history') || '[]');
+            history.splice(index, 1);
+            localStorage.setItem('chat_history', JSON.stringify(history));
+            
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-20px)';
+            row.style.transition = 'all 0.3s ease';
+            setTimeout(() => row.remove(), 300);
+        }
     };
 
     window.appendMessage = function(sender, content, type = 'text', skipSave = false) {
@@ -1889,21 +1890,32 @@ function initDashboard() {
         const now = new Date();
         const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-        const checkboxHtml = `<input type="checkbox" class="msg-check">`;
+        const optionsHtml = `
+            <div class="msg-options-wrap">
+                <div class="msg-options-btn" onclick="window.toggleMsgMenu(this, event)">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+                <div class="msg-options-menu">
+                    <div class="msg-option-item delete" onclick="window.deleteMessage(this)">
+                        <i class="fa-solid fa-trash-can"></i> 삭제하기
+                    </div>
+                </div>
+            </div>
+        `;
 
         if (type === 'text') {
             row.innerHTML = `
-                ${checkboxHtml}
                 <div class="msg-bubble">
                     ${content}
                     <div class="msg-time">${timeStr}</div>
                 </div>
+                ${optionsHtml}
             `;
         } else if (type === 'system') {
             row.className = 'message-row system';
             row.style.position = 'relative';
             row.innerHTML = `
-                ${checkboxHtml}
+                ${optionsHtml}
                 ${content}
             `;
         }
@@ -1925,25 +1937,37 @@ function initDashboard() {
             history.forEach(msg => {
                 const row = document.createElement('div');
                 row.className = `message-row ${msg.sender}`;
-                const checkboxHtml = `<input type="checkbox" class="msg-check">`;
+                const optionsHtml = `
+                    <div class="msg-options-wrap">
+                        <div class="msg-options-btn" onclick="window.toggleMsgMenu(this, event)">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <div class="msg-options-menu">
+                            <div class="msg-option-item delete" onclick="window.deleteMessage(this)">
+                                <i class="fa-solid fa-trash-can"></i> 삭제하기
+                            </div>
+                        </div>
+                    </div>
+                `;
+
                 if (msg.type === 'text') {
                     row.innerHTML = `
-                        ${checkboxHtml}
                         <div class="msg-bubble">
                             ${msg.content}
                             <div class="msg-time">${msg.timeStr}</div>
                         </div>
+                        ${optionsHtml}
                     `;
                 } else {
                     row.className = 'message-row system';
                     row.style.position = 'relative';
                     let content = msg.content;
                     
-                    // Add checkbox to system message in history too
-                    content = checkboxHtml + content;
+                    // Add options menu to system message in history
+                    content = optionsHtml + content;
                     
                     // Patch: Comprehensive update for hospital cards in history
-                    if (content.includes('hospital-list-item') && !content.includes('precautions-card')) {
+                    if (content.includes('hospital-list-item')) {
                         // 0. Ensure the container has the required class for scoping
                         if (!content.includes('hospital-integrated-card')) {
                             content = content.replace('class="msg-bubble"', 'class="msg-bubble hospital-integrated-card"');
@@ -3394,43 +3418,6 @@ function initDashboard() {
         }
     };
 
-    window.searchPrecautions = function(input) {
-        const term = input.value.toLowerCase();
-        const container = document.getElementById('precaution-results-container');
-        if (!container) return;
-
-        const matchedContent = window.PRECAUTION_CONTENT.filter(item => 
-            item.title.includes(term) || 
-            item.keywords.some(k => k.includes(term))
-        );
-
-        let resultsHtml = '';
-
-        if (matchedContent.length > 0) {
-            resultsHtml += '<div style="margin-top: 5px;">';
-            matchedContent.forEach(item => {
-                resultsHtml += `
-                    <div style="padding: 15px; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 12px; margin-bottom: 10px;">
-                        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 10px;">
-                            <div style="background: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #dcfce7;">
-                                <i class="fa-solid ${item.icon}" style="color: var(--primary);"></i>
-                            </div>
-                            <div style="font-weight: 800; color: #166534; font-size: 0.95rem;">${item.title}</div>
-                        </div>
-                        <div style="font-size: 0.88rem; color: #15803d; line-height: 1.6; background: white; padding: 12px; border-radius: 8px;">
-                            ${item.content}
-                        </div>
-                    </div>
-                `;
-            });
-            resultsHtml += '</div>';
-        } else {
-            resultsHtml = '<div style="text-align:center; padding: 30px; color: #94a3b8; font-size: 0.85rem;">검색 결과가 없습니다.</div>';
-        }
-
-        container.innerHTML = resultsHtml;
-    };
-
     window.showHospitalPrecautions = function(index) {
         const h = window.GLOBAL_HOSPITALS[index];
         
@@ -4065,14 +4052,11 @@ function initDashboard() {
             return;
         }
 
-        // 1. Search in Precaution Content
+        // 1. Search only in Precaution Content (Keywords)
         const matchedContent = window.PRECAUTION_CONTENT.filter(item => 
             item.title.includes(term) || 
             item.keywords.some(k => k.includes(term))
         );
-
-        // 2. Search in Hospital Names
-        const matchedHospitals = window.GLOBAL_HOSPITALS.filter(h => h.name.toLowerCase().includes(term));
 
         let resultsHtml = '';
 
@@ -4080,48 +4064,29 @@ function initDashboard() {
             resultsHtml += '<div style="margin-top: 5px;">';
             matchedContent.forEach(item => {
                 resultsHtml += `
-                    <div class="precaution-content-result" style="padding: 15px; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 12px; margin-bottom: 10px; cursor: pointer; transition: transform 0.1s;" onclick="window.showSpecificPrecaution('${item.id}')" onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform='scale(1)'">
-                        <div style="display: flex; gap: 12px; align-items: center;">
-                            <div style="background: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #dcfce7;">
-                                <i class="fa-solid ${item.icon}" style="color: var(--primary);"></i>
+                    <div class="precaution-keyword-result" style="padding: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; margin-bottom: 15px; animation: fadeInUp 0.3s ease-out;">
+                        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 15px;">
+                            <div style="background: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #cbd5e1; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <i class="fa-solid ${item.icon}" style="color: var(--primary); font-size: 1.1rem;"></i>
                             </div>
-                            <div style="flex: 1;">
-                                <div style="font-weight: 800; color: #166534; font-size: 0.9rem;">${item.title}</div>
-                                <div style="font-size: 0.75rem; color: #15803d; opacity: 0.8;">"${term}" 관련 정보 보기</div>
+                            <div>
+                                <div style="font-weight: 800; color: var(--text-dark); font-size: 1.05rem;">${item.title}</div>
+                                <div style="font-size: 0.75rem; color: var(--primary); font-weight: 700; opacity: 0.8;">검색 결과 매칭됨</div>
                             </div>
-                            <i class="fa-solid fa-circle-chevron-right" style="color: #166534; opacity: 0.3;"></i>
+                        </div>
+                        <div style="font-size: 0.95rem; color: #475569; line-height: 1.8; background: white; padding: 15px; border-radius: 12px; border: 1px solid #f1f5f9;">
+                            ${item.content}
                         </div>
                     </div>
                 `;
             });
             resultsHtml += '</div>';
-        }
-
-        if (matchedHospitals.length > 0) {
-            resultsHtml += `<ul style="list-style: none; padding: 0; margin: 0; ${matchedContent.length > 0 ? 'margin-top: 15px; border-top: 1px dashed #e2e8f0; padding-top: 15px;' : ''}">`;
-            window.GLOBAL_HOSPITALS.forEach((h, i) => {
-                if (h.name.toLowerCase().includes(term)) {
-                    resultsHtml += `
-                        <li class="hospital-list-item precaution-hospital-item" style="padding: 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; border-radius: 8px;" onclick="window.showHospitalPrecautions(${i})">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
-                                    <h4 style="margin: 0 0 5px 0; color: var(--text-dark); font-size: 1rem;">${h.name}</h4>
-                                    <span style="font-size: 0.75rem; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">병원 정보 확인</span>
-                                </div>
-                                <div style="color: var(--primary);"><i class="fa-solid fa-chevron-right"></i></div>
-                            </div>
-                        </li>
-                    `;
-                }
-            });
-            resultsHtml += '</ul>';
-        }
-
-        if (!matchedContent.length && !matchedHospitals.length) {
+        } else {
             resultsHtml = `
-                <div style="padding: 30px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
-                    <i class="fa-solid fa-circle-question" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
-                    검색 결과가 없습니다.<br>키워드를 다시 확인해 주세요.
+                <div style="padding: 40px 20px; text-align: center; color: #94a3b8; font-size: 0.9rem;">
+                    <i class="fa-solid fa-magnifying-glass" style="font-size: 2.5rem; margin-bottom: 15px; color: #e2e8f0; display: block;"></i>
+                    "${term}"에 대한 주의사항을 찾을 수 없습니다.<br>
+                    <span style="font-size: 0.8rem; margin-top: 8px; display: block; color: #cbd5e1;">'금식', '약', '임신', '식사' 등의 키워드로 검색해 보세요.</span>
                 </div>
             `;
         }
