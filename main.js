@@ -1325,16 +1325,32 @@ function changeLanguage(langCode) {
                 googleSelect.dispatchEvent(new Event('change', { bubbles: true }));
             }
             
-            const hideGoogleBar = () => {
-                const frame = document.querySelector('.goog-te-banner-frame');
-                if (frame) {
-                    frame.style.display = 'none';
-                    frame.style.visibility = 'hidden';
-                }
-                document.body.style.top = '0';
+            const nukeGoogleBar = () => {
+                const frames = document.querySelectorAll('.goog-te-banner-frame, iframe.skiptranslate');
+                frames.forEach(f => f.remove());
+                document.body.style.top = '0px';
+                document.documentElement.style.top = '0px';
             };
-            hideGoogleBar();
-            setTimeout(hideGoogleBar, 500);
+            
+            nukeGoogleBar();
+            setTimeout(nukeGoogleBar, 500);
+            setTimeout(nukeGoogleBar, 1500);
+            setTimeout(nukeGoogleBar, 3000);
+            
+            // Aggressive MutationObserver to catch it immediately
+            if (!window.nukeObserver) {
+                window.nukeObserver = new MutationObserver((mutations) => {
+                    let shouldNuke = false;
+                    mutations.forEach((mutation) => {
+                        if (mutation.addedNodes.length) {
+                            shouldNuke = true;
+                        }
+                    });
+                    if (shouldNuke) nukeGoogleBar();
+                });
+                window.nukeObserver.observe(document.body, { childList: true });
+            }
+
         } else {
             if (!window.googleTranslateRetryCount) window.googleTranslateRetryCount = 0;
             if (window.googleTranslateRetryCount < 10) {
