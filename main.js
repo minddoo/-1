@@ -3465,15 +3465,27 @@ function initDashboard() {
                 </div>
             `;
             window.appendMessage('system', html, 'system');
-        } else {
+        } else if (type === 'stomach') {
             const html = `
-                <div class="system-block" style="border-left: 4px solid #ef4444; background: #f8fafc;">
-                    <div class="block-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border-radius: 12px;"><i class="fa-solid fa-circle-info"></i></div>
+                <div class="system-block" style="border-left: 4px solid #f59e0b; background: #f8fafc; padding-right: 20px;">
+                    <div class="block-icon" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border-radius: 12px; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-apple-whole"></i></div>
                     <div class="block-content" style="width: 100%;">
-                        <p style="margin-top: 5px;"><strong>위내시경 주의사항 상세 정보</strong></p>
-                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">KMI 위내시경에 대한 세부 안내입니다. (이미지 및 텍스트 데이터 대기 중)</span>
-                        <div style="width: 100%; height: 200px; background: #e2e8f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #94a3b8; border: 2px dashed #cbd5e1;">
-                            <span style="font-weight: 600;">[ 위내시경 세부 정보 영역 ]</span>
+                        <p style="margin-top: 5px; color: #92400e;"><strong>KMI 위내시경 주의사항 상세 정보</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">KMI 위내시경에 대한 세부 안내입니다. 정확한 검사를 위해 아래 내용을 지침대로 따라주세요.</span>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('stomach1')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#fffbeb';" onmouseout="this.style.background='white';">
+                                <span>• 검사 전날 (금식 및 주의사항)</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                            </button>
+                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('stomach_dayof')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#fffbeb';" onmouseout="this.style.background='white';">
+                                <span>• 검사 당일 (최종 체크)</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                            </button>
+                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('stomach_after')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#fffbeb';" onmouseout="this.style.background='white';">
+                                <span>• 검사 후 주의사항</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -3492,6 +3504,63 @@ function initDashboard() {
 
     window.showKmiSubDetail = function(subType) {
         const subData = {
+            'stomach1': {
+                title: '검사 전날 (금식 및 주의사항)',
+                content: `
+                    <div class="modal-info-box" style="background: #fff9f0; padding: 15px; border-radius: 12px; border: 1px solid #ffeeba; margin-bottom: 20px;">
+                        <p style="font-weight: 800; color: #856404; margin-bottom: 8px;"><i class="fa-solid fa-utensils" style="margin-right: 6px;"></i>금식 안내</p>
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: #856404;">• <strong>오후 8~9시경</strong> 가벼운 저녁 식사를 마칩니다.<br>• <strong>자정(밤 12시)</strong>부터는 물을 포함하여 절대 금식입니다.</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">음주 및 음식 조절</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">검사 전날 과음이나 과식, 기름진 음식은 반드시 피해주셔야 정확한 검사가 가능합니다.</p>
+                        </div>
+                        <div style="background: #fdf2f2; padding: 15px; border-radius: 12px; border: 1px solid #fecaca;">
+                            <p style="font-weight: 700; color: #991b1b; margin-bottom: 5px;">약물 복용 관련</p>
+                            <p style="font-size: 0.9rem; color: #b91c1c; line-height: 1.5;">아스피린, 혈전용해제(와파린, 플라빅스 등)를 복용 중인 경우, <strong>반드시 주치의와 상의</strong>하여 검사 7일 전부터 복용 중단 여부를 결정해야 합니다.</p>
+                        </div>
+                    </div>
+                `
+            },
+            'stomach_dayof': {
+                title: '검사 당일 (최종 체크)',
+                content: `
+                    <div class="modal-info-box" style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe; margin-bottom: 20px;">
+                        <p style="font-weight: 800; color: #1e40af; margin-bottom: 8px;"><i class="fa-solid fa-clock" style="margin-right: 6px;"></i>당일 금식 유지</p>
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: #1e40af;">아침 식사는 물론 <strong>물, 껌, 사탕, 담배</strong>도 절대 금지입니다.</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">혈압약 복용</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">혈압약은 <strong>새벽 5시경 소량의 물</strong>과 함께 복용하십시오.<br><span style="color: #ef4444;">※ 당뇨약(인슐린 포함)은 당일 아침 절대 금지입니다.</span></p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">병원 도착</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">원활한 검사를 위해 예약 시간 <strong>20분 전</strong>까지 센터에 도착해 주세요.</p>
+                        </div>
+                    </div>
+                `
+            },
+            'stomach_after': {
+                title: '검사 후 주의사항',
+                content: `
+                    <div class="modal-info-box" style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #bbf7d0; margin-bottom: 20px;">
+                        <p style="font-weight: 800; color: #166534; margin-bottom: 8px;"><i class="fa-solid fa-bowl-food" style="margin-right: 6px;"></i>검사 후 식사</p>
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: #166534;">• 검사 <strong>1시간 후</strong>부터 식사가 가능합니다.<br>• 첫 식사는 죽이나 미음 등 부드러운 음식을 권장합니다.</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                        <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
+                            <p style="font-weight: 700; color: #9f1239; margin-bottom: 5px;">주의 사항</p>
+                            <p style="font-size: 0.9rem; color: #be123c; line-height: 1.5;">• 당일 <strong>음주, 매운 음식</strong> 등 자극적인 식사는 피하세요.<br>• <strong>수면 내시경</strong>을 하셨다면 당일 운전, 기계 조작은 절대 금물입니다.</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">일시적 증상</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">목의 이물감이나 통증, 약간의 복부 팽만감은 시간이 지나면 자연스럽게 사라집니다.</p>
+                        </div>
+                    </div>
+                `
+            },
             '14days': {
                 title: '건강검진 14일전',
                 content: `

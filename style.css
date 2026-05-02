@@ -4244,10 +4244,35 @@ body {
     box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
 }
 
-/* Hide Google Translate Toolbar */
-.goog-te-banner-frame.skiptranslate, .goog-te-banner-frame {
+/* Hide Google Translate Toolbar completely */
+.goog-te-banner-frame.skiptranslate, 
+.goog-te-banner-frame,
+.skiptranslate iframe,
+#goog-gt-tt {
     display: none !important;
+    visibility: hidden !important;
 }
+
 body {
     top: 0px !important;
+    position: relative !important;
+}
+
+html {
+    top: 0px !important;
+    height: auto !important;
+}
+
+.goog-text-highlight {
+    background-color: transparent !important;
+    border: none !important; 
+    box-shadow: none !important;
+}
+
+/* Prevent tooltip popups from Google */
+.goog-tooltip {
+    display: none !important;
+}
+.goog-tooltip:hover {
+    display: none !important;
 }
