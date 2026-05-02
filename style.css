@@ -2801,10 +2801,7 @@ ul {
 }
 
 .message-row.coord { align-self: flex-start; }
-.message-row.user { 
-    align-self: flex-end; 
-    flex-direction: row-reverse;
-}
+.message-row.user { align-self: flex-end; }
 
 .msg-bubble {
     position: relative;
@@ -2818,22 +2815,23 @@ ul {
 .msg-options-wrap {
     position: relative;
     display: flex;
-    align-items: center;
-    margin: 0 8px;
+    align-items: flex-end;
+    margin-left: 4px;
+    padding-bottom: 5px;
     z-index: 100;
 }
 
 .msg-options-btn {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #94a3b8;
+    color: #cbd5e1;
     border-radius: 50%;
     transition: all 0.2s;
-    line-height: 1;
+    font-size: 0.6rem;
 }
 
 .delete-msg-btn:hover {
