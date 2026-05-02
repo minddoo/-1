@@ -3776,15 +3776,71 @@ function initDashboard() {
         
         if (bodyEl) {
             bodyEl.innerHTML = `
-                <div style="padding: 40px 20px; text-align: center;">
-                    <div style="width: 80px; height: 80px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 2rem; margin: 0 auto 20px;">
-                        <i class="fa-solid fa-hourglass-half"></i>
+                <div style="padding: 10px;">
+                    <!-- 1. 약물 개요 -->
+                    <div style="background: #f8fafc; border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #3b82f6; font-size: 1.5rem; border: 1px solid #e2e8f0;">
+                            <i class="fa-solid fa-pills"></i>
+                        </div>
+                        <div>
+                            <h5 style="margin: 0; color: #1e293b; font-weight: 800;">오라팡 정 (알약)</h5>
+                            <p style="margin: 2px 0 0; font-size: 0.8rem; color: #64748b;">물에 타 마시는 불편함이 없는 정제 타입</p>
+                        </div>
                     </div>
-                    <h4 style="color: #1e293b; margin-bottom: 10px; font-weight: 800;">데이터 준비 중</h4>
-                    <p style="color: #64748b; font-size: 0.9rem; line-height: 1.6;">
-                        오라팡(알약) 복용 방법 가이드를 제작 중입니다.<br>잠시만 기다려 주세요!
-                    </p>
-                    <button onclick="window.showKmiSubDetail('colon_purgative')" style="width: 100%; margin-top: 30px; padding: 12px; background: #f1f5f9; border: none; border-radius: 10px; color: #64748b; font-weight: 700; cursor: pointer;">
+
+                    <!-- 2. 복용 시간 -->
+                    <div style="margin-bottom: 20px;">
+                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">1. 복용 시간</h5>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div style="background: #eff6ff; padding: 12px; border-radius: 10px;">
+                                <p style="font-weight: 800; font-size: 0.85rem; color: #1e40af; margin-bottom: 8px;">오전 검진자</p>
+                                <p style="font-size: 0.8rem; color: #3b82f6; line-height: 1.5;">
+                                    <b>1차:</b> 전날 저녁 8시<br>
+                                    <b>2차:</b> 당일 새벽 4시
+                                </p>
+                            </div>
+                            <div style="background: #fdf2f8; padding: 12px; border-radius: 10px;">
+                                <p style="font-weight: 800; font-size: 0.85rem; color: #9d174d; margin-bottom: 8px;">오후 검진자</p>
+                                <p style="font-size: 0.8rem; color: #be185d; line-height: 1.5;">
+                                    <b>1차:</b> 당일 오전 5시<br>
+                                    <b>2차:</b> 당일 오전 8시 30분
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. 복용 방법 -->
+                    <div style="margin-bottom: 20px;">
+                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">2. 복용 방법 (1차/2차 동일)</h5>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div style="display: flex; gap: 12px;">
+                                <div style="min-width: 24px; height: 24px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">1</div>
+                                <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+                                    <b>사전 수분 섭취:</b> 복용 전 <b>물 두 컵</b>을 미리 마십니다.
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <div style="min-width: 24px; height: 24px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">2</div>
+                                <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+                                    <b>본 복용:</b> 오라팡 <b>14정</b>을 1~2정씩 나누어 충분한 물과 함께 <b>30분 동안 천천히</b> 복용합니다.
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px;">
+                                <div style="min-width: 24px; height: 24px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">3</div>
+                                <div style="font-size: 0.9rem; color: #065f46; line-height: 1.6;">
+                                    <b>사후 수분 섭취:</b> 그 후 1시간 동안 <b>물 1L 이상</b>을 천천히 마십니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #fff5f5; border-radius: 12px; padding: 15px; border: 1px solid #feb2b2; font-size: 0.8rem; color: #c53030;">
+                        <p style="font-weight: 800; margin-bottom: 5px;">⚠️ 유의사항</p>
+                        • 알약을 한꺼번에 복용할 경우 구토나 복통이 발생할 수 있으니 반드시 나누어 복용하세요.<br>
+                        • 수분 섭취량이 부족하면 장 정결이 충분히 되지 않을 수 있습니다.
+                    </div>
+                    
+                    <button onclick="window.showKmiSubDetail('colon_purgative')" style="width: 100%; margin-top: 20px; padding: 12px; background: #f1f5f9; border: none; border-radius: 10px; color: #64748b; font-weight: 700; cursor: pointer;">
                         <i class="fa-solid fa-arrow-left" style="margin-right: 5px;"></i> 이전으로 돌아가기
                     </button>
                 </div>
