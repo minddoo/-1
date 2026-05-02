@@ -3410,7 +3410,7 @@ function initDashboard() {
                             </p>
                         </div>
 
-                        <a href="http://www.hanaromf.com/" target="_blank" style="text-decoration: none; display: block; margin-bottom: 15px;">
+                        <a href="https://www.hanaromf.com/reserve/guide/attention.jsp" target="_blank" style="text-decoration: none; display: block; margin-bottom: 15px;">
                             <button style="width: 100%; padding: 10px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
                                 <i class="fa-solid fa-arrow-up-right-from-square"></i> 홈페이지 주의사항 직접 확인하기
                             </button>
@@ -3568,7 +3568,30 @@ function initDashboard() {
 
         if (type === 'general') {
             title = '하나로 검진주의사항';
-            content = `<p style="padding: 20px; color: #64748b; text-align: center;">상세 내용을 준비 중입니다.</p>`;
+            content = `
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <button class="precaution-sub-btn" onclick="window.showHanaroSubDetail('diet')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 식이조절 및 금식</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showHanaroSubDetail('other')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 기타 준비사항 (채변/안경 등)</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showHanaroSubDetail('female')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 여성고객 유의사항</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showHanaroSubDetail('meds')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 약 복용 유의사항</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showHanaroSubDetail('endoscopy')" style="padding: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #1e40af; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#dbeafe';" onmouseout="this.style.background='#eff6ff';">
+                        <span>• 내시경 예약고객 유의사항</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #60a5fa;"></i>
+                    </button>
+                </div>
+            `;
         } else if (type === 'mr') {
             title = '하나로 MR 검사 전 주의사항';
             content = `<p style="padding: 20px; color: #64748b; text-align: center;">상세 내용을 준비 중입니다.</p>`;
@@ -3589,6 +3612,157 @@ function initDashboard() {
         `;
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
+    };
+
+    window.showHanaroSubDetail = function(subType) {
+        const subData = {
+            'diet': {
+                title: '식이조절 및 금식',
+                content: `
+                    <div style="background: #f0f9ff; padding: 15px; border-radius: 12px; border: 1px solid #bae6fd; margin-bottom: 20px;">
+                        <p style="font-weight: 800; color: #0369a1; margin-bottom: 8px;"><i class="fa-solid fa-utensils" style="margin-right: 6px;"></i>검진 2~3일 전 공통 주의사항</p>
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: #0369a1;">• 기름진 음식, 음주 및 과로는 피하십시오.</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: var(--shadow-sm);">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px;">오전 검진</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.6;">
+                                • <strong>검진 전 날</strong>: 오후 8시 이전에 가볍게 저녁식사를 마치시고 그 이후에는 금식하십시오. (단, 물은 저녁 12시 이전까지 드셔도 됩니다.)<br>
+                                • <strong>검진 당일</strong>: 금식시간 중에는 물, 주스, 껌, 담배도 삼가하십시오.
+                            </p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: var(--shadow-sm);">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px;">오후 검진</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.6;">
+                                • <strong>검진 전 날</strong>: 저녁식사 후 자정 12시부터 금식하십시오.<br>
+                                • <strong>검진 당일</strong>: 금식시간 중에는 물론 물, 주스, 껌, 담배도 삼가하십시오.
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            'other': {
+                title: '기타 준비사항',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;"><i class="fa-solid fa-notes-medical" style="margin-right: 6px; color: var(--primary);"></i>병력 확인</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">수술 및 시술 병력 있는 경우는 일부 검사가 제한 될 수 있으니, 꼭 사전 연락 바랍니다.</p>
+                        </div>
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;"><i class="fa-solid fa-poop" style="margin-right: 6px; color: #92400e;"></i>대변 검사</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">대변검사가 있는 경우 검진 전날 또는 당일 오전에 채취를 권장하며, 채취하신 대변은 서늘하게 보관하여 주십시오. (대장내시경 예약 고객은 장정결제 복용 전 채취 권장)</p>
+                        </div>
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;"><i class="fa-solid fa-droplet" style="margin-right: 6px; color: #0ea5e9;"></i>소변 검사</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">검진 당일 소변검사, 골반초음파, 하복부초음파 검사가 있는 경우 소변은 되도록 참고 내원하십시오.</p>
+                        </div>
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;"><i class="fa-solid fa-glasses" style="margin-right: 6px; color: #6366f1;"></i>안경 및 귀중품</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">• 안압 검사 시 렌즈 손상이 우려되므로 렌즈는 제거 후 방문해 주십시오.<br>• 교정시력을 측정하므로 안경을 꼭 가져오시기 바랍니다.<br>• 귀중품 휴대 및 어린이 동반을 자제하여 주십시오.</p>
+                        </div>
+                    </div>
+                `
+            },
+            'female': {
+                title: '여성고객 유의사항',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
+                            <p style="font-weight: 700; color: #9f1239; margin-bottom: 5px;">임신 및 임신가능성 확인 필수</p>
+                            <p style="font-size: 0.9rem; color: #be123c; line-height: 1.5;">• 생리 주기 체크하여 임신 여부를 필수 확인 바랍니다.<br>• 방사선 및 약물 노출로 인한 태아 위험을 방지합니다. (검사 제한으로 기초검사 일부 및 혈액 검사만 가능)</p>
+                        </div>
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">생리 중인 경우</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">소변검사, 자궁경부 세포검사가 제한됩니다. (생리가 끝난 4~5일 후가 좋습니다.)</p>
+                        </div>
+                        <div style="background: #fff7ed; padding: 15px; border-radius: 12px; border: 1px solid #ffedd5;">
+                            <p style="font-weight: 700; color: #9a3412; margin-bottom: 5px;">수유 중인 경우</p>
+                            <p style="font-size: 0.9rem; color: #c2410c; line-height: 1.5;">• 유방촬영 및 유방초음파 검사가 제한됩니다.<br>• 모유 수유 중단 후 최소 6개월 후 검사가 가능합니다.</p>
+                        </div>
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">기타 금기사항</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">자궁경부세포 검사 전 24시간 전부터 부부관계, 질정, 크림, 질세척 사용을 피하십시오.</p>
+                        </div>
+                    </div>
+                `
+            },
+            'meds': {
+                title: '약 복용 유의사항',
+                content: `
+                    <div class="modal-info-box" style="background: #fffbeb; padding: 15px; border-radius: 12px; border: 1px solid #fef3c7; margin-bottom: 20px;">
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: #92400e;">복용 약이 있는 경우 반드시 알려주시고, 약 복용 유의사항에 따라 중단 및 복용 바랍니다.</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="background: #fef2f2; padding: 15px; border-radius: 12px; border: 1px solid #fee2e2;">
+                            <p style="font-weight: 700; color: #991b1b; margin-bottom: 5px;">검진 1주일 전 (혈전용해제 등)</p>
+                            <p style="font-size: 0.9rem; color: #b91c1c; line-height: 1.5;">
+                                • 심혈관 및 뇌혈관 질환으로 항혈소판제(아스피린, 플라빅스, 프레탈 등)와 항응고제(와파린, 쿠마딘, 헤파린 등)를 복용 중인 경우 약 처방한 담당 의사와 꼭 상의 후 일주일 전부터 복용을 중단하시기 바랍니다.<br>
+                                • 혈압약, 당뇨약, 심장약 등을 복용하시는 분은 내시경 검사 중 조직 검사 또는 용종을 제거할 경우 출혈의 위험이 있으므로 아스피린 약제가 포함되어 있는지 확인하시어 복용을 중단하시기 바랍니다.
+                            </p>
+                        </div>
+                        <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #dcfce7;">
+                            <p style="font-weight: 700; color: #166534; margin-bottom: 5px;">검진 당일</p>
+                            <p style="font-size: 0.9rem; color: #15803d; line-height: 1.5;">
+                                • 당뇨약(혈당강하제), 인슐린 주사는 중단합니다.<br>
+                                • 항고혈압, 부정맥, 심장질환, 갑상선, 항경련제는 아침 일찍 소량의 물로 복용하십시오.
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            'endoscopy': {
+                title: '내시경 예약고객 유의사항',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">질환 병력 및 수술력</p>
+                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">
+                                • 병력 및 수술력이 있는 경우 사전에 알려주십시오. (병력 및 수술력에 따라 내시경 검사가 제한 될 수 있습니다.)<br>
+                                • 심장질환, 간경화, 만성폐질환, 기타 만성질환 있는 분은 반드시 사전에 직원에게 알려주시기 바랍니다.<br>
+                                • 안과수술(라식, 라섹 등)을 받으신 분은 최소 3개월 후 권고합니다.
+                            </p>
+                        </div>
+                        <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
+                            <p style="font-weight: 700; color: #9f1239; margin-bottom: 5px;">내시경 검사가 제한되는 경우</p>
+                            <p style="font-size: 0.85rem; color: #be123c; line-height: 1.5;">
+                                • 아세톤으로 지워지지 않는 매니큐어 (산소포화도 측정불가)<br>
+                                • 치아 손상 가능성 있는 분<br>
+                                • 검진 당일 혈압 및 심전도 결과에 따라 의사상담 후 제한<br>
+                                • 마약류 관리법에 의거한 주민번호 미제공 또는 미소지(외국인) 분<br>
+                                • BMI 35이상 고도비만의 경우, 무호흡증 위험성으로 인해 수면내시경 검사 제한
+                            </p>
+                        </div>
+                        <div style="background: #fef2f2; padding: 15px; border-radius: 12px; border: 1px solid #fee2e2;">
+                            <p style="font-weight: 700; color: #991b1b; margin-bottom: 5px;"><i class="fa-solid fa-car-side" style="margin-right: 6px;"></i>수면 내시경 예약고객 (중요)</p>
+                            <p style="font-size: 0.9rem; color: #991b1b; line-height: 1.5; font-weight: 700;">당일 자가운전이 불가하오니 반드시 대중교통을 이용해주시기 바랍니다.</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        const data = subData[subType];
+        if (!data) return;
+
+        const modal = document.getElementById('precaution-modal');
+        const titleEl = document.getElementById('precaution-modal-title');
+        const bodyEl = document.getElementById('precaution-modal-body');
+        const backBtn = document.getElementById('precaution-back-btn');
+
+        titleEl.innerText = data.title;
+        bodyEl.innerHTML = `
+            <div style="padding: 10px;">
+                ${data.content}
+            </div>
+        `;
+        
+        if (backBtn) {
+            backBtn.style.display = 'flex';
+            backBtn.onclick = () => window.showHanaroDetail('general');
+        }
+
+        modal.classList.add('show');
     };
 
     window.closePrecautionModal = function() {
