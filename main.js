@@ -4117,12 +4117,16 @@ function initDashboard() {
                 title = "식사 조절 및 금식 안내";
                 content = `
                     <div style="display: flex; flex-direction: column; gap: 15px;">
-                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('diet_common')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
-                            <span>검진 3일 전 ~ 전날 준비</span>
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('diet_basic')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>기본 검진 (대장내시경 없는 분)</span>
                             <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
                         </button>
-                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('diet_today')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
-                            <span>검진 당일 아침 지침</span>
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('diet_colon_early')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>대장내시경 (3일 ~ 2일 전)</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                        </button>
+                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('diet_colon_last')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                            <span>대장내시경 (검사 전날 지침)</span>
                             <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
                         </button>
                     </div>
@@ -4194,38 +4198,62 @@ function initDashboard() {
 
     window.showSeveranceSubDetail = function(subType) {
         const subData = {
-            'diet_common': {
-                title: '검진 전 식사 및 금식',
+            'diet_basic': {
+                title: '기본 검진 (대장내시경 미포함)',
                 parent: 'diet',
                 content: `
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                            <p style="font-weight: 700; color: #334155; margin-bottom: 8px;"><i class="fa-solid fa-calendar-minus" style="margin-right: 6px; color: #ef4444;"></i>검진 3일 전부터</p>
-                            <p style="font-size: 0.85rem; color: #64748b; line-height: 1.6;">
-                                • 한약, 건강보조식품, 술은 피해주십시오.<br>
-                                • 과로를 피하고 충분한 휴식을 취하십시오.
-                            </p>
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 8px;"><i class="fa-solid fa-calendar-minus" style="margin-right: 6px; color: #64748b;"></i>공통 사항 (3일 전부터)</p>
+                            <p style="font-size: 0.85rem; color: #64748b; line-height: 1.6;">• 한약, 술은 중단해 주세요.</p>
                         </div>
                         <div style="background: #fff9f0; padding: 15px; border-radius: 12px; border: 1px solid #ffeeba;">
-                            <p style="font-weight: 700; color: #856404; margin-bottom: 8px;"><i class="fa-solid fa-moon" style="margin-right: 6px;"></i>검진 전날</p>
+                            <p style="font-weight: 700; color: #856404; margin-bottom: 8px;"><i class="fa-solid fa-moon" style="margin-right: 6px;"></i>검사 1일 전</p>
                             <p style="font-size: 0.85rem; color: #856404; line-height: 1.6;">
                                 • <strong>저녁 식사</strong>: 오후 7시 이전에 가볍게 마칩니다.<br>
-                                • <strong>완전 금식</strong>: 저녁 9시 이후부터 물, 껌, 사탕 포함 절대 금식입니다.
+                                • <strong>금식</strong>: 오후 9시 이후부터 물, 담배, 껌, 사탕 포함 절대 금식입니다.
                             </p>
                         </div>
                     </div>
                 `
             },
-            'diet_today': {
-                title: '검진 당일 지침',
+            'diet_colon_early': {
+                title: '대장내시경 (3일 ~ 2일 전)',
                 parent: 'diet',
                 content: `
-                    <div style="background: #fef2f2; padding: 15px; border-radius: 12px; border: 1px solid #fee2e2;">
-                        <p style="font-weight: 700; color: #991b1b; margin-bottom: 10px;"><i class="fa-solid fa-ban" style="margin-right: 6px;"></i>당일 아침 절대 금식</p>
-                        <p style="font-size: 0.9rem; color: #991b1b; line-height: 1.8; font-weight: 600;">
-                            • 물, 담배, 껌 등을 포함하여 아무것도 드시지 마십시오.<br>
-                            • 단, 혈압약 복용자는 오전 6시 30분경 소량의 물과 함께 복용 가능합니다.
-                        </p>
+                    <div style="margin-bottom: 15px; background: #fff1f2; padding: 12px; border-radius: 10px; border: 1px solid #fecdd3;">
+                        <p style="font-size: 0.82rem; color: #9f1239; line-height: 1.5;">대장내시경 검사의 정확도는 대장 정결 상태에 따라 크게 좌우됩니다.</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <p style="font-weight: 700; color: #ef4444; margin-bottom: 10px;"><i class="fa-solid fa-circle-xmark" style="margin-right: 6px;"></i>피해야 할 음식</p>
+                        <div style="background: #fef2f2; padding: 12px; border-radius: 10px; border: 1px solid #fee2e2; font-size: 0.82rem; color: #991b1b; line-height: 1.6;">
+                            잡곡밥, 검은쌀, 콩나물밥, 현미밥, 깨죽, 녹두죽, 잣죽, 고춧가루, 참기름, 들기름, 배추김치, 열무김치, 파김치, 얼갈이, 우거지, 콩나물, 고사리, 도라지, 미나리, 미역, 김, 설렁탕, 곰탕, 삼겹살, 고구마, 씨 있는 과일(수박, 참외, 딸기, 포도, 토마토, 키위, 멜론 등), 고추씨, 옥수수, 견과류
+                        </div>
+                    </div>
+                    <div>
+                        <p style="font-weight: 700; color: #16a34a; margin-bottom: 10px;"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>드실 수 있는 음식</p>
+                        <div style="background: #f0fdf4; padding: 12px; border-radius: 10px; border: 1px solid #dcfce7; font-size: 0.82rem; color: #166534; line-height: 1.6;">
+                            흰쌀밥, 흰죽, 계란류, 두부류, 생선류, 국물류, 빵종류, 음료류(탄산, 맑은 주스, 우유, 커피, 녹차 등), 감자, 바나나
+                        </div>
+                    </div>
+                `
+            },
+            'diet_colon_last': {
+                title: '대장내시경 (검사 전날)',
+                parent: 'diet',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: #fff9f0; padding: 15px; border-radius: 12px; border: 1px solid #ffeeba;">
+                            <p style="font-weight: 700; color: #856404; margin-bottom: 8px;"><i class="fa-solid fa-utensils" style="margin-right: 6px;"></i>식사 방법</p>
+                            <p style="font-size: 0.85rem; color: #856404; line-height: 1.6;">
+                                • 아침/점심/저녁 : <strong>반찬 없이 흰쌀 죽</strong>만 가능<br>
+                                • 식사는 <strong>오후 5시 이전</strong>에 모두 마치십시오.
+                            </p>
+                        </div>
+                        <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe;">
+                            <p style="font-weight: 700; color: #1e40af; margin-bottom: 5px;"><i class="fa-solid fa-droplet" style="margin-right: 6px;"></i>수분 섭취</p>
+                            <p style="font-size: 0.85rem; color: #1e40af;">탈수 예방을 위해 물은 충분히 드십시오.</p>
+                        </div>
                     </div>
                 `
             },
