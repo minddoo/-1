@@ -3667,7 +3667,26 @@ function initDashboard() {
             `;
         } else if (type === 'colon_ora') {
             title = '하나로 대장검사(오라팡)';
-            content = `<p style="padding: 20px; color: #64748b; text-align: center;">상세 내용을 준비 중입니다.</p>`;
+            content = `
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <button class="precaution-sub-btn" onclick="window.showHanaroSubDetail('ora_pre')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 검사 전 주의사항</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showHanaroSubDetail('ora_diet')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 3일 전/1일 전 식단 안내</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showHanaroSubDetail('ora_how')" style="padding: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #1e40af; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#dbeafe';" onmouseout="this.style.background='#eff6ff';">
+                        <span>• 오라팡 복용 방법</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #60a5fa;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showHanaroSubDetail('ora_check')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 검사 전 자가진단 (대변 색깔)</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                </div>
+            `;
         }
 
         titleEl.innerText = title;
@@ -3879,6 +3898,94 @@ function initDashboard() {
             'su_check': {
                 title: '검사 전 자가진단',
                 parent: 'colon_su',
+                content: `
+                    <div style="text-align: center; padding: 10px;">
+                        <p style="font-weight: 700; color: #334155; margin-bottom: 15px;">대변 색깔을 확인해 보세요</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                            <div style="background: #78350f; color: white; padding: 15px; border-radius: 10px; font-size: 0.8rem;">어두운 갈색<br>(준비 전)</div>
+                            <div style="background: #b45309; color: white; padding: 15px; border-radius: 10px; font-size: 0.8rem;">갈색<br>(준비 전)</div>
+                            <div style="background: #d97706; color: white; padding: 15px; border-radius: 10px; font-size: 0.8rem;">어두운 오렌지<br>(준비 전)</div>
+                            <div style="background: #fef08a; color: #854d0e; padding: 15px; border-radius: 10px; border: 1px solid #facc15; font-size: 0.8rem; font-weight: 800;">맑은 노란색<br>(준비 완료!)</div>
+                        </div>
+                        <p style="font-size: 0.85rem; color: #64748b; line-height: 1.6;">
+                            찌꺼기 없는 <strong>맑은 노란색(소변색)</strong>이 되어야 검사가 가능합니다.<br>
+                            ※ 맑게 나오더라도 안내된 하제는 모두 복용하셔야 합니다.
+                        </p>
+                    </div>
+                `
+            },
+            'ora_pre': {
+                title: '대장내시경 검사 전 주의사항',
+                parent: 'colon_ora',
+                content: `
+                    <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3; margin-bottom: 15px;">
+                        <p style="font-weight: 800; color: #9f1239; margin-bottom: 8px;"><i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>장세정이 중요한 이유</p>
+                        <p style="font-size: 0.85rem; line-height: 1.6; color: #be123c;">정확한 진단은 장 정결 상태에 따라 달라집니다. 불충분할 경우 검사 자체가 불가능하며 재검사 시 시간과 비용이 추가됩니다.</p>
+                    </div>
+                    <ul style="font-size: 0.85rem; color: #475569; line-height: 1.8; padding-left: 20px;">
+                        <li><strong>혈소판제/항응고제</strong>: 아스피린, 플라빅스 등 복용 시 담당의와 상의 후 5일 전부터 중단하십시오.</li>
+                        <li><strong>당뇨약/인슐린</strong>: 검사 당일 아침에는 절대 투여하지 마십시오.</li>
+                        <li><strong>복부 수술</strong>: 수술하신 분은 최소 6개월 후에 검사가 가능합니다.</li>
+                        <li><strong>매니큐어/젤</strong>: 산소포화도 측정을 위해 반드시 제거하십시오.</li>
+                        <li><strong>BMI 35이상</strong>: 고도비만의 경우 무호흡 위험으로 수면 내시경이 제한될 수 있습니다.</li>
+                        <li><strong>용종절제술 후</strong>: 만 7일 동안 비행기 탑승이 불가합니다.</li>
+                    </ul>
+                `
+            },
+            'ora_diet': {
+                title: '대장내시경 식단 안내',
+                parent: 'colon_ora',
+                content: `
+                    <div style="margin-bottom: 20px;">
+                        <p style="font-weight: 700; color: #334155; margin-bottom: 10px;"><i class="fa-solid fa-calendar-day" style="margin-right: 6px; color: var(--primary);"></i>검사 3일 전부터 피할 음식</p>
+                        <div style="background: #fef2f2; padding: 12px; border-radius: 10px; border: 1px solid #fee2e2; font-size: 0.85rem; color: #991b1b;">
+                            잡곡밥, 현미밥, 깨죽, 김치류, 나물류, 해조류(김, 미역), 씨 있는 과일(수박, 딸기, 포도, 키위), 견과류, 옥수수
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <p style="font-weight: 700; color: #334155; margin-bottom: 10px;"><i class="fa-solid fa-circle-check" style="margin-right: 6px; color: #16a34a;"></i>드실 수 있는 음식</p>
+                        <div style="background: #f0fdf4; padding: 12px; border-radius: 10px; border: 1px solid #dcfce7; font-size: 0.85rem; color: #166534;">
+                            흰쌀밥, 흰죽, 건더기 없는 국물, 계란, 두부, 생선, 빵(건더기 없는 것), 감자, 바나나
+                        </div>
+                    </div>
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">검사 1일 전 식사방법</p>
+                        <p style="font-size: 0.85rem; color: #64748b; line-height: 1.6;">
+                            • <strong>오전 검진</strong>: 오후 1시 이전까지 흰죽(반찬 없이) 가볍게 드신 후 금식<br>
+                            • <strong>오후 검진</strong>: 오후 7시 이전까지 흰죽(반찬 없이) 가볍게 드신 후 금식
+                        </p>
+                    </div>
+                `
+            },
+            'ora_how': {
+                title: '오라팡 복용 방법',
+                parent: 'colon_ora',
+                content: `
+                    <div style="margin-bottom: 15px; background: #eff6ff; padding: 12px; border-radius: 10px; border: 1px solid #bfdbfe;">
+                        <p style="font-weight: 700; color: #1e40af; margin-bottom: 5px;">준비 물품</p>
+                        <p style="font-size: 0.85rem; color: #1e40af;">오라팡 1상자(28정), 엔도콜 1포</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 8px; border-bottom: 2px solid #3b82f6; width: fit-content; padding-bottom: 2px;">오전 검사 (당일/전날)</p>
+                            <p style="font-size: 0.8rem; color: #64748b; line-height: 1.6;">
+                                <strong>1차 (전날 저녁 8시)</strong>: 물 300ml 음용 후 <strong>오라팡 14정</strong> 천천히 복용 + 이후 1시간 동안 물 1L 음용<br>
+                                <strong>2차 (당일 새벽 4시)</strong>: 물 600ml 음용 후 <strong>오라팡 14정</strong> 천천히 복용 + 1시간 뒤 <strong>엔도콜 1포</strong> 섞은 물 500ml 음용
+                            </p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 8px; border-bottom: 2px solid #f59e0b; width: fit-content; padding-bottom: 2px;">오후 검사 (당일)</p>
+                            <p style="font-size: 0.8rem; color: #64748b; line-height: 1.6;">
+                                <strong>1차 (당일 새벽 5시)</strong>: 물 300ml 음용 후 <strong>오라팡 14정</strong> 천천히 복용 + 이후 1시간 동안 물 1L 음용<br>
+                                <strong>2차 (당일 아침 7시)</strong>: 물 600ml 음용 후 <strong>오라팡 14정</strong> 천천히 복용 + 1시간 뒤 <strong>엔도콜 1포</strong> 섞은 물 500ml 음용
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            'ora_check': {
+                title: '검사 전 자가진단',
+                parent: 'colon_ora',
                 content: `
                     <div style="text-align: center; padding: 10px;">
                         <p style="font-weight: 700; color: #334155; margin-bottom: 15px;">대변 색깔을 확인해 보세요</p>
