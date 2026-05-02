@@ -3505,6 +3505,27 @@ function initDashboard() {
         hospitalNameEl.innerText = hospital.name;
         
         let html = '';
+        
+        // Add region selection
+        const regionMap = {
+            "KMI 한국의학연구소": ["KMI 광화문점", "KMI 여의도점", "KMI 강남점", "KMI 수원점", "KMI 대구점", "KMI 부산점", "KMI 광주점", "KMI 제주점"],
+            "하나로 의료재단": ["하나로 종로본원", "하나로 강남센터"],
+            "세브란스 병원": ["신촌 세브란스", "강남 세브란스"],
+            "세란 병원": ["세란병원 (종로/독립문)"]
+        };
+        const regions = regionMap[hospital.name] || [hospital.name];
+        
+        html += `
+            <div style="margin-bottom: 20px; padding: 15px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <label for="hospital-region-select" style="display: block; font-size: 0.85rem; font-weight: 700; color: #475569; margin-bottom: 8px;">
+                    <i class="fa-solid fa-map-location-dot" style="color: var(--primary); margin-right: 5px;"></i>방문하실 지역/지점을 선택해 주세요
+                </label>
+                <select id="hospital-region-select" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.95rem; font-weight: 600; color: var(--text-dark); background: white; outline: none; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                    ${regions.map(r => `<option value="${r}">${r}</option>`).join('')}
+                </select>
+            </div>
+        `;
+
         hospital.categories.forEach((cat, catIdx) => {
             cat.programs.forEach((p, pIdx) => {
                 // Determine icon based on category or title
@@ -3554,6 +3575,9 @@ function initDashboard() {
         const hospital = hospitals[hIdx];
         const program = hospital.categories[catIdx].programs[pIdx];
         
+        const regionSelectEl = document.getElementById('hospital-region-select');
+        const selectedRegion = regionSelectEl ? regionSelectEl.value : hospital.name;
+        
         // Close modals
         window.closeSelectionModal();
         window.closeProgramModal();
@@ -3561,10 +3585,10 @@ function initDashboard() {
         // Feedback message with buttons
         setTimeout(() => {
             const confirmMsg = `
-                확인되었습니다! **${hospital.name}**의 **${program.title}** 프로그램을 선택하셨습니다. 
+                확인되었습니다! **${selectedRegion}** 지점의 **${program.title}** 프로그램을 선택하셨습니다. 
                 <br><br>예약 및 추가 상담을 이어가시겠습니까?
                 <div style="margin-top: 15px; display: flex; gap: 8px;">
-                    <button style="padding: 10px 28px; font-size: 0.85rem; font-weight: 800; background: #FFD700; color: #000; border: none; border-radius: 10px; cursor: pointer; transition: transform 0.2s;" onclick="window.proceedToBooking('${hospital.name}', '${program.title}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">예</button>
+                    <button style="padding: 10px 28px; font-size: 0.85rem; font-weight: 800; background: #FFD700; color: #000; border: none; border-radius: 10px; cursor: pointer; transition: transform 0.2s;" onclick="window.proceedToBooking('${selectedRegion}', '${program.title}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">예</button>
                     <button style="padding: 10px 20px; font-size: 0.85rem; font-weight: 800; background: #90EE90; color: #000; border: none; border-radius: 10px; cursor: pointer; transition: transform 0.2s;" onclick="window.openSelectionModal(${hIdx})" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">다시 고르기</button>
                 </div>
             `;
