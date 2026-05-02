@@ -3398,7 +3398,13 @@ function initDashboard() {
                     <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-list-check"></i></div>
                     <div class="block-content" style="width: 100%;">
                         <p style="margin-top: 5px;"><strong>${h.name} 주의사항 카테고리</strong></p>
-                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 10px; display: block;">확인하실 주의사항 유형을 선택해 주세요.</span>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 12px; display: block;">확인하실 주의사항 유형을 선택해 주세요.</span>
+                        
+                        <div style="margin-bottom: 12px; padding: 10px; background: #f0f9ff; border-radius: 8px; border-left: 3px solid #7dd3fc;">
+                            <p style="margin: 0; font-size: 0.72rem; color: #0369a1; line-height: 1.5; font-weight: 600;">
+                                <i class="fa-solid fa-circle-info" style="margin-right: 4px;"></i> CHECKIT의 안내는 의료기관의 원문을 준수하지만, 최신 약제 및 정보 변경이 있을 수 있습니다. 보다 정확한 확인을 위해 아래 공식 홈페이지 내용과 함께 비교해 보시길 권장합니다.
+                            </p>
+                        </div>
                         
                         <a href="https://www.kmi.or.kr/CHKINFO/NOTE?tab=general" target="_blank" style="text-decoration: none; display: block; margin-bottom: 15px;">
                             <button style="width: 100%; padding: 10px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
