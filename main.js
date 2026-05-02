@@ -3398,7 +3398,13 @@ function initDashboard() {
                     <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-list-check"></i></div>
                     <div class="block-content" style="width: 100%;">
                         <p style="margin-top: 5px;"><strong>${h.name} 주의사항 카테고리</strong></p>
-                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">확인하실 주의사항 유형을 선택해 주세요.</span>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 10px; display: block;">확인하실 주의사항 유형을 선택해 주세요.</span>
+                        
+                        <a href="https://www.kmi.or.kr/CHKINFO/NOTE?tab=general" target="_blank" style="text-decoration: none; display: block; margin-bottom: 15px;">
+                            <button style="width: 100%; padding: 10px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> 홈페이지 주의사항 직접 확인하기
+                            </button>
+                        </a>
                         
                         <div style="display: flex; flex-direction: column; gap: 8px;">
                             <button class="precaution-type-btn" onclick="window.showKmiDetail('general')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
