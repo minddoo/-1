@@ -3410,7 +3410,7 @@ function initDashboard() {
                             </p>
                         </div>
 
-                        <a href="https://www.hanaromf.com/reserve/guide/attention.jsp" target="_blank" style="text-decoration: none; display: block; margin-bottom: 15px;">
+                        <a href="https://www.hanaromf.com/reserve/guide/inspection_3.jsp" target="_blank" style="text-decoration: none; display: block; margin-bottom: 15px;">
                             <button style="width: 100%; padding: 10px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
                                 <i class="fa-solid fa-arrow-up-right-from-square"></i> 홈페이지 주의사항 직접 확인하기
                             </button>
