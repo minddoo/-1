@@ -3165,27 +3165,38 @@ function initDashboard() {
                 welcomeText = "";
                 blockHtml = `
                     <div class="msg-bubble hospital-integrated-card precautions-card" style="background: white; border-radius: 12px; padding: 20px; border: 1px solid #edf2f7; width: 92%; align-self: flex-start; box-shadow: var(--shadow-sm);">
-                        <div class="hospital-notice-box" style="margin-bottom: 20px; padding: 14px; background: #f8fafc; border-radius: 10px; border-left: 4px solid var(--primary);">
+                        <div class="hospital-notice-box" style="margin-bottom: 15px; padding: 14px; background: #f8fafc; border-radius: 10px; border-left: 4px solid var(--primary);">
                             <p style="margin: 0; font-size: 0.85rem; color: #475569; line-height: 1.5;">
                                 <i class="fa-solid fa-triangle-exclamation" style="color: var(--primary); margin-right: 6px;"></i>
-                                예약하신 의료기관을 선택하여 <strong>검진 전 준비사항 및 주의사항</strong>을 반드시 확인해 주세요.
+                                예약하신 <b>의료기관</b>을 선택하거나, <b>주의사항 키워드</b>(예: 복용약, 금식)를 검색해 보세요.
                             </p>
                         </div>
-                        <ul style="list-style: none; padding: 0; margin: 0;">
-                            ${window.GLOBAL_HOSPITALS.map((h, i) => `
-                            <li class="hospital-list-item" style="padding: 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: all 0.2s; border-radius: 8px;" onclick="window.showHospitalPrecautions(${i})" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div>
-                                        <h4 style="margin: 0 0 5px 0; color: var(--text-dark); font-size: 1rem;">${h.name}</h4>
-                                        <span style="font-size: 0.75rem; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;"><i class="fa-solid fa-map-location-dot"></i> ${h.loc}</span>
+
+                        <!-- Search Bar for Precautions Content -->
+                        <div class="precaution-search-wrapper" style="margin-bottom: 15px; position: relative;">
+                            <input type="text" id="precaution-search-input" placeholder="주의사항 키워드 검색 (예: 복용약, 금식, 임신)" 
+                                style="width: 100%; padding: 12px 40px 12px 15px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.85rem; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
+                                oninput="window.searchPrecautions(this)">
+                            <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;"></i>
+                        </div>
+                        
+                        <div id="precaution-results-container">
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                ${window.GLOBAL_HOSPITALS.map((h, i) => `
+                                <li class="hospital-list-item precaution-hospital-item" data-name="${h.name.toLowerCase()}" style="padding: 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: all 0.2s; border-radius: 8px;" onclick="window.showHospitalPrecautions(${i})" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <h4 style="margin: 0 0 5px 0; color: var(--text-dark); font-size: 1rem;">${h.name}</h4>
+                                            <span style="font-size: 0.75rem; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;"><i class="fa-solid fa-map-location-dot"></i> ${h.loc}</span>
+                                        </div>
+                                        <div style="color: var(--primary);">
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                        </div>
                                     </div>
-                                    <div style="color: var(--primary);">
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                    </div>
-                                </div>
-                            </li>
-                            `).join('')}
-                        </ul>
+                                </li>
+                                `).join('')}
+                            </ul>
+                        </div>
                     </div>
                 `;
                 break;
@@ -3308,6 +3319,138 @@ function initDashboard() {
                         <i class="fa-solid fa-image" style="font-size: 2.5rem; margin-bottom: 10px;"></i>
                         <span style="font-weight: 600;">[ ${h.name} 주의사항 이미지 영역 ]</span>
                     </div>
+                </div>
+            </div>
+        `;
+        window.appendMessage('system', html, 'system');
+    };
+
+    // Precaution Content Search Logic
+    window.PRECAUTION_CONTENT = [
+        { 
+            id: 'medication',
+            keywords: ['복용약', '약', '아스피린', '항응고제', '혈전용해제', '당뇨약', '인슐린', '고혈압약'],
+            title: '복용약 관련 주의사항',
+            content: '검진 전 복용약 중단 여부는 반드시 주치의와 상의해야 합니다. 일반적으로 아스피린/항응고제는 5~7일 전 중단하며, 당뇨약은 검진 당일 아침에는 복용하지 않습니다. 고혈압 약은 당일 아침 아주 적은 양의 물과 함께 복용 가능합니다.',
+            icon: 'fa-pills'
+        },
+        { 
+            id: 'fasting',
+            keywords: ['금식', '식사', '물', '커피', '우유', '야식', '공복'],
+            title: '금식 및 식이조절 안내',
+            content: '검진 전날 저녁 9시부터 반드시 금식(물 포함)하셔야 합니다. 검진 2-3일 전부터는 씨 있는 과일, 해조류, 잡곡밥 등 대장내시경에 방해가 되는 음식은 피해주세요.',
+            icon: 'fa-utensils'
+        },
+        { 
+            id: 'pregnancy',
+            keywords: ['임신', '생리', '수유', '가임기', '산부인과'],
+            title: '여성 고객 주의사항',
+            content: '임신 중이거나 임신 가능성이 있는 경우 방사선 검사 및 내시경 검사가 불가능할 수 있습니다. 생리 중인 경우 자궁경부암 검사 및 소변 검사 결과에 영향을 줄 수 있으므로 검진 전 반드시 말씀해 주세요.',
+            icon: 'fa-venus'
+        }
+    ];
+
+    window.searchPrecautions = function(inputEl) {
+        const term = inputEl.value.trim().toLowerCase();
+        const container = document.getElementById('precaution-results-container');
+        if (!container) return;
+
+        if (!term) {
+            // Restore original hospital list
+            container.innerHTML = `
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    ${window.GLOBAL_HOSPITALS.map((h, i) => `
+                    <li class="hospital-list-item precaution-hospital-item" style="padding: 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: all 0.2s; border-radius: 8px;" onclick="window.showHospitalPrecautions(${i})" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0 0 5px 0; color: var(--text-dark); font-size: 1rem;">${h.name}</h4>
+                                <span style="font-size: 0.75rem; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;"><i class="fa-solid fa-map-location-dot"></i> ${h.loc}</span>
+                            </div>
+                            <div style="color: var(--primary);">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </li>
+                    `).join('')}
+                </ul>
+            `;
+            return;
+        }
+
+        // 1. Search in Precaution Content
+        const matchedContent = window.PRECAUTION_CONTENT.filter(item => 
+            item.title.includes(term) || 
+            item.keywords.some(k => k.includes(term))
+        );
+
+        // 2. Search in Hospital Names
+        const matchedHospitals = window.GLOBAL_HOSPITALS.filter(h => h.name.toLowerCase().includes(term));
+
+        let resultsHtml = '';
+
+        if (matchedContent.length > 0) {
+            resultsHtml += '<div style="margin-top: 5px;">';
+            matchedContent.forEach(item => {
+                resultsHtml += `
+                    <div class="precaution-content-result" style="padding: 15px; background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 12px; margin-bottom: 10px; cursor: pointer; transition: transform 0.1s;" onclick="window.showSpecificPrecaution('${item.id}')" onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform='scale(1)'">
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <div style="background: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #dcfce7;">
+                                <i class="fa-solid ${item.icon}" style="color: var(--primary);"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 800; color: #166534; font-size: 0.9rem;">${item.title}</div>
+                                <div style="font-size: 0.75rem; color: #15803d; opacity: 0.8;">"${term}" 관련 정보 보기</div>
+                            </div>
+                            <i class="fa-solid fa-circle-chevron-right" style="color: #166534; opacity: 0.3;"></i>
+                        </div>
+                    </div>
+                `;
+            });
+            resultsHtml += '</div>';
+        }
+
+        if (matchedHospitals.length > 0) {
+            resultsHtml += `<ul style="list-style: none; padding: 0; margin: 0; ${matchedContent.length > 0 ? 'margin-top: 15px; border-top: 1px dashed #e2e8f0; padding-top: 15px;' : ''}">`;
+            window.GLOBAL_HOSPITALS.forEach((h, i) => {
+                if (h.name.toLowerCase().includes(term)) {
+                    resultsHtml += `
+                        <li class="hospital-list-item precaution-hospital-item" style="padding: 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; border-radius: 8px;" onclick="window.showHospitalPrecautions(${i})">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4 style="margin: 0 0 5px 0; color: var(--text-dark); font-size: 1rem;">${h.name}</h4>
+                                    <span style="font-size: 0.75rem; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">병원 정보 확인</span>
+                                </div>
+                                <div style="color: var(--primary);"><i class="fa-solid fa-chevron-right"></i></div>
+                            </div>
+                        </li>
+                    `;
+                }
+            });
+            resultsHtml += '</ul>';
+        }
+
+        if (!matchedContent.length && !matchedHospitals.length) {
+            resultsHtml = `
+                <div style="padding: 30px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+                    <i class="fa-solid fa-circle-question" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                    검색 결과가 없습니다.<br>키워드를 다시 확인해 주세요.
+                </div>
+            `;
+        }
+
+        container.innerHTML = resultsHtml;
+    };
+
+    window.showSpecificPrecaution = function(id) {
+        const item = window.PRECAUTION_CONTENT.find(p => p.id === id);
+        if (!item) return;
+        const html = `
+            <div class="system-block" style="border-left: 4px solid var(--primary); background: #f0fdf4; padding-right: 20px;">
+                <div class="block-icon" style="background: white; color: var(--primary); border: 1px solid #dcfce7;"><i class="fa-solid ${item.icon}"></i></div>
+                <div class="block-content" style="width: 100%;">
+                    <p style="margin-top: 5px; color: #166534;"><strong>${item.title}</strong></p>
+                    <span style="color: #374151; font-size: 0.9rem; line-height: 1.6; display: block;">${item.content}</span>
+                    <div style="margin-top: 10px; font-size: 0.75rem; color: #166534; font-style: italic;">* 위 내용은 일반적인 가이드라인이며, 병원별 상세 지침과 다를 수 있습니다.</div>
                 </div>
             </div>
         `;
