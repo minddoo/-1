@@ -2363,7 +2363,7 @@ function initDashboard() {
                     { 
                         name: "하나로의료재단", 
                         loc: "서울(종로, 강남)", 
-                        url: "https://www.hanaromf.com/program/prog01/prog01_01.jsp",
+                        url: "https://www.hanaromf.com/reserve/guide/inspection_3.jsp",
                         categories: [
                             {
                                 name: "종합검진 (Comprehensive)",
