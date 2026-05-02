@@ -3397,101 +3397,96 @@ function initDashboard() {
     };
 
     window.showKmiDetail = function(type) {
+        const modal = document.getElementById('precaution-modal');
+        const titleEl = document.getElementById('precaution-modal-title');
+        const bodyEl = document.getElementById('precaution-modal-body');
+
+        if (!modal || !titleEl || !bodyEl) return;
+
+        let content = '';
+        let title = '';
+
         if (type === 'general') {
-            const html = `
-                <div class="system-block" style="border-left: 4px solid var(--primary); background: #f8fafc; padding-right: 20px;">
-                    <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-calendar-day"></i></div>
-                    <div class="block-content" style="width: 100%;">
-                        <p style="margin-top: 5px;"><strong>건강검진 전 유의사항</strong></p>
-                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">검진 일자별 세부 유의사항을 선택해 주세요.</span>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('14days')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                                <span>• 건강검진 14일전</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('7days')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                                <span>• 건강검진 7일전</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('daybefore')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                                <span>• 건강검진 전날</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('female')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                                <span>• 여성고객</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('dayof')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                                <span>• 건강검진 당일</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('idcard')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                                <span>• 신분증 안내사항</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                        </div>
-                    </div>
+            title = '건강검진 전 유의사항';
+            content = `
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('14days')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 건강검진 14일전</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('7days')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 건강검진 7일전</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('daybefore')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 건강검진 전날</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('female')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 여성고객</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('dayof')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 건강검진 당일</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('idcard')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 신분증 안내사항</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
                 </div>
             `;
-            window.appendMessage('system', html, 'system');
         } else if (type === 'colon') {
-            const html = `
-                <div class="system-block" style="border-left: 4px solid #3b82f6; background: #f8fafc; padding-right: 20px;">
-                    <div class="block-icon" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6; border-radius: 12px; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-microscope"></i></div>
-                    <div class="block-content" style="width: 100%;">
-                        <p style="margin-top: 5px; color: #1e3a8a;"><strong>KMI 대장내시경 주의사항</strong></p>
-                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">성공적인 검사를 위해 식단 및 장정결제 복용 지침을 반드시 준수해 주세요.</span>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon3')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                                <span>• 검사 3일 전 (식단 조절 시작)</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon2')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                                <span>• 검사 2일 전 (식단 유지)</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon1')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                                <span>• 검사 전날 (반찬 없는 흰죽/미음)</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon_purgative')" style="padding: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #1e40af; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#dbeafe';" onmouseout="this.style.background='#eff6ff';">
-                                <span>• 장정결제 복용 방법 안내</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #60a5fa;"></i>
-                            </button>
-                        </div>
-                    </div>
+            title = 'KMI 대장내시경 주의사항';
+            content = `
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon3')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 검사 3일 전 (식단 조절 시작)</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon2')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 검사 2일 전 (식단 유지)</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon1')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 검사 전날 (반찬 없는 흰죽/미음)</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon_purgative')" style="padding: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #1e40af; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#dbeafe';" onmouseout="this.style.background='#eff6ff';">
+                        <span>• 장정결제 복용 방법 안내</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #60a5fa;"></i>
+                    </button>
                 </div>
             `;
-            window.appendMessage('system', html, 'system');
         } else if (type === 'stomach') {
-            const html = `
-                <div class="system-block" style="border-left: 4px solid #f59e0b; background: #f8fafc; padding-right: 20px;">
-                    <div class="block-icon" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border-radius: 12px; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-apple-whole"></i></div>
-                    <div class="block-content" style="width: 100%;">
-                        <p style="margin-top: 5px; color: #92400e;"><strong>KMI 위내시경 주의사항 상세 정보</strong></p>
-                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">KMI 위내시경에 대한 세부 안내입니다. 정확한 검사를 위해 아래 내용을 지침대로 따라주세요.</span>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('stomach1')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#fffbeb';" onmouseout="this.style.background='white';">
-                                <span>• 검사 전날 (금식 및 주의사항)</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('stomach_dayof')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#fffbeb';" onmouseout="this.style.background='white';">
-                                <span>• 검사 당일 (최종 체크)</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                            <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('stomach_after')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#fffbeb';" onmouseout="this.style.background='white';">
-                                <span>• 검사 후 주의사항</span>
-                                <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                            </button>
-                        </div>
-                    </div>
+            title = 'KMI 위내시경 주의사항';
+            content = `
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('stomach1')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#fffbeb';" onmouseout="this.style.background='white';">
+                        <span>• 검사 전날 (금식 및 주의사항)</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('stomach_dayof')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#fffbeb';" onmouseout="this.style.background='white';">
+                        <span>• 검사 당일 (최종 체크)</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('stomach_after')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#fffbeb';" onmouseout="this.style.background='white';">
+                        <span>• 검사 후 주의사항</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
                 </div>
             `;
-            window.appendMessage('system', html, 'system');
         }
+
+        titleEl.innerText = title;
+        bodyEl.innerHTML = `
+            <div style="padding: 10px;">
+                <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">세부 항목을 선택하여 상세 내용을 확인하세요.</span>
+                ${content}
+            </div>
+        `;
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
     };
 
     window.closePrecautionModal = function() {
