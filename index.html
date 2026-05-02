@@ -1393,6 +1393,30 @@
         </div>
     </div>
 
+    <!-- Precaution Detail Modal -->
+    <div id="precaution-modal" class="modal-overlay">
+        <div class="modal-container reveal-modal" style="max-width: 550px; max-height: 80vh; display: flex; flex-direction: column; padding: 0; overflow: hidden; position: relative; border-radius: 20px;">
+            <div class="modal-content-wrap" style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+                <div class="precaution-modal-header" style="padding: 24px; background: #fff; border-bottom: 1px solid #f1f5f9; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;">
+                    <h2 id="precaution-modal-title" style="margin:0; font-size: 1.25rem; font-weight: 800; color: var(--text-dark);">주의사항 안내</h2>
+                    <button onclick="window.closePrecautionModal()" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-solid fa-xmark" style="color: #64748b;"></i>
+                    </button>
+                </div>
+                
+                <div id="precaution-modal-body" class="program-modal-body" style="flex: 1; overflow-y: auto; padding: 24px;">
+                    <!-- Content will be injected here -->
+                </div>
+
+                <div class="precaution-modal-footer" style="padding: 16px 24px; border-top: 1px solid #f1f5f9; background: #fafafa; display: flex; justify-content: flex-end;">
+                    <button onclick="window.closePrecautionModal()" style="padding: 10px 24px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem;">
+                        확인 및 닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
