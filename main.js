@@ -3162,7 +3162,7 @@ function initDashboard() {
                 `;
                 break;
             case 'precautions':
-                welcomeText = "좋습니다! 그럼 이제 가장 중요한 **검진 전 준비사항 및 주의사항**에 대해 안내해 드리겠습니다. 잠시만 기다려 주세요.";
+                welcomeText = "";
                 blockHtml = `
                     <div class="msg-bubble hospital-integrated-card precautions-card" style="background: white; border-radius: 12px; padding: 20px; border: 1px solid #edf2f7; width: 92%; align-self: flex-start; box-shadow: var(--shadow-sm);">
                         <div class="hospital-notice-box" style="margin-bottom: 20px; padding: 14px; background: #f8fafc; border-radius: 10px; border-left: 4px solid var(--primary);">
@@ -3797,6 +3797,9 @@ function initDashboard() {
             window.appendMessage('user', '예, 확인했습니다.');
             setTimeout(() => {
                 window.appendMessage('coord', '좋습니다! 그럼 이제 가장 중요한 **검진 전 준비사항 및 주의사항**에 대해 안내해 드리겠습니다. 잠시만 기다려 주세요.');
+                setTimeout(() => {
+                    window.showChatBlock('precautions');
+                }, 600);
             }, 600);
         } else {
             window.appendMessage('user', '아니오, 아직입니다.');
