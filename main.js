@@ -3161,6 +3161,34 @@ function initDashboard() {
                     </div>
                 `;
                 break;
+            case 'precautions':
+                welcomeText = "좋습니다! 그럼 이제 가장 중요한 **검진 전 준비사항 및 주의사항**에 대해 안내해 드리겠습니다. 잠시만 기다려 주세요.";
+                blockHtml = `
+                    <div class="msg-bubble hospital-integrated-card precautions-card" style="background: white; border-radius: 12px; padding: 20px; border: 1px solid #edf2f7; width: 92%; align-self: flex-start; box-shadow: var(--shadow-sm);">
+                        <div class="hospital-notice-box" style="margin-bottom: 20px; padding: 14px; background: #f8fafc; border-radius: 10px; border-left: 4px solid var(--primary);">
+                            <p style="margin: 0; font-size: 0.85rem; color: #475569; line-height: 1.5;">
+                                <i class="fa-solid fa-triangle-exclamation" style="color: var(--primary); margin-right: 6px;"></i>
+                                예약하신 의료기관을 선택하여 <strong>검진 전 준비사항 및 주의사항</strong>을 반드시 확인해 주세요.
+                            </p>
+                        </div>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            ${window.GLOBAL_HOSPITALS.map((h, i) => `
+                            <li class="hospital-list-item" style="padding: 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: all 0.2s; border-radius: 8px;" onclick="window.showHospitalPrecautions(${i})" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <h4 style="margin: 0 0 5px 0; color: var(--text-dark); font-size: 1rem;">${h.name}</h4>
+                                        <span style="font-size: 0.75rem; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;"><i class="fa-solid fa-map-location-dot"></i> ${h.loc}</span>
+                                    </div>
+                                    <div style="color: var(--primary);">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+                break;
             case 'prep':
                 welcomeText = "Preparation is key for a successful check-up. I've prepared a personalized checklist for you.";
                 blockHtml = `
@@ -3266,6 +3294,24 @@ function initDashboard() {
                 window.appendMessage('system', blockHtml, 'system');
             }, 500);
         }
+    };
+
+    window.showHospitalPrecautions = function(index) {
+        const h = window.GLOBAL_HOSPITALS[index];
+        const html = `
+            <div class="system-block" style="border-left: 4px solid var(--primary); background: #f8fafc; padding-right: 20px;">
+                <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-file-image"></i></div>
+                <div class="block-content" style="width: 100%;">
+                    <p style="margin-top: 5px;"><strong>${h.name} 주의사항</strong></p>
+                    <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">해당 의료기관의 상세 검진 전 주의사항 이미지입니다. (추후 실제 이미지 데이터가 연결됩니다.)</span>
+                    <div style="width: 100%; height: 250px; background: #e2e8f0; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; border: 2px dashed #cbd5e1;">
+                        <i class="fa-solid fa-image" style="font-size: 2.5rem; margin-bottom: 10px;"></i>
+                        <span style="font-weight: 600;">[ ${h.name} 주의사항 이미지 영역 ]</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        window.appendMessage('system', html, 'system');
     };
 
     window.filterHospitals = function(inputEl) {
