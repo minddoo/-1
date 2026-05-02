@@ -1844,6 +1844,8 @@ function initDashboard() {
     if (dashboardInitialized) return;
 
     const savedLang = localStorage.getItem('preferred-lang') || 'en';
+    const chatMessages = document.getElementById('chat-messages');
+    if (!chatMessages) return;
     
     window.toggleMsgMenu = function(btn, event) {
         event.stopPropagation();
