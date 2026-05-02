@@ -1847,22 +1847,7 @@ function initDashboard() {
     const chatMessages = document.getElementById('chat-messages');
     if (!chatMessages) return;
     
-    window.toggleMsgMenu = function(btn, event) {
-        event.stopPropagation();
-        const menu = btn.nextElementSibling;
-        const allMenus = document.querySelectorAll('.msg-options-menu');
-        allMenus.forEach(m => {
-            if (m !== menu) m.classList.remove('show');
-        });
-        menu.classList.toggle('show');
-    };
-
-    // Close menus when clicking anywhere else
-    document.addEventListener('click', function() {
-        const allMenus = document.querySelectorAll('.msg-options-menu');
-        allMenus.forEach(m => m.classList.remove('show'));
-    });
-
+    // Remove toggleMsgMenu logic as we now delete directly
     window.deleteMessage = function(btn) {
         if (!confirm('이 메시지를 삭제하시겠습니까?')) return;
         
@@ -1894,13 +1879,8 @@ function initDashboard() {
 
         const optionsHtml = `
             <div class="msg-options-wrap">
-                <div class="msg-options-btn" onclick="window.toggleMsgMenu(this, event)">
+                <div class="msg-options-btn" onclick="window.deleteMessage(this)" title="삭제">
                     <i class="fa-solid fa-ellipsis"></i>
-                </div>
-                <div class="msg-options-menu">
-                    <div class="msg-option-item delete" onclick="window.deleteMessage(this)">
-                        <i class="fa-solid fa-trash-can"></i> 삭제하기
-                    </div>
                 </div>
             </div>
         `;
@@ -1941,13 +1921,8 @@ function initDashboard() {
                 row.className = `message-row ${msg.sender}`;
                 const optionsHtml = `
                     <div class="msg-options-wrap">
-                        <div class="msg-options-btn" onclick="window.toggleMsgMenu(this, event)">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                        </div>
-                        <div class="msg-options-menu">
-                            <div class="msg-option-item delete" onclick="window.deleteMessage(this)">
-                                <i class="fa-solid fa-trash-can"></i> 삭제하기
-                            </div>
+                        <div class="msg-options-btn" onclick="window.deleteMessage(this)" title="삭제">
+                            <i class="fa-solid fa-ellipsis"></i>
                         </div>
                     </div>
                 `;
