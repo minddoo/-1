@@ -4033,31 +4033,22 @@ function initDashboard() {
         if (!container) return;
 
         if (!term) {
-            // Restore original hospital list
+            // Default view: Show search prompt instead of hospital list
             container.innerHTML = `
-                <ul style="list-style: none; padding: 0; margin: 0;">
-                    ${window.GLOBAL_HOSPITALS.map((h, i) => `
-                    <li class="hospital-list-item precaution-hospital-item" style="padding: 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: all 0.2s; border-radius: 8px;" onclick="window.showHospitalPrecautions(${i})" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <h4 style="margin: 0 0 5px 0; color: var(--text-dark); font-size: 1rem;">${h.name}</h4>
-                                <span style="font-size: 0.75rem; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;"><i class="fa-solid fa-map-location-dot"></i> ${h.loc}</span>
-                            </div>
-                            <div style="color: var(--primary);">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </div>
-                        </div>
-                    </li>
-                    `).join('')}
-                </ul>
+                <div style="padding: 30px; text-align: center; color: #94a3b8; font-size: 0.85rem; border: 1px dashed #e2e8f0; border-radius: 12px; margin-top: 5px;">
+                    <i class="fa-solid fa-keyboard" style="font-size: 1.5rem; margin-bottom: 10px; display: block; color: #cbd5e1;"></i>
+                    궁금하신 키워드를 입력해 보세요.<br>
+                    <span style="font-size: 0.75rem; color: #cbd5e1;">(예: 금식, 복용약, 임신, 식사 등)</span>
+                </div>
             `;
             return;
         }
 
-        // 1. Search only in Precaution Content (Keywords)
+        // 1. Search only in Precaution Content with enhanced matching
         const matchedContent = window.PRECAUTION_CONTENT.filter(item => 
-            item.title.includes(term) || 
-            item.keywords.some(k => k.includes(term))
+            item.title.toLowerCase().includes(term) || 
+            item.keywords.some(k => k.toLowerCase().includes(term)) ||
+            item.content.toLowerCase().includes(term)
         );
 
         let resultsHtml = '';
@@ -4073,7 +4064,7 @@ function initDashboard() {
                             </div>
                             <div>
                                 <div style="font-weight: 800; color: var(--text-dark); font-size: 1.05rem;">${item.title}</div>
-                                <div style="font-size: 0.75rem; color: var(--primary); font-weight: 700; opacity: 0.8;">검색 결과 매칭됨</div>
+                                <div style="font-size: 0.75rem; color: var(--primary); font-weight: 700; opacity: 0.8;">검색 결과</div>
                             </div>
                         </div>
                         <div style="font-size: 0.95rem; color: #475569; line-height: 1.8; background: white; padding: 15px; border-radius: 12px; border: 1px solid #f1f5f9;">
@@ -4088,7 +4079,7 @@ function initDashboard() {
                 <div style="padding: 40px 20px; text-align: center; color: #94a3b8; font-size: 0.9rem;">
                     <i class="fa-solid fa-magnifying-glass" style="font-size: 2.5rem; margin-bottom: 15px; color: #e2e8f0; display: block;"></i>
                     "${term}"에 대한 주의사항을 찾을 수 없습니다.<br>
-                    <span style="font-size: 0.8rem; margin-top: 8px; display: block; color: #cbd5e1;">'금식', '약', '임신', '식사' 등의 키워드로 검색해 보세요.</span>
+                    <span style="font-size: 0.8rem; margin-top: 8px; display: block; color: #cbd5e1;">다른 검색어를 입력해 보세요.</span>
                 </div>
             `;
         }
