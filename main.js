@@ -1943,50 +1943,16 @@ function initDashboard() {
                     // Add options menu to system message in history
                     content = optionsHtml + content;
                     
-                    // Patch: Comprehensive update for hospital cards in history
+                    // Patch: Essential updates for legacy history compatibility (Remapping only, no UI injection)
                     if (content.includes('hospital-list-item')) {
-                        // 0. Ensure the container has the required class for scoping
-                        if (!content.includes('hospital-integrated-card')) {
-                            content = content.replace('class="msg-bubble"', 'class="msg-bubble hospital-integrated-card"');
-                            content = content.replace('class="msg-bubble "', 'class="msg-bubble hospital-integrated-card "');
-                        }
-                        // 1. Inject search bar if missing
-                        if (!content.includes('hospital-search-wrapper')) {
-                            const searchBarHtml = `
-                                <div class="hospital-search-wrapper" style="margin-bottom: 15px; position: relative;">
-                                    <input type="text" id="hospital-search-input" placeholder="원하시는 검사 항목을 검색해 보세요 (예: 위내시경, MRI, 대장)" 
-                                        style="width: 100%; padding: 12px 40px 12px 15px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.85rem; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
-                                        oninput="window.filterHospitals(this)">
-                                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;"></i>
-                                </div>
-                            `;
-                            if (content.includes('<ul')) {
-                                content = content.replace('<ul', `${searchBarHtml}<ul id="hospital-main-list"`);
-                            }
-                        }
-                        
-                        // 2. Ensure all list items have IDs for the filter logic
-                        if (content.includes('class="hospital-list-item"') && !content.includes('id="li-hospital-')) {
-                            let parts = content.split('class="hospital-list-item"');
-                            let patchedContent = parts[0];
-                            for (let i = 1; i < parts.length; i++) {
-                                patchedContent += `id="li-hospital-${i-1}" class="hospital-list-item"` + parts[i];
-                            }
-                            content = patchedContent;
-                        }
-                        
-                        // 3. Always update legacy function calls to use global window prefix and correct names
+                        // Keep legacy function calls working with current names
                         if (content.includes('selectHospital(')) {
                             content = content.replaceAll('selectHospital(', 'window.openSelectionModal(');
                         }
                         if (content.includes('filterHospitals(')) {
-                            if (!content.includes('window.filterHospitals(')) {
-                                content = content.replaceAll('filterHospitals(', 'window.filterHospitals(');
-                            }
-                            content = content.replaceAll('filterHospitals(this.value)', 'filterHospitals(this)');
-                            content = content.replaceAll('filterHospitals()', 'filterHospitals(this)');
+                            content = content.replaceAll('filterHospitals(', 'window.filterHospitals(');
                         }
-                        if (content.includes('toggleHospitalPrograms(') && !content.includes('window.toggleHospitalPrograms(')) {
+                        if (content.includes('toggleHospitalPrograms(')) {
                             content = content.replaceAll('toggleHospitalPrograms(', 'window.toggleHospitalPrograms(');
                         }
                     }
@@ -4736,12 +4702,14 @@ function initDashboard() {
                 const consultationData = localStorage.getItem('consultationData');
                 const changeCount = localStorage.getItem('changeCount');
                 const isUnlimited = localStorage.getItem('isUnlimited');
+                const chatHistory = localStorage.getItem('chat_history');
                 
                 localStorage.clear();
                 
                 if (consultationData) localStorage.setItem('consultationData', consultationData);
                 if (changeCount) localStorage.setItem('changeCount', changeCount);
                 if (isUnlimited) localStorage.setItem('isUnlimited', isUnlimited);
+                if (chatHistory) localStorage.setItem('chat_history', chatHistory);
                 
                 location.reload();
             }
