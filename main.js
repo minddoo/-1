@@ -3396,6 +3396,48 @@ function initDashboard() {
                 </div>
             `;
             window.appendMessage('system', html, 'system');
+        } else if (h.name.includes("하나로")) {
+            const html = `
+                <div class="system-block" style="border-left: 4px solid var(--primary); background: #f8fafc; padding-right: 20px;">
+                    <div class="block-icon" style="background: rgba(46, 204, 113, 0.2); color: var(--primary);"><i class="fa-solid fa-list-check"></i></div>
+                    <div class="block-content" style="width: 100%;">
+                        <p style="margin-top: 5px;"><strong>${h.name} 주의사항 카테고리</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 12px; display: block;">확인하실 주의사항 유형을 선택해 주세요.</span>
+                        
+                        <div style="margin-bottom: 12px; padding: 10px; background: #f0f9ff; border-radius: 8px; border-left: 3px solid #7dd3fc;">
+                            <p style="margin: 0; font-size: 0.72rem; color: #0369a1; line-height: 1.5; font-weight: 600;">
+                                <i class="fa-solid fa-circle-info" style="margin-right: 4px;"></i> CHECKIT의 안내는 의료기관의 원문을 준수하지만, 최신 정보 변경이 있을 수 있습니다. 보다 정확한 확인을 위해 아래 홈페이지 안내도 함께 참고해 주세요.
+                            </p>
+                        </div>
+
+                        <a href="http://www.hanaromf.com/" target="_blank" style="text-decoration: none; display: block; margin-bottom: 15px;">
+                            <button style="width: 100%; padding: 10px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> 홈페이지 주의사항 직접 확인하기
+                            </button>
+                        </a>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <button class="precaution-type-btn" onclick="window.showHanaroDetail('general')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>검진주의사항</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                            <button class="precaution-type-btn" onclick="window.showHanaroDetail('mr')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>MR 검사 전 주의사항</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                            <button class="precaution-type-btn" onclick="window.showHanaroDetail('colon_su')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>대장검사(수클리어산 복용시)</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                            <button class="precaution-type-btn" onclick="window.showHanaroDetail('colon_ora')" style="padding: 12px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='#f0fdf4';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                <span>대장검사(오라팡 복용시)</span>
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.appendMessage('system', html, 'system');
         } else {
             // Default placeholder for other hospitals
             const html = `
@@ -3498,6 +3540,44 @@ function initDashboard() {
                     </button>
                 </div>
             `;
+        }
+
+        titleEl.innerText = title;
+        bodyEl.innerHTML = `
+            <div style="padding: 10px;">
+                <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">세부 항목을 선택하여 상세 내용을 확인하세요.</span>
+                ${content}
+            </div>
+        `;
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.showHanaroDetail = function(type) {
+        const modal = document.getElementById('precaution-modal');
+        const titleEl = document.getElementById('precaution-modal-title');
+        const bodyEl = document.getElementById('precaution-modal-body');
+
+        if (!modal || !titleEl || !bodyEl) return;
+
+        const backBtn = document.getElementById('precaution-back-btn');
+        if (backBtn) backBtn.style.display = 'none';
+
+        let content = '';
+        let title = '';
+
+        if (type === 'general') {
+            title = '하나로 검진주의사항';
+            content = `<p style="padding: 20px; color: #64748b; text-align: center;">상세 내용을 준비 중입니다.</p>`;
+        } else if (type === 'mr') {
+            title = '하나로 MR 검사 전 주의사항';
+            content = `<p style="padding: 20px; color: #64748b; text-align: center;">상세 내용을 준비 중입니다.</p>`;
+        } else if (type === 'colon_su') {
+            title = '하나로 대장검사(수클리어산)';
+            content = `<p style="padding: 20px; color: #64748b; text-align: center;">상세 내용을 준비 중입니다.</p>`;
+        } else if (type === 'colon_ora') {
+            title = '하나로 대장검사(오라팡)';
+            content = `<p style="padding: 20px; color: #64748b; text-align: center;">상세 내용을 준비 중입니다.</p>`;
         }
 
         titleEl.innerText = title;
