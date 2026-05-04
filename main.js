@@ -1,4 +1,4 @@
-// Firebase Initialization
+﻿// Firebase Initialization
 const firebaseConfig = {
     apiKey: "AIzaSyDAdW_vJHUHuDaun2Kh94uC8ywlfOdyPco",
     authDomain: "checkit-43341.firebaseapp.com",
@@ -4985,221 +4985,232 @@ function initDashboard() {
 
     window.showKmiSubDetail = function(subType) {
         const subData = {
-            'stomach1': {
-                title: '검사 전날 (금식 및 주의사항)',
-                content: `
-                    <div class="modal-info-box" style="background: #fff9f0; padding: 15px; border-radius: 12px; border: 1px solid #ffeeba; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #856404; margin-bottom: 8px;"><i class="fa-solid fa-utensils" style="margin-right: 6px;"></i>금식 안내</p>
-                        <p style="font-size: 0.95rem; line-height: 1.6; color: #856404;">• <strong>오후 8~9시경</strong> 가벼운 저녁 식사를 마칩니다.<br>• <strong>자정(밤 12시)</strong>부터는 물을 포함하여 절대 금식입니다.</p>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
-                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">음주 및 음식 조절</p>
-                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">검사 전날 과음이나 과식, 기름진 음식은 반드시 피해주셔야 정확한 검사가 가능합니다.</p>
-                        </div>
-                        <div style="background: #fdf2f2; padding: 15px; border-radius: 12px; border: 1px solid #fecaca;">
-                            <p style="font-weight: 700; color: #991b1b; margin-bottom: 5px;">약물 복용 관련</p>
-                            <p style="font-size: 0.9rem; color: #b91c1c; line-height: 1.5;">아스피린, 혈전용해제(와파린, 플라빅스 등)를 복용 중인 경우, <strong>반드시 주치의와 상의</strong>하여 검사 7일 전부터 복용 중단 여부를 결정해야 합니다.</p>
-                        </div>
-                    </div>
-                `
-            },
-            'stomach_dayof': {
-                title: '검사 당일 (최종 체크)',
-                content: `
-                    <div class="modal-info-box" style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #1e40af; margin-bottom: 8px;"><i class="fa-solid fa-clock" style="margin-right: 6px;"></i>당일 금식 유지</p>
-                        <p style="font-size: 0.95rem; line-height: 1.6; color: #1e40af;">아침 식사는 물론 <strong>물, 껌, 사탕, 담배</strong>도 절대 금지입니다.</p>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
-                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">혈압약 복용</p>
-                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">혈압약은 <strong>새벽 5시경 소량의 물</strong>과 함께 복용하십시오.<br><span style="color: #ef4444;">※ 당뇨약(인슐린 포함)은 당일 아침 절대 금지입니다.</span></p>
-                        </div>
-                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">병원 도착</p>
-                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">원활한 검사를 위해 예약 시간 <strong>20분 전</strong>까지 센터에 도착해 주세요.</p>
-                        </div>
-                    </div>
-                `
-            },
-            'stomach_after': {
-                title: '검사 후 주의사항',
-                content: `
-                    <div class="modal-info-box" style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #bbf7d0; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #166534; margin-bottom: 8px;"><i class="fa-solid fa-bowl-food" style="margin-right: 6px;"></i>검사 후 식사</p>
-                        <p style="font-size: 0.95rem; line-height: 1.6; color: #166534;">• 검사 <strong>1시간 후</strong>부터 식사가 가능합니다.<br>• 첫 식사는 죽이나 미음 등 부드러운 음식을 권장합니다.</p>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
-                        <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
-                            <p style="font-weight: 700; color: #9f1239; margin-bottom: 5px;">주의 사항</p>
-                            <p style="font-size: 0.9rem; color: #be123c; line-height: 1.5;">• 당일 <strong>음주, 매운 음식</strong> 등 자극적인 식사는 피하세요.<br>• <strong>수면 내시경</strong>을 하셨다면 당일 운전, 기계 조작은 절대 금물입니다.</p>
-                        </div>
-                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                            <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">일시적 증상</p>
-                            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">목의 이물감이나 통증, 약간의 복부 팽만감은 시간이 지나면 자연스럽게 사라집니다.</p>
-                        </div>
-                    </div>
-                `
-            },
             '14days': {
-                title: '건강검진 14일전',
+                title: '건강검진 14일 전',
+                parent: 'general',
                 content: `
-                    <div style="background: #fff9f0; padding: 15px; border-radius: 12px; border: 1px solid #ffeeba; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #856404; margin-bottom: 8px;"><i class="fa-solid fa-pills" style="margin-right: 6px;"></i>약물 복용 중단 안내</p>
-                        <p style="font-size: 0.95rem; line-height: 1.6; color: #856404;">비만/당뇨 치료제(GLP-1 수용체 작용제)는 위장 운동을 지연시켜 내시경 검사 시 위험할 수 있습니다.</p>
-                    </div>
-                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
-                        • <b>중단 대상:</b> 위고비, 마운자로, 오젬픽, 삭센다, 리벨서스 등<br>
-                        • <b>중단 기간:</b> 검진일 기준 <b>최소 2주 전부터</b> 중단<br>
-                        • <b>주의사항:</b> 중단 전 반드시 처방 주치의와 상의하십시오.<br>
-                        • <b>기타:</b> 위장관 증상(오심, 구토, 복부팽만)이 있는 경우 의료진에게 미리 알려주세요.
-                    </div>
-                    <div style="margin-top: 20px; font-size: 0.85rem; color: #ef4444; font-weight: 600; padding: 10px; border-top: 1px dashed #e2e8f0;">
-                        ※ 단, 2주 이상 중단하더라도 위 내 음식물 잔류로 인해 재검이 필요할 수 있습니다.
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: #fff5f5; padding: 15px; border-radius: 12px; border: 1px solid #feb2b2;">
+                            <p style="font-weight: 800; color: #991b1b; margin-bottom: 10px;"><i class="fa-solid fa-pills" style="margin-right: 6px;"></i>약물 복용 안내</p>
+                            <p style="font-size: 0.9rem; line-height: 1.8; color: #7f1d1d;">
+                                위고비, 마운자로, 오젬픽 등 비만/당뇨병 치료제로 사용되는 GLP-1 수용체 작용제는 위장 운동을 지연시켜 내시경 검사 시 음식물 잔류 가능성을 높일 수 있습니다.
+                            </p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <ul style="font-size: 0.9rem; color: #334155; line-height: 1.9; padding-left: 20px; margin: 0;">
+                                <li>검진일 기준 <b>최소 2주 전</b>부터 해당 주사제 투여 및 약물 복용을 중단하시기 바랍니다.</li>
+                                <li>중단 전, 반드시 <b>처방 주치의와 사전 상담</b>을 진행해 주시기 바랍니다.</li>
+                                <li>위장관 증상(심한 오심, 구토, 복부팽만)이 있는 경우 검진 전 의료진과 상담하시기 바랍니다.</li>
+                            </ul>
+                        </div>
+                        <p style="font-size: 0.85rem; color: #ef4444; font-weight: 600; padding: 10px 12px; background: #fef2f2; border-radius: 8px; border: 1px solid #fecaca; margin: 0;">
+                            ※ 단, 2주 이상 중단하더라도 개인차에 따라 위 내 음식물 잔류로 인해 재검이 필요할 수 있습니다.
+                        </p>
                     </div>
                 `
             },
             '7days': {
-                title: '건강검진 7일전',
+                title: '건강검진 7일 전',
+                parent: 'general',
                 content: `
-                    <div style="background: #f0f7ff; padding: 15px; border-radius: 12px; border: 1px solid #bee3f8; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #2b6cb0; margin-bottom: 8px;"><i class="fa-solid fa-pills" style="margin-right: 6px;"></i>혈전 관련 약물 중단</p>
-                        <p style="font-size: 0.95rem; line-height: 1.6; color: #2b6cb0;">내시경 시 출혈 위험을 줄이기 위해 특정 약물 복용을 중단해야 합니다.</p>
-                    </div>
-                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
-                        • <b>중단 약물:</b> 아스피린, 항혈소판제, 항응고제 (플라빅스, 프라닥사, 자렐토 등)<br>
-                        • <b>중단 기간:</b> 검진일 기준 <b>7일 전(최소 5일 전)</b>부터 중단<br>
-                        • <b>중요:</b> 반드시 처방 의사와 상담 후 중단 여부를 결정하십시오.
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: #f0f9ff; padding: 15px; border-radius: 12px; border: 1px solid #bae6fd;">
+                            <p style="font-weight: 800; color: #0369a1; margin-bottom: 10px;"><i class="fa-solid fa-pills" style="margin-right: 6px;"></i>약물 복용 안내</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-size: 0.9rem; color: #334155; line-height: 1.8;">
+                                항혈소판제 또는 항응고제(아스피린, 아스트릭스, 플라빅스, 프레탈, 와파린(쿠마딘), 프라닥사, 자렐토, 브릴린타 등)를 복용하시는 분은 내시경 검사 중 조직검사나 용종제거 시 출혈의 위험이 있으므로 반드시 처방한 의사와 사전 협의 후 약 1주일 혹은 최소 일 수 동안 복용을 중단하십시오.
+                            </p>
+                        </div>
                     </div>
                 `
             },
             'daybefore': {
                 title: '건강검진 전날',
+                parent: 'general',
                 content: `
-                    <div style="background: #fff5f5; padding: 15px; border-radius: 12px; border: 1px solid #feb2b2; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #c53030; margin-bottom: 8px;"><i class="fa-solid fa-utensils" style="margin-right: 6px;"></i>금식 안내 (물 포함 절대 금식)</p>
-                        <p style="font-size: 0.95rem; line-height: 1.6; color: #c53030;">정확한 검사를 위해 반드시 금식 시간을 지켜주세요.</p>
-                    </div>
-                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
-                        • <b>오전 예약자:</b> 전날 오후 8시 전까지 가벼운 식사 후 금식<br>
-                        • <b>오후 예약자:</b> 전날 밤 12시 전까지 가벼운 식사 후 금식<br>
-                        • <b>금지 품목:</b> 물, 껌, 사탕, 담배, 커피, 유제품 등 일체 금지<br>
-                        • <b>당뇨 관련:</b> 인슐린 주사는 전날 저녁부터 중단하십시오.
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-utensils" style="color: #f59e0b;"></i> 금식
+                            </p>
+                            <div style="background: #fffbeb; padding: 15px; border-radius: 12px; border: 1px solid #fef3c7;">
+                                <p style="font-size: 0.9rem; color: #92400e; line-height: 1.8; margin-bottom: 10px;">
+                                    검사 전 <b>8시간 이상 금식</b>해야합니다. (내원시간 기준 12시간 이상 금식 권장)
+                                </p>
+                                <ul style="font-size: 0.9rem; color: #92400e; line-height: 1.9; padding-left: 20px; margin: 0;">
+                                    <li><b>오전 예약자</b> : 오후 8시 전까지 가벼운 식사</li>
+                                    <li><b>오후 예약자</b> : 밤 12시 전까지 가벼운 식사</li>
+                                </ul>
+                            </div>
+                            <p style="margin-top: 10px; font-size: 0.88rem; color: #ef4444; font-weight: 600; padding: 10px 12px; background: #fef2f2; border-radius: 8px; border: 1px solid #fecaca;">
+                                금식 시간 중엔 물, 껌, 사탕, 담배, 커피, 색 있는 음료, 유제품 모두 절대 드시면 안됩니다.
+                            </p>
+                        </div>
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-pills" style="color: #3b82f6;"></i> 약물 복용 안내
+                            </p>
+                            <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe;">
+                                <p style="font-size: 0.9rem; color: #1e40af; line-height: 1.8;">
+                                    <b>인슐린 주사</b>는 반드시 처방한 의사와 상담 후, <b>검사 전날 저녁부터 중단</b>하시기 바랍니다.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 `
             },
             'female': {
-                title: '여성고객 주의사항',
+                title: '여성고객',
+                parent: 'general',
                 content: `
-                    <div style="background: #fdf2f8; padding: 15px; border-radius: 12px; border: 1px solid #fbcfe8; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #9d174d; margin-bottom: 8px;"><i class="fa-solid fa-venus" style="margin-right: 6px;"></i>여성 고객을 위한 안내</p>
-                    </div>
-                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
-                        • <b>생리 중:</b> 자궁경부암 및 소변검사가 불가능합니다. (종료 후 7일 뒤 권장)<br>
-                        • <b>임신 가능성:</b> 임신 중이거나 가능성이 있다면 방사선 및 내시경 검사가 제한됩니다.<br>
-                        • <b>모유 수유:</b> 수면 내시경 후 24시간 동안은 수유를 중단하셔야 합니다.<br>
-                        • <b>자궁경부암 검사:</b> 24시간 내 성관계 및 72시간 내 질정 사용 금지.
+                    <div style="display: flex; flex-direction: column; gap: 18px;">
+                        <div style="background: #fdf4ff; padding: 14px; border-radius: 10px; border: 1px solid #e9d5ff;">
+                            <p style="font-size: 0.9rem; color: #7e22ce; font-weight: 700; margin: 0;">
+                                ** 생리 종료일로부터 7일 이후에 소변검사, 부인과검사가 가능합니다.
+                            </p>
+                        </div>
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-circle-question" style="color: #ec4899;"></i> 임신 가능성
+                            </p>
+                            <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
+                                <p style="font-size: 0.9rem; color: #9f1239; line-height: 1.8;">
+                                    임신 가능성이 있는 경우 X-ray, 내시경, 방사선 관련 검사 등 일부 항목은 제한됩니다.<br>
+                                    검진 전 임신 여부를 확인하시고, 예약 또는 접수 시 반드시 미리 알려주시기 바랍니다.
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-droplet" style="color: #3b82f6;"></i> 모유 수유
+                            </p>
+                            <div style="background: #f0f9ff; padding: 15px; border-radius: 12px; border: 1px solid #bae6fd;">
+                                <p style="font-size: 0.9rem; color: #0c4a6e; line-height: 1.8;">
+                                    모유 수유 중에는 유방촬영술 및 유방초음파 검사, 그리고 진정(수면)내시경을 연기하시는 것을 권유드립니다.<br><br>
+                                    유방촬영술과 유방초음파 검사의 경우, 수유로 인해 유선이 변화하여 검사 결과의 정확도가 떨어질 수 있습니다. 수유 중단 후 유방조직이 영상검사에 적합한 상태로 안정화되는 6개월이 지난 이후에 검사 받으실 것을 권해드립니다. (단, 불편한 증상이 있으시다면 검사를 미루지 마시고, 유방외과 진료를 받으시기 바랍니다.)<br><br>
+                                    진정(수면)내시경 검사를 받으시는 경우 약물이 몸에 남아 있을 수 있으니 검사 후 24시간 동안은 모유 수유를 중단하셔야 합니다.<br><br>
+                                    추가적으로 위장조영촬영에 사용되는 조영제인 황산바륨은 모유 수유에 영향을 미치지 않는 것으로 알려져 있습니다. 안심하고 검사를 받으실 수 있으나, 검사에 대해 불편함이나 우려가 있으신 경우에는 수유 중단 후에 검사를 받으시길 권해드립니다.
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-notes-medical" style="color: #10b981;"></i> 자궁경부암 검사
+                            </p>
+                            <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #bbf7d0;">
+                                <p style="font-size: 0.9rem; color: #166534; line-height: 1.8;">
+                                    자궁경부암 검사 시 24시간 내 성관계, 크림사용, 질세척과 72시간 내 질정 사용은 금합니다.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 `
             },
             'dayof': {
                 title: '건강검진 당일',
+                parent: 'general',
                 content: `
-                    <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #bbf7d0; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #166534; margin-bottom: 8px;"><i class="fa-solid fa sun" style="margin-right: 6px;"></i>검진 당일 최종 체크</p>
-                    </div>
-                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
-                        • <b>금식 유지:</b> 아침 식사는 물론 물도 드시지 마십시오.<br>
-                        • <b>혈압약:</b> 당일 새벽 5~6시에 최소량의 물과 함께 복용하십시오.<br>
-                        • <b>당뇨약:</b> 당일 아침에는 절대 복용하지 마십시오.<br>
-                        • <b>교통수단:</b> 수면 내시경 시 <b>자가운전이 절대 불가</b>합니다. 반드시 대중교통을 이용하세요.
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-utensils" style="color: #f59e0b;"></i> 금식
+                            </p>
+                            <div style="background: #fffbeb; padding: 15px; border-radius: 12px; border: 1px solid #fef3c7;">
+                                <p style="font-size: 0.9rem; color: #92400e; line-height: 1.8; margin-bottom: 8px;">검사 전까지 금식을 유지하셔야합니다.</p>
+                                <ul style="font-size: 0.9rem; color: #92400e; line-height: 1.9; padding-left: 20px; margin: 0;">
+                                    <li><b>오전 예약자</b> : 아침까지 금식 유지</li>
+                                    <li><b>오후 예약자</b> : 아침, 점심까지 금식 유지</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-pills" style="color: #3b82f6;"></i> 약물 복용 안내
+                            </p>
+                            <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe;">
+                                <p style="font-size: 0.9rem; color: #1e40af; line-height: 1.8; margin-bottom: 8px;">
+                                    <b>고혈압약, 항경련제</b>는 아래와 같이 복용후 내시경 검사 전 직원에게 알려 주시기 바랍니다.
+                                </p>
+                                <ul style="font-size: 0.9rem; color: #1e40af; line-height: 1.9; padding-left: 20px; margin: 0 0 10px;">
+                                    <li><b>오전 예약자</b> : 전날 취침 전 복용</li>
+                                    <li><b>오후 예약자</b> : 당일 이른 새벽 복용 (검사 최소 3시간 전)</li>
+                                </ul>
+                                <p style="font-size: 0.9rem; color: #1e40af; line-height: 1.8; margin: 0;">
+                                    <b>당뇨약</b>은 검사 당일 아침에는 복용하지 마시기 바랍니다.
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-wave-square" style="color: #8b5cf6;"></i> 초음파 검사 안내
+                            </p>
+                            <div style="background: #f5f3ff; padding: 15px; border-radius: 12px; border: 1px solid #ddd6fe;">
+                                <p style="font-size: 0.9rem; color: #5b21b6; line-height: 1.8;">
+                                    전립선, 자궁초음파 검사를 예약하신 분은 정확한 검사를 위해 검진 당일 아침 첫 소변 이후 소변을 참고 내원하십시오.
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-bed" style="color: #f43f5e;"></i> 진정(수면)내시경 후 주의사항
+                            </p>
+                            <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
+                                <ul style="font-size: 0.9rem; color: #9f1239; line-height: 1.9; padding-left: 20px; margin: 0;">
+                                    <li>검사 후 3~4시간 정도는 충분한 휴식을 취해야 합니다.</li>
+                                    <li>검사 당일에는 기계조작, 운동, 중요한 의사결정 및 회의참석 등은 금지합니다.</li>
+                                    <li>진정(수면)유도제로 인하여 검사 진행 및 완료 후에도 일시적인 기억상실 효과가 발생할 수 있습니다.</li>
+                                    <li>진정(수면) 상태는 평균 15~30분 정도 지속되며, 대개는 30분~1시간 내에 깨어나지만 드물게 2시간 이상 몽롱한 느낌이 지속될 수 있습니다.</li>
+                                    <li>진정(수면)내시경 검진자는 <b>자가운전이 불가합니다.</b> 대중교통을 이용하시기 바라며, 아래 영상을 참고해 주시기 바랍니다.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 `
             },
             'idcard': {
                 title: '신분증 안내사항',
+                parent: 'general',
                 content: `
-                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #475569; margin-bottom: 8px;"><i class="fa-solid fa-id-card" style="margin-right: 6px;"></i>본인 확인 의무화</p>
-                    </div>
-                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
-                        • <b>필수 지참:</b> 주민등록증, 운전면허증, 여권 등 <b>실물 신분증</b><br>
-                        • <b>모바일 신분증:</b> 건강보험증 앱, PASS 모바일 신분증 가능<br>
-                        • <b>불가 항목:</b> 신분증 사본, 사진 캡쳐본은 인정되지 않습니다.<br>
-                        • <b>참고:</b> 24년 5월 20일부터 본인확인 절차가 강화되었습니다.
-                    </div>
-                `
-            },
-            'colon3': {
-                title: '검사 3일 전 (식단 조절)',
-                content: `
-                    <div style="background: #fff5f5; padding: 15px; border-radius: 12px; border: 1px solid #feb2b2; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #c53030; margin-bottom: 8px;"><i class="fa-solid fa-ban" style="margin-right: 6px;"></i>피해야 할 음식 (섬유질/씨앗)</p>
-                        <p style="font-size: 0.95rem; line-height: 1.6; color: #c53030;">장 내에 남아 검사를 방해할 수 있는 음식들입니다.</p>
-                    </div>
-                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
-                        • <b>잡곡류:</b> 현미, 흑미, 콩, 조, 수수 등 잡곡밥 전체<br>
-                        • <b>채소류:</b> 김치, 나물류, 해조류(미역, 김, 다시마), 버섯류<br>
-                        • <b>과일류:</b> 씨 있는 과일 (수박, 참외, 딸기, 포도, 키위, 토마토 등)<br>
-                        • <b>견과류:</b> 땅콩, 잣, 호두 등
-                    </div>
-                `
-            },
-            'colon2': {
-                title: '검사 2일 전 (식단 유지)',
-                content: `
-                    <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #bbf7d0; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #166534; margin-bottom: 8px;"><i class="fa-solid fa-check" style="margin-right: 6px;"></i>드실 수 있는 음식</p>
-                        <p style="font-size: 0.95rem; line-height: 1.6; color: #166534;">소화가 잘 되고 찌꺼기가 남지 않는 음식 위주로 섭취하세요.</p>
-                    </div>
-                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
-                        • <b>주식:</b> 흰쌀밥, 흰죽 (반찬 없이)<br>
-                        • <b>단백질:</b> 계란, 두부, 묵, 생선, 닭가슴살<br>
-                        • <b>음료:</b> 맑은 국물, 우유, 맑은 주스(건더기 없는 것), 커피, 녹차<br>
-                        • <b>기타:</b> 빵(카스텔라 등 부드러운 것), 감자, 바나나
-                    </div>
-                `
-            },
-            'colon1': {
-                title: '검사 전날 (최종 준비)',
-                content: `
-                    <div style="background: #fff9f0; padding: 15px; border-radius: 12px; border: 1px solid #ffeeba; margin-bottom: 20px;">
-                        <p style="font-weight: 800; color: #856404; margin-bottom: 8px;"><i class="fa-solid fa-clock" style="margin-right: 6px;"></i>식이 제한 및 금식 시작</p>
-                    </div>
-                    <div style="font-size: 1rem; line-height: 1.8; color: #334155;">
-                        • <b>아침/점심:</b> 흰죽 또는 미음 (반찬 없이) 섭취<br>
-                        • <b>오후 2시 이후:</b> <b>금식 시작</b> (물은 섭취 가능)<br>
-                        • <b>장정결제 복용:</b> 병원에서 안내받은 시간에 맞춰 복용을 시작하십시오.<br>
-                        • <b>참고:</b> 저녁 식사는 절대 금지입니다.
-                    </div>
-                `
-            },
-            'colon_purgative': {
-                title: '장정결제 복용 방법 선택',
-                content: `
-                    <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #bbf7d0; margin-bottom: 20px; text-align: center;">
-                        <p style="font-weight: 800; color: #166534; font-size: 1rem;">처방받으신 약물을 선택해 주세요.</p>
-                        <p style="font-size: 0.85rem; color: #4b5563; margin-top: 5px;">약물 종류에 따라 복용 방법이 다릅니다.</p>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                        <button onclick="window.showHalfprepDetail()" style="padding: 20px 10px; background: white; border: 2px solid #3b82f6; border-radius: 16px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px;" onmouseover="this.style.background='#eff6ff';" onmouseout="this.style.background='white';">
-                            <div style="width: 40px; height: 40px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #3b82f6; font-size: 1.2rem;">
-                                <i class="fa-solid fa-vial"></i>
+                    <div style="display: flex; flex-direction: column; gap: 18px;">
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-size: 0.9rem; color: #475569; line-height: 1.8;">
+                                24.05.20부터 요양기관 <b>본인확인 강화 제도</b>가 적용되어, 신분증을 통한 본인확인이 의무화되었습니다.<br>
+                                진정(수면)내시경 검사 및 채용 건강검진 여부에 따라 지참하셔야 하는 신분증의 종류가 달라지니, 반드시 확인해 주시기 바랍니다.
+                            </p>
+                        </div>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.95rem; margin-bottom: 10px; padding: 10px 12px; background: #1e293b; color: white; border-radius: 8px;">
+                                진정(수면) 내시경 대상자 및 채용 건강검진
+                            </p>
+                            <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
+                                <ul style="font-size: 0.9rem; color: #9f1239; line-height: 1.9; padding-left: 20px; margin: 0;">
+                                    <li>주민등록증, 운전면허증, (구)여권, 외국인등록증, 영주증 등</li>
+                                    <li>진정(수면) 유도제 사용 시 사진과 주민등록번호 또는 외국인 등록번호 전체가 기재된 <b>실물 신분증</b>을 지참하셔야 원활한 진행이 가능합니다.</li>
+                                    <li>신여권을 지참하시는 경우 주민등록번호 확인을 위하여, <b>여권정보증명서</b>를 함께 지참해 주시기 바랍니다.</li>
+                                    <li>채용 건강검진의 경우 타인이 대신 건강검진을 받는 경우를 방지하기 위하여 사진과 주민등록번호 전체가 기재된 신분증을 지참부탁드립니다.</li>
+                                </ul>
+                                <p style="font-size: 0.85rem; color: #be123c; font-weight: 600; margin-top: 12px; padding: 8px 10px; background: #fff5f5; border-radius: 6px;">
+                                    ※ 거소신고증은 사용 불가능 하오니, 반드시 여권을 함께 지참해 주시기 바랍니다.
+                                </p>
                             </div>
-                            <span style="font-weight: 800; color: #1e40af;">하프렙산</span>
-                            <span style="font-size: 0.7rem; color: #64748b;">(가루약 타입)</span>
-                        </button>
-                        <button onclick="window.showOrapuhDetail()" style="padding: 20px 10px; background: white; border: 2px solid #e2e8f0; border-radius: 16px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.7;" onmouseover="this.style.background='#f8fafc';" onmouseout="this.style.background='white';">
-                            <div style="width: 40px; height: 40px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 1.2rem;">
-                                <i class="fa-solid fa-pills"></i>
+                        </div>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.95rem; margin-bottom: 10px; padding: 10px 12px; background: #1e293b; color: white; border-radius: 8px;">
+                                진정(수면)내시경 비대상자
+                            </p>
+                            <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #bbf7d0;">
+                                <ul style="font-size: 0.9rem; color: #166534; line-height: 1.9; padding-left: 20px; margin: 0;">
+                                    <li><b>(신분증)</b> 건강보험증, 주민등록증, 운전면허증, 여권, 국가보훈등록증, 장애인등록증, 외국인등록증, 국내거소신고증, 영주증 등 (행정·공공기관이 발행한 증명서 또는 서류, 사진과 주민등록번호가 포함된 것에 한함)</li>
+                                    <li><b>(전자서명인증서)</b> 공동인증서, 금융인증서, 디지털 원패스, 간편인증(PASS, 네이버·카카오 인증서, 삼성페이, NH인증서 등) 등</li>
+                                    <li><b>(본인확인 서비스)</b> 통신사 및 신용카드사, 은행 등</li>
+                                    <li><b>(전자신분증)</b> 모바일 건강보험증, 모바일 운전면허증, 주민등록증 확인서비스(PASS) 등</li>
+                                </ul>
+                                <p style="font-size: 0.85rem; color: #166534; font-weight: 600; margin-top: 12px; padding: 8px 10px; background: #dcfce7; border-radius: 6px;">
+                                    ※ 신분증 사본(캡쳐, 사진 등), 각종 자격증 등은 전자신분증이 아니며 사용 불가
+                                </p>
                             </div>
-                            <span style="font-weight: 800; color: #475569;">오라팡</span>
-                            <span style="font-size: 0.7rem; color: #64748b;">(알약 타입)</span>
-                        </button>
-                    </div>
-                    <div style="margin-top: 20px; padding: 12px; background: #fefce8; border-radius: 10px; border: 1px solid #fef08a; font-size: 0.8rem; color: #854d0e;">
-                        <i class="fa-solid fa-triangle-exclamation" style="margin-right: 5px;"></i> 반드시 본인이 처방받은 약물을 확인 후 가이드를 따라주세요.
+                        </div>
                     </div>
                 `
             }
@@ -5211,12 +5222,12 @@ function initDashboard() {
         const modal = document.getElementById('precaution-modal');
         const titleEl = document.getElementById('precaution-modal-title');
         const bodyEl = document.getElementById('precaution-modal-body');
+        const backBtn = document.getElementById('precaution-back-btn');
 
         if (modal && titleEl && bodyEl) {
-            const backBtn = document.getElementById('precaution-back-btn');
             if (backBtn) {
                 backBtn.style.display = 'block';
-                let parentType = 'general';
+                let parentType = data.parent || 'general';
                 if (subType.startsWith('colon')) parentType = 'colon';
                 if (subType.startsWith('stomach')) parentType = 'stomach';
                 backBtn.onclick = () => window.showKmiDetail(parentType);
