@@ -4101,7 +4101,7 @@ function initDashboard() {
         modal.classList.add('show');
     };
 
-    window.showSeveranceDetail = function(type) {
+    window.showSeveranceDetail = function(activeTab = 'diet') {
         const modal = document.getElementById('precaution-modal');
         const titleEl = document.getElementById('precaution-modal-title');
         const bodyEl = document.getElementById('precaution-modal-body');
@@ -4109,13 +4109,31 @@ function initDashboard() {
 
         if (backBtn) backBtn.style.display = 'none';
 
-        let title = "세브란스병원 주의사항";
-        let content = "";
+        titleEl.innerText = "세브란스병원 센터 주의사항";
 
-        switch(type) {
+        const tabs = [
+            { id: 'diet', label: '식사 조절' },
+            { id: 'meds', label: '복용중인 약' },
+            { id: 'colon', label: '대장내시경 준비' },
+            { id: 'stool', label: '대변검사' },
+            { id: 'notice', label: '주의사항' }
+        ];
+
+        let tabsHtml = `
+            <div class="precaution-tabs-container">
+                ${tabs.map(tab => `
+                    <div class="precaution-tab ${tab.id === activeTab ? 'active' : ''}" 
+                         onclick="window.showSeveranceDetail('${tab.id}')">
+                        ${tab.label}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        let contentHtml = "";
+        switch(activeTab) {
             case 'diet':
-                title = "식사 조절 및 금식 안내";
-                content = `
+                contentHtml = `
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('diet_basic')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
                             <span>기본 검진 (대장내시경 없는 분)</span>
@@ -4133,8 +4151,7 @@ function initDashboard() {
                 `;
                 break;
             case 'meds':
-                title = "복용중인 약 안내";
-                content = `
+                contentHtml = `
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('meds_common')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
                             <span>혈압/심장/당뇨약 복용법</span>
@@ -4148,8 +4165,7 @@ function initDashboard() {
                 `;
                 break;
             case 'colon':
-                title = "대장내시경 준비";
-                content = `
+                contentHtml = `
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('colon_diet')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
                             <span>대장내시경 식이 조절 (3일 전)</span>
@@ -4163,8 +4179,7 @@ function initDashboard() {
                 `;
                 break;
             case 'stool':
-                title = "대변검사 (채변 방법)";
-                content = `
+                contentHtml = `
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('stool_how')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
                             <span>올바른 채변 방법 및 보관</span>
@@ -4174,8 +4189,7 @@ function initDashboard() {
                 `;
                 break;
             case 'notice':
-                title = "기타 주의사항";
-                content = `
+                contentHtml = `
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('notice_common')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
                             <span>귀중품 / 여성 고객 / 운전 안내</span>
@@ -4186,12 +4200,14 @@ function initDashboard() {
                 break;
         }
 
-        titleEl.innerText = title;
+        bodyEl.style.padding = "0"; // Reset padding for tabs
         bodyEl.innerHTML = `
-            <div style="padding: 10px;">
-                ${content}
+            ${tabsHtml}
+            <div class="precaution-content-area">
+                ${contentHtml}
             </div>
         `;
+
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
     };
@@ -4432,6 +4448,7 @@ function initDashboard() {
         const backBtn = document.getElementById('precaution-back-btn');
 
         titleEl.innerText = data.title;
+        bodyEl.style.padding = "20px"; // Restore padding for detail view
         bodyEl.innerHTML = `
             <div style="padding: 10px;">
                 ${data.content}

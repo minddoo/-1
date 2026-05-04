@@ -4296,10 +4296,51 @@ html {
     box-shadow: none !important;
 }
 
-/* Prevent tooltip popups from Google */
-.goog-tooltip {
-    display: none !important;
+/* Precaution Tabs Styling */
+.precaution-tabs-container {
+    display: flex;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 0 24px;
+    background: #fff;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
 }
-.goog-tooltip:hover {
-    display: none !important;
+
+.precaution-tabs-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.precaution-tab {
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #94a3b8;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.precaution-tab:hover {
+    color: #475569;
+}
+
+.precaution-tab.active {
+    color: var(--primary);
+}
+
+.precaution-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 3px 3px 0 0;
+}
+
+.precaution-content-area {
+    padding: 24px;
+    min-height: 300px;
 }
