@@ -4212,19 +4212,19 @@ function initDashboard() {
                 title: '대장내시경 (3일 ~ 2일 전)',
                 parent: 'diet',
                 content: `
-                    <div style="margin-bottom: 15px; background: #fff1f2; padding: 12px; border-radius: 10px; border: 1px solid #fecdd3;">
-                        <p style="font-size: 0.82rem; color: #9f1239; line-height: 1.5;">대장내시경 검사의 정확도는 대장 정결 상태에 따라 크게 좌우됩니다.</p>
+                    <div style="margin-bottom: 15px; background: #f8fafc; padding: 12px; border-radius: 10px; border: 1px solid #e2e8f0;">
+                        <p style="font-size: 0.85rem; color: #475569; line-height: 1.5;">대장내시경 검사의 정확도는 대장 정결 상태에 따라 크게 좌우됩니다.</p>
                     </div>
                     <div style="margin-bottom: 20px;">
                         <p style="font-weight: 700; color: #ef4444; margin-bottom: 10px;"><i class="fa-solid fa-circle-xmark" style="margin-right: 6px;"></i>피해야 할 음식</p>
                         <div style="background: #fef2f2; padding: 12px; border-radius: 10px; border: 1px solid #fee2e2; font-size: 0.82rem; color: #991b1b; line-height: 1.6;">
-                            잡곡밥, 검은쌀, 콩나물밥, 현미밥, 깨죽, 녹두죽, 잣죽, 고춧가루, 참기름, 들기름, 배추김치, 열무김치, 파김치, 얼갈이, 우거지, 콩나물, 고사리, 도라지, 미나리, 미역, 김, 설렁탕, 곰탕, 삼겹살, 고구마, 씨 있는 과일(수박, 참외, 딸기, 포도, 토마토, 키위, 멜론 등), 고추씨, 옥수수, 견과류
+                            잡곡밥, 검은쌀, 콩나물밥, 현미밥, 깨죽, 녹두죽, 잣죽, 고춧가루, 참기름, 들기름 등 배추김치, 열무김치, 파김치, 얼갈이, 우거지, 콩나물, 고사리, 도라지, 미나리, 미역, 김, 설렁탕, 곰탕, 삼겹살, 고구마, 사과, 씨 있는 과일(수박, 참외, 딸기, 포도, 토마토, 키위, 메론 등), 고추씨, 옥수수, 견과류(땅콩, 잣, 호두)
                         </div>
                     </div>
                     <div>
                         <p style="font-weight: 700; color: #16a34a; margin-bottom: 10px;"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>드실 수 있는 음식</p>
                         <div style="background: #f0fdf4; padding: 12px; border-radius: 10px; border: 1px solid #dcfce7; font-size: 0.82rem; color: #166534; line-height: 1.6;">
-                            흰쌀밥, 흰죽, 계란류, 두부류, 생선류, 국물류, 빵종류, 음료류(탄산, 맑은 주스, 우유, 커피, 녹차 등), 감자, 바나나
+                            흰쌀밥, 흰죽, 계란류, 두부류, 생선류, 국물류, 빵종류, 음료류(탄산 음료, 맑은 주스, 우유, 커피, 녹차 등), 감자, 바나나
                         </div>
                     </div>
                 `
@@ -4237,7 +4237,7 @@ function initDashboard() {
                         <div style="background: #fff9f0; padding: 15px; border-radius: 12px; border: 1px solid #ffeeba;">
                             <p style="font-weight: 700; color: #856404; margin-bottom: 8px;"><i class="fa-solid fa-utensils" style="margin-right: 6px;"></i>식사 방법</p>
                             <p style="font-size: 0.85rem; color: #856404; line-height: 1.6;">
-                                • 아침/점심/저녁 : <strong>반찬 없이 흰쌀 죽</strong>만 가능<br>
+                                • 아침, 점심, 저녁 : <strong>반찬 없이 흰쌀 죽</strong>만 가능<br>
                                 • 식사는 <strong>오후 5시 이전</strong>에 모두 마치십시오.
                             </p>
                         </div>
@@ -4249,45 +4249,46 @@ function initDashboard() {
                 `
             },
             'meds_common': {
-                title: '질환별 약 복용법 (공통)',
+                title: '질환별 약 복용법',
                 parent: 'meds',
                 content: `
-                    <div style="display: flex; flex-direction: column; gap: 15px;">
-                        <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
-                            <p style="font-weight: 700; color: #9f1239; margin-bottom: 8px;">당뇨약 / 인슐린 주사</p>
-                            <p style="font-size: 0.9rem; color: #9f1239; line-height: 1.6; font-weight: 600;">
-                                • <strong>검진 당일 중단</strong>하십시오.
-                            </p>
-                        </div>
-                        <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe;">
-                            <p style="font-weight: 700; color: #1e40af; margin-bottom: 8px;">고혈압약 / 항경련제</p>
-                            <p style="font-size: 0.9rem; color: #1e40af; line-height: 1.6; font-weight: 600;">
-                                • <strong>당일 새벽 6시</strong> 소량의 물과 함께 복용하십시오.
-                            </p>
-                        </div>
+                    <div style="overflow-x: auto; margin-top: 10px;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; background: white;">
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 15px; color: #475569; font-weight: 600; width: 40%;">당뇨약, 인슐린주사</td>
+                                <td style="padding: 15px; color: #1e293b;">검진 당일 중단</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 15px; color: #475569; font-weight: 600;">혈압약</td>
+                                <td style="padding: 15px; color: #1e293b;">당일 새벽 6시 소량의 물과 함께 복용</td>
+                            </tr>
+                        </table>
                     </div>
                 `
             },
             'meds_blood': {
-                title: '내시경 검사 시 주의 약물',
+                title: '항혈전제, 항혈소판제, 항응고제',
                 parent: 'meds',
                 content: `
-                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
-                        <p style="font-weight: 700; color: #334155; margin-bottom: 10px;">항혈전제, 항혈소판제, 항응고제</p>
-                        <p style="font-size: 0.85rem; color: #475569; line-height: 1.8;">
-                            • 조직검사나 용종 제거 시 출혈 위험이 있습니다.<br>
-                            • <strong>반드시 검사 전 주치의와 상의하여 중단 여부를 확인하십시오.</strong>
-                        </p>
+                    <div style="overflow-x: auto; margin-top: 10px;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; background: white;">
+                            <tr>
+                                <td style="padding: 15px; color: #475569; font-weight: 600; width: 40%;">항혈전제<br>항혈소판제<br>항응고제</td>
+                                <td style="padding: 15px; color: #1e293b; vertical-align: top;">
+                                    <p style="margin-bottom: 15px;">검사 전 주치의와 상의해 중단 여부를 확인</p>
+                                    <div style="display: flex; justify-content: flex-end;">
+                                        <button onclick="window.showSeveranceSubDetail('meds_list')" style="padding: 10px 20px; background: #0095ff; color: white; border: none; border-radius: 25px; font-weight: 700; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 149, 255, 0.3);">
+                                            약 이름 확인하기
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                    
-                    <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('meds_list')" style="width: 100%; padding: 15px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
-                        <span><i class="fa-solid fa-magnifying-glass" style="margin-right: 8px; color: var(--primary);"></i> 주의 약물 리스트 확인하기</span>
-                        <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
-                    </button>
                 `
             },
             'meds_list': {
-                title: '주의 약물 리스트',
+                title: '항혈전제, 항혈소판제, 항응고제 리스트',
                 parent: 'meds_blood',
                 content: `
                     <div style="overflow-x: auto; margin-top: 10px;">
@@ -4304,7 +4305,7 @@ function initDashboard() {
                                     <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">아스피린프로텍트, 아스트릭스</td>
                                 </tr>
                                 <tr style="background: #f8fafc;">
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">cilostazol</td>
+                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">cilostazo</td>
                                     <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">프레탈, 실로스탄씨알정</td>
                                 </tr>
                                 <tr>
@@ -4368,15 +4369,74 @@ function initDashboard() {
                 `
             },
             'colon_med': {
-                title: '장정결제 복용 주의사항',
+                title: '장정결제 복용 주의사항 (플렌뷰산)',
                 parent: 'colon',
                 content: `
-                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                        <p style="font-size: 0.85rem; color: #475569; line-height: 1.8;">
-                            • 약제 종류(플렌뷰산, 오라팡 등)에 따라 복용 방법이 다릅니다.<br>
-                            • <strong>반드시 제공받은 약제 설명서의 지침을 따르십시오.</strong><br>
-                            • 장 정결이 충분하지 않으면 검사가 불가능하거나 정확도가 떨어집니다.
-                        </p>
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div style="background: #f0f9ff; padding: 15px; border-radius: 12px; border: 1px solid #7dd3fc;">
+                            <p style="font-weight: 700; color: #0369a1; margin-bottom: 10px;"><i class="fa-solid fa-flask" style="margin-right: 6px;"></i>플렌뷰산 조제법 (1, 2차 상이)</p>
+                            <p style="font-size: 0.82rem; color: #ef4444; font-weight: 700; margin-bottom: 12px;">※ 1차 약제, 2차 약제가 다르니 잘 확인 후 복용해 주십시오.</p>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <p style="font-weight: 700; color: #0369a1; font-size: 0.9rem;">• 1차 (검진 전날)</p>
+                                <p style="font-size: 0.82rem; color: #475569; padding-left: 10px; line-height: 1.5;">
+                                    - 1차 복용제를 500ml 통에 넣음<br>
+                                    - 찬물을 500ml 표시선까지 채움<br>
+                                    - 뚜껑을 닫고 완전히 녹을 때까지 흔들어 줌
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <p style="font-weight: 700; color: #0369a1; font-size: 0.9rem;">• 2차 (검진 당일)</p>
+                                <p style="font-size: 0.82rem; color: #475569; padding-left: 10px; line-height: 1.5;">
+                                    - 2차 복용 A제와 B제를 500ml 통에 넣음<br>
+                                    - 찬물을 500ml 표시선까지 채움<br>
+                                    - 뚜껑을 닫고 완전히 녹을 때까지 흔들어 줌
+                                </p>
+                            </div>
+                            <p style="font-size: 0.75rem; color: #ef4444; margin-top: 10px;">※ 2차 약제는 전날 밤 조제 후 냉장 보관 가능</p>
+                        </div>
+
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 10px;"><i class="fa-solid fa-calendar-check" style="margin-right: 6px;"></i>복용 스케줄</p>
+                            
+                            <div style="margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+                                <p style="font-weight: 700; color: #475569; font-size: 0.85rem; margin-bottom: 8px;">[ 검진 전날 ]</p>
+                                <table style="width: 100%; font-size: 0.8rem; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b; width: 100px;">~저녁 5:00</td>
+                                        <td style="padding: 4px 0; color: #1e293b;">저녁식사 완료(죽)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">저녁 7:00~7:30</td>
+                                        <td style="padding: 4px 0; color: #1e293b;"><strong>1차 조제액</strong> 30분간 천천히 복용</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">저녁 7:30~8:30</td>
+                                        <td style="padding: 4px 0; color: #1e293b;">물(생수) 1L 이상 1시간 동안 마심</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div>
+                                <p style="font-weight: 700; color: #475569; font-size: 0.85rem; margin-bottom: 8px;">[ 검진 당일 ]</p>
+                                <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 8px;">※ 당일 아침식사 금식, 5시부터 복용 시작</p>
+                                <table style="width: 100%; font-size: 0.8rem; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b; width: 100px;">아침 5:00~5:30</td>
+                                        <td style="padding: 4px 0; color: #1e293b;"><strong>2차 조제액</strong> 30분간 천천히 복용</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">아침 5:30~6:00</td>
+                                        <td style="padding: 4px 0; color: #1e293b;">물 500ml + 생수 1L 이상 마심</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 0; color: #64748b;">아침 6:00</td>
+                                        <td style="padding: 4px 0; color: #1e293b;">물 500ml + <strong>엔도콜액 2포</strong> 복용</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 `
             },
