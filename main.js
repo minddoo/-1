@@ -5545,7 +5545,7 @@ function initDashboard() {
 
                     <div style="margin-bottom: 25px;">
                         <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">1. 장 정결제 복용 시간</h5>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
                             <div style="background: #eff6ff; padding: 12px; border-radius: 10px; border: 1px solid #bfdbfe;">
                                 <p style="font-weight: 800; font-size: 0.85rem; color: #1e40af; margin-bottom: 8px;">&lt;오전 검진자&gt;</p>
                                 <p style="font-size: 0.8rem; color: #3b82f6; line-height: 1.6;">
@@ -5560,6 +5560,16 @@ function initDashboard() {
                                     <b>2차:</b> 검사 당일 오전 8시 30분
                                 </p>
                             </div>
+                        </div>
+                        
+                        <!-- 동영상 가이드 버튼 -->
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <a href="https://youtu.be/ggt68Hm0zXs?si=n__R5YPkibb9XY3v" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #FF0000; color: white; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 0.85rem; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                                <i class="fa-brands fa-youtube" style="font-size: 1.1rem;"></i> 오전 검진자 복용법 영상 보기
+                            </a>
+                            <a href="https://youtu.be/ICjNwKj1nx4?si=mZzVvH9-TYwybEaU" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #FF0000; color: white; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 0.85rem; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                                <i class="fa-brands fa-youtube" style="font-size: 1.1rem;"></i> 오후 검진자 복용법 영상 보기
+                            </a>
                         </div>
                     </div>
 
