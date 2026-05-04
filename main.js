@@ -5488,7 +5488,7 @@ function initDashboard() {
                         </div>
                     </div>
                 `
-            }
+            },
             'stomach_pre_kmi': {
                 title: '검진 전 주의사항',
                 parent: 'stomach',
