@@ -1,4 +1,4 @@
-﻿// Firebase Initialization
+// Firebase Initialization
 const firebaseConfig = {
     apiKey: "AIzaSyDAdW_vJHUHuDaun2Kh94uC8ywlfOdyPco",
     authDomain: "checkit-43341.firebaseapp.com",
@@ -3551,21 +3551,25 @@ function initDashboard() {
             title = 'KMI 대장내시경 주의사항';
             content = `
                 <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon3')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                        <span>• 검사 3일 전 (식단 조절 시작)</span>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon_timing')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 대장내시경 권장시기</span>
                         <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
                     </button>
-                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon2')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                        <span>• 검사 2일 전 (식단 유지)</span>
-                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                    </button>
-                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon1')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
-                        <span>• 검사 전날 (반찬 없는 흰죽/미음)</span>
-                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
-                    </button>
-                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon_purgative')" style="padding: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #1e40af; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#dbeafe';" onmouseout="this.style.background='#eff6ff';">
-                        <span>• 장정결제 복용 방법 안내</span>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon_choice_kmi')" style="padding: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #1e40af; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#dbeafe';" onmouseout="this.style.background='#eff6ff';">
+                        <span>• 대장정결제 안내 (물약 vs 알약)</span>
                         <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #60a5fa;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon_pre_kmi')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 검진 전 주의사항 (시기별 안내)</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon_process')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 검사 과정 안내</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
+                    </button>
+                    <button class="precaution-sub-btn" onclick="window.showKmiSubDetail('colon_after')" style="padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left; font-size: 0.9rem; font-weight: 700; color: #334155; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9';" onmouseout="this.style.background='white';">
+                        <span>• 검사 후 유의사항</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem; color: #cbd5e1;"></i>
                     </button>
                 </div>
             `;
@@ -5164,6 +5168,277 @@ function initDashboard() {
                                     <li>진정(수면)내시경 검진자는 <b>자가운전이 불가합니다.</b> 대중교통을 이용하시기 바라며, 아래 영상을 참고해 주시기 바랍니다.</li>
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                `
+            },
+            'colon_timing': {
+                title: '대장내시경 권장시기',
+                parent: 'colon',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 10px; border-bottom: 2px solid #3b82f6; width: fit-content; padding-bottom: 2px;">특별한 증상없이 처음 시행하는 경우</p>
+                            <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+                                -> <b>40세 이후부터</b><br>
+                                5년 주기 추적검사 권장
+                            </p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 10px; border-bottom: 2px solid #f43f5e; width: fit-content; padding-bottom: 2px;">이상징후가 발현한 경우</p>
+                            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 8px;">(항문 출혈, 하복부 통증, 배변습관 변화, 대장암가족력)</p>
+                            <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+                                -> <b>40세 이전</b><br>
+                                검사 권장
+                            </p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 10px; border-bottom: 2px solid #10b981; width: fit-content; padding-bottom: 2px;">과거 용종을 제거한 경우</p>
+                            <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+                                -> 제거일로부터<br>
+                                <b>3년 주기 추적검사</b> 권장
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            'colon_choice_kmi': {
+                title: '대장정결제 안내 (물약 vs 알약)',
+                parent: 'colon',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 12px;">1. 대장정결제(물약 vs 알약) 선택 가이드</p>
+                            <div style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: center; border: 1px solid #e2e8f0;">
+                                    <thead style="background: #f8fafc;">
+                                        <tr>
+                                            <th style="border: 1px solid #e2e8f0; padding: 10px;">구분</th>
+                                            <th style="border: 1px solid #e2e8f0; padding: 10px; color: #3b82f6;">물약(하프렙산)</th>
+                                            <th style="border: 1px solid #e2e8f0; padding: 10px; color: #9d174d;">알약(오라팡)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px; background: #f8fafc; font-weight: 700;">복용 방법</td>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px;">물에 가루약을 타서 마심</td>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px;">28개의 알약을 물과 복용</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px; background: #f8fafc; font-weight: 700;">장점</td>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px;">수분 섭취량이 많아<br>장 정결 효과 우수</td>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px;">맛과 향이 거의 없어<br>거부감이 적음</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px; background: #f8fafc; font-weight: 700;">단점</td>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px;">특유의 맛과 향으로<br>구역질 유발 가능성</td>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">
+                                                알약 개수가 많고 크기가 큼<br>
+                                                <span style="font-size: 0.75rem; color: #ef4444;">※ 고령(65세 이상) 또는 신장 기능이 좋지 않은 분 등 일부 환자에게는 사용이 제한될 수 있습니다.</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px; background: #f8fafc; font-weight: 700;">권장 대상</td>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px;">알약을 삼키기 힘들거나<br>확실한 장 정결을 원하는 분</td>
+                                            <td style="border: 1px solid #e2e8f0; padding: 10px;">과거 물약 복용 시<br>구토/거부감이 심했던 분</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p style="font-size: 0.8rem; color: #64748b; margin-top: 10px; font-weight: 700;">※ 오라팡으로 검진 진행을 원하실 경우, CH마케팅팀(1599-7070)으로 유선 문의해주시기 바랍니다.</p>
+                        </div>
+
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 12px;">2. 복용 시 공통 주의 사항</p>
+                            <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 12px;">
+                                <div style="display: flex; gap: 10px;">
+                                    <div style="min-width: 6px; height: 6px; background: #3b82f6; border-radius: 50%; margin-top: 7px;"></div>
+                                    <p style="font-size: 0.85rem; color: #334155; line-height: 1.6;">
+                                        <span style="font-weight: 800; color: #1e293b;">천천히 나누어 마시기:</span> 약과 물은 한꺼번에 마시지 말고, <b>10~15분 간격으로 한 컵(200~250mL)씩 천천히</b> 드세요. 너무 빨리 마시면 구토나 복통이 생길 수 있습니다.
+                                    </p>
+                                </div>
+                                <div style="display: flex; gap: 10px;">
+                                    <div style="min-width: 6px; height: 6px; background: #3b82f6; border-radius: 50%; margin-top: 7px;"></div>
+                                    <p style="font-size: 0.85rem; color: #334155; line-height: 1.6;">
+                                        <span style="font-weight: 800; color: #1e293b;">충분한 수분 섭취:</span> 안내된 양보다 물을 적게 마시면 탈수 증상이 오거나 장이 덜 비워져 <b>재검사를 해야할 수</b> 있습니다.
+                                    </p>
+                                </div>
+                                <div style="display: flex; gap: 10px;">
+                                    <div style="min-width: 6px; height: 6px; background: #3b82f6; border-radius: 50%; margin-top: 7px;"></div>
+                                    <p style="font-size: 0.85rem; color: #334155; line-height: 1.6;">
+                                        <span style="font-weight: 800; color: #1e293b;">기저질환 알리기:</span> 신장(콩팥)질환, 심장질환, 전해질 이상이 있는 분은 예약 시 반드시 미리 말씀해 주세요.
+                                    </p>
+                                </div>
+                                <div style="display: flex; gap: 10px;">
+                                    <div style="min-width: 6px; height: 6px; background: #ef4444; border-radius: 50%; margin-top: 7px;"></div>
+                                    <p style="font-size: 0.85rem; color: #334155; line-height: 1.6;">
+                                        <span style="font-weight: 800; color: #b91c1c;">중단 및 문의:</span> 복용 중 심한 복통, 반복적인 구토, 어지럼증, 호흡곤란이 나타나면 <b>즉시 복용을 멈추고</b> 검진 센터로 연락해 주시기 바랍니다.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="window.showHalfprepDetail()" style="flex: 1; padding: 12px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; color: #1e40af; font-weight: 700; cursor: pointer; font-size: 0.85rem;">하프렙산 복용법</button>
+                            <button onclick="window.showOrapuhDetail()" style="flex: 1; padding: 12px; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 10px; color: #9d174d; font-weight: 700; cursor: pointer; font-size: 0.85rem;">오라팡 복용법</button>
+                        </div>
+                    </div>
+                `
+            },
+            'colon_pre_kmi': {
+                title: '검진 전 주의사항',
+                parent: 'colon',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-calendar-check" style="color: #3b82f6;"></i> 검사 7일 전
+                            </p>
+                            <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe;">
+                                <p style="font-size: 0.88rem; color: #1e40af; line-height: 1.8;">
+                                    항혈소판제 또는 항응고제(아스피린, 아스트릭스, 플라빅스, 프레탈, 와파린(쿠마딘), 프라닥사, 자렐토, 브릴린타 등)를 복용 중인 경우, <b>수검자 임의로 복약을 중단하지 마시고</b> 반드시 처방한 의사와 사전협의 후 약 1주일 혹은 최소 일 수 동안 복용을 중단하십시오.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-calendar-check" style="color: #f59e0b;"></i> 검사 3일 전
+                            </p>
+                            <div style="background: #fffbeb; padding: 15px; border-radius: 12px; border: 1px solid #fef3c7;">
+                                <p style="font-size: 0.88rem; color: #92400e; line-height: 1.8;">
+                                    <b>현미, 흑미, 김, 김치, 미역, 나물 및 씨 있는 과일(수박, 참외, 포도, 키위, 딸기 등)은 섭취 금지</b><br>
+                                    변비가 있는 경우 7일 전부터 준비하시기 바랍니다.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-calendar-check" style="color: #1e293b;"></i> 검사 전일
+                            </p>
+                            <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px;">
+                                <p style="font-size: 0.88rem; color: #475569; line-height: 1.6; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0;">
+                                    <b>인슐린 주사</b>는 반드시 처방한 의사와 상담 후, 검사 전날 저녁부터 중단하시기 바랍니다.
+                                </p>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <div style="background: white; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                        <p style="font-weight: 800; font-size: 0.8rem; color: #3b82f6; margin-bottom: 5px;">[오전 예약자]</p>
+                                        <p style="font-size: 0.75rem; color: #64748b; line-height: 1.6;">
+                                            • <b>아침</b> : 소화가 잘되고 섬유질이 적은 음식(백미/두부/달걀/생선/죽/국물)<br>
+                                            • <b>점심</b> : 미음 또는 채소 없는 흰죽 이후 금식(반찬은 간장, 소금만 가능)<br>
+                                            • <b>저녁</b> : 금식(검사 3시간 전까지 생수는 가능)
+                                        </p>
+                                    </div>
+                                    <div style="background: white; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                        <p style="font-weight: 800; font-size: 0.8rem; color: #9d174d; margin-bottom: 5px;">[오후 예약자]</p>
+                                        <p style="font-size: 0.75rem; color: #64748b; line-height: 1.6;">
+                                            • <b>점심</b> : 소화가 잘되고 섬유질이 적은 음식(백미/두부/달걀/생선/죽/국물)<br>
+                                            • <b>저녁</b> : 미음 또는 채소 없는 흰죽 이후 금식(반찬은 간장, 소금만 가능)<br>
+                                            • <b>아침</b> : 금식(검사 3시간 전까지 생수는 가능)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-calendar-check" style="color: #ef4444;"></i> 검사 당일
+                            </p>
+                            <div style="background: #fef2f2; padding: 15px; border-radius: 12px; border: 1px solid #fecaca; display: flex; flex-direction: column; gap: 10px;">
+                                <p style="font-size: 0.88rem; color: #991b1b; line-height: 1.6;">
+                                    <b>고혈압약, 항경련제</b>는 아래와 같이 복용후 내시경 검사 전 직원에게 알려 주시기 바랍니다.<br>
+                                    • 오전 예약자: 전날 취침 전 복용<br>
+                                    • 오후 예약자: 당일 이른 새벽 복용 (검사 최소 3시간 전)
+                                </p>
+                                <p style="font-size: 0.88rem; color: #991b1b; line-height: 1.6;">
+                                    <b>당뇨약</b>은 검사 당일 아침에는 복용하지 마시기 바랍니다.<br>
+                                    <b>검진 당일 생리중</b>인 경우 탐폰을 지참 후 이용하시면 검사가 가능합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'colon_process': {
+                title: '검사 과정 안내',
+                parent: 'colon',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="display: flex; gap: 12px; background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <div style="min-width: 24px; height: 24px; background: #475569; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">1</div>
+                            <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">검사용 바지와 가운으로 갈아입고 검사를 하게 됩니다.</p>
+                        </div>
+                        <div style="display: flex; gap: 12px; background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <div style="min-width: 24px; height: 24px; background: #475569; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">2</div>
+                            <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">비수면인 경우 검사 중 발생하는 통증 감소를 위하여 진통제와 위장 운동 억제제를 근육 주사합니다.</p>
+                        </div>
+                        <div style="display: flex; gap: 12px; background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <div style="min-width: 24px; height: 24px; background: #475569; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">3</div>
+                            <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">내시경을 항문 안으로 서서히 삽입하면서 대장 전체의 이상 유무를 확인합니다.</p>
+                        </div>
+                        <div style="display: flex; gap: 12px; background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <div style="min-width: 24px; height: 24px; background: #475569; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">4</div>
+                            <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">필요에 따라 검사 및 치료 목적으로 조직검사, 용종절제술을 시행하게 되며, 이때는 추가 비용이 발생합니다.</p>
+                        </div>
+                        <div style="display: flex; gap: 12px; background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <div style="min-width: 24px; height: 24px; background: #475569; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">5</div>
+                            <p style="font-size: 0.9rem; color: #334155; line-height: 1.6;">검사 중 공기 주입으로 인한 통증이 있을 수 있으며, 이때는 복부의 힘을 빼고 심호흡을 하시면 도움이 됩니다.</p>
+                        </div>
+                    </div>
+                `
+            },
+            'colon_after': {
+                title: '검사 후 유의사항',
+                parent: 'colon',
+                content: `
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 8px;">1. 식사 관련</p>
+                            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+                                가스가 충분히 배출되어 복부 불편감이 해소된 후, 미음 또는 죽 등 부드러운 음식을 드시기 바랍니다.<br>
+                                검사 당일은 자극적이지 않고 소화에 도움이 되는 식사를 권장합니다.
+                            </p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 8px;">2. 진정(수면)내시경 관련</p>
+                            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+                                수면유도제의 영향으로 검사 중이나 이후에 일시적인 기억상실이 나타날 수 있습니다.<br>
+                                <b>검사 당일 자가운전은 금지되며</b>, 보호자 동반 귀가를 권장합니다.
+                            </p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 8px;">3. 복부 불편감 해소</p>
+                            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+                                검사 중 주입된 공기로 인해 복부 팽만감이나 불편함이 있을 수 있습니다.<br>
+                                복식호흡, 복부 마사지 또는 <b>따뜻한 찜질(물주머니)</b>이 증상 완화에 도움이 됩니다.
+                            </p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 8px;">4. 항문 불편감 관리</p>
+                            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+                                내시경 기계의 자극으로 항문 주위에 일시적인 통증이나 불편감이 있을 수 있습니다.<br>
+                                귀가 후 약 40℃의 따뜻한 물에 15~20분간 좌욕을 하면 통증 완화에 효과적입니다.
+                            </p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 800; color: #1e293b; margin-bottom: 8px;">5. 검사 후 주의사항</p>
+                            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6;">
+                                조직검사나 용종절제술을 받은 경우 검사 당일에는 사우나, 격한 운동, 음주를 삼가바랍니다.<br>
+                                장거리 여행(특히 해외 비행)은 <b>7~14일간 제한</b>될 수 있습니다.
+                            </p>
+                        </div>
+                        <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
+                            <p style="font-weight: 800; color: #9f1239; margin-bottom: 8px;">6. 조직검사 후 이상 증상</p>
+                            <p style="font-size: 0.88rem; color: #9f1239; line-height: 1.6; margin-bottom: 10px;">
+                                아래와 같은 증상이 발생할 경우, 즉시 <b>1599-7070</b>으로 연락해 주세요
+                            </p>
+                            <ul style="font-size: 0.85rem; color: #be123c; line-height: 1.8; padding-left: 20px;">
+                                <li>출혈, 흑색 변, 혈변</li>
+                                <li>어지럼증, 식은땀, 빠른 심장박동</li>
+                                <li>지속적이거나 심한 복부 통증</li>
+                            </ul>
                         </div>
                     </div>
                 `
