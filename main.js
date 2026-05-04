@@ -4075,31 +4075,6 @@ function initDashboard() {
         modal.classList.add('show');
     };
 
-        };
-
-        const data = subData[subType];
-        if (!data) return;
-
-        const modal = document.getElementById('precaution-modal');
-        const titleEl = document.getElementById('precaution-modal-title');
-        const bodyEl = document.getElementById('precaution-modal-body');
-        const backBtn = document.getElementById('precaution-back-btn');
-
-        titleEl.innerText = data.title;
-        bodyEl.innerHTML = `
-            <div style="padding: 10px;">
-                ${data.content}
-            </div>
-        `;
-        
-        if (backBtn) {
-            backBtn.style.display = 'flex';
-            const backTarget = data.parent || 'general';
-            backBtn.onclick = () => window.showHanaroDetail(backTarget);
-        }
-
-        modal.classList.add('show');
-    };
 
     window.showSeveranceDetail = function(activeTab = 'diet') {
         const modal = document.getElementById('precaution-modal');
