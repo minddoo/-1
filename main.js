@@ -5529,86 +5529,96 @@ function initDashboard() {
             const backBtn = document.getElementById('precaution-back-btn');
             if (backBtn) {
                 backBtn.style.display = 'block';
-                backBtn.onclick = () => window.showKmiSubDetail('colon_purgative');
+                backBtn.onclick = () => window.showKmiSubDetail('colon_choice_kmi');
             }
 
             bodyEl.innerHTML = `
                 <div style="padding: 10px;">
-                    <!-- 1. 구성 및 시간 -->
                     <div style="background: #f8fafc; border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
-                        <h5 style="margin-bottom: 10px; color: #1e40af; font-weight: 800;"><i class="fa-solid fa-box-open" style="margin-right: 8px;"></i>약물 구성</h5>
+                        <h5 style="margin-bottom: 10px; color: #1e40af; font-weight: 800;"><i class="fa-solid fa-box-open" style="margin-right: 8px;"></i>장 정결제 구성</h5>
                         <p style="font-size: 0.9rem; color: #475569; line-height: 1.6;">
                             • 하프렙산 A제(4포) + B제(4포)<br>
-                            • 500mL 용기(1개)<br>
+                            • 물 500mL 용기(1개)<br>
                             • 가스제거제(엔도콜 1포)
                         </p>
                     </div>
 
-                    <!-- 2. 복용 시간 -->
-                    <div style="margin-bottom: 20px;">
-                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">1. 복용 시간</h5>
+                    <div style="margin-bottom: 25px;">
+                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">1. 장 정결제 복용 시간</h5>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <div style="background: #eff6ff; padding: 12px; border-radius: 10px;">
-                                <p style="font-weight: 800; font-size: 0.85rem; color: #1e40af; margin-bottom: 8px;">오전 검진자</p>
-                                <p style="font-size: 0.8rem; color: #3b82f6; line-height: 1.5;">
-                                    <b>1차:</b> 전날 저녁 8시<br>
-                                    <b>2차:</b> 당일 새벽 4시
+                            <div style="background: #eff6ff; padding: 12px; border-radius: 10px; border: 1px solid #bfdbfe;">
+                                <p style="font-weight: 800; font-size: 0.85rem; color: #1e40af; margin-bottom: 8px;">&lt;오전 검진자&gt;</p>
+                                <p style="font-size: 0.8rem; color: #3b82f6; line-height: 1.6;">
+                                    <b>1차:</b> 검사 전날 오후 8시<br>
+                                    <b>2차:</b> 검사 당일 오전 4시
                                 </p>
                             </div>
-                            <div style="background: #fdf2f8; padding: 12px; border-radius: 10px;">
-                                <p style="font-weight: 800; font-size: 0.85rem; color: #9d174d; margin-bottom: 8px;">오후 검진자</p>
-                                <p style="font-size: 0.8rem; color: #be185d; line-height: 1.5;">
-                                    <b>1차:</b> 당일 오전 6시<br>
-                                    <b>2차:</b> 당일 오전 8시 30분
+                            <div style="background: #fdf2f8; padding: 12px; border-radius: 10px; border: 1px solid #fbcfe8;">
+                                <p style="font-weight: 800; font-size: 0.85rem; color: #9d174d; margin-bottom: 8px;">&lt;오후 검진자&gt;</p>
+                                <p style="font-size: 0.8rem; color: #be185d; line-height: 1.6;">
+                                    <b>1차:</b> 검사 당일 오전 6시<br>
+                                    <b>2차:</b> 검사 당일 오전 8시 30분
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 3. 복용 방법 -->
-                    <div style="margin-bottom: 20px;">
-                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">2. 복용 방법 (1차/2차 동일)</h5>
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="margin-bottom: 25px;">
+                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">2. 장 정결제 복용 방법</h5>
+                        
+                        <div style="margin-bottom: 15px; padding: 10px; background: #f8fafc; border-radius: 8px; font-weight: 800; font-size: 0.9rem; color: #1e40af;">&lt;1차&gt;</div>
+                        <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
                             <div style="display: flex; gap: 12px;">
-                                <div style="min-width: 24px; height: 24px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">1</div>
+                                <div style="min-width: 55px; font-size: 0.75rem; font-weight: 800; color: #3b82f6; padding-top: 3px;">STEP 1.</div>
                                 <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-                                    <b>조제:</b> 500mL 용기에 <b>A제 1포 + B제 1포</b>를 넣고 물을 표시선까지 채운 뒤 흔들어 섞습니다.
+                                    <b>1 번째 장 정결제 조제 및 복용</b><br>
+                                    500ml 용기에 <b>하프렙산 A제 + B제</b>를 동봉된 용기에 모두 넣습니다. 표시선까지 물을 채운 후 잘 흔들어 섞습니다. (총 500mL 완성)<br>
+                                    조제한 500mL를 15분 간격으로 두 번 나누어 <b>총 30분 동안</b> 모두 복용합니다.
                                 </div>
                             </div>
                             <div style="display: flex; gap: 12px;">
-                                <div style="min-width: 24px; height: 24px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">2</div>
+                                <div style="min-width: 55px; font-size: 0.75rem; font-weight: 800; color: #3b82f6; padding-top: 3px;">STEP 2.</div>
                                 <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-                                    <b>1차 복용:</b> 조제한 500mL를 15분 간격으로 두 번에 나누어 30분 동안 마십니다.
+                                    <b>2 번째 장 정결제 조제 및 복용</b><br>
+                                    위와 같은 방법으로 조제한 장 정결제 500mL 1통을 <b>추가 복용</b>합니다.
                                 </div>
                             </div>
                             <div style="display: flex; gap: 12px;">
-                                <div style="min-width: 24px; height: 24px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">3</div>
-                                <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-                                    <b>추가 조제 및 복용:</b> 위와 동일한 방법으로 <b>한 번 더(500mL)</b> 조제하여 30분 동안 마십니다.
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: 12px;">
-                                <div style="min-width: 24px; height: 24px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">4</div>
+                                <div style="min-width: 55px; font-size: 0.75rem; font-weight: 800; color: #10b981; padding-top: 3px;">STEP 3.</div>
                                 <div style="font-size: 0.9rem; color: #065f46; line-height: 1.6;">
-                                    <b>수분 섭취:</b> 빈 용기에 <b>물 500mL</b>를 채워 추가로 마십니다.
+                                    <b>추가 수분 섭취</b><br>
+                                    빈 용기에 <b>물 500mL</b>를 표시선까지 채워 추가로 1병을 마십니다.
                                 </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 15px; padding: 10px; background: #f8fafc; border-radius: 8px; font-weight: 800; font-size: 0.9rem; color: #1e40af;">&lt;2차&gt;</div>
+                        <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                            <div style="min-width: 55px; font-size: 0.75rem; font-weight: 800; color: #3b82f6; padding-top: 3px;">STEP 4.</div>
+                            <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+                                <b>장 정결제 조제 및 복용</b><br>
+                                STEP 1, 2, 3과 <b>동일한 방법</b>으로 복용합니다.
                             </div>
                         </div>
                     </div>
 
-                    <!-- 4. 가스제거제 -->
-                    <div style="background: #ecfdf5; border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid #a7f3d0;">
+                    <div style="background: #ecfdf5; border-radius: 12px; padding: 15px; margin-bottom: 25px; border: 1px solid #a7f3d0;">
                         <h5 style="margin-bottom: 8px; color: #065f46; font-weight: 800;"><i class="fa-solid fa-wind" style="margin-right: 8px;"></i>3. 가스제거제 복용</h5>
-                        <p style="font-size: 0.85rem; color: #065f46; line-height: 1.6;">
-                            2차 복용 시, <b>마지막으로 마시는 물</b>에 엔도콜(가스제거제) 1포를 섞어서 함께 복용하세요.
+                        <p style="font-size: 0.9rem; color: #065f46; line-height: 1.6;">
+                            마지막으로 마시는 물에 <b>엔도콜(가스제거제) 1포</b>를 섞어 함께 복용합니다.
                         </p>
                     </div>
 
-                    <!-- 5. 유의사항 -->
-                    <div style="background: #fff5f5; border-radius: 12px; padding: 15px; border: 1px solid #feb2b2; font-size: 0.8rem; color: #c53030;">
-                        <p style="font-weight: 800; margin-bottom: 5px;">⚠️ 주의사항</p>
-                        • 약물 분실 및 복용 실패로 인한 재구매 시 10,000원의 비용이 발생합니다.<br>
-                        • 대변 색이 맑은 노란색(소변색)이 되어야 준비가 완료된 것입니다.
+                    <div style="background: #fff5f5; border-radius: 12px; padding: 15px; border: 1px solid #feb2b2;">
+                        <h5 style="margin-bottom: 10px; color: #c53030; font-weight: 800;">대장약 복용 실패 및 분실 시 안내</h5>
+                        <p style="font-size: 0.85rem; color: #c53030; line-height: 1.6; margin-bottom: 10px;">
+                            의약품은 그 특성상 보관 및 관리가 엄격하여 훼손과 변질 우려가 있어 의약품의 반품은 불가합니다.<br>
+                            <span style="font-size: 0.75rem; color: #ef4444;">*보건복지부 의약품 반납 관련 지침 복지부 급여 65720-634에 의거함<br>
+                            *단, 기업 및 단체는 계약 조건에 따라 상이할 수 있습니다.</span>
+                        </p>
+                        <p style="font-size: 0.85rem; color: #c53030; font-weight: 800;">
+                            분실 및 복용 실패로 인해 의약품 재구매 시 본인 부담금 만원이 발생됩니다.
+                        </p>
                     </div>
                 </div>
             `;
@@ -5625,72 +5635,69 @@ function initDashboard() {
             const backBtn = document.getElementById('precaution-back-btn');
             if (backBtn) {
                 backBtn.style.display = 'block';
-                backBtn.onclick = () => window.showKmiSubDetail('colon_purgative');
+                backBtn.onclick = () => window.showKmiSubDetail('colon_choice_kmi');
             }
 
             bodyEl.innerHTML = `
                 <div style="padding: 10px;">
-                    <!-- 1. 약물 개요 -->
-                    <div style="background: #f8fafc; border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 15px;">
-                        <div style="width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #3b82f6; font-size: 1.5rem; border: 1px solid #e2e8f0;">
-                            <i class="fa-solid fa-pills"></i>
-                        </div>
-                        <div>
-                            <h5 style="margin: 0; color: #1e293b; font-weight: 800;">오라팡 정 (알약)</h5>
-                            <p style="margin: 2px 0 0; font-size: 0.8rem; color: #64748b;">물에 타 마시는 불편함이 없는 정제 타입</p>
-                        </div>
-                    </div>
-
-                    <!-- 2. 복용 시간 -->
-                    <div style="margin-bottom: 20px;">
-                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">1. 복용 시간</h5>
+                    <div style="margin-bottom: 25px;">
+                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">1. 장 정결제 복용 시간</h5>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <div style="background: #eff6ff; padding: 12px; border-radius: 10px;">
-                                <p style="font-weight: 800; font-size: 0.85rem; color: #1e40af; margin-bottom: 8px;">오전 검진자</p>
-                                <p style="font-size: 0.8rem; color: #3b82f6; line-height: 1.5;">
-                                    <b>1차:</b> 전날 저녁 8시<br>
-                                    <b>2차:</b> 당일 새벽 4시
+                            <div style="background: #eff6ff; padding: 12px; border-radius: 10px; border: 1px solid #bfdbfe;">
+                                <p style="font-weight: 800; font-size: 0.85rem; color: #1e40af; margin-bottom: 8px;">&lt;오전 검진자&gt;</p>
+                                <p style="font-size: 0.8rem; color: #3b82f6; line-height: 1.6;">
+                                    <b>1차:</b> 검사 전날 오후 8시<br>
+                                    <b>2차:</b> 검사 당일 오전 4시
                                 </p>
                             </div>
-                            <div style="background: #fdf2f8; padding: 12px; border-radius: 10px;">
-                                <p style="font-weight: 800; font-size: 0.85rem; color: #9d174d; margin-bottom: 8px;">오후 검진자</p>
-                                <p style="font-size: 0.8rem; color: #be185d; line-height: 1.5;">
-                                    <b>1차:</b> 당일 오전 5시<br>
-                                    <b>2차:</b> 당일 오전 8시 30분
+                            <div style="background: #fdf2f8; padding: 12px; border-radius: 10px; border: 1px solid #fbcfe8;">
+                                <p style="font-weight: 800; font-size: 0.85rem; color: #9d174d; margin-bottom: 8px;">&lt;오후 검진자&gt;</p>
+                                <p style="font-size: 0.8rem; color: #be185d; line-height: 1.6;">
+                                    <b>1차:</b> 검사 당일 오전 5시<br>
+                                    <b>2차:</b> 검사 당일 오전 8시 30분
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 3. 복용 방법 -->
-                    <div style="margin-bottom: 20px;">
-                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">2. 복용 방법 (1차/2차 동일)</h5>
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="margin-bottom: 25px;">
+                        <h5 style="margin-bottom: 15px; color: #1e293b; font-weight: 800; border-left: 4px solid #3b82f6; padding-left: 10px;">2. 장 정결제 복용 방법</h5>
+                        
+                        <div style="margin-bottom: 15px; padding: 10px; background: #f8fafc; border-radius: 8px; font-weight: 800; font-size: 0.9rem; color: #1e40af;">&lt;1차&gt;</div>
+                        <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
                             <div style="display: flex; gap: 12px;">
-                                <div style="min-width: 24px; height: 24px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">1</div>
+                                <div style="min-width: 55px; font-size: 0.75rem; font-weight: 800; color: #3b82f6; padding-top: 3px;">STEP 1.</div>
                                 <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-                                    <b>사전 수분 섭취:</b> 복용 전 <b>물 두 컵</b>을 미리 마십니다.
+                                    복용 전 <b>물 두 컵</b>을 마십니다.
                                 </div>
                             </div>
                             <div style="display: flex; gap: 12px;">
-                                <div style="min-width: 24px; height: 24px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">2</div>
+                                <div style="min-width: 55px; font-size: 0.75rem; font-weight: 800; color: #3b82f6; padding-top: 3px;">STEP 2.</div>
                                 <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
-                                    <b>본 복용:</b> 오라팡 <b>14정</b>을 1~2정씩 나누어 충분한 물과 함께 <b>30분 동안 천천히</b> 복용합니다.
+                                    오라팡 <b>14정</b>을 1-2정씩 나누어 충분한 물과 함께 <b>30분 동안 천천히</b> 복용합니다.
                                 </div>
                             </div>
                             <div style="display: flex; gap: 12px;">
-                                <div style="min-width: 24px; height: 24px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; margin-top: 2px;">3</div>
+                                <div style="min-width: 55px; font-size: 0.75rem; font-weight: 800; color: #10b981; padding-top: 3px;">STEP 3.</div>
                                 <div style="font-size: 0.9rem; color: #065f46; line-height: 1.6;">
-                                    <b>사후 수분 섭취:</b> 그 후 1시간 동안 <b>물 1L 이상</b>을 천천히 마십니다.
+                                    그 후, 1시간 동안 <b>물 1L 이상</b>을 천천히 마십니다.
                                 </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 15px; padding: 10px; background: #f8fafc; border-radius: 8px; font-weight: 800; font-size: 0.9rem; color: #1e40af;">&lt;2차&gt;</div>
+                        <div style="display: flex; gap: 12px;">
+                            <div style="min-width: 55px; font-size: 0.75rem; font-weight: 800; color: #3b82f6; padding-top: 3px;">STEP 4.</div>
+                            <div style="font-size: 0.9rem; color: #334155; line-height: 1.6;">
+                                <b>‘STEP 1, 2, 3’</b> 과 동일한 방법으로 복용합니다.
                             </div>
                         </div>
                     </div>
 
-                    <div style="background: #fff5f5; border-radius: 12px; padding: 15px; border: 1px solid #feb2b2; font-size: 0.8rem; color: #c53030;">
+                    <div style="background: #fffbeb; border-radius: 12px; padding: 15px; border: 1px solid #fef3c7; font-size: 0.8rem; color: #92400e;">
                         <p style="font-weight: 800; margin-bottom: 5px;">⚠️ 유의사항</p>
-                        • 알약을 한꺼번에 복용할 경우 구토나 복통이 발생할 수 있으니 반드시 나누어 복용하세요.<br>
-                        • 수분 섭취량이 부족하면 장 정결이 충분히 되지 않을 수 있습니다.
+                        • 알약을 한꺼번에 복용할 경우 구역질이나 복통을 유발할 수 있으니 반드시 나누어 복용하십시오.<br>
+                        • 충분한 수분 섭취가 이루어지지 않으면 장 정결이 미흡할 수 있습니다.
                     </div>
                 </div>
             `;
