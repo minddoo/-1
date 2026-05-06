@@ -4164,18 +4164,38 @@ function initDashboard() {
                 title: '검사 전 자가진단',
                 parent: 'colon_su',
                 content: `
-                    <div style="text-align: center; padding: 10px;">
-                        <p style="font-weight: 700; color: #334155; margin-bottom: 15px;">대변 색깔을 확인해 보세요</p>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                            <div style="background: #78350f; color: white; padding: 15px; border-radius: 10px; font-size: 0.8rem;">어두운 갈색<br>(준비 전)</div>
-                            <div style="background: #b45309; color: white; padding: 15px; border-radius: 10px; font-size: 0.8rem;">갈색<br>(준비 전)</div>
-                            <div style="background: #d97706; color: white; padding: 15px; border-radius: 10px; font-size: 0.8rem;">어두운 오렌지<br>(준비 전)</div>
-                            <div style="background: #fef08a; color: #854d0e; padding: 15px; border-radius: 10px; border: 1px solid #facc15; font-size: 0.8rem; font-weight: 800;">맑은 노란색<br>(준비 완료!)</div>
+                    <div style="text-align: center; padding: 10px; margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 5px; margin-bottom: 15px;">
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #451a03; border: 2px solid #e2e8f0;"></div>
+                                <span style="font-size: 0.65rem; color: #475569; background: #f1f5f9; padding: 4px; border-radius: 4px; line-height: 1.2;">어두운 갈색<br>(준비 전)</span>
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #78350f; border: 2px solid #e2e8f0;"></div>
+                                <span style="font-size: 0.65rem; color: #475569; background: #f1f5f9; padding: 4px; border-radius: 4px; line-height: 1.2;">갈색<br>(준비 전)</span>
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #b45309; border: 2px solid #e2e8f0;"></div>
+                                <span style="font-size: 0.65rem; color: #475569; background: #f1f5f9; padding: 4px; border-radius: 4px; line-height: 1.2;">어두운 오렌지색<br>(준비전)</span>
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #f59e0b; border: 2px solid #e2e8f0;"></div>
+                                <span style="font-size: 0.65rem; color: #475569; background: #f1f5f9; padding: 4px; border-radius: 4px; line-height: 1.2;">연한 오렌지 색<br>(준비전)</span>
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef08a; border: 2px solid #e2e8f0;"></div>
+                                <span style="font-size: 0.65rem; color: white; background: #dc2626; padding: 4px; border-radius: 4px; line-height: 1.2; font-weight: 700;">맑은 노란색<br>(준비된 상태)</span>
+                            </div>
                         </div>
-                        <p style="font-size: 0.85rem; color: #64748b; line-height: 1.6;">
-                            찌꺼기 없는 <strong>맑은 노란색(소변색)</strong>이 되어야 검사가 가능합니다.<br>
-                            ※ 맑게 나오더라도 안내된 하제는 모두 복용하셔야 합니다.
-                        </p>
+                        <p style="font-size: 0.85rem; color: #dc2626; font-weight: 700; text-align: left; margin: 0;">* 대변이 물처럼 맑게 나오더라도 대장 내시경 하제를 모두 복용하십시오.</p>
+                    </div>
+
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <ul style="font-size: 0.8rem; color: #64748b; line-height: 1.6; padding-left: 15px; margin: 0; list-style-type: none;">
+                            <li style="margin-bottom: 8px; text-indent: -12px;">※ <span style="color: #dc2626; font-weight: 700;">정확한 검사를 위해서는 장을 깨끗이 비우는 것이 매우 중요합니다.</span> 약을 드시는 동안 누워있거나 가만히 앉아 있는 것보다 복부 마사지나 걷기 운동으로 몸을 움직여 주시는 것이 장을 비우는데 도움이 됩니다.</li>
+                            <li style="margin-bottom: 8px; text-indent: -12px;">※ 대장 내시경 하제(대장약) 복용이 어려울 수 있으나 장 정결이 불충분한 경우에는 검사가 제대로 진행되지 못할 수도 있으므로 안내된 시간대로 복용하셔야 검사 가능 합니다. 모두 복용하신 이후에는 검진 전까지 물, 껌, 사탕, 담배 등을 포함해 금식하여 주십시오.</li>
+                            <li style="text-indent: -12px;">※ 대장내시경 검사 취소 시, 수령하신 약은 반드시 반납해 주시기 바랍니다.</li>
+                        </ul>
                     </div>
                 `
             },
