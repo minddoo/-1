@@ -4817,6 +4817,12 @@ function initDashboard() {
                 parent: 'colon',
                 content: `
                     <div style="display: flex; flex-direction: column; gap: 25px;">
+                        <a href="https://www.youtube.com/watch?v=xQxHvCdBgug" target="_blank" style="text-decoration: none; display: block;">
+                            <button style="width: 100%; padding: 12px; background: #ff0000; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 6px rgba(255, 0, 0, 0.2); transition: all 0.2s;" onmouseover="this.style.background='#cc0000'" onmouseout="this.style.background='#ff0000'">
+                                <i class="fa-brands fa-youtube" style="font-size: 1.1rem;"></i> 세브란스 오라팡정 안내 영상 시청하기
+                            </button>
+                        </a>
+                        
                         <!-- 1. 복용 스케줄 -->
                         <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #86efac;">
                             <p style="font-weight: 700; color: #166534; margin-bottom: 12px; font-size: 1rem;"><i class="fa-solid fa-tablets" style="margin-right: 8px;"></i>오라팡 복용법</p>
