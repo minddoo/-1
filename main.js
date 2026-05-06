@@ -3695,17 +3695,17 @@ function initDashboard() {
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
-                        <!-- Option 1: Half-prep -->
-                        <div onclick="window.showHanaroDetail('colon_half')" 
+                        <!-- Option 1: Suclear -->
+                        <div onclick="window.showHanaroDetail('colon_su')" 
                              style="background: white; border: 2px solid #3b82f6; border-radius: 20px; padding: 25px 15px; text-align: center; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1); transition: all 0.2s;"
                              onmouseover="this.style.transform='translateY(-2px)';"
                              onmouseout="this.style.transform='translateY(0)';"
                         >
                             <div style="background: #eff6ff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
-                                <i class="fa-solid fa-vial" style="color: #3b82f6; font-size: 1.3rem;"></i>
+                                <i class="fa-solid fa-bottle-water" style="color: #3b82f6; font-size: 1.3rem;"></i>
                             </div>
-                            <p style="font-weight: 800; color: #1e3a8a; font-size: 1rem; margin-bottom: 4px;">하프렙산</p>
-                            <p style="font-size: 0.75rem; color: #64748b;">(가루약 타입)</p>
+                            <p style="font-weight: 800; color: #1e3a8a; font-size: 1rem; margin-bottom: 4px;">수클리어산</p>
+                            <p style="font-size: 0.75rem; color: #64748b;">(액상/가루약 혼합)</p>
                         </div>
                         
                         <!-- Option 2: Orafang -->
