@@ -5129,15 +5129,66 @@ function initDashboard() {
                 `
             },
             'stool_how': {
-                title: '채변 방법 및 보관',
+                title: '대변 채취 방법',
                 parent: 'stool',
                 content: `
-                    <ul style="font-size: 0.85rem; color: #475569; line-height: 1.8; padding-left: 20px;">
-                        <li><strong>시기</strong>: 검진 전날 저녁 또는 당일 아침에 채취하십시오.</li>
-                        <li><strong>방법</strong>: 채변 용기의 스틱을 이용하여 대변의 3~4곳을 찔러 <strong>콩알 크기(약 5g)</strong>만큼 담아주십시오.</li>
-                        <li><strong>주의</strong>: 대장내시경 하제 복용 전(또는 복용 후 첫 변)에 채취하십시오.</li>
-                        <li><strong>보관</strong>: 채취 후 서늘한 곳이나 냉장 보관하여 검진 당일 지참하십시오.</li>
-                    </ul>
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        
+                        <!-- 주의사항 -->
+                        <div style="background: #fff8f1; padding: 15px; border-radius: 12px; border: 1px solid #fed7aa;">
+                            <p style="font-weight: 700; color: #c2410c; margin-bottom: 12px; font-size: 1rem;"><i class="fa-solid fa-triangle-exclamation" style="margin-right: 8px;"></i>채변 시 주의사항</p>
+                            <ul style="font-size: 0.85rem; color: #9a3412; line-height: 1.6; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+                                <li>건강검진 전날 또는 당일 아침에 채취하여 주시기 바랍니다.</li>
+                                <li>대장내시경검사가 예정되어 있는 경우 장준비약 복용 전 채취 바랍니다.</li>
+                                <li>채취한 채변 요기는 서늘한 곳에 보관 후 지참해 주시기 바랍니다.</li>
+                                <li>대변 채취를 진행하지 못한 경우에도 장준비약은 예정 시간에 맞춰 복용하여 주시기 바랍니다.</li>
+                                <li>건강검진 당일 제출이 어려운 경우 추후 별도 제출이 가능합니다.</li>
+                            </ul>
+                        </div>
+
+                        <!-- 파란색 채변 용기 -->
+                        <div>
+                            <p style="font-weight: 800; color: #1d4ed8; margin-bottom: 12px; font-size: 0.95rem; border-left: 4px solid #3b82f6; padding-left: 8px;">파란색 채변 용기(기생충 검사)</p>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <div style="background: white; border: 1px solid #bfdbfe; border-radius: 10px; padding: 15px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <span style="background: #eff6ff; color: #3b82f6; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-bottom: 8px;">STEP 1</span>
+                                    <p style="font-size: 0.85rem; color: #1e293b; margin: 0;">채변 용기(파란색 뚜껑)에 달린 스푼을 이용하시기 바랍니다.</p>
+                                </div>
+                                <div style="display: flex; justify-content: center; color: #94a3b8;"><i class="fa-solid fa-chevron-down"></i></div>
+                                <div style="background: white; border: 1px solid #bfdbfe; border-radius: 10px; padding: 15px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <span style="background: #eff6ff; color: #3b82f6; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-bottom: 8px;">STEP 2</span>
+                                    <p style="font-size: 0.85rem; color: #1e293b; margin: 0;"><span style="color: #ea580c; font-weight: 700;">약 5g(엄지손가락 크기)</span> 정도를 채취하여 용기에 담아 주시기 바랍니다.</p>
+                                </div>
+                                <div style="display: flex; justify-content: center; color: #94a3b8;"><i class="fa-solid fa-chevron-down"></i></div>
+                                <div style="background: white; border: 1px solid #bfdbfe; border-radius: 10px; padding: 15px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <span style="background: #eff6ff; color: #3b82f6; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-bottom: 8px;">STEP 3</span>
+                                    <p style="font-size: 0.85rem; color: #1e293b; margin: 0;">대변을 채취하고 <span style="color: #ea580c; font-weight: 700;">뚜껑을 꼭 닫아주시기</span> 바랍니다.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 연두색 채변 용기 -->
+                        <div style="margin-top: 10px;">
+                            <p style="font-weight: 800; color: #15803d; margin-bottom: 12px; font-size: 0.95rem; border-left: 4px solid #22c55e; padding-left: 8px;">연두색 채변 용기(잠혈 검사)</p>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <div style="background: white; border: 1px solid #bbf7d0; border-radius: 10px; padding: 15px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <span style="background: #f0fdf4; color: #22c55e; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-bottom: 8px;">STEP 1</span>
+                                    <p style="font-size: 0.85rem; color: #1e293b; margin: 0;">연두색 뚜껑을 돌려 뺍니다.</p>
+                                </div>
+                                <div style="display: flex; justify-content: center; color: #94a3b8;"><i class="fa-solid fa-chevron-down"></i></div>
+                                <div style="background: white; border: 1px solid #bbf7d0; border-radius: 10px; padding: 15px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <span style="background: #f0fdf4; color: #22c55e; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-bottom: 8px;">STEP 2</span>
+                                    <p style="font-size: 0.85rem; color: #1e293b; margin: 0;">정확한 검사를 위해 봉 끝의 눈금이 파묻힐 정도로 <span style="color: #ea580c; font-weight: 700;">6곳 이상 골고루 찔러</span> 채취합니다.</p>
+                                </div>
+                                <div style="display: flex; justify-content: center; color: #94a3b8;"><i class="fa-solid fa-chevron-down"></i></div>
+                                <div style="background: white; border: 1px solid #bbf7d0; border-radius: 10px; padding: 15px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <span style="background: #f0fdf4; color: #22c55e; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-bottom: 8px;">STEP 3</span>
+                                    <p style="font-size: 0.85rem; color: #1e293b; margin: 0;">채변 용기에 봉을 넣고 뚜껑을 꼭 닫은 후 <span style="color: #ea580c; font-weight: 700;">용기를 상하로 강하게 흔들어</span> 주시기 바랍니다.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 `
             },
             'notice_common': {
