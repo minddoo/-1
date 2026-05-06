@@ -3648,23 +3648,23 @@ function initDashboard() {
             content = `
                 <div style="display: flex; flex-direction: column; gap: 15px;">
                     <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #dcfce7;">
-                        <p style="font-weight: 800; color: #166534; margin-bottom: 8px;"><i class="fa-solid fa-circle-info" style="margin-right: 6px;"></i>MRI(Magnetic Resonance Image) 안내</p>
+                        <p style="font-weight: 800; color: #166534; margin-bottom: 8px;"><i class="fa-solid fa-circle-info" style="margin-right: 6px;"></i>MRI(Magnetic Resonance Image)</p>
                         <p style="font-size: 0.88rem; line-height: 1.6; color: #15803d; margin: 0;">
-                            MRI는 자기장과 고주파의 상호작용을 이용하여 인체의 해부학적 정보를 얻는 검사입니다.
+                            MRI(Magnetic Resonance Image)는 자기장과 고주파의 상호작용을 이용하여 인체의 해부학적, 병리학적인 정보를 얻을 수 있는 검사입니다.
                         </p>
                         <p style="font-size: 0.85rem; line-height: 1.6; color: #dc2626; margin-top: 8px; font-weight: 700;">
-                            ※ 폐쇄·협소 공포증이 심하신 분, 임신 중이거나 가능성이 있으신 분은 검사 전 반드시 담당자에게 확인바랍니다.
+                            폐쇄, 협소 공포증이 심하신 분, 임신 중이거나 임신 가능성이 있으신 분은 검사 당일 MR 검사가 가능한지 확인하여 주시기 바랍니다.
                         </p>
                     </div>
 
                     <div style="background: #fef2f2; padding: 15px; border-radius: 12px; border: 1px solid #fee2e2;">
                         <p style="font-weight: 700; color: #991b1b; margin-bottom: 10px; border-bottom: 1px solid #fecaca; padding-bottom: 5px;">
-                            <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>수술 병원 사전 확인 필수 (금속 관련)
+                            <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>검사 전 주의사항
                         </p>
-                        <p style="font-size: 0.82rem; color: #b91c1c; margin-bottom: 10px; line-height: 1.5;">아래 항목에 해당되시는 분은 검사 전 수술하신 병원에 <strong>MR 검사 가능 여부</strong>를 꼭 확인해 주세요.</p>
+                        <p style="font-size: 0.82rem; color: #b91c1c; margin-bottom: 10px; line-height: 1.5;">아래 항목에 해당되시는 분은 검사 시 MR 신호가 신체에 영향을 미칠 수 있으므로 수술하신 병원에 MR 검사가 가능한지 꼭 확인하여 주시기 바랍니다.</p>
                         <ul style="font-size: 0.85rem; color: #451a03; line-height: 1.8; padding-left: 20px; margin: 0;">
                             <li>인공심장 박동기 삽입</li>
-                            <li>뇌동맥류 수술 (금속 클립 삽입)</li>
+                            <li>뇌동맥류 수술(금속 클립 삽입)</li>
                             <li>VP Shunt Catheter (뇌실 복강 단락술)</li>
                             <li>신경자극기 시술</li>
                             <li>인공관절, 금속 보철물 수술</li>
@@ -3677,20 +3677,11 @@ function initDashboard() {
 
                     <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
                         <p style="font-weight: 700; color: #334155; margin-bottom: 10px;">
-                            <i class="fa-solid fa-ban" style="margin-right: 6px; color: #94a3b8;"></i>검사 시 소지 금지 물품
+                            <i class="fa-solid fa-ban" style="margin-right: 6px; color: #94a3b8;"></i>소지 금지 물품
                         </p>
-                        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                            <span style="background: white; padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; color: #475569;">안경</span>
-                            <span style="background: white; padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; color: #475569;">머리핀</span>
-                            <span style="background: white; padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; color: #475569;">시계</span>
-                            <span style="background: white; padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; color: #475569;">틀니</span>
-                            <span style="background: white; padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; color: #475569;">보청기</span>
-                            <span style="background: white; padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; color: #475569;">카드/열쇠</span>
-                            <span style="background: white; padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; color: #475569;">브래지어(와이어)</span>
-                            <span style="background: white; padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; color: #475569;">휴대폰</span>
-                            <span style="background: white; padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; color: #475569;">가발</span>
-                        </div>
-                        <p style="font-size: 0.75rem; color: #64748b; margin-top: 10px;">※ 탈의실에서 검진복으로 갈아입으실 때 모든 소지품을 사물함에 보관해 주세요.</p>
+                        <p style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin: 0;">
+                            안경, 머리핀, 시계, 틀니, 보청기, 카드, 열쇠, 브래지어, 휴대폰, 가발
+                        </p>
                     </div>
                 </div>
             `;
