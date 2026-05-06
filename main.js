@@ -4185,16 +4185,31 @@ function initDashboard() {
                 content: `
                     <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3; margin-bottom: 15px;">
                         <p style="font-weight: 800; color: #9f1239; margin-bottom: 8px;"><i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>장세정이 중요한 이유</p>
-                        <p style="font-size: 0.85rem; line-height: 1.6; color: #be123c;">정확한 진단은 장 정결 상태에 따라 달라집니다. 불충분할 경우 검사 자체가 불가능하며 재검사 시 시간과 비용이 추가됩니다.</p>
+                        <p style="font-size: 0.85rem; line-height: 1.6; color: #be123c; margin-bottom: 10px;">
+                            정확한 진단과 검사의 정확도는 장 정결 상태에 따라 달라집니다.<br>
+                            장 정결이 불충분한 경우엔 정확한 진단이 어렵고 검사 자체가 불가능할 수 있으며, 그로 인해 재검사가 필요한 경우 시간과 비용이 추가됩니다.<br>
+                            따라서, 장 정결제의 복용 방법과 속도, 식이 제한, 추가적인 수분 섭취를 안내문대로 정확하게 지켜주시기 바랍니다.
+                        </p>
+                        <p style="font-size: 0.85rem; line-height: 1.6; color: #9f1239; font-weight: 700; margin: 0;">
+                            대장 내시경 하제(대장약) 재발송 요청 시, 25,000원의 본인 부담금이 발생됩니다.
+                        </p>
                     </div>
-                    <ul style="font-size: 0.85rem; color: #475569; line-height: 1.8; padding-left: 20px;">
-                        <li><strong>혈소판제/항응고제</strong>: 아스피린, 플라빅스 등 복용 시 담당의와 상의 후 5일 전부터 중단하십시오.</li>
-                        <li><strong>당뇨약/인슐린</strong>: 검사 당일 아침에는 절대 투여하지 마십시오.</li>
-                        <li><strong>복부 수술</strong>: 수술하신 분은 최소 6개월 후에 검사가 가능합니다.</li>
-                        <li><strong>매니큐어/젤</strong>: 산소포화도 측정을 위해 반드시 제거하십시오.</li>
-                        <li><strong>BMI 35이상</strong>: 고도비만의 경우 무호흡 위험으로 수면 내시경이 제한될 수 있습니다.</li>
-                        <li><strong>용종절제술 후</strong>: 만 7일 동안 비행기 탑승이 불가합니다.</li>
-                    </ul>
+
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <p style="font-weight: 700; color: #334155; margin-bottom: 10px;">
+                            <i class="fa-solid fa-list-check" style="margin-right: 6px; color: #94a3b8;"></i>검사 전 주의사항
+                        </p>
+                        <ol style="font-size: 0.85rem; color: #475569; line-height: 1.8; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+                            <li>심혈관 및 뇌혈관 질환으로 항혈소판제(아스피린, 플라빅스, 프레탈 등)와 항응고제(와파린, 쿠마딘, 헤파린 등)를 복용 중인 경우 약 처방한 담당 의사와 꼭 상의 후 5일 전부터 복용을 중단하시기 바랍니다.<br><span style="color:#64748b;">다만, 의사가 허용한 고혈압약, 심장약은 검진 당일 이른 아침 소량의 물과 함께 복용하십시오.</span></li>
+                            <li>심장약(수술 병력, 스텐트 삽입, 심박동기 착용), 면역억제제, 간경화 등 중요한 약을 드시는 분은 주치의와 상담 후 대장내시경을 진행하셔야 합니다.</li>
+                            <li>금식으로 인해 저혈당 위험이 있으므로 검진 당일 아침 당뇨약이나 인슐린 주사는 투여하지 마십시오.</li>
+                            <li>복부 수술하신 분은 최소 6개월 후에 대장내시경 검사가 가능합니다.</li>
+                            <li>수면내시경을 신청하신 분은 자가운전을 금하오니 대중교통을 이용하여 주시기 바랍니다.</li>
+                            <li>매니큐어(젤)는 산소포화도 측정이 불가하므로 반드시 내원 전에 제거하여 주시기 바랍니다.</li>
+                            <li>BMI 35이상 고도비만의 경우, 무호흡증 위험성으로 인해 수면 내시경 검사가 제한됩니다.</li>
+                            <li>대장용종절제술을 시행한 경우, 만 7일 동안 비행기 탑승이 불가합니다.</li>
+                        </ol>
+                    </div>
                 `
             },
             'ora_diet': {
@@ -4202,22 +4217,34 @@ function initDashboard() {
                 parent: 'colon_ora',
                 content: `
                     <div style="margin-bottom: 20px;">
-                        <p style="font-weight: 700; color: #334155; margin-bottom: 10px;"><i class="fa-solid fa-calendar-day" style="margin-right: 6px; color: var(--primary);"></i>검사 3일 전부터 피할 음식</p>
-                        <div style="background: #fef2f2; padding: 12px; border-radius: 10px; border: 1px solid #fee2e2; font-size: 0.85rem; color: #991b1b;">
-                            잡곡밥, 현미밥, 깨죽, 김치류, 나물류, 해조류(김, 미역), 씨 있는 과일(수박, 딸기, 포도, 키위), 견과류, 옥수수
-                        </div>
+                        <table style="width: 100%; border-collapse: collapse; text-align: center; font-size: 0.85rem; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                            <thead>
+                                <tr>
+                                    <th style="background: #ef4444; color: white; padding: 12px; width: 50%; border-right: 1px solid #fff;">검사 3일 전부터 피할 음식</th>
+                                    <th style="background: #14b8a6; color: white; padding: 12px; width: 50%;">드실 수 있는 음식</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; background: #fff5f5; color: #7f1d1d; vertical-align: middle;">현미밥, 잡곡밥, 흑미밥, 깨죽 등</td>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; background: #f0fdfa; color: #115e59; vertical-align: middle;">흰쌀밥, 흰죽, 흰빵류</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; background: #fff5f5; color: #7f1d1d; vertical-align: middle;">김치류, 나물류(콩나물 등), 버섯류, 해조류(김, 미역, 다시마) 등</td>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; background: #f0fdfa; color: #115e59; vertical-align: middle;">두부류, 생선류, 맑은 계란찜류, 녹차, 이온음료, 맑은 쥬스</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-right: 1px solid #e2e8f0; background: #fff5f5; color: #7f1d1d; vertical-align: middle;">씨 있는 과일(수박, 참외, 딸기, 포도, 키위 등), 옥수수, 견과류(땅콩, 잣, 호두) 등</td>
+                                    <td style="padding: 15px; background: #f0fdfa; color: #115e59; vertical-align: middle;">바나나, 감자</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div style="margin-bottom: 20px;">
-                        <p style="font-weight: 700; color: #334155; margin-bottom: 10px;"><i class="fa-solid fa-circle-check" style="margin-right: 6px; color: #16a34a;"></i>드실 수 있는 음식</p>
-                        <div style="background: #f0fdf4; padding: 12px; border-radius: 10px; border: 1px solid #dcfce7; font-size: 0.85rem; color: #166534;">
-                            흰쌀밥, 흰죽, 건더기 없는 국물, 계란, 두부, 생선, 빵(건더기 없는 것), 감자, 바나나
-                        </div>
-                    </div>
-                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                        <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">검사 1일 전 식사방법</p>
-                        <p style="font-size: 0.85rem; color: #64748b; line-height: 1.6;">
-                            • <strong>오전 검진</strong>: 오후 1시 이전까지 흰죽(반찬 없이) 가볍게 드신 후 금식<br>
-                            • <strong>오후 검진</strong>: 오후 7시 이전까지 흰죽(반찬 없이) 가볍게 드신 후 금식
+                    
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 15px;">
+                        <p style="font-weight: 700; color: #334155; margin-bottom: 5px;">검사 1일전 식사방법</p>
+                        <p style="font-size: 0.85rem; color: #64748b; line-height: 1.6; margin: 0;">
+                            오전 검사는 오후 1시 이전, 오후 검사는 저녁 7시 이전에 흰밥이나 흰죽으로만 반찬 없이 가볍게 드시고, 이후 검사 당일까지 장 정결제와 물 이외에는 절대 금식입니다.
                         </p>
                     </div>
                 `
@@ -4226,24 +4253,56 @@ function initDashboard() {
                 title: '오라팡 복용 방법',
                 parent: 'colon_ora',
                 content: `
-                    <div style="margin-bottom: 15px; background: #eff6ff; padding: 12px; border-radius: 10px; border: 1px solid #bfdbfe;">
-                        <p style="font-weight: 700; color: #1e40af; margin-bottom: 5px;">준비 물품</p>
-                        <p style="font-size: 0.85rem; color: #1e40af;">오라팡 1상자(28정), 엔도콜 1포</p>
+                    <div style="margin-bottom: 15px; background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <p style="font-weight: 700; color: #334155; margin-bottom: 8px;">대장내시경 약 복용방법</p>
+                        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0;"><strong>준비물품</strong>: ① 오라팡 1상자(28정) ② 엔도콜 1포</p>
                     </div>
+
                     <div style="display: flex; flex-direction: column; gap: 15px;">
-                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                            <p style="font-weight: 700; color: #334155; margin-bottom: 8px; border-bottom: 2px solid #3b82f6; width: fit-content; padding-bottom: 2px;">오전 검사 (당일/전날)</p>
-                            <p style="font-size: 0.8rem; color: #64748b; line-height: 1.6;">
-                                <strong>1차 (전날 저녁 8시)</strong>: 물 300ml 음용 후 <strong>오라팡 14정</strong> 천천히 복용 + 이후 1시간 동안 물 1L 음용<br>
-                                <strong>2차 (당일 새벽 4시)</strong>: 물 600ml 음용 후 <strong>오라팡 14정</strong> 천천히 복용 + 1시간 뒤 <strong>엔도콜 1포</strong> 섞은 물 500ml 음용
-                            </p>
+                        <div style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden;">
+                            <div style="background: #2563eb; color: white; padding: 12px 15px; font-weight: 700;">복용방법 (오전검사)</div>
+                            <div style="padding: 15px;">
+                                <p style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 10px;">① 검사 1일전 (1차 복용) <span style="font-weight: 400; color: #3b82f6;">물 한 컵을 마신 후 오라팡 14정을 물과 함께 천천히 나누어 복용, 그 후 1시간 동안 물 1L 이상 음용</span></p>
+                                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: #64748b; background: #f8fafc; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+                                    <div style="text-align: center;"><i class="fa-solid fa-glass-water" style="font-size: 2rem; color: #3b82f6; margin-bottom: 5px;"></i><br>복용 전,<br>물 한 컵(300ml) 음용</div>
+                                    <div><i class="fa-solid fa-plus"></i></div>
+                                    <div style="text-align: center;"><i class="fa-solid fa-pills" style="font-size: 2rem; color: #94a3b8; margin-bottom: 5px;"></i><br>오라팡 14정<br><span style="background: #cbd5e1; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">저녁 8:00 ~ 9:00 복용</span></div>
+                                    <div><i class="fa-solid fa-plus"></i></div>
+                                    <div style="text-align: center;"><i class="fa-solid fa-bottle-water" style="font-size: 2rem; color: #1d4ed8; margin-bottom: 5px;"></i><br>복용 후,<br>1시간 동안 물 1L 음용<br><span style="background: #cbd5e1; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">밤 9:00 ~ 10:00 복용</span></div>
+                                </div>
+
+                                <p style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 10px;">② 검사 당일 (2차 복용) <span style="font-weight: 400; color: #3b82f6;">물 두 컵을 마신 후 오라팡 14정을 물과 함께 천천히 나누어 복용, 그 후 1시간 동안 물 1L 이상 음용</span></p>
+                                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: #64748b; background: #f8fafc; padding: 10px; border-radius: 8px;">
+                                    <div style="text-align: center;"><i class="fa-solid fa-glass-water" style="font-size: 2rem; color: #3b82f6; margin-bottom: 5px;"></i> <i class="fa-solid fa-glass-water" style="font-size: 2rem; color: #3b82f6;"></i><br>복용 전,<br>물 두 컵(600ml) 음용</div>
+                                    <div><i class="fa-solid fa-plus"></i></div>
+                                    <div style="text-align: center;"><i class="fa-solid fa-pills" style="font-size: 2rem; color: #94a3b8; margin-bottom: 5px;"></i><br>오라팡 14정<br><span style="background: #cbd5e1; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">오전 4:00 ~ 5:00 복용</span></div>
+                                    <div><i class="fa-solid fa-plus"></i></div>
+                                    <div style="text-align: center;"><i class="fa-solid fa-vial" style="font-size: 2rem; color: #ef4444; margin-bottom: 5px;"></i><br>엔도콜 1포를 물 500ml에<br>넣은 후 섞어 마십니다.<br><span style="background: #cbd5e1; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">오전 5:00 ~ 5:30 복용</span></div>
+                                </div>
+                            </div>
                         </div>
-                        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                            <p style="font-weight: 700; color: #334155; margin-bottom: 8px; border-bottom: 2px solid #f59e0b; width: fit-content; padding-bottom: 2px;">오후 검사 (당일)</p>
-                            <p style="font-size: 0.8rem; color: #64748b; line-height: 1.6;">
-                                <strong>1차 (당일 새벽 5시)</strong>: 물 300ml 음용 후 <strong>오라팡 14정</strong> 천천히 복용 + 이후 1시간 동안 물 1L 음용<br>
-                                <strong>2차 (당일 아침 7시)</strong>: 물 600ml 음용 후 <strong>오라팡 14정</strong> 천천히 복용 + 1시간 뒤 <strong>엔도콜 1포</strong> 섞은 물 500ml 음용
-                            </p>
+
+                        <div style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden;">
+                            <div style="background: #2563eb; color: white; padding: 12px 15px; font-weight: 700;">복용방법 (오후검사)</div>
+                            <div style="padding: 15px;">
+                                <p style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 10px;">① 검사 당일 (1차 복용) <span style="font-weight: 400; color: #3b82f6;">물 한 컵을 마신 후 오라팡 14정을 물과 함께 천천히 나누어 복용, 그 후 1시간 동안 물 1L 이상 음용</span></p>
+                                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: #64748b; background: #f8fafc; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+                                    <div style="text-align: center;"><i class="fa-solid fa-glass-water" style="font-size: 2rem; color: #3b82f6; margin-bottom: 5px;"></i><br>복용 전,<br>물 한 컵(300ml) 음용</div>
+                                    <div><i class="fa-solid fa-plus"></i></div>
+                                    <div style="text-align: center;"><i class="fa-solid fa-pills" style="font-size: 2rem; color: #94a3b8; margin-bottom: 5px;"></i><br>오라팡 14정<br><span style="background: #cbd5e1; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">오전 5:00 ~ 6:00 복용</span></div>
+                                    <div><i class="fa-solid fa-plus"></i></div>
+                                    <div style="text-align: center;"><i class="fa-solid fa-bottle-water" style="font-size: 2rem; color: #1d4ed8; margin-bottom: 5px;"></i><br>복용 후,<br>1시간 동안 물 1L 음용<br><span style="background: #cbd5e1; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">오전 6:00 ~ 7:00 복용</span></div>
+                                </div>
+
+                                <p style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 10px;">② 검사 당일 (2차 복용) <span style="font-weight: 400; color: #3b82f6;">물 두 컵을 마신 후 오라팡 14정을 물과 함께 천천히 나누어 복용, 그 후 1시간 동안 물 1L 이상 음용</span></p>
+                                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: #64748b; background: #f8fafc; padding: 10px; border-radius: 8px;">
+                                    <div style="text-align: center;"><i class="fa-solid fa-glass-water" style="font-size: 2rem; color: #3b82f6; margin-bottom: 5px;"></i> <i class="fa-solid fa-glass-water" style="font-size: 2rem; color: #3b82f6;"></i><br>복용 전,<br>물 두 컵(600ml) 음용</div>
+                                    <div><i class="fa-solid fa-plus"></i></div>
+                                    <div style="text-align: center;"><i class="fa-solid fa-pills" style="font-size: 2rem; color: #94a3b8; margin-bottom: 5px;"></i><br>오라팡 14정<br><span style="background: #cbd5e1; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">오전 7:00 ~ 8:00 복용</span></div>
+                                    <div><i class="fa-solid fa-plus"></i></div>
+                                    <div style="text-align: center;"><i class="fa-solid fa-vial" style="font-size: 2rem; color: #ef4444; margin-bottom: 5px;"></i><br>엔도콜 1포를 물 500ml에<br>넣은 후 섞어 마십니다.<br><span style="background: #cbd5e1; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem;">오전 8:00 ~ 9:00 복용</span></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `
@@ -4252,18 +4311,38 @@ function initDashboard() {
                 title: '검사 전 자가진단',
                 parent: 'colon_ora',
                 content: `
-                    <div style="text-align: center; padding: 10px;">
-                        <p style="font-weight: 700; color: #334155; margin-bottom: 15px;">대변 색깔을 확인해 보세요</p>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                            <div style="background: #78350f; color: white; padding: 15px; border-radius: 10px; font-size: 0.8rem;">어두운 갈색<br>(준비 전)</div>
-                            <div style="background: #b45309; color: white; padding: 15px; border-radius: 10px; font-size: 0.8rem;">갈색<br>(준비 전)</div>
-                            <div style="background: #d97706; color: white; padding: 15px; border-radius: 10px; font-size: 0.8rem;">어두운 오렌지<br>(준비 전)</div>
-                            <div style="background: #fef08a; color: #854d0e; padding: 15px; border-radius: 10px; border: 1px solid #facc15; font-size: 0.8rem; font-weight: 800;">맑은 노란색<br>(준비 완료!)</div>
+                    <div style="text-align: center; padding: 10px; margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 5px; margin-bottom: 15px;">
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #451a03; border: 2px solid #e2e8f0;"></div>
+                                <span style="font-size: 0.65rem; color: #475569; background: #f1f5f9; padding: 4px; border-radius: 4px; line-height: 1.2;">어두운 갈색<br>(준비 전)</span>
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #78350f; border: 2px solid #e2e8f0;"></div>
+                                <span style="font-size: 0.65rem; color: #475569; background: #f1f5f9; padding: 4px; border-radius: 4px; line-height: 1.2;">갈색<br>(준비 전)</span>
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #b45309; border: 2px solid #e2e8f0;"></div>
+                                <span style="font-size: 0.65rem; color: #475569; background: #f1f5f9; padding: 4px; border-radius: 4px; line-height: 1.2;">어두운 오렌지색<br>(준비전)</span>
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #f59e0b; border: 2px solid #e2e8f0;"></div>
+                                <span style="font-size: 0.65rem; color: #475569; background: #f1f5f9; padding: 4px; border-radius: 4px; line-height: 1.2;">연한 오렌지 색<br>(준비전)</span>
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef08a; border: 2px solid #e2e8f0;"></div>
+                                <span style="font-size: 0.65rem; color: white; background: #dc2626; padding: 4px; border-radius: 4px; line-height: 1.2; font-weight: 700;">맑은 노란색<br>(준비된 상태)</span>
+                            </div>
                         </div>
-                        <p style="font-size: 0.85rem; color: #64748b; line-height: 1.6;">
-                            찌꺼기 없는 <strong>맑은 노란색(소변색)</strong>이 되어야 검사가 가능합니다.<br>
-                            ※ 맑게 나오더라도 안내된 하제는 모두 복용하셔야 합니다.
-                        </p>
+                        <p style="font-size: 0.85rem; color: #dc2626; font-weight: 700; text-align: left; margin: 0;">* 대변이 물처럼 맑게 나오더라도 대장 내시경 하제를 모두 복용하십시오.</p>
+                    </div>
+
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <ul style="font-size: 0.8rem; color: #64748b; line-height: 1.6; padding-left: 15px; margin: 0; list-style-type: none;">
+                            <li style="margin-bottom: 8px; text-indent: -12px;">※ <span style="color: #dc2626; font-weight: 700;">정확한 검사를 위해서는 장을 깨끗이 비우는 것이 매우 중요합니다.</span> 약을 드시는 동안 누워있거나 가만히 앉아 있는 것보다 복부 마사지나 걷기 운동으로 몸을 움직여 주시는 것이 장을 비우는데 도움이 됩니다.</li>
+                            <li style="margin-bottom: 8px; text-indent: -12px;">※ 대장 내시경 하제(대장약) 복용이 어려울 수 있으나 장 정결이 불충분한 경우에는 검사가 제대로 진행되지 못할 수도 있으므로 안내된 시간대로 복용하셔야 검사 가능 합니다. 모두 복용하신 이후에는 검진 전까지 물, 껌, 사탕, 담배 등을 포함해 금식하여 주십시오.</li>
+                            <li style="text-indent: -12px;">※ 대장내시경 검사 취소 시, 수령하신 약은 반드시 반납해 주시기 바랍니다.</li>
+                        </ul>
                     </div>
                 `
             }
