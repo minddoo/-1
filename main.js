@@ -4445,14 +4445,25 @@ function initDashboard() {
             case 'meds':
                 contentHtml = `
                     <div style="display: flex; flex-direction: column; gap: 15px;">
-                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('meds_common')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
-                            <span>혈압/심장/당뇨약 복용법</span>
-                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
-                        </button>
-                        <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('meds_blood')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
-                            <span>항응고제/항혈소판제 (아스피린 등)</span>
-                            <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
-                        </button>
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 10px;"><i class="fa-solid fa-asterisk" style="margin-right: 6px; color: #64748b;"></i>공통</p>
+                            <p style="font-size: 0.85rem; color: #475569; line-height: 1.6; margin-bottom: 5px;">
+                                <strong>당뇨약, 인슐린주사</strong> : 검진 당일 중단
+                            </p>
+                            <p style="font-size: 0.85rem; color: #475569; line-height: 1.6;">
+                                <strong>고혈압약, 항경련제</strong> : 당일 새벽 6시 소량의 물과 함께 복용
+                            </p>
+                        </div>
+
+                        <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
+                            <p style="font-weight: 700; color: #9f1239; margin-bottom: 10px;"><i class="fa-solid fa-stethoscope" style="margin-right: 6px;"></i>내시경 검사 포함</p>
+                            <p style="font-size: 0.85rem; color: #9f1239; line-height: 1.6; margin-bottom: 15px;">
+                                <strong>항혈전제, 항혈소판제, 항응고제</strong> : 검사 전 주치의와 상의해 중단 여부를 확인
+                            </p>
+                            <button onclick="window.showSeveranceSubDetail('meds_list')" style="width: 100%; padding: 12px; background: #be123c; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px;" onmouseover="this.style.background='#9f1239'" onmouseout="this.style.background='#be123c'">
+                                <i class="fa-solid fa-pills"></i> 약 이름 확인하기
+                            </button>
+                        </div>
                     </div>
                 `;
                 break;
@@ -4642,112 +4653,159 @@ function initDashboard() {
                 `
             },
             'meds_list': {
-                title: '항혈전제, 항혈소판제, 항응고제 리스트',
-                parent: 'meds_blood',
+                title: '약 이름 확인하기',
+                parent: 'meds',
                 content: `
                     <div style="overflow-x: auto; margin-top: 10px;">
-                        <table style="width: 100%; border-collapse: collapse; font-size: 0.75rem; background: white;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem; background: white; border: 1px solid #e2e8f0;">
                             <thead>
-                                <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
-                                    <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0; color: #475569; width: 35%;">성분명</th>
-                                    <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0; color: #475569;">약품명 예시</th>
+                                <tr>
+                                    <th colspan="2" style="background: #f8fafc; padding: 15px; text-align: center; border-bottom: 1px solid #e2e8f0; color: #1e293b; font-size: 0.95rem; font-weight: 800;">항혈전제, 항혈소판제, 항응고제 리스트</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">aspirin</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">아스피린프로텍트, 아스트릭스</td>
-                                </tr>
-                                <tr style="background: #f8fafc;">
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">cilostazo</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">프레탈, 실로스탄씨알정</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">sapogrelate</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">사포디필SR, 안플라그</td>
-                                </tr>
-                                <tr style="background: #f8fafc;">
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">clopidogrel</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">클로그렐정75mg, 트롬빅스, 플라빅스정 75mg, 프리그렐정</td>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; width: 35%; vertical-align: middle;">aspirin</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">아스피린프로텍트</div>
+                                        <div style="padding: 12px 15px;">아스트릭스</div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">ticagrelor</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">브릴란타정60mg, 브릴란타정90mg</td>
-                                </tr>
-                                <tr style="background: #f8fafc;">
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">warfarin</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">와파린</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">rivaroxaban</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">자렐토, 리록시아</td>
-                                </tr>
-                                <tr style="background: #f8fafc;">
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">dabigatran</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">프라닥사캡슐, 다비란캡슐</td>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">cilostazo</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">프레탈</div>
+                                        <div style="padding: 12px 15px;">실로스탄씨알정</div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">apixaban</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">엘리퀴스정</td>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">sapogrelate</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">사포디필SR</div>
+                                        <div style="padding: 12px 15px;">안플라그</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">clopidogrel</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">클로그렐정75mg</div>
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">트롬빅스</div>
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">플라빅스정 75mg</div>
+                                        <div style="padding: 12px 15px;">프리그렐정</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">ticagrelor</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">브릴란타정60mg</div>
+                                        <div style="padding: 12px 15px;">브릴란타정90mg</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">warfarin</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px;">와파린</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">rivaroxaban</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">자렐토</div>
+                                        <div style="padding: 12px 15px;">리록시아</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">dabigatran</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">프라닥사캡슐</div>
+                                        <div style="padding: 12px 15px;">다비란캡슐</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">apixaban</td>
+                                    <td style="padding: 0; color: #475569;">
+                                        <div style="padding: 12px 15px;">엘리퀴스정</div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div style="margin-top: 15px; padding: 10px; background: #fff1f2; border-radius: 8px; border: 1px solid #fecdd3;">
-                        <p style="margin: 0; font-size: 0.75rem; color: #be123c; line-height: 1.5;">
-                            ※ 위 리스트는 대표적인 예시이며, 실제 복용 중인 약의 중단 여부는 반드시 담당 주치의와 상의하셔야 합니다.
-                        </p>
-                    </div>
                 `
             },
             'meds_list_in_orafang': {
-                title: '항혈전제, 항혈소판제, 항응고제 리스트',
+                title: '약 이름 확인하기',
                 parent: 'colon_med_orafang',
                 content: `
                     <div style="overflow-x: auto; margin-top: 10px;">
-                        <table style="width: 100%; border-collapse: collapse; font-size: 0.75rem; background: white;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem; background: white; border: 1px solid #e2e8f0;">
                             <thead>
-                                <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
-                                    <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0; color: #475569; width: 35%;">성분명</th>
-                                    <th style="padding: 10px; text-align: left; border: 1px solid #e2e8f0; color: #475569;">약품명 예시</th>
+                                <tr>
+                                    <th colspan="2" style="background: #f8fafc; padding: 15px; text-align: center; border-bottom: 1px solid #e2e8f0; color: #1e293b; font-size: 0.95rem; font-weight: 800;">항혈전제, 항혈소판제, 항응고제 리스트</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">aspirin</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">아스피린프로텍트, 아스트릭스</td>
-                                </tr>
-                                <tr style="background: #f8fafc;">
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">cilostazo</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">프레탈, 실로스탄씨알정</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">sapogrelate</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">사포디필SR, 안플라그</td>
-                                </tr>
-                                <tr style="background: #f8fafc;">
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">clopidogrel</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">클로그렐정75mg, 트롬빅스, 플라빅스정 75mg, 프리그렐정</td>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; width: 35%; vertical-align: middle;">aspirin</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">아스피린프로텍트</div>
+                                        <div style="padding: 12px 15px;">아스트릭스</div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">ticagrelor</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">브릴란타정60mg, 브릴란타정90mg</td>
-                                </tr>
-                                <tr style="background: #f8fafc;">
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">warfarin</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">와파린</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">rivaroxaban</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">자렐토, 리록시아</td>
-                                </tr>
-                                <tr style="background: #f8fafc;">
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">dabigatran</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">프라닥사캡슐, 다비란캡슐</td>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">cilostazo</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">프레탈</div>
+                                        <div style="padding: 12px 15px;">실로스탄씨알정</div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #64748b; font-weight: 600;">apixaban</td>
-                                    <td style="padding: 10px; border: 1px solid #e2e8f0; color: #1e293b;">엘리퀴스정</td>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">sapogrelate</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">사포디필SR</div>
+                                        <div style="padding: 12px 15px;">안플라그</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">clopidogrel</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">클로그렐정75mg</div>
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">트롬빅스</div>
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">플라빅스정 75mg</div>
+                                        <div style="padding: 12px 15px;">프리그렐정</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">ticagrelor</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">브릴란타정60mg</div>
+                                        <div style="padding: 12px 15px;">브릴란타정90mg</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">warfarin</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px;">와파린</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">rivaroxaban</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">자렐토</div>
+                                        <div style="padding: 12px 15px;">리록시아</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">dabigatran</td>
+                                    <td style="padding: 0; border-bottom: 1px solid #e2e8f0; color: #475569;">
+                                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0;">프라닥사캡슐</div>
+                                        <div style="padding: 12px 15px;">다비란캡슐</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; border-right: 1px solid #e2e8f0; color: #475569; vertical-align: middle;">apixaban</td>
+                                    <td style="padding: 0; color: #475569;">
+                                        <div style="padding: 12px 15px;">엘리퀴스정</div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
