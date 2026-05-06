@@ -4534,7 +4534,7 @@ function initDashboard() {
                 contentHtml = `
                     <div style="display: flex; flex-direction: column; gap: 15px;">
                         <button class="precaution-type-btn" onclick="window.showSeveranceSubDetail('notice_common')" style="padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left; font-weight: 700; color: #1e293b; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
-                            <span>귀중품 / 여성 고객 / 운전 안내</span>
+                            <span>수면내시경, 여성검진 등 주의사항</span>
                             <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; color: #94a3b8;"></i>
                         </button>
                     </div>
@@ -5192,22 +5192,50 @@ function initDashboard() {
                 `
             },
             'notice_common': {
-                title: '기타 일반 주의사항',
+                title: '기타 주의사항',
                 parent: 'notice',
                 content: `
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <div style="background: #f8fafc; padding: 12px; border-radius: 10px;">
-                            <p style="font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">귀중품 및 복장</p>
-                            <p style="font-size: 0.85rem; color: #64748b;">반지, 목걸이 등 귀중품은 분실 위험이 있으므로 착용하지 마십시오.</p>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 10px; font-size: 1rem;"><i class="fa-solid fa-bed" style="margin-right: 8px;"></i>진정(수면)내시경 주의사항</p>
+                            <ul style="font-size: 0.85rem; color: #475569; line-height: 1.6; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+                                <li>산소포화도 측정을 위해 매니큐어, 젤, 큐빅은 미리 제거해 주세요.</li>
+                                <li>수면내시경 후에는 하루 종일 운전을 삼가 주세요.</li>
+                                <li>수면내시경 후에는 보호자의 동반이 필요합니다.</li>
+                                <li>고령 수검자 분들은 기초 검사를 토대로 수면 가능여부를 안내 드립니다.</li>
+                            </ul>
                         </div>
-                        <div style="background: #f8fafc; padding: 12px; border-radius: 10px;">
-                            <p style="font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">여성 고객 안내</p>
-                            <p style="font-size: 0.85rem; color: #64748b;">생리 중에는 소변 및 부인과 검사가 제한될 수 있습니다. 가급적 종료 3~5일 후가 적당합니다.</p>
+
+                        <div style="background: #fdfaf0; padding: 15px; border-radius: 12px; border: 1px solid #fef08a;">
+                            <p style="font-weight: 700; color: #854d0e; margin-bottom: 10px; font-size: 1rem;"><i class="fa-solid fa-magnifying-glass" style="margin-right: 8px;"></i>대장내시경 주의사항</p>
+                            <ul style="font-size: 0.85rem; color: #713f12; line-height: 1.6; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+                                <li>용종절제술 시행 시 추가 비용이 발생하며 1cm 이상의 용종은 상급병원으로 의뢰됩니다.</li>
+                                <li>용종절제술 시술 시 1주일간 음주, 비행기 탑승, 무리한 운동은 피해 주세요.</li>
+                                <li>귀금속(반지, 팔찌, 피어싱), 악세서리 등은 대장내시경 전에 제거해 주세요.</li>
+                                <li>인공심박동기, 삽입형 제세동기, 인공와우 환자의 경우 모드 확인이 필요하여 검사 전 주치의, 의료장비 업체와 상의해 주세요.</li>
+                            </ul>
                         </div>
-                        <div style="background: #fef2f2; padding: 12px; border-radius: 10px; border: 1px solid #fee2e2;">
-                            <p style="font-weight: 700; font-size: 0.9rem; color: #991b1b; margin-bottom: 5px;">진정(수면) 내시경 운전 금지</p>
-                            <p style="font-size: 0.85rem; color: #991b1b;">당일 <strong>자가 운전은 절대 불가</strong>합니다. 반드시 대중교통을 이용하거나 보호자를 동반하십시오.</p>
+
+                        <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #fecdd3;">
+                            <p style="font-weight: 700; color: #9f1239; margin-bottom: 10px; font-size: 1rem;"><i class="fa-solid fa-person-dress" style="margin-right: 8px;"></i>여성검진 주의사항</p>
+                            <ul style="font-size: 0.85rem; color: #881337; line-height: 1.6; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+                                <li>건강검진은 생리 중단 2일 후에 받으시는 것이 좋습니다.</li>
+                                <li>임신 중이거나 임신 가능성이 있을 경우 반드시 검진 전에 알려주세요.</li>
+                                <li>유방X-선 검사는 만 35세 미만, 1년 이내 시행 이력, 모유 수유 중이신 경우 시행하지 않습니다. (모유수유 중단 후 6개월 경과 시 검사 가능)</li>
+                            </ul>
                         </div>
+
+                        <div style="background: #eff6ff; padding: 15px; border-radius: 12px; border: 1px solid #bfdbfe;">
+                            <p style="font-weight: 700; color: #1e40af; margin-bottom: 10px; font-size: 1rem;"><i class="fa-solid fa-magnet" style="margin-right: 8px;"></i>MRI검진 주의사항</p>
+                            <ul style="font-size: 0.85rem; color: #1e3a8a; line-height: 1.6; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+                                <li>제거 가능한 체내 금속성 삽입물은 제거해주세요.</li>
+                                <li>제거 불가능한 경우 검진 전에 알려주세요.</li>
+                                <li>심박동기(Pacemaker)를 갖고 계신 분은 검사가 불가합니다.</li>
+                                <li>폐쇄공포증이 있거나 임신 중이신 분은 검진 전에 알려주세요.</li>
+                            </ul>
+                        </div>
+
                     </div>
                 `
             }
