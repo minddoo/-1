@@ -6244,10 +6244,51 @@ function initDashboard() {
             case 'precautions':
                 titleEl.textContent = '검진 유의사항';
                 contentHtml = `
-                    <div style="padding: 20px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">
-                        <i class="fa-solid fa-clock-rotate-left" style="font-size: 2.5rem; margin-bottom: 15px; color: #94a3b8;"></i>
-                        <p style="font-weight: 700; font-size: 1.1rem; color: #334155; margin-bottom: 8px;">상세 안내 준비중</p>
-                        <p style="font-size: 0.85rem; color: #64748b;">세란병원의 검진 유의사항 상세 안내 내용이 곧 업데이트 될 예정입니다.</p>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <p style="font-weight: 700; color: #334155; margin-bottom: 10px; font-size: 1.05rem;"><i class="fa-solid fa-clipboard-list" style="margin-right: 8px;"></i>건강검진 준비사항</p>
+                            <ul style="font-size: 0.85rem; color: #475569; line-height: 1.6; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+                                <li>검진 전날 저녁은 7-8시 이전 가볍게 드십시오. (육류, 분식, 기름진 음식 및 과식 금지)</li>
+                                <li>밤 9시 이후는 금식입니다. (검진 당일 아침에는 약, 껌, 커피, 물 포함 금지)</li>
+                                <li>대장 내시경을 선택하신 분들은 금식 시간이 다르므로 동봉해 드린 대장 내시경 준비 안내문 지침을 따라주세요</li>
+                                <li>하복부 초음파(전립선), 골반 초음파(자궁, 난소) 진행시 정확한 검사를 위해 당일 아침 소변을 참고 내원하세요</li>
+                                <li>임신 가능성, 간염(A형, B형, C형), 심장질환, 호흡기 질환 등 진단받은 질환이 있으면 미리 말씀해 주십시오.</li>
+                                <li>6개월 이내 복부, 안면부, 어깨관절, 척추 등 수술 받으신 적이 있으시면 미리 말씀해 주십시오.</li>
+                                <li>채변 검사가 있는 분은 검진 전 24시간 이내 보신 변을 채변 용기에 콩알만큼 담아 오세요.</li>
+                                <li>안과 관련 검사 시 렌즈를 빼야 하는 불편함이 있으므로 렌즈 착용은 피하시고 안경 착용을 권장합니다.</li>
+                                <li>수면 내시경 검사를 하시는 분은 검진 후 자가운전이나 중요한 약속은 불가합니다.</li>
+                                <li>귀중품을 휴대하거나 장신구를 착용하지 마십시오</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: #fff8f1; padding: 15px; border-radius: 12px; border: 1px solid #ffedd5;">
+                            <p style="font-weight: 700; color: #c2410c; margin-bottom: 10px; font-size: 1.05rem;"><i class="fa-solid fa-pills" style="margin-right: 8px;"></i>약물 관련 주의사항</p>
+                            <ul style="font-size: 0.85rem; color: #9a3412; line-height: 1.6; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+                                <li>고혈압 약을 드시는 경우 검사 당일 오전 6시 이전 최소량의 물과 함께 복용 가능합니다. 단, 위장조영을 선택하신 분들은 고혈압 약을 포함해서 모든 약 복용을 금합니다.</li>
+                                <li>내시경 검사 시 조직 검사 또는 용종을 제거할 경우 출혈의 위험이 생기므로 항혈전제, 항응고제, 항혈소판제 등은 반드시 검사 5일 전부터 중단하셔야 됩니다. 주치의에게 중단 가능 여부를 꼭 확인하시기 바랍니다.<br><span style="color: #c2410c; font-size: 0.8rem;">(쿠마딘, 와파린, 헤파린, 아스피린, 플라빅스, 디스그린, 아스트릭스, 콜로든 실로스타졸, 혈액순환제, 기넥신, 징코민 등)</span></li>
+                                <li>당뇨약, 인슐린 주사제는 금식하는 동안 저혈당 방지를 위해 중단하시기 바랍니다.<br><span style="color: #c2410c; font-size: 0.8rem;">(금식으로 저혈당 증상이 올 수 있으므로 사탕 또는 음료수를 지침하고 오십시오)</span></li>
+                            </ul>
+                        </div>
+
+                        <div style="background: #fff1f2; padding: 15px; border-radius: 12px; border: 1px solid #ffe4e6;">
+                            <p style="font-weight: 700; color: #be123c; margin-bottom: 10px; font-size: 1.05rem;"><i class="fa-solid fa-person-dress" style="margin-right: 8px;"></i>여성 유의사항</p>
+                            <ul style="font-size: 0.85rem; color: #9f1239; line-height: 1.6; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+                                <li>검진 일자는 생리가 끝난 후 최소 5일 이후가 적절합니다.</li>
+                                <li>자궁경부암 검사가 있는 분은 검진 48시간 전부터 부부관계, 질정, 크림 사용을 금하여 주십시오</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: #f0fdf4; padding: 15px; border-radius: 12px; border: 1px solid #dcfce7;">
+                            <p style="font-weight: 700; color: #15803d; margin-bottom: 10px; font-size: 1.05rem;"><i class="fa-solid fa-circle-info" style="margin-right: 8px;"></i>기타</p>
+                            <ul style="font-size: 0.85rem; color: #166534; line-height: 1.6; padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+                                <li>종합검진 센터 지하 1층으로 내원하시면 문진표 작성 확인 후 순서대로 진행됩니다.</li>
+                                <li>국가 검진 위암 검진은 일반 위내시경 또는 위장조영촬영으로 선택하실 수 있습니다. (수면 희망 시 수면비용 발생함)</li>
+                                <li>내시경 전문의의 판단 하에 추가적으로 조직검사, 용종 절제술, 점막하 절제술이 시행되는 경우 추가 비용이 발생합니다.</li>
+                                <li>위, 대장 내시경 중 조직 검사를 한 경우 72시간 이후, 용종 절제술을 한 경우 5일 이후 비행기 탑승 가능합니다.</li>
+                            </ul>
+                        </div>
+
                     </div>
                 `;
                 break;
