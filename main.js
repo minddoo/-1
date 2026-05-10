@@ -3542,11 +3542,11 @@ function initDashboard() {
                 <div class="system-block" style="border-left: 4px solid #10b981; background: #f0fdf4; padding-right: 20px; animation: fadeInUp 0.4s ease-out;">
                     <div class="block-icon" style="background: rgba(16, 185, 129, 0.2); color: #10b981;"><i class="fa-solid fa-bell"></i></div>
                     <div class="block-content" style="width: 100%;">
-                        <p style="margin-top: 5px;"><strong>알림톡 수신 번호 입력</strong></p>
-                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block; line-height: 1.5;">주의사항을 다 숙지하셨다면 검진 디데이 알림톡을 받을 전화번호 (한국 전화번호) 를 입력해주세요.</span>
+                        <p style="margin-top: 5px;"><strong>알림톡 수신 번호 및 검진일 입력</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block; line-height: 1.5;">주의사항을 다 숙지하셨다면 검진 디데이 알림톡을 받을 <b>전화번호 (한국 번호)</b>와 확정된 <b>검진 날짜</b>를 함께 입력해주세요.<br><br><span style="color: #059669; font-weight: 600;">(의료기관에서 안내받으신 확정 날짜를 적어주시면, 해당 일정에 맞춰 정확하게 알림톡을 보내드립니다.)</span></span>
                         
                         <div style="display: flex; flex-direction: column; gap: 10px;" id="alimtalk-input-container">
-                            <input type="tel" id="kr-phone-input" placeholder="예: 010-1234-5678" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+                            <input type="text" id="kr-phone-input" placeholder="예: 010-1234-5678, 10월 25일" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
                             <button onclick="window.submitAlimtalkPhone()" style="padding: 10px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#059669'" onmouseout="this.style.background='#10b981'">확인</button>
                         </div>
                         
@@ -3598,10 +3598,10 @@ function initDashboard() {
                 const html = `
                     <div class="system-block" style="border-left: 4px solid #25D366; background: #f0fdf4;">
                         <div class="block-content">
-                            <p><strong>WhatsApp 번호 입력</strong></p>
-                            <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">국가번호를 포함한 WhatsApp 번호를 입력해주세요.</span>
+                            <p><strong>WhatsApp 번호 및 검진일 입력</strong></p>
+                            <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block; line-height: 1.5;">국가번호를 포함한 <b>WhatsApp 번호</b>와 확정된 <b>검진 날짜</b>를 함께 입력해주세요.<br><br><span style="color: #16a34a; font-weight: 600;">(의료기관에서 안내받으신 확정 날짜를 적어주시면, 해당 일정에 맞춰 정확하게 안내를 보내드립니다.)</span></span>
                             <div style="display: flex; flex-direction: column; gap: 10px;" id="wa-input-container">
-                                <input type="tel" id="wa-phone-input" placeholder="예: +1-234-567-8900" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+                                <input type="text" id="wa-phone-input" placeholder="예: +1-234-567-8900, 10월 25일" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
                                 <button onclick="window.submitAlternativeContact('whatsapp')" style="padding: 10px; background: #25D366; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">확인</button>
                             </div>
                         </div>
@@ -3615,10 +3615,10 @@ function initDashboard() {
                 const html = `
                     <div class="system-block" style="border-left: 4px solid #3b82f6; background: #eff6ff;">
                         <div class="block-content">
-                            <p><strong>이메일 주소 입력</strong></p>
-                            <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">알림을 받으실 정확한 이메일 주소를 입력해주세요.</span>
+                            <p><strong>이메일 주소 및 검진일 입력</strong></p>
+                            <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block; line-height: 1.5;">알림을 받으실 <b>이메일 주소</b>와 확정된 <b>검진 날짜</b>를 함께 입력해주세요.<br><br><span style="color: #2563eb; font-weight: 600;">(의료기관에서 안내받으신 확정 날짜를 적어주시면, 해당 일정에 맞춰 정확하게 안내를 보내드립니다.)</span></span>
                             <div style="display: flex; flex-direction: column; gap: 10px;" id="email-input-container">
-                                <input type="email" id="email-addr-input" placeholder="예: example@email.com" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+                                <input type="text" id="email-addr-input" placeholder="예: example@email.com, 10월 25일" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
                                 <button onclick="window.submitAlternativeContact('email')" style="padding: 10px; background: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">확인</button>
                             </div>
                         </div>
