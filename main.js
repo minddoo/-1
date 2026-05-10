@@ -1553,58 +1553,85 @@ function handleGoogleSignIn(response) {
         document.body.style.overflow = '';
     }
 
-    // ─── 이전 등록 이력 복원 로직 ───────────────────────────────
-    // 로그인 후 Firestore에서 기존 알림 예약 데이터를 조회하여 단계 복원
-    if (typeof db !== 'undefined' && db && user.email) {
-        db.collection('scheduled_notifications')
-            .where('userGoogleEmail', '==', user.email)
-            .where('status', '==', 'pending')
-            .orderBy('submittedAt', 'desc')
-            .limit(1)
-            .get()
-            .then(snap => {
-                if (!snap.empty) {
-                    const doc = snap.docs[0];
-                    const data = doc.data();
-                    window.lastScheduledNotifId = doc.id;
-
-                    // 채팅 뷰가 열려있을 때 복원 배너 표시
-                    setTimeout(() => {
-                        if (typeof window.appendMessage === 'function') {
-                            const resumeHtml = `
-                                <div class="system-block" style="border-left: 4px solid #10b981; background: #ecfdf5; padding-right: 20px; animation: fadeInUp 0.4s ease-out;">
-                                    <div class="block-icon" style="background: rgba(16,185,129,0.2); color: #10b981;"><i class="fa-solid fa-rotate-right"></i></div>
-                                    <div class="block-content" style="width: 100%;">
-                                        <p style="margin-top: 5px;"><strong>✅ 이전 등록 이력이 확인되었습니다!</strong></p>
-                                        <div style="background: white; border-radius: 8px; padding: 12px; margin: 10px 0; border: 1px solid #a7f3d0; font-size: 0.85rem; color: #374151; line-height: 1.7;">
-                                            <p style="margin: 0;">🏥 <strong>기관:</strong> ${data.hospitalName || '미입력'}</p>
-                                            <p style="margin: 4px 0 0;">📅 <strong>검진 예정일:</strong> ${data.reservedDate || '미입력'}</p>
-                                            <p style="margin: 4px 0 0;">📬 <strong>연락처:</strong> ${data.contactValue || '미입력'} (${data.contactType === 'email' ? '이메일' : '알림톡'})</p>
-                                            <p style="margin: 4px 0 0;">📦 <strong>준비물 수령:</strong> ${data.suppliesStatus === 'received' ? '✅ 수령 완료' : data.suppliesStatus === 'missing' ? '❌ 미수령' : '미확인'}</p>
-                                        </div>
-                                        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
-                                            <button onclick="window.askSuppliesStatus()" style="padding: 10px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;">
-                                                <i class="fa-solid fa-forward-step"></i> 마지막 단계(준비물 확인)부터 이어서 진행
-                                            </button>
-                                            <button onclick="window.showChatBlock('alimtalk')" style="padding: 10px; background: white; border: 1px solid #10b981; color: #10b981; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;">
-                                                <i class="fa-solid fa-pen"></i> 연락처 / 검진일 정보 수정하기
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                            window.appendMessage('coord', `어서오세요, <b>${user.name}</b>님! 이전에 진행하시던 등록 내역을 불러왔습니다.`);
-                            setTimeout(() => window.appendMessage('system', resumeHtml, 'system'), 600);
-                        }
-                    }, 1200);
-                }
-            })
-            .catch(err => {
-                console.log('No previous record or lookup error:', err.message);
-            });
-    }
+    // ─── 이전 등록 이력 복원 (범용 함수 호출) ───────────────────
+    window.checkAndRestoreSession(user.email, user.name);
     // ────────────────────────────────────────────────────────────
 }
+
+/**
+ * [범용] 로그인 이메일로 Firestore 이력 조회 후 마지막 단계 복원
+ * 구글 로그인 / 이메일 로그인 / 페이지 새로고침 모든 경우에서 호출됨
+ */
+window.checkAndRestoreSession = function(email, displayName) {
+    if (typeof db === 'undefined' || !db || !email) return;
+    const userName = displayName || localStorage.getItem('userName') || '고객';
+
+    db.collection('scheduled_notifications')
+        .where('userGoogleEmail', '==', email)
+        .where('status', '==', 'pending')
+        .orderBy('submittedAt', 'desc')
+        .limit(1)
+        .get()
+        .then(snap => {
+            if (snap.empty) return;
+            const doc = snap.docs[0];
+            const data = doc.data();
+            window.lastScheduledNotifId = doc.id;
+
+            // 채팅 뷰가 준비될 때까지 약간 대기 후 복원 배너 표시
+            const showResumeBanner = () => {
+                if (typeof window.appendMessage !== 'function') return;
+                const contactLabel = data.contactType === 'email' ? '이메일' : '알림톡(전화번호)';
+                const suppliesLabel = data.suppliesStatus === 'received' ? '✅ 수령 완료'
+                    : data.suppliesStatus === 'missing' ? '❌ 미수령' : '⬜ 미확인';
+
+                // 이미 모든 단계 완료(suppliesStatus 있음)면 완료 안내만 표시
+                const allDone = !!data.suppliesStatus;
+
+                const resumeHtml = `
+                    <div class="system-block" style="border-left: 4px solid #10b981; background: #ecfdf5; padding-right: 20px; animation: fadeInUp 0.4s ease-out;">
+                        <div class="block-icon" style="background: rgba(16,185,129,0.2); color: #10b981;"><i class="fa-solid fa-rotate-right"></i></div>
+                        <div class="block-content" style="width: 100%;">
+                            <p style="margin-top: 5px;"><strong>✅ 이전 등록 이력이 확인되었습니다!</strong></p>
+                            <div style="background: white; border-radius: 8px; padding: 12px; margin: 10px 0; border: 1px solid #a7f3d0; font-size: 0.85rem; color: #374151; line-height: 1.8;">
+                                <p style="margin: 0;">🏥 <strong>검진 기관:</strong> ${data.hospitalName || '미입력'}</p>
+                                <p style="margin: 4px 0 0;">📅 <strong>검진 예정일:</strong> ${data.reservedDate || '미입력'}</p>
+                                <p style="margin: 4px 0 0;">📬 <strong>연락처 (${contactLabel}):</strong> ${data.contactValue || '미입력'}</p>
+                                <p style="margin: 4px 0 0;">📦 <strong>준비물 수령:</strong> ${suppliesLabel}</p>
+                            </div>
+                            ${allDone ? `
+                            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 0.82rem; color: #166534; font-weight: 600; text-align: center;">
+                                <i class="fa-solid fa-circle-check"></i> 모든 등록 단계가 완료되었습니다.
+                            </div>` : ''}
+                            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+                                ${!allDone ? `<button onclick="window.askSuppliesStatus()" style="padding: 10px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;">
+                                    <i class="fa-solid fa-forward-step"></i> 마지막 단계(준비물 확인)부터 이어서 진행
+                                </button>` : ''}
+                                <button onclick="window.showChatBlock('alimtalk')" style="padding: 10px; background: white; border: 1px solid #10b981; color: #059669; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;">
+                                    <i class="fa-solid fa-pen"></i> 연락처 / 검진일 정보 수정하기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                window.appendMessage('coord', `어서오세요, <b>${userName}</b>님! 이전에 진행하시던 등록 내역을 불러왔습니다.`);
+                setTimeout(() => window.appendMessage('system', resumeHtml, 'system'), 600);
+            };
+
+            // appendMessage가 준비될 때까지 최대 5초 폴링
+            let attempts = 0;
+            const poll = setInterval(() => {
+                attempts++;
+                if (typeof window.appendMessage === 'function') {
+                    clearInterval(poll);
+                    showResumeBanner();
+                } else if (attempts > 25) { // 5초 초과 포기
+                    clearInterval(poll);
+                }
+            }, 200);
+        })
+        .catch(err => console.log('Session restore lookup:', err.message));
+};
 
 if (authModal && loginBtn) {
     // Open Modal
@@ -1761,15 +1788,29 @@ if (authModal && loginBtn) {
                         if (loginTab) loginTab.click();
                         
                         // Re-enable submit button for next use
-                        submitBtn.innerText = originalText;
-                        submitBtn.disabled = false;
-                signupForm.style.display = ''; // Restore original display state
-            }, 2500);
-        }
-    }, 1000);
+    setTimeout(() => {
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
+        signupForm.style.display = '';
+    }, 2500);
+    }
+}, 1000);
 });
 });
 }
+
+// ─── 페이지 새로고침 / 이미 로그인된 상태 복원 ─────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    const savedEmail = localStorage.getItem('userEmail');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn && savedEmail && typeof window.checkAndRestoreSession === 'function') {
+        // 약간 지연 후 호출 (db 및 chatbot 초기화 대기)
+        setTimeout(() => {
+            window.checkAndRestoreSession(savedEmail);
+        }, 2000);
+    }
+});
+// ───────────────────────────────────────────────────────────────
 
 // My Page Modal Logic
 const mypageModal = document.getElementById('mypage-modal');
