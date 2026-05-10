@@ -3536,6 +3536,120 @@ function initDashboard() {
             `;
             window.appendMessage('system', html, 'system');
         }
+
+        setTimeout(() => {
+            const alimtalkHtml = `
+                <div class="system-block" style="border-left: 4px solid #10b981; background: #f0fdf4; padding-right: 20px; animation: fadeInUp 0.4s ease-out;">
+                    <div class="block-icon" style="background: rgba(16, 185, 129, 0.2); color: #10b981;"><i class="fa-solid fa-bell"></i></div>
+                    <div class="block-content" style="width: 100%;">
+                        <p style="margin-top: 5px;"><strong>알림톡 수신 번호 입력</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block; line-height: 1.5;">주의사항을 다 숙지하셨다면 검진 디데이 알림톡을 받을 전화번호 (한국 전화번호) 를 입력해주세요.</span>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 10px;" id="alimtalk-input-container">
+                            <input type="tel" id="kr-phone-input" placeholder="예: 010-1234-5678" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+                            <button onclick="window.submitAlimtalkPhone()" style="padding: 10px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#059669'" onmouseout="this.style.background='#10b981'">확인</button>
+                        </div>
+                        
+                        <div style="margin-top: 15px; border-top: 1px dashed #a7f3d0; padding-top: 10px;" id="alimtalk-alt-container">
+                            <span style="color: #64748b; font-size: 0.8rem; display: block; margin-bottom: 8px;">한국 전화번호가 없으신가요?</span>
+                            <div style="display: flex; gap: 8px;">
+                                <button onclick="window.showAlternativeContact('whatsapp')" style="flex: 1; padding: 8px; background: white; border: 1px solid #10b981; color: #10b981; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: all 0.2s;" onmouseover="this.style.background='#ecfdf5'" onmouseout="this.style.background='white'">
+                                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                                </button>
+                                <button onclick="window.showAlternativeContact('email')" style="flex: 1; padding: 8px; background: white; border: 1px solid #10b981; color: #10b981; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: all 0.2s;" onmouseover="this.style.background='#ecfdf5'" onmouseout="this.style.background='white'">
+                                    <i class="fa-solid fa-envelope"></i> 이메일
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.appendMessage('system', alimtalkHtml, 'system');
+        }, 1500);
+    };
+
+    window.submitAlimtalkPhone = function() {
+        const input = document.getElementById('kr-phone-input');
+        if (!input || !input.value.trim()) {
+            alert("전화번호를 입력해주세요.");
+            return;
+        }
+        window.appendMessage('user', input.value.trim(), 'user');
+        
+        const container1 = document.getElementById('alimtalk-input-container');
+        const container2 = document.getElementById('alimtalk-alt-container');
+        if (container1) container1.style.display = 'none';
+        if (container2) container2.style.display = 'none';
+
+        setTimeout(() => {
+            window.appendMessage('coord', '감사합니다! 입력해주신 번호로 검진 전 안내 사항을 보내드릴 예정입니다. 편안한 검진 되시길 바랍니다.');
+        }, 500);
+    };
+
+    window.showAlternativeContact = function(type) {
+        const container = document.getElementById('alimtalk-input-container');
+        const altContainer = document.getElementById('alimtalk-alt-container');
+        if (container) container.style.display = 'none';
+        if (altContainer) altContainer.style.display = 'none';
+
+        if (type === 'whatsapp') {
+            window.appendMessage('user', 'WhatsApp 번호 입력하기', 'user');
+            setTimeout(() => {
+                const html = `
+                    <div class="system-block" style="border-left: 4px solid #25D366; background: #f0fdf4;">
+                        <div class="block-content">
+                            <p><strong>WhatsApp 번호 입력</strong></p>
+                            <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">국가번호를 포함한 WhatsApp 번호를 입력해주세요.</span>
+                            <div style="display: flex; flex-direction: column; gap: 10px;" id="wa-input-container">
+                                <input type="tel" id="wa-phone-input" placeholder="예: +1-234-567-8900" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+                                <button onclick="window.submitAlternativeContact('whatsapp')" style="padding: 10px; background: #25D366; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                window.appendMessage('system', html, 'system');
+            }, 500);
+        } else {
+            window.appendMessage('user', '이메일 주소 입력하기', 'user');
+            setTimeout(() => {
+                const html = `
+                    <div class="system-block" style="border-left: 4px solid #3b82f6; background: #eff6ff;">
+                        <div class="block-content">
+                            <p><strong>이메일 주소 입력</strong></p>
+                            <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block;">알림을 받으실 정확한 이메일 주소를 입력해주세요.</span>
+                            <div style="display: flex; flex-direction: column; gap: 10px;" id="email-input-container">
+                                <input type="email" id="email-addr-input" placeholder="예: example@email.com" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+                                <button onclick="window.submitAlternativeContact('email')" style="padding: 10px; background: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                window.appendMessage('system', html, 'system');
+            }, 500);
+        }
+    };
+
+    window.submitAlternativeContact = function(type) {
+        let input, container;
+        if (type === 'whatsapp') {
+            input = document.getElementById('wa-phone-input');
+            container = document.getElementById('wa-input-container');
+        } else {
+            input = document.getElementById('email-addr-input');
+            container = document.getElementById('email-input-container');
+        }
+
+        if (!input || !input.value.trim()) {
+            alert("연락처를 입력해주세요.");
+            return;
+        }
+
+        window.appendMessage('user', input.value.trim(), 'user');
+        if (container) container.style.display = 'none';
+
+        setTimeout(() => {
+            window.appendMessage('coord', '감사합니다! 입력해주신 연락처로 검진 전 안내 사항을 보내드릴 예정입니다. 편안한 검진 되시길 바랍니다.');
+        }, 500);
     };
 
     window.showKmiDetail = function(type) {
