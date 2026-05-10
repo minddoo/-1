@@ -3543,8 +3543,8 @@ function initDashboard() {
                 <div class="system-block" style="border-left: 4px solid #10b981; background: #f0fdf4; padding-right: 20px; animation: fadeInUp 0.4s ease-out;">
                     <div class="block-icon" style="background: rgba(16, 185, 129, 0.2); color: #10b981;"><i class="fa-solid fa-bell"></i></div>
                     <div class="block-content" style="width: 100%;">
-                        <p style="margin-top: 5px;"><strong>알림톡 수신 번호 및 검진일 입력</strong></p>
-                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block; line-height: 1.5;">주의사항을 다 숙지하셨다면 검진 디데이 알림톡을 받을 <b>전화번호 (한국 번호)</b>와 확정된 <b>검진 날짜</b>를 함께 입력해주세요.<br><br><span style="color: #059669; font-weight: 600;">(의료기관에서 안내받으신 확정 날짜를 적어주시면, 해당 일정에 맞춰 정확하게 알림톡을 보내드립니다.)</span></span>
+                        <p style="margin-top: 5px;"><strong>카카오톡(알림톡) / 문자 수신 및 검진일 입력</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block; line-height: 1.5;">주의사항을 다 숙지하셨다면 검진 전 알림톡(카카오톡 미사용 시 일반 문자로 발송)을 받을 <b>휴대폰 번호</b>와 확정된 <b>검진 날짜</b>를 입력해 주세요.<br><br><span style="color: #059669; font-weight: 600;">(의료기관에서 안내받으신 확정 날짜를 적어주시면, 해당 일정에 맞춰 정확하게 안내를 보내드립니다.)</span></span>
                         
                         <div style="display: flex; flex-direction: column; gap: 10px;" id="alimtalk-input-container">
                             <input type="tel" id="kr-phone-input" placeholder="전화번호 입력 (예: 010-1234-5678)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
@@ -3556,15 +3556,10 @@ function initDashboard() {
                         </div>
                         
                         <div style="margin-top: 15px; border-top: 1px dashed #a7f3d0; padding-top: 10px;" id="alimtalk-alt-container">
-                            <span style="color: #64748b; font-size: 0.8rem; display: block; margin-bottom: 8px;">한국 전화번호가 없으신가요?</span>
-                            <div style="display: flex; gap: 8px;">
-                                <button onclick="window.showAlternativeContact('whatsapp')" style="flex: 1; padding: 8px; background: white; border: 1px solid #10b981; color: #10b981; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: all 0.2s;" onmouseover="this.style.background='#ecfdf5'" onmouseout="this.style.background='white'">
-                                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
-                                </button>
-                                <button onclick="window.showAlternativeContact('email')" style="flex: 1; padding: 8px; background: white; border: 1px solid #10b981; color: #10b981; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: all 0.2s;" onmouseover="this.style.background='#ecfdf5'" onmouseout="this.style.background='white'">
-                                    <i class="fa-solid fa-envelope"></i> 이메일
-                                </button>
-                            </div>
+                            <span style="color: #64748b; font-size: 0.8rem; display: block; margin-bottom: 8px;">휴대폰 번호 외에 이메일로 받으시겠습니까?</span>
+                            <button onclick="window.showAlternativeContact('email')" style="width: 100%; padding: 10px; background: white; border: 1px solid #3b82f6; color: #3b82f6; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;" onmouseover="this.style.background='#eff6ff'" onmouseout="this.style.background='white'">
+                                <i class="fa-solid fa-envelope"></i> 이메일로 받기
+                            </button>
                         </div>
                         <button onclick="window.showChatBlock('precautions')" style="margin-top: 15px; width: 100%; padding: 10px; background: white; border: 1px solid #cbd5e1; color: #475569; border-radius: 8px; font-weight: 700; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='white'">
                             <i class="fa-solid fa-arrow-left"></i> 이전 단계로 돌아가기 (의료기관 다시 선택)
@@ -3633,72 +3628,40 @@ function initDashboard() {
         if (container) container.style.display = 'none';
         if (altContainer) altContainer.style.display = 'none';
 
-        if (type === 'whatsapp') {
-            window.appendMessage('user', 'WhatsApp 번호 입력하기', 'user');
-            setTimeout(() => {
-                const html = `
-                    <div class="system-block" style="border-left: 4px solid #25D366; background: #f0fdf4;">
-                        <div class="block-content">
-                            <p><strong>WhatsApp 번호 및 검진일 입력</strong></p>
-                            <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block; line-height: 1.5;">국가번호를 포함한 <b>WhatsApp 번호</b>와 확정된 <b>검진 날짜</b>를 함께 입력해주세요.<br><br><span style="color: #16a34a; font-weight: 600;">(의료기관에서 안내받으신 확정 날짜를 적어주시면, 해당 일정에 맞춰 정확하게 안내를 보내드립니다.)</span></span>
-                            <div style="display: flex; flex-direction: column; gap: 10px;" id="wa-input-container">
-                                <input type="tel" id="wa-phone-input" placeholder="WhatsApp 번호 입력 (예: +1-234-567-8900)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
-                                <div style="display: flex; flex-direction: column; gap: 4px;">
-                                    <label style="font-size: 0.8rem; color: #475569; font-weight: 600;">검진 확정 날짜</label>
-                                    <input type="date" id="wa-date-input" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #334155;">
-                                </div>
-                                <button onclick="window.submitAlternativeContact('whatsapp')" style="padding: 10px; background: #25D366; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 5px;">확인</button>
-                                <button onclick="window.restoreAlimtalkInput(this)" style="padding: 10px; background: white; border: 1px solid #cbd5e1; color: #475569; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 5px;"><i class="fa-solid fa-arrow-left"></i> 이전 단계로 돌아가기</button>
+        window.appendMessage('user', '이메일 주소 입력하기', 'user');
+        setTimeout(() => {
+            const html = `
+                <div class="system-block" style="border-left: 4px solid #3b82f6; background: #eff6ff;">
+                    <div class="block-content">
+                        <p><strong>이메일 주소 및 검진일 입력</strong></p>
+                        <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block; line-height: 1.5;">알림을 받으실 <b>이메일 주소</b>와 확정된 <b>검진 날짜</b>를 함께 입력해주세요.<br><br><span style="color: #2563eb; font-weight: 600;">(의료기관에서 안내받으신 확정 날짜를 적어주시면, 해당 일정에 맞춰 정확하게 안내를 보내드립니다.)</span></span>
+                        <div style="display: flex; flex-direction: column; gap: 10px;" id="email-input-container">
+                            <input type="email" id="email-addr-input" placeholder="이메일 입력 (예: example@email.com)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <label style="font-size: 0.8rem; color: #475569; font-weight: 600;">검진 확정 날짜</label>
+                                <input type="date" id="email-date-input" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #334155;">
                             </div>
+                            <button onclick="window.submitAlternativeContact('email')" style="padding: 10px; background: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 5px;">확인</button>
+                            <button onclick="window.restoreAlimtalkInput(this)" style="padding: 10px; background: white; border: 1px solid #cbd5e1; color: #475569; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 5px;"><i class="fa-solid fa-arrow-left"></i> 이전 단계로 돌아가기</button>
                         </div>
                     </div>
-                `;
-                window.appendMessage('system', html, 'system');
-            }, 500);
-        } else {
-            window.appendMessage('user', '이메일 주소 입력하기', 'user');
-            setTimeout(() => {
-                const html = `
-                    <div class="system-block" style="border-left: 4px solid #3b82f6; background: #eff6ff;">
-                        <div class="block-content">
-                            <p><strong>이메일 주소 및 검진일 입력</strong></p>
-                            <span style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px; display: block; line-height: 1.5;">알림을 받으실 <b>이메일 주소</b>와 확정된 <b>검진 날짜</b>를 함께 입력해주세요.<br><br><span style="color: #2563eb; font-weight: 600;">(의료기관에서 안내받으신 확정 날짜를 적어주시면, 해당 일정에 맞춰 정확하게 안내를 보내드립니다.)</span></span>
-                            <div style="display: flex; flex-direction: column; gap: 10px;" id="email-input-container">
-                                <input type="email" id="email-addr-input" placeholder="이메일 입력 (예: example@email.com)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
-                                <div style="display: flex; flex-direction: column; gap: 4px;">
-                                    <label style="font-size: 0.8rem; color: #475569; font-weight: 600;">검진 확정 날짜</label>
-                                    <input type="date" id="email-date-input" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #334155;">
-                                </div>
-                                <button onclick="window.submitAlternativeContact('email')" style="padding: 10px; background: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 5px;">확인</button>
-                                <button onclick="window.restoreAlimtalkInput(this)" style="padding: 10px; background: white; border: 1px solid #cbd5e1; color: #475569; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 5px;"><i class="fa-solid fa-arrow-left"></i> 이전 단계로 돌아가기</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                window.appendMessage('system', html, 'system');
-            }, 500);
-        }
+                </div>
+            `;
+            window.appendMessage('system', html, 'system');
+        }, 500);
     };
 
     window.submitAlternativeContact = function(type) {
-        let contactInput, dateInput, container;
-        if (type === 'whatsapp') {
-            contactInput = document.getElementById('wa-phone-input');
-            dateInput = document.getElementById('wa-date-input');
-            container = document.getElementById('wa-input-container');
-        } else {
-            contactInput = document.getElementById('email-addr-input');
-            dateInput = document.getElementById('email-date-input');
-            container = document.getElementById('email-input-container');
-        }
+        let contactInput = document.getElementById('email-addr-input');
+        let dateInput = document.getElementById('email-date-input');
+        let container = document.getElementById('email-input-container');
 
         if (!contactInput || !contactInput.value.trim() || !dateInput || !dateInput.value) {
-            alert("연락처와 검진 확정 날짜를 모두 입력해주세요.");
+            alert("이메일과 검진 확정 날짜를 모두 입력해주세요.");
             return;
         }
 
-        const typeLabel = type === 'whatsapp' ? 'WhatsApp' : '이메일';
-        const message = `${typeLabel}: ${contactInput.value.trim()}<br>검진 확정일: ${dateInput.value}`;
+        const message = `이메일: ${contactInput.value.trim()}<br>검진 확정일: ${dateInput.value}`;
         window.appendMessage('user', message, 'user');
         if (container) container.style.display = 'none';
 
@@ -3710,13 +3673,13 @@ function initDashboard() {
 
             db.collection('scheduled_notifications').add({
                 name: userName,
-                contactType: type, // 'whatsapp' or 'email'
+                contactType: 'email',
                 contactValue: contactInput.value.trim(),
                 reservedDate: dateInput.value,
                 hospitalName: window.lastSelectedHospitalName || '미지정',
                 submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 status: 'pending'
-            }).then(() => console.log(`${typeLabel} notification scheduled successfully`)).catch(err => console.error("Error scheduling:", err));
+            }).then(() => console.log(`Email notification scheduled successfully`)).catch(err => console.error("Error scheduling:", err));
         }
 
         setTimeout(() => {

@@ -198,10 +198,6 @@ exports.scheduledB2CNotifications = functions.pubsub
                 "#{안내내용예시}": customNotice
               }
             });
-          } else if (item.contactType === 'whatsapp') {
-            // TO BE INTEGRATED: API call for WhatsApp Gateway (e.g., Twilio, Meta Cloud API)
-            console.log(`[STUB] Sending WhatsApp to ${formattedContact}: ${customNotice}`);
-            // Temporary Fallback to SMS via Solapi if activated, or just logging.
           } else if (item.contactType === 'email') {
             // TO BE INTEGRATED: API call for Email Gateway (e.g., Nodemailer/SendGrid)
             console.log(`[STUB] Sending Email to ${item.contactValue}: ${customNotice}`);
