@@ -1557,7 +1557,7 @@ function handleGoogleSignIn(response) {
     // 로그인 후 Firestore에서 기존 알림 예약 데이터를 조회하여 단계 복원
     if (typeof db !== 'undefined' && db && user.email) {
         db.collection('scheduled_notifications')
-            .where('contactValue', '==', user.email)
+            .where('userGoogleEmail', '==', user.email)
             .where('status', '==', 'pending')
             .orderBy('submittedAt', 'desc')
             .limit(1)
@@ -3662,12 +3662,14 @@ function initDashboard() {
             let userName = '고객';
             try { if(consultationRaw) userName = JSON.parse(consultationRaw).name || userName; } catch(e){}
             
+            const userGoogleEmail = localStorage.getItem('userEmail') || '';
             const dataObj = {
                 name: userName,
                 contactType: 'alimtalk',
                 contactValue: phoneInput.value.trim(),
                 reservedDate: dateInput.value,
                 hospitalName: selectedHospital,
+                userGoogleEmail: userGoogleEmail,
                 submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 status: 'pending'
             };
@@ -3789,12 +3791,14 @@ function initDashboard() {
             let userName = '고객';
             try { if(consultationRaw) userName = JSON.parse(consultationRaw).name || userName; } catch(e){}
 
+            const userGoogleEmail = localStorage.getItem('userEmail') || '';
             const dataObj = {
                 name: userName,
                 contactType: 'email',
                 contactValue: contactInput.value.trim(),
                 reservedDate: dateInput.value,
                 hospitalName: selectedHospital,
+                userGoogleEmail: userGoogleEmail,
                 submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 status: 'pending'
             };
