@@ -3572,8 +3572,10 @@ function initDashboard() {
     };
 
     window.submitAlimtalkPhone = function() {
-        const phoneInput = document.getElementById('kr-phone-input');
-        const dateInput = document.getElementById('kr-date-input');
+        const phoneInputs = document.querySelectorAll('#kr-phone-input');
+        const dateInputs = document.querySelectorAll('#kr-date-input');
+        const phoneInput = phoneInputs[phoneInputs.length - 1];
+        const dateInput = dateInputs[dateInputs.length - 1];
         if (!phoneInput || !phoneInput.value.trim() || !dateInput || !dateInput.value) {
             alert("전화번호와 검진 확정 날짜를 모두 입력해주세요.");
             return;
@@ -3599,8 +3601,10 @@ function initDashboard() {
             }).then(() => console.log("Notification scheduled successfully")).catch(err => console.error("Error scheduling:", err));
         }
         
-        const container1 = document.getElementById('alimtalk-input-container');
-        const container2 = document.getElementById('alimtalk-alt-container');
+        const container1s = document.querySelectorAll('#alimtalk-input-container');
+        const container2s = document.querySelectorAll('#alimtalk-alt-container');
+        const container1 = container1s[container1s.length - 1];
+        const container2 = container2s[container2s.length - 1];
         if (container1) container1.style.display = 'none';
         if (container2) container2.style.display = 'none';
 
@@ -3616,15 +3620,19 @@ function initDashboard() {
             const msgBubble = btn.closest('.msg-bubble') || btn.closest('.system-block');
             if (msgBubble) msgBubble.style.display = 'none';
         }
-        const container1 = document.getElementById('alimtalk-input-container');
-        const container2 = document.getElementById('alimtalk-alt-container');
+        const container1s = document.querySelectorAll('#alimtalk-input-container');
+        const container2s = document.querySelectorAll('#alimtalk-alt-container');
+        const container1 = container1s[container1s.length - 1];
+        const container2 = container2s[container2s.length - 1];
         if (container1) container1.style.display = 'flex';
         if (container2) container2.style.display = 'block';
     };
 
     window.showAlternativeContact = function(type) {
-        const container = document.getElementById('alimtalk-input-container');
-        const altContainer = document.getElementById('alimtalk-alt-container');
+        const containers = document.querySelectorAll('#alimtalk-input-container');
+        const altContainers = document.querySelectorAll('#alimtalk-alt-container');
+        const container = containers[containers.length - 1];
+        const altContainer = altContainers[altContainers.length - 1];
         if (container) container.style.display = 'none';
         if (altContainer) altContainer.style.display = 'none';
 
@@ -3652,9 +3660,13 @@ function initDashboard() {
     };
 
     window.submitAlternativeContact = function(type) {
-        let contactInput = document.getElementById('email-addr-input');
-        let dateInput = document.getElementById('email-date-input');
-        let container = document.getElementById('email-input-container');
+        const contactInputs = document.querySelectorAll('#email-addr-input');
+        const dateInputs = document.querySelectorAll('#email-date-input');
+        const containers = document.querySelectorAll('#email-input-container');
+        
+        const contactInput = contactInputs[contactInputs.length - 1];
+        const dateInput = dateInputs[dateInputs.length - 1];
+        const container = containers[containers.length - 1];
 
         if (!contactInput || !contactInput.value.trim() || !dateInput || !dateInput.value) {
             alert("이메일과 검진 확정 날짜를 모두 입력해주세요.");
