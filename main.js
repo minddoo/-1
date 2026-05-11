@@ -7970,7 +7970,22 @@ function initDdayButtons() {
     const backBtn = document.getElementById('dday-back-btn');
     if (backBtn) {
         backBtn.addEventListener('click', () => {
-            window.showChatBlock('booking');
+            const mainChatView = document.querySelector('.dash-main-content.dash-chat-view:not(#dday-view)');
+            const ddayView = document.getElementById('dday-view');
+            
+            if (mainChatView && ddayView) {
+                // Hide D-Day view
+                ddayView.classList.add('hidden-view');
+                ddayView.style.display = 'none';
+                
+                // Show Main Chat view (concierge)
+                mainChatView.classList.remove('hidden-view');
+                mainChatView.style.display = 'block';
+                
+                // Scroll to bottom
+                const chatMessages = document.getElementById('chat-messages');
+                if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
         });
     }
 }
