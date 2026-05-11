@@ -212,10 +212,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Phase sequences
             const phases = [
-                { p: 20, s: "OCR 텍스트 추출 중...", l: "> Running Tesseract OCR... [OK]\n> Identifying key medical terms..." },
-                { p: 50, s: "질병 코드 매칭 중 (KCD/ICD)...", l: "> Querying KCD-8 Database...\n> Mapping ICD-10 standard codes..." },
-                { p: 80, s: "결과 데이터 번역 중...", l: "> AI Translation Engine (Deep Learning)...\n> Formatting report structure..." },
-                { p: 100, s: "분석 완료!", l: "> Finalizing Report...\n> Ready to display." }
+                { p: 20, s: "언어 데이터 스캐닝 중...", l: "> Reading Korean text... [OK]\n> Identifying administrative data..." },
+                { p: 50, s: "표준 코드 매칭 중 (KCD/ICD)...", l: "> Querying KCD-8 Database...\n> Mapping ICD-10 standard codes..." },
+                { p: 80, s: "다국어 번역 및 치환 중...", l: "> Applying neural translation...\n> Structuring document data..." },
+                { p: 100, s: "처리 완료!", l: "> Finalizing Report...\n> Ready to display." }
             ];
 
             let currentPhase = 0;
@@ -251,11 +251,11 @@ window.displayAiReport = function(fileName) {
     const currentLang = document.documentElement.lang || 'en';
     
     const reportData = {
-        title: { ko: "AI 진단 결과 분석 리포트", en: "AI Medical Diagnosis Analysis Report", ja: "AI診断結果分析レポート" },
+        title: { ko: "결과지 번역 및 질병 코드 정보", en: "Medical Translation & Coding Data", ja: "結果翻訳および疾病コード情報" },
         summary: { 
-            ko: "검사 결과지에 따르면 경미한 위염 증세(K29.7)가 관찰되나, 그 외 주요 지표는 정상 범주입니다. 정기적인 추적 관찰을 권장합니다.",
-            en: "According to the test results, mild gastritis symptoms (K29.7) are observed, but other major indicators are within the normal range. Regular follow-up observation is recommended.",
-            ja: "検査結果によると、軽度の胃炎症状（K29.7）が観察されますが、その他の主要な指標は正常範囲内です。定期的な経過観察をお勧めします。"
+            ko: "본 리포트는 원본 결과지의 한국어 내용을 단순 번역한 데이터입니다. CHECKIT은 의료 기관이 아니며 직접적인 진단이나 상담을 제공하지 않습니다. 상세 결과에 대한 전문적인 해석 및 향후 치료 계획은 반드시 검진을 받으신 해당 병원의 전문의와 상담하시기 바랍니다.",
+            en: "This report is a simple translation of the Korean content in the original test results. CHECKIT is not a medical institution and does not provide direct diagnosis or consultation. For professional interpretation of detailed results and future treatment plans, please consult with a specialist at the hospital where you received the examination.",
+            ja: "本レポートは、オリジナル結果の韓国語内容を単純に翻訳したデータです。 CHECKITは医療機関ではなく、直接的な診断や相談を提供しません。詳細な結果の専門的な解釈および今後の治療計画は、必ず検診を受けた当該病院の専門医にご相談ください。"
         }
     };
 
@@ -263,22 +263,22 @@ window.displayAiReport = function(fileName) {
     row.className = 'message-row coord';
     row.style.width = '100%';
     row.innerHTML = `
-        <div class="ai-report-card" style="background: #ffffff; border: 2px solid #0ea5e9; border-radius: 20px; width: 100%; overflow: hidden; box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15); animation: fadeInUp 0.5s ease;">
-            <div style="background: #0ea5e9; padding: 15px 20px; color: white; display: flex; justify-content: space-between; align-items: center;">
+        <div class="ai-report-card" style="background: #ffffff; border: 2px solid #64748b; border-radius: 20px; width: 100%; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); animation: fadeInUp 0.5s ease;">
+            <div style="background: #64748b; padding: 15px 20px; color: white; display: flex; justify-content: space-between; align-items: center;">
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <i class="fa-solid fa-file-medical" style="font-size: 1.2rem;"></i>
+                    <i class="fa-solid fa-language" style="font-size: 1.2rem;"></i>
                     <strong style="font-size: 1rem;">${reportData.title[currentLang] || reportData.title.en}</strong>
                 </div>
-                <span style="font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 20px;">AI Certified</span>
+                <span style="font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 20px;">Translation Only</span>
             </div>
             
             <div style="padding: 20px;">
-                <div style="margin-bottom: 20px; padding: 15px; background: #f0f9ff; border-radius: 12px; border-left: 4px solid #0ea5e9;">
-                    <h5 style="margin: 0 0 8px; font-size: 0.9rem; color: #0369a1;"><i class="fa-solid fa-magnifying-glass-chart"></i> Analysis Summary</h5>
-                    <p style="margin: 0; font-size: 0.95rem; line-height: 1.6; color: #1e293b;">${reportData.summary[currentLang] || reportData.summary.en}</p>
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <h5 style="margin: 0 0 8px; font-size: 0.9rem; color: #475569;"><i class="fa-solid fa-circle-exclamation"></i> Medical Disclaimer</h5>
+                    <p style="margin: 0; font-size: 0.85rem; line-height: 1.6; color: #1e293b; font-weight: 500;">${reportData.summary[currentLang] || reportData.summary.en}</p>
                 </div>
 
-                <h5 style="margin: 0 0 10px; font-size: 0.9rem; color: #475569;"><i class="fa-solid fa-microscope"></i> Detected Disease Codes (KCD/ICD-10)</h5>
+                <h5 style="margin: 0 0 10px; font-size: 0.9rem; color: #475569;"><i class="fa-solid fa-barcode"></i> Matched Disease Codes (KCD/ICD-10)</h5>
                 <div style="overflow-x: auto; margin-bottom: 20px;">
                     <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
                         <thead>
