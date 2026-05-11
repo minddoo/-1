@@ -113,11 +113,58 @@ window.handleDdayFinish = function(isComplete) {
                 // Auto-back after 8s to allow reading
                 setTimeout(() => {
                     const backBtn = document.getElementById('dday-back-btn');
-                    if (backBtn) backBtn.click();
+                    if (backBtn) {
+                        backBtn.click();
+                        // After going back, wait a bit then show results guidance
+                        setTimeout(() => {
+                            if (window.showResultsGuidance) window.showResultsGuidance();
+                        }, 1200);
+                    }
                 }, 8000);
             }, 800);
         }, 600);
     }
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+};
+
+window.showResultsGuidance = function() {
+    const chatMessages = document.getElementById('chat-messages');
+    if (!chatMessages) return;
+
+    const row = document.createElement('div');
+    row.className = 'message-row coord';
+    row.innerHTML = `
+        <div class="msg-bubble">
+            <p style="margin: 0 0 10px;"><b>✨ 검진 완료를 축하드립니다!</b></p>
+            <p style="margin: 0 0 10px;">이제 가장 중요한 <b>검진 결과 확인</b> 단계가 남았습니다. 결과 수령은 병원 및 의료기관에 따라 상이하지만 보통 <b>1주에서 3주</b> 정도 소요됩니다.</p>
+            <p style="margin: 0 0 10px;">기간 내에 결과를 받으셨다면, <b>한국어 결과 파일(PDF/이미지)</b>을 이곳에 올려주세요! 고객님의 언어로 완벽하게 번역해 드리는 것은 물론, <b>KCD, ICD 질병코드 분석</b>을 포함한 원본과 번역본을 모두 제공해 드립니다. 📄</p>
+            <p style="margin: 0 0 12px; font-size: 0.85rem; color: #64748b;">만약 3주가 지났는데도 결과를 못 받으셨거나, 필요한 날짜 안에 결과가 도착하지 않고 있다면 아래 버튼을 눌러주세요.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button onclick="window.handleUploadResults()" style="padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem;">📄 결과지 업로드하고 번역 받기</button>
+                <button onclick="window.handleNoResultsYet()" style="padding: 10px; background: white; border: 1px solid #ef4444; color: #ef4444; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;">❓ 아직 결과를 못 받았어요</button>
+            </div>
+        </div>
+    `;
+    chatMessages.appendChild(row);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+};
+
+window.handleUploadResults = function() {
+    const chatMessages = document.getElementById('chat-messages');
+    const row = document.createElement('div');
+    row.className = 'message-row coord';
+    row.innerHTML = `<div class="msg-bubble"><span>준비되셨군요! 결과지 파일을 이 채팅창에 <b>드래그 앤 드롭</b>하거나 <b>파일 첨부</b> 아이콘을 눌러 전송해 주세요. 전송 즉시 코디네이터가 확인하여 번역 및 분석 절차를 진행하겠습니다. 🚀</span></div>`;
+    chatMessages.appendChild(row);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+};
+
+window.handleNoResultsYet = function() {
+    const chatMessages = document.getElementById('chat-messages');
+    const row = document.createElement('div');
+    row.className = 'message-row coord';
+    row.innerHTML = `<div class="msg-bubble"><span>결과가 늦어져서 걱정이시군요. 3주 이상 경과했다면 병원 행정상의 이슈가 있을 수 있습니다. 저희 코디네이터가 <b>병원 측에 즉시 연락하여 발송 상태를 확인</b>하고 고객님께 다시 안내해 드리겠습니다. 잠시만 기다려 주세요! 🏥</span></div>`;
+    chatMessages.appendChild(row);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 };
 
