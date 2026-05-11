@@ -3947,11 +3947,17 @@ function initDashboard() {
                         <p style="margin-top: 5px;"><strong>준비물(분변키트, 대장약 등) 수령 확인</strong></p>
                         <span style="color: #64748b; font-size: 0.85rem; display: block; line-height: 1.7; margin-bottom: 15px;">대장내시경이나 분변검사 등 사전 준비물 수령 대상자이신가요?<br><br>
                         <span style="color: #7c3aed; font-weight: 700;">📌 준비물은 보통 검진 5일~1주일 전에 발송됩니다.</span><br>
-                        <span style="color: #475569;">검진이 <u>5일 이내로 임박</u>한 경우, 방금 예약하셨더라도<br>검진 <b>2~3일 전까지도 받지 못하셨다면</b> 아래 버튼을 눌러 알려주세요.<br><span style="color: #94a3b8; font-size: 0.8rem;">(예약 직후나 여유 있는 일정이라면 '아직 여유 있음'을 선택해 주세요.)</span></span></span>
+                        <span style="color: #475569;">검진이 <u>5일 이내로 임박</u>한 경우, 방금 예약하셨더라도<br>검진 <b>2~3일 전까지도 받지 못하셨다면</b> 아래 버튼을 눌러 알려주세요.</span><br><br>
+                        <div style="background: #fffbeb; border: 1px solid #fde68a; padding: 12px; border-radius: 8px; font-size: 0.8rem; color: #92400e; line-height: 1.6;">
+                            💡 <b>검진 2~3일 전 급하게 예약</b>하셨거나, 한국 내 <b>수령 가능한 주소(호텔 등)가 없는 경우</b>에는 병원(의료기관)에 직접 내원하여 대장정결제 등 준비물을 받으실 수 있습니다.
+                        </div></span>
                         
                         <div style="display: flex; flex-direction: column; gap: 8px;" id="supplies-action-container">
                             <button onclick="window.submitSuppliesStatus('received')" style="width: 100%; padding: 12px; background: #8b5cf6; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;" onmouseover="this.style.background='#7c3aed'" onmouseout="this.style.background='#8b5cf6'">
                                 <i class="fa-solid fa-check-circle"></i> 받았거나 아직 여유 있음 (비대상자 포함)
+                            </button>
+                            <button onclick="window.submitSuppliesStatus('hospital_pickup')" style="width: 100%; padding: 12px; background: white; border: 1px solid #8b5cf6; color: #7c3aed; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;" onmouseover="this.style.background='#f5f3ff'" onmouseout="this.style.background='white'">
+                                <i class="fa-solid fa-hospital"></i> 병원 직접 내원해서 수령하겠다
                             </button>
                             <button onclick="window.submitSuppliesStatus('missing')" style="width: 100%; padding: 12px; background: white; border: 1px solid #ef4444; color: #ef4444; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='white'">
                                 <i class="fa-solid fa-triangle-exclamation"></i> 검진 2~3일 전인데도 아직 못 받았다
@@ -3966,8 +3972,9 @@ function initDashboard() {
 
     window.submitSuppliesStatus = function(status) {
         const textMap = {
-            'received': '✅ 받았다 (비대상자이거나 아직 일정 여유 있음)',
-            'missing': '❌ 검진 5일 전인데도 못 받았다'
+            'received': '✅ 받았거나 아직 일정 여유 있음',
+            'missing': '❌ 검진 2~3일 전인데도 못 받았다',
+            'hospital_pickup': '🏥 병원 내원 수령 희망'
         };
         
         window.appendMessage('user', textMap[status] || status, 'user');
@@ -3989,6 +3996,14 @@ function initDashboard() {
             let finalMsg = "";
             if (status === 'received') {
                 finalMsg = `확인해 주셔서 감사합니다! 예약 등록 절차가 모두 마무리되었습니다. 입력하신 정보에 맞춰 검진 전 단계별 안내를 성심껏 전달드리겠습니다. 편안한 검진 되시길 바랍니다.<br><br>
+                <div style="margin-top: 5px; padding: 15px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; text-align: center;">
+                    <p style="margin: 0 0 10px; font-size: 0.85rem; color: #166534; font-weight: 600;">실시간 검진 당일 서포트가 필요하신가요?</p>
+                    <button onclick="window.showChatBlock('dday')" style="width: 100%; padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fa-solid fa-stethoscope"></i> 검진 당일 안내받기
+                    </button>
+                </div>`;
+            } else if (status === 'hospital_pickup') {
+                finalMsg = `알겠습니다! <strong>내원 수령</strong>으로 접수해 드렸습니다. 병원에 미리 연락하여 대장정결제 등 준비물을 바로 받으실 수 있도록 조치하겠습니다. 내원 시 접수처에 성함을 말씀해 주세요.<br><br>
                 <div style="margin-top: 5px; padding: 15px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; text-align: center;">
                     <p style="margin: 0 0 10px; font-size: 0.85rem; color: #166534; font-weight: 600;">실시간 검진 당일 서포트가 필요하신가요?</p>
                     <button onclick="window.showChatBlock('dday')" style="width: 100%; padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
