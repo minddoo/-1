@@ -3917,8 +3917,7 @@ function initDashboard() {
         setTimeout(() => {
             let finalMsg = "";
             if (status === 'received') {
-                finalMsg = `확인해 주셔서 감사합니다! 예약 등록 절차가 모두 마무리되었습니다. 입력하신 정보에 맞춰 검진 전 단계별 안내를 성심껏 전달드리겠습니다. 편안한 검진 되시길 바랍니다.<br><br>
-                <button onclick="window.restoreAlimtalkInput(this)" style="padding: 8px 12px; background: white; border: 1px solid #cbd5e1; color: #475569; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem;"><i class="fa-solid fa-arrow-left"></i> 연락처 수정하기</button>`;
+                finalMsg = `확인해 주셔서 감사합니다! 예약 등록 절차가 모두 마무리되었습니다. 입력하신 정보에 맞춰 검진 전 단계별 안내를 성심껏 전달드리겠습니다. 편안한 검진 되시길 바랍니다.`;
             } else {
                 finalMsg = `<span style="color: #dc2626; font-weight: 700;">🚨 준비물 미수령 접수 완료</span><br><br>
                 해당 내용을 담당 코디네이터에게 즉시 전달했습니다. 의료기관에 확인 후 재발송 절차를 안내드리거나, 신속한 조치를 취할 수 있도록 돕겠습니다.<br><br>
