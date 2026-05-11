@@ -8003,7 +8003,7 @@ function appendDdayCard(text) {
     row.className = 'message-row system';
     row.style.width = '100%';
     row.innerHTML = `
-        <div class="dday-text-card" style="
+        <div class="dday-text-card notranslate" style="
             background: #ffffff;
             border: 3px solid #10b981;
             border-radius: 20px;
@@ -8014,13 +8014,13 @@ function appendDdayCard(text) {
             animation: fadeInUp 0.4s ease-out;
         ">
             <div style="font-size: 0.8rem; color: #10b981; font-weight: 800; margin-bottom: 12px; display:flex; align-items:center; gap:8px; text-transform: uppercase; letter-spacing: 0.05em;">
-                <i class="fa-solid fa-id-card"></i> Show this to hospital staff
+                <i class="fa-solid fa-id-card"></i> Show this to hospital staff (KOREAN)
             </div>
-            <p style="font-size: 1.6rem; font-weight: 800; color: #1e293b; line-height: 1.4; margin: 0; word-break: keep-all;">
+            <p class="notranslate" style="font-size: 1.6rem; font-weight: 800; color: #1e293b; line-height: 1.4; margin: 0; word-break: keep-all;">
                 "${text}"
             </p>
             <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #f1f5f9; font-size: 0.9rem; color: #64748b; font-weight: 500;">
-                <i class="fa-solid fa-circle-info"></i> 이 화면을 병원 직원에게 보여주세요.
+                <i class="fa-solid fa-circle-info"></i> 이 화면을 한국인 병원 직원에게 보여주세요.
             </div>
         </div>
     `;
