@@ -1600,7 +1600,7 @@ window.checkAndRestoreSession = function(email, displayName) {
                     type: 'General',
                     hospital: data.hospitalName || '',
                     date: data.reservedDate || '',
-                    name: userName
+                    name: displayName
                 }));
                 const stepConsultation = document.getElementById('step-consultation');
                 if (stepConsultation) stepConsultation.style.display = 'none';
@@ -1648,6 +1648,9 @@ window.checkAndRestoreSession = function(email, displayName) {
                                 </button>` : ''}
                                 <button onclick="window.showChatBlock('alimtalk')" style="padding: 10px; background: white; border: 1px solid #10b981; color: #059669; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;">
                                     <i class="fa-solid fa-pen"></i> 연락처 / 검진일 정보 수정하기
+                                </button>
+                                <button onclick="window.showChatBlock('dday')" style="margin-top: 5px; padding: 10px; background: #f8fafc; border: 1px solid #cbd5e1; color: #64748b; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.8rem;">
+                                    <i class="fa-solid fa-eye"></i> (테스트용) 검진 당일 단계 강제 진입
                                 </button>
                             </div>
                         </div>
