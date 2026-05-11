@@ -970,6 +970,23 @@
         <!-- My Page View (Initially Hidden) -->
         <div id="mypage-view" class="hidden-view">
             <div class="dashboard-wrapper">
+                <!-- Sidebar -->
+                <aside class="dash-sidebar">
+                    <div class="dash-user-info">
+                        <div id="dash-avatar" class="dash-avatar"></div>
+                        <h4 id="dash-user-name">User Name</h4>
+                        <p id="dash-user-email">user@email.com</p>
+                    </div>
+                    <div style="flex-grow: 1;"></div>
+                    <div class="dash-sidebar-footer" style="padding-top: 20px; border-top: 1px solid #f1f5f9; margin-top: auto; display: flex; flex-direction: column; gap: 8px;">
+                        <button onclick="window.viewFromBeginning()" style="width: 100%; padding: 12px; background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; border-radius: 12px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+                            <i class="fa-solid fa-arrow-up"></i> 상담 처음부터 보기
+                        </button>
+                        <button id="dash-logout-btn" class="btn-logout-minimal">
+                            <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                        </button>
+                    </div>
+                </aside>
 
                 <!-- Main Dashboard Content (Concierge Chat) -->
                 <div class="dash-main-content dash-chat-view">
