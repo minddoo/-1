@@ -110,11 +110,11 @@ window.handleDdayFinish = function(isComplete) {
                 chatMessages.appendChild(coordRow);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
 
-                // Auto-back after 5s to allow reading
+                // Auto-back after 8s to allow reading
                 setTimeout(() => {
                     const backBtn = document.getElementById('dday-back-btn');
                     if (backBtn) backBtn.click();
-                }, 5000);
+                }, 8000);
             }, 800);
         }, 600);
     }
