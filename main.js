@@ -84,7 +84,13 @@ window.handleDdayFinish = function(isComplete) {
                 // Auto-back after 1.5s
                 setTimeout(() => {
                     const backBtn = document.getElementById('dday-back-btn');
-                    if (backBtn) backBtn.click();
+                    if (backBtn) {
+                        backBtn.click();
+                        // Trigger results guidance after return
+                        setTimeout(() => {
+                            if (window.showResultsGuidance) window.showResultsGuidance();
+                        }, 1200);
+                    }
                 }, 1500);
             }, 800);
         }, 600);
