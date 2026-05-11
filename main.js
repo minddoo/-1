@@ -24,7 +24,8 @@ const DDAY_KOREAN_CARDS = {
     "결과 언제 나오는지": "검사 결과는 언제쯤 나오나요? 대략적인 기간이 궁금합니다.",
     "결과 어떻게 받는지": "결과지는 어떤 방법으로 받게 되나요? (이메일/우편 등)",
     "비용": "오늘 검진 비용은 얼마인가요? 결제 도와주세요.",
-    "검진종료": "모든 검사를 무사히 마쳤습니다. 친절하게 안내해 주셔서 감사합니다!"
+    "검진종료": "모든 검사를 무사히 마쳤습니다. 친절하게 안내해 주셔서 감사합니다!",
+    "누락확인": "죄송합니다. 혹시 누락된 검사가 있는지 확인 부탁드립니다. 제가 오늘 받아야 할 모든 검사를 다 마친 것이 맞나요?"
 };
 
 window.confirmDdayFinish = function() {
@@ -74,11 +75,17 @@ window.handleDdayFinish = function(isComplete) {
                 coordRow.className = 'message-row coord';
                 coordRow.innerHTML = `
                     <div class="msg-bubble">
-                        <span>수고 많으셨습니다! 오늘 검진 결과는 정리되는 대로 다시 안내해 드리겠습니다. 편안한 하루 보내세요. ✨</span>
+                        <span>고생하셨습니다. 검진 당일 안내를 종료하겠습니다. ✨</span>
                     </div>
                 `;
                 chatMessages.appendChild(coordRow);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Auto-back after 1.5s
+                setTimeout(() => {
+                    const backBtn = document.getElementById('dday-back-btn');
+                    if (backBtn) backBtn.click();
+                }, 1500);
             }, 800);
         }, 600);
     } else {
@@ -88,15 +95,21 @@ window.handleDdayFinish = function(isComplete) {
         chatMessages.appendChild(userRow);
 
         setTimeout(() => {
-            const coordRow = document.createElement('div');
-            coordRow.className = 'message-row coord';
-            coordRow.innerHTML = `
-                <div class="msg-bubble">
-                    <span>누락된 검사가 있으신가요? 어떤 검사를 못 하셨는지 알려주시면 병원 측과 확인하여 도움을 드리겠습니다. 🏥</span>
-                </div>
-            `;
-            chatMessages.appendChild(coordRow);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            if (typeof window.appendDdayCard === 'function') {
+                window.appendDdayCard(DDAY_KOREAN_CARDS["누락확인"]);
+            }
+            
+            setTimeout(() => {
+                const coordRow = document.createElement('div');
+                coordRow.className = 'message-row coord';
+                coordRow.innerHTML = `
+                    <div class="msg-bubble">
+                        <span>누락된 검사가 있으신가요? 어떤 검사를 못 하셨는지 알려주시면 병원 측과 확인하여 도움을 드리겠습니다. 🏥</span>
+                    </div>
+                `;
+                chatMessages.appendChild(coordRow);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 800);
         }, 600);
     }
     chatMessages.scrollTop = chatMessages.scrollHeight;
