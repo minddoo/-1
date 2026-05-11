@@ -3988,22 +3988,19 @@ function initDashboard() {
         setTimeout(() => {
             let finalMsg = "";
             if (status === 'received') {
-                finalMsg = `확인해 주셔서 감사합니다! 예약 등록 절차가 모두 마무리되었습니다. 입력하신 정보에 맞춰 검진 전 단계별 안내를 성심껏 전달드리겠습니다. 편안한 검진 되시길 바랍니다.`;
+                finalMsg = `확인해 주셔서 감사합니다! 예약 등록 절차가 모두 마무리되었습니다. 입력하신 정보에 맞춰 검진 전 단계별 안내를 성심껏 전달드리겠습니다. 편안한 검진 되시길 바랍니다.<br><br>
+                <div style="margin-top: 5px; padding: 15px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; text-align: center;">
+                    <p style="margin: 0 0 10px; font-size: 0.85rem; color: #166534; font-weight: 600;">실시간 검진 당일 서포트가 필요하신가요?</p>
+                    <button onclick="window.showChatBlock('dday')" style="width: 100%; padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fa-solid fa-stethoscope"></i> 검진 당일 안내받기
+                    </button>
+                </div>`;
             } else {
                 finalMsg = `<span style="color: #dc2626; font-weight: 700;">🚨 준비물 미수령 접수 완료</span><br><br>
                 해당 내용을 담당 코디네이터에게 즉시 전달했습니다. 의료기관에 확인 후 재발송 절차를 안내드리거나, 신속한 조치를 취할 수 있도록 돕겠습니다.<br><br>
                 감사합니다! 추가 궁금하신 사항이 있다면 언제든 문의해 주십시오.`;
             }
             window.appendMessage('coord', finalMsg);
-
-            // Immediately switch to D-Day view if supplies are confirmed
-            if (status === 'received') {
-                setTimeout(() => {
-                    if (typeof window.showChatBlock === 'function') {
-                        window.showChatBlock('dday');
-                    }
-                }, 1500);
-            }
         }, 800);
     };
 
