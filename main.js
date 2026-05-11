@@ -1622,35 +1622,31 @@ window.checkAndRestoreSession = function(email, displayName) {
                 if (typeof window.appendMessage !== 'function') return;
                 const contactLabel = data.contactType === 'email' ? '이메일' : '알림톡(전화번호)';
                 const suppliesLabel = data.suppliesStatus === 'received' ? '✅ 수령 완료'
+                    : data.suppliesStatus === 'hospital_pickup' ? '🏥 내원 수령'
                     : data.suppliesStatus === 'missing' ? '❌ 미수령' : '⬜ 미확인';
-
-                // 이미 모든 단계 완료(suppliesStatus 있음)면 완료 안내만 표시
-                const allDone = !!data.suppliesStatus;
 
                 const resumeHtml = `
                     <div class="system-block" style="border-left: 4px solid #10b981; background: #ecfdf5; padding-right: 20px; animation: fadeInUp 0.4s ease-out;">
                         <div class="block-icon" style="background: rgba(16,185,129,0.2); color: #10b981;"><i class="fa-solid fa-rotate-right"></i></div>
                         <div class="block-content" style="width: 100%;">
-                            <p style="margin-top: 5px;"><strong>✅ 이전 등록 이력이 확인되었습니다!</strong></p>
+                            <p style="margin-top: 5px;"><strong>✅ 이전 예약 정보가 확인되었습니다!</strong></p>
                             <div style="background: white; border-radius: 8px; padding: 12px; margin: 10px 0; border: 1px solid #a7f3d0; font-size: 0.85rem; color: #374151; line-height: 1.8;">
                                 <p style="margin: 0;">🏥 <strong>검진 기관:</strong> ${data.hospitalName || '미입력'}</p>
                                 <p style="margin: 4px 0 0;">📅 <strong>검진 예정일:</strong> ${data.reservedDate || '미입력'}</p>
                                 <p style="margin: 4px 0 0;">📬 <strong>연락처 (${contactLabel}):</strong> ${data.contactValue || '미입력'}</p>
-                                <p style="margin: 4px 0 0;">📦 <strong>준비물 수령:</strong> ${suppliesLabel}</p>
+                                <p style="margin: 4px 0 0;">📦 <strong>준비물 상태:</strong> ${suppliesLabel}</p>
                             </div>
-                            ${allDone ? `
-                            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 0.82rem; color: #166534; font-weight: 600; text-align: center;">
-                                <i class="fa-solid fa-circle-check"></i> 모든 등록 단계가 완료되었습니다.
-                            </div>` : ''}
-                            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
-                                ${!allDone ? `<button onclick="window.askSuppliesStatus()" style="padding: 10px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;">
-                                    <i class="fa-solid fa-forward-step"></i> 마지막 단계(준비물 확인)부터 이어서 진행
-                                </button>` : ''}
-                                <button onclick="window.showChatBlock('alimtalk')" style="padding: 10px; background: white; border: 1px solid #10b981; color: #059669; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;">
-                                    <i class="fa-solid fa-pen"></i> 연락처 / 검진일 정보 수정하기
+                            
+                            <div style="background: #fffbeb; border: 1px solid #fde68a; padding: 10px; border-radius: 8px; margin-bottom: 12px; font-size: 0.82rem; color: #92400e; line-height: 1.5;">
+                                💡 <b>중요 안내:</b> 검진 임박 시 <b>내원 수령(병원 방문)</b> 옵션이 추가되었습니다. 도움이 필요하시면 수정 버튼을 눌러주세요.
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <button onclick="window.showChatBlock('dday')" style="padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                    <i class="fa-solid fa-stethoscope"></i> 검진 당일 실시간 안내 확인하기
                                 </button>
-                                <button onclick="window.showChatBlock('dday')" style="margin-top: 5px; padding: 10px; background: #f8fafc; border: 1px solid #cbd5e1; color: #64748b; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.8rem;">
-                                    <i class="fa-solid fa-eye"></i> (테스트용) 검진 당일 단계 강제 진입
+                                <button onclick="window.askSuppliesStatus()" style="padding: 10px; background: white; border: 1px solid #10b981; color: #059669; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem;">
+                                    <i class="fa-solid fa-pen"></i> 준비물 수령 / 내원 수령 정보 수정
                                 </button>
                             </div>
                         </div>
