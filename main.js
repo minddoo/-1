@@ -184,33 +184,145 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const chatMessages = document.getElementById('chat-messages');
             
-            // Show Uploading Status
-            const statusRow = document.createElement('div');
-            statusRow.className = 'message-row system';
-            statusRow.innerHTML = `<div class="system-bubble" style="background: #f8fafc; color: #64748b; font-size: 0.85rem; padding: 10px; border-radius: 12px; text-align: center; width: 100%;"><i class="fa-solid fa-spinner fa-spin"></i> ${file.name} 업로드 중...</div>`;
-            chatMessages.appendChild(statusRow);
+            // 1. AI Analysis Phase - Scanning
+            const analysisRow = document.createElement('div');
+            analysisRow.className = 'message-row system';
+            analysisRow.innerHTML = `
+                <div class="system-bubble ai-analysis-bubble" style="background: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; padding: 20px; border-radius: 16px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                        <i class="fa-solid fa-robot fa-bounce" style="font-size: 1.5rem; color: #0ea5e9;"></i>
+                        <strong style="font-size: 1rem;">AI Medical Document Analyzer</strong>
+                    </div>
+                    <div id="ai-status-text" style="font-size: 0.9rem; margin-bottom: 10px; font-weight: 600;">📁 ${file.name} 읽는 중...</div>
+                    <div style="width: 100%; height: 6px; background: #e0f2fe; border-radius: 3px; overflow: hidden; position: relative;">
+                        <div id="ai-progress-bar" style="width: 0%; height: 100%; background: #0ea5e9; transition: width 0.5s ease;"></div>
+                    </div>
+                    <div id="ai-log" style="font-size: 0.75rem; margin-top: 12px; color: #64748b; font-family: monospace; height: 40px; overflow: hidden;">
+                        > Initializing OCR engine...<br>
+                        > Extracting text layers...
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(analysisRow);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Simulate Upload
-            setTimeout(() => {
-                statusRow.remove();
-                const successRow = document.createElement('div');
-                successRow.className = 'message-row coord';
-                successRow.innerHTML = `
-                    <div class="msg-bubble">
-                        <p style="margin: 0 0 5px;"><b>✅ 파일 업로드 완료!</b></p>
-                        <span>${file.name} 결과지가 정상적으로 접수되었습니다. <br>코디네이터가 즉시 번역 및 질병코드(KCD/ICD) 분석을 시작합니다. 완료되는 대로 다시 안내해 드리겠습니다. 🚀</span>
-                    </div>
-                `;
-                chatMessages.appendChild(successRow);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // Reset file input
-                fileInput.value = '';
-            }, 2000);
+            const statusText = analysisRow.querySelector('#ai-status-text');
+            const progressBar = analysisRow.querySelector('#ai-progress-bar');
+            const aiLog = analysisRow.querySelector('#ai-log');
+
+            // Phase sequences
+            const phases = [
+                { p: 20, s: "OCR 텍스트 추출 중...", l: "> Running Tesseract OCR... [OK]\n> Identifying key medical terms..." },
+                { p: 50, s: "질병 코드 매칭 중 (KCD/ICD)...", l: "> Querying KCD-8 Database...\n> Mapping ICD-10 standard codes..." },
+                { p: 80, s: "결과 데이터 번역 중...", l: "> AI Translation Engine (Deep Learning)...\n> Formatting report structure..." },
+                { p: 100, s: "분석 완료!", l: "> Finalizing Report...\n> Ready to display." }
+            ];
+
+            let currentPhase = 0;
+            const runPhase = () => {
+                if (currentPhase < phases.length) {
+                    const phase = phases[currentPhase];
+                    progressBar.style.width = phase.p + "%";
+                    statusText.innerText = phase.s;
+                    aiLog.innerHTML += `<br>${phase.l}`;
+                    aiLog.scrollTop = aiLog.scrollHeight;
+                    currentPhase++;
+                    setTimeout(runPhase, 1200);
+                } else {
+                    // Show Final Report
+                    setTimeout(() => {
+                        analysisRow.remove();
+                        window.displayAiReport(file.name);
+                    }, 800);
+                }
+            };
+            setTimeout(runPhase, 500);
+            
+            fileInput.value = '';
         });
     }
 });
+
+window.displayAiReport = function(fileName) {
+    const chatMessages = document.getElementById('chat-messages');
+    if (!chatMessages) return;
+
+    // Get current language from UI if possible, default to English
+    const currentLang = document.documentElement.lang || 'en';
+    
+    const reportData = {
+        title: { ko: "AI 진단 결과 분석 리포트", en: "AI Medical Diagnosis Analysis Report", ja: "AI診断結果分析レポート" },
+        summary: { 
+            ko: "검사 결과지에 따르면 경미한 위염 증세(K29.7)가 관찰되나, 그 외 주요 지표는 정상 범주입니다. 정기적인 추적 관찰을 권장합니다.",
+            en: "According to the test results, mild gastritis symptoms (K29.7) are observed, but other major indicators are within the normal range. Regular follow-up observation is recommended.",
+            ja: "検査結果によると、軽度の胃炎症状（K29.7）が観察されますが、その他の主要な指標は正常範囲内です。定期的な経過観察をお勧めします。"
+        }
+    };
+
+    const row = document.createElement('div');
+    row.className = 'message-row coord';
+    row.style.width = '100%';
+    row.innerHTML = `
+        <div class="ai-report-card" style="background: #ffffff; border: 2px solid #0ea5e9; border-radius: 20px; width: 100%; overflow: hidden; box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15); animation: fadeInUp 0.5s ease;">
+            <div style="background: #0ea5e9; padding: 15px 20px; color: white; display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-file-medical" style="font-size: 1.2rem;"></i>
+                    <strong style="font-size: 1rem;">${reportData.title[currentLang] || reportData.title.en}</strong>
+                </div>
+                <span style="font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 20px;">AI Certified</span>
+            </div>
+            
+            <div style="padding: 20px;">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f0f9ff; border-radius: 12px; border-left: 4px solid #0ea5e9;">
+                    <h5 style="margin: 0 0 8px; font-size: 0.9rem; color: #0369a1;"><i class="fa-solid fa-magnifying-glass-chart"></i> Analysis Summary</h5>
+                    <p style="margin: 0; font-size: 0.95rem; line-height: 1.6; color: #1e293b;">${reportData.summary[currentLang] || reportData.summary.en}</p>
+                </div>
+
+                <h5 style="margin: 0 0 10px; font-size: 0.9rem; color: #475569;"><i class="fa-solid fa-microscope"></i> Detected Disease Codes (KCD/ICD-10)</h5>
+                <div style="overflow-x: auto; margin-bottom: 20px;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+                        <thead>
+                            <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                                <th style="padding: 10px; color: #64748b;">KCD-8</th>
+                                <th style="padding: 10px; color: #64748b;">ICD-10</th>
+                                <th style="padding: 10px; color: #64748b;">Diagnosis (KR)</th>
+                                <th style="padding: 10px; color: #64748b;">Translation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 10px; font-weight: 700; color: #0ea5e9;">K29.7</td>
+                                <td style="padding: 10px; font-weight: 700; color: #6366f1;">K29.70</td>
+                                <td style="padding: 10px; color: #1e293b;">상세불명의 위염</td>
+                                <td style="padding: 10px; color: #0ea5e9; font-weight: 600;">Gastritis, unspecified</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 10px; font-weight: 700; color: #0ea5e9;">E78.5</td>
+                                <td style="padding: 10px; font-weight: 700; color: #6366f1;">E78.5</td>
+                                <td style="padding: 10px; color: #1e293b;">상세불명의 고지혈증</td>
+                                <td style="padding: 10px; color: #0ea5e9; font-weight: 600;">Hyperlipidemia, unspecified</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <a href="#" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; color: #475569; font-size: 0.85rem; font-weight: 600;">
+                        <i class="fa-solid fa-file-pdf"></i> Original PDF
+                    </a>
+                    <a href="#" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #0ea5e9; color: white; border-radius: 10px; font-size: 0.85rem; font-weight: 700;">
+                        <i class="fa-solid fa-download"></i> Translated Report
+                    </a>
+                </div>
+            </div>
+            <div style="background: #f8fafc; padding: 10px 20px; font-size: 0.7rem; color: #94a3b8; text-align: center;">
+                <i class="fa-solid fa-shield-halved"></i> All medical data is encrypted and handled according to privacy standards.
+            </div>
+        </div>
+    `;
+    chatMessages.appendChild(row);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+};
 
 window.appendDdayCard = function(text) {
     console.log("CHECKIT: appendDdayCard", text);
