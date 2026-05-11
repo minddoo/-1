@@ -91,7 +91,7 @@ window.handleDdayFinish = function(isComplete) {
     } else {
         const userRow = document.createElement('div');
         userRow.className = 'message-row user';
-        userRow.innerHTML = `<div class="msg-bubble"><span>아니오, 누락된 검사가 있습니다.</span></div>`;
+        userRow.innerHTML = `<div class="msg-bubble"><span>아니오, 누락된 검사가 있는 것 같아요.</span></div>`;
         chatMessages.appendChild(userRow);
 
         setTimeout(() => {
@@ -104,11 +104,17 @@ window.handleDdayFinish = function(isComplete) {
                 coordRow.className = 'message-row coord';
                 coordRow.innerHTML = `
                     <div class="msg-bubble">
-                        <span>누락된 검사가 있으신가요? 어떤 검사를 못 하셨는지 알려주시면 병원 측과 확인하여 도움을 드리겠습니다. 🏥</span>
+                        <span>병원 직원분께 위 카드를 보여주셨는데도 누락 없이 완료되었다고 안내받으셨다면 결과에 문제없이 반영될 것입니다. 특히 수면 내시경 직후에는 정신이 몽롱하여 검사 여부를 혼동하는 경우가 많으니, 직원이 완료라고 했다면 추후 결과지를 통해 최종 확인해 보셔도 충분합니다. 🏥</span>
                     </div>
                 `;
                 chatMessages.appendChild(coordRow);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Auto-back after 5s to allow reading
+                setTimeout(() => {
+                    const backBtn = document.getElementById('dday-back-btn');
+                    if (backBtn) backBtn.click();
+                }, 5000);
             }, 800);
         }, 600);
     }
