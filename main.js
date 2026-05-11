@@ -3995,6 +3995,15 @@ function initDashboard() {
                 감사합니다! 추가 궁금하신 사항이 있다면 언제든 문의해 주십시오.`;
             }
             window.appendMessage('coord', finalMsg);
+
+            // Immediately switch to D-Day view if supplies are confirmed
+            if (status === 'received') {
+                setTimeout(() => {
+                    if (typeof window.showChatBlock === 'function') {
+                        window.showChatBlock('dday');
+                    }
+                }, 1500);
+            }
         }, 800);
     };
 
