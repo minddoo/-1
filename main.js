@@ -7944,9 +7944,9 @@ window.payForUnlimitedChanges = function() {
 };
 
 /**
- * D-Day Support Logic (Show-to-Staff Text Cards)
+ * D-Day Support Logic (STRICT KOREAN - NEVER TRANSLATE)
  */
-const DDAY_RESPONSES = {
+const DDAY_KOREAN_CARDS = {
     "접수시": "안녕하세요, 오늘 건강검진 예약했습니다. 접수 부탁드립니다.",
     "검진시 길 모를때": "실례합니다. 건강검진센터가 어디에 있나요?",
     "진행상황 물어보기": "다음은 어떤 검사를 받아야 하나요? 진행 상황 확인 부탁드립니다.",
@@ -7965,7 +7965,7 @@ function initDdayButtons() {
         if (!btn) return;
 
         const key = btn.dataset.key;
-        const text = DDAY_RESPONSES[key];
+        const text = DDAY_KOREAN_CARDS[key];
         
         if (text) {
             appendDdayCard(text);
@@ -8000,10 +8000,10 @@ function appendDdayCard(text) {
     if (!chatMessages) return;
 
     const row = document.createElement('div');
-    row.className = 'message-row system';
+    row.className = 'message-row system notranslate';
     row.style.width = '100%';
     row.innerHTML = `
-        <div class="dday-text-card notranslate" style="
+        <div class="dday-text-card notranslate" translate="no" style="
             background: #ffffff;
             border: 3px solid #10b981;
             border-radius: 20px;
@@ -8013,13 +8013,13 @@ function appendDdayCard(text) {
             width: 100%;
             animation: fadeInUp 0.4s ease-out;
         ">
-            <div style="font-size: 0.8rem; color: #10b981; font-weight: 800; margin-bottom: 12px; display:flex; align-items:center; gap:8px; text-transform: uppercase; letter-spacing: 0.05em;">
-                <i class="fa-solid fa-id-card"></i> Show this to hospital staff (KOREAN)
+            <div class="notranslate" style="font-size: 0.8rem; color: #10b981; font-weight: 800; margin-bottom: 12px; display:flex; align-items:center; gap:8px; text-transform: uppercase; letter-spacing: 0.05em;">
+                <i class="fa-solid fa-id-card"></i> SHOW THIS TO HOSPITAL STAFF (KOREAN)
             </div>
-            <p class="notranslate" style="font-size: 1.6rem; font-weight: 800; color: #1e293b; line-height: 1.4; margin: 0; word-break: keep-all;">
+            <p class="notranslate" translate="no" style="font-size: 1.6rem; font-weight: 800; color: #1e293b; line-height: 1.4; margin: 0; word-break: keep-all;">
                 "${text}"
             </p>
-            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #f1f5f9; font-size: 0.9rem; color: #64748b; font-weight: 500;">
+            <div class="notranslate" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #f1f5f9; font-size: 0.9rem; color: #64748b; font-weight: 500;">
                 <i class="fa-solid fa-circle-info"></i> 이 화면을 한국인 병원 직원에게 보여주세요.
             </div>
         </div>
