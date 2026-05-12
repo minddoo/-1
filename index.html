@@ -34,7 +34,12 @@
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://www.paypal.com/sdk/js?client-id=AWZWt7fNy2j6h0CkRjusW6U49VTMB-wq0IuaImBPShZ44DWvzYkvKxU_0FehHUnhoIcZGHwZB2LCZqoC&currency=USD&disable-funding=card"></script>
+    
+    <!-- OCR & PDF Support -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
 </head>
+
 <body>
     <div class="bg-gradient"></div>
 
@@ -1461,8 +1466,78 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
+    <!-- Premium Translation & Disease Analysis Center Modal -->
+    <div id="translation-center-modal" class="modal-overlay hidden-view">
+        <div class="modal-container premium-glass">
+            <div class="modal-header">
+                <div class="header-left">
+                    <div class="brand-badge">CHECKIT AI</div>
+                    <h3>Medical Document Analysis Center</h3>
+                </div>
+                <button class="close-modal" onclick="closeTranslationModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="analysis-grid">
+                    <!-- Left: Original & Translation -->
+                    <div class="content-side">
+                        <div class="tab-controls">
+                            <button class="tab-btn active" data-tab="translated">Translated Result</button>
+                            <button class="tab-btn" data-tab="original">Original Text</button>
+                        </div>
+                        <div class="text-display-area">
+                            <div id="translated-text-view" class="text-pane active">
+                                <div class="translation-loading">
+                                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                    <span>Processing Translation...</span>
+                                </div>
+                            </div>
+                            <div id="original-text-view" class="text-pane">
+                                <!-- Original content goes here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Official Disease Coding -->
+                    <div class="coding-side">
+                        <div class="section-title">
+                            <i class="fa-solid fa-barcode"></i>
+                            <span>Official Disease Coding (KCD/ICD)</span>
+                        </div>
+                        <div class="coding-info-box">
+                            <p>실제 공시 질병코드 사이트 데이터와 대조하여 분석된 결과입니다.</p>
+                        </div>
+                        <div id="disease-coding-results" class="coding-list">
+                            <!-- Matched codes will be injected here -->
+                            <div class="empty-state">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <p>Scanning for diseases...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="coding-footer">
+                            <a href="https://www.koicd.kr/sch/searchTotal.do" target="_blank" class="official-link">
+                                <i class="fa-solid fa-external-link"></i> KOICD 공식 사이트에서 직접 확인
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="file-info">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span id="analyzed-file-name">document.pdf</span>
+                </div>
+                <div class="action-btns">
+                    <button class="btn-secondary" onclick="printReport()"><i class="fa-solid fa-print"></i> Print</button>
+                    <button class="btn-primary" onclick="downloadReport()"><i class="fa-solid fa-download"></i> Download Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="main.js"></script>
 
 </body>
 </html>
-

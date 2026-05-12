@@ -419,3 +419,39 @@ exports.scheduledB2CNotifications = functions.pubsub
     }
   });
 
+/**
+ * Disease Code Lookup via KOICD (Korean Classification of Diseases)
+ * Bypasses CORS issues by running on the server side.
+ */
+const axios = require('axios');
+const cheerio = require('cheerio');
+
+exports.analyzeDiseaseCodes = functions.https.onCall(async (data, context) => {
+  const query = data.query;
+  if (!query) throw new functions.https.HttpsError('invalid-argument', 'Query is required');
+
+  try {
+    const url = `https://www.koicd.kr/sch/searchTotal.do?keyword=${encodeURIComponent(query)}`;
+    const response = await axios.get(url);
+    const $ = cheerio.load(response.data);
+    
+    const results = [];
+    $('.searchResult tr').each((i, el) => {
+      const cells = $(el).find('td');
+      if (cells.length >= 2) {
+        const name = $(cells[0]).text().trim();
+        const code = $(cells[1]).text().trim();
+        if (name && code) {
+          results.push({ name, code });
+        }
+      }
+    });
+
+    return { results: results.slice(0, 10) };
+  } catch (error) {
+    console.error('KOICD Lookup Error:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to fetch disease codes');
+  }
+});
+
+
