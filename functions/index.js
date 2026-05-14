@@ -468,8 +468,8 @@ exports.analyzeMedicalReport = functions.https.onCall(async (data, context) => {
   }
 
   try {
-    // Using Gemini 1.5 Flash - Optimized for speed and free tier
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    // Using Gemini 1.5 Flash - Latest version for better compatibility
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
     const prompt = `Analyze this medical report (provided as an image).
 1. Verbatim Translation: Translate the entire document into ${lang || 'English'}.
