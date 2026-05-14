@@ -495,8 +495,8 @@ Format your response as a strict JSON object:
           parts: [
             { text: prompt },
             {
-              inlineData: {
-                mimeType: "image/jpeg",
+              inline_data: {
+                mime_type: "image/jpeg",
                 data: fileBase64
               }
             }
