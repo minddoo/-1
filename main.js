@@ -1963,7 +1963,7 @@ if (stepItems.length > 0) {
             // PHASE 02
             if (heroSection) heroSection.classList.add('phase-2');
             if (phaseLabel) phaseLabel.innerText = 'PHASE 02';
-            if (phaseTitle) phaseTitle.innerText = '병원 예약 및 주의사항';
+            if (phaseTitle) phaseTitle.innerText = '병원 예약 및 검진 전 주의사항 안내';
         } else {
             // PHASE 01
             if (heroSection) heroSection.classList.remove('phase-2');
