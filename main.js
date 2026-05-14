@@ -376,7 +376,17 @@ window.displayAiReport = function(fileName, data, fileBase64, fileMimeType) {
                     </table>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div style="margin-top: 25px; padding: 15px; background: #fff7ed; border: 1px solid #ffedd5; border-radius: 12px;">
+                    <h5 style="margin: 0 0 8px; font-size: 0.85rem; color: #9a3412; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-triangle-exclamation"></i> 의료법 준수에 따른 법적 고지 (Legal Disclaimer)
+                    </h5>
+                    <p style="margin: 0; font-size: 0.75rem; line-height: 1.6; color: #7c2d12; text-align: justify; letter-spacing: -0.02em;">
+                        본 서비스에서 제공하는 번역 및 질병코드는 전문 의료적 판단이나 소견을 포함하지 않는 자동화된 분석 결과입니다. 본 서비스는 의료법을 준수하며, 비의료적 행정 과정의 편의를 위해 원본 결과지의 내용을 그대로 번역하고 기재된 용어를 공식 질병코드(KCD/ICD)와 매칭하여 제공하는 <strong>'단순 이해 및 다국어 지원용 참고 서비스'</strong>입니다.<br><br>
+                        모든 의료적 상담과 최종 판단은 반드시 해당 병원의 전문의를 통해 진행하시기 바랍니다. 병원에서 발급받은 원본 결과지 이외의 본 분석 결과물은 <strong>대외적인 공식 서류 제출이나 의료기관 문의용으로 사용될 수 없으며</strong>, 개인의 결과 이해를 돕기 위한 참고 자료로만 활용해 주십시오.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
                     <button onclick="window.viewOriginalFile('${fileBase64}', '${fileMimeType}')" style="cursor: pointer; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #f8fafc; border-radius: 10px; color: #475569; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">
                         <i class="fa-solid fa-file-pdf"></i> 원본 파일 확인
                     </button>
