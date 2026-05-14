@@ -459,7 +459,7 @@ exports.analyzeDiseaseCodes = functions.https.onCall(async (data, context) => {
  * Medical Report Analysis using Google Gemini (FREE TIER)
  * Extracts disease codes (KCD-8, ICD-10) and translates findings.
  */
-const GEMINI_API_KEY = 'AIzaSyCLF8UtCqBm-dduMVUM37EfLAatFoz2ILk';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 exports.analyzeMedicalReport = functions.https.onCall(async (data, context) => {
   const { fileBase64, fileName, lang } = data;
