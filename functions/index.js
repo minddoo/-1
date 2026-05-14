@@ -462,14 +462,15 @@ exports.analyzeDiseaseCodes = functions.https.onCall(async (data, context) => {
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 exports.analyzeMedicalReport = functions.https.onCall(async (data, context) => {
-  const { fileBase64, fileName, lang } = data;
+  const { fileBase64, fileName, lang, fileMimeType } = data;
   if (!fileBase64) {
     throw new functions.https.HttpsError('invalid-argument', 'File content (base64) is required.');
   }
 
   try {
-    // Using gemini-flash-latest - The most current stable model available
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+    // Revert to official SDK for stable payload handling, using the verified latest flash model
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
     const prompt = `Analyze this medical report (provided as an image).
 1. Verbatim Translation: Translate the entire document into ${lang || 'English'}.
@@ -489,39 +490,24 @@ Format your response as a strict JSON object:
   ]
 }`;
 
-    const payload = {
-      contents: [
-        {
-          parts: [
-            { text: prompt },
-            {
-              inline_data: {
-                mime_type: "image/jpeg",
-                data: fileBase64
-              }
-            }
-          ]
+    const imageParts = [
+      {
+        inlineData: {
+          data: fileBase64,
+          mimeType: fileMimeType || "image/jpeg"
         }
-      ],
-      generationConfig: {
-        // Removed responseMimeType to ensure compatibility across all API versions
       }
-    };
+    ];
 
-    const response = await axios.post(url, payload, {
-      headers: { 'Content-Type': 'application/json' }
-    });
+    const result = await model.generateContent([prompt, ...imageParts]);
+    const response = await result.response;
+    const text = response.text();
 
-    if (response.data && response.data.candidates && response.data.candidates[0].content) {
-      const resultText = response.data.candidates[0].content.parts[0].text;
-      return JSON.parse(resultText);
-    } else {
-      throw new Error('Invalid response from Gemini API');
-    }
+    const jsonStr = text.replace(/```json\n?|```/g, "").trim();
+    return JSON.parse(jsonStr);
 
   } catch (error) {
-    console.error('Gemini REST API Error:', error.response ? error.response.data : error.message);
-    const detail = error.response && error.response.data && error.response.data.error ? error.response.data.error.message : error.message;
-    throw new functions.https.HttpsError('internal', `Medical Analysis failed (Gemini REST): ${detail}`);
+    console.error('Gemini SDK Error:', error);
+    throw new functions.https.HttpsError('internal', `Medical Analysis failed (Gemini SDK): ${error.message}`);
   }
 });

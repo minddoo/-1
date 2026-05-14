@@ -232,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await analyzeMedicalReport({
                     fileBase64: fileBase64,
                     fileName: file.name,
+                    fileMimeType: file.type || "image/jpeg",
                     lang: currentLang
                 });
 
