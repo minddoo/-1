@@ -283,16 +283,17 @@ window.displayAiReport = function(fileName, data, fileBase64, fileMimeType) {
             
             // If it's a text file, handle encoding carefully
             if (mime === 'text/plain' || fileName.toLowerCase().endsWith('.txt')) {
-                const decoderUtf8 = new TextDecoder('utf-8');
-                const decodedUtf8 = decoderUtf8.decode(byteArray);
-                
-                // If it contains replacement characters (), it might be EUC-KR
-                let finalContent = decodedUtf8;
-                if (decodedUtf8.includes('')) {
+                let finalContent;
+                try {
+                    const decoderUtf8 = new TextDecoder('utf-8', { fatal: true });
+                    finalContent = decoderUtf8.decode(byteArray);
+                } catch (e) {
                     try {
                         const decoderEucKr = new TextDecoder('euc-kr');
                         finalContent = decoderEucKr.decode(byteArray);
-                    } catch(e) {}
+                    } catch (err) {
+                        finalContent = new TextDecoder('utf-8').decode(byteArray);
+                    }
                 }
                 
                 const newWin = window.open('', '_blank');
