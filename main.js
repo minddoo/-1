@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     analysisRow.remove();
                     if (window.displayAiReport) {
-                        window.displayAiReport(file.name, result.data);
+                        window.displayAiReport(file.name, result.data, fileBase64, file.type);
                     }
                 }, 800);
 
@@ -264,40 +264,63 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-window.displayAiReport = function(fileName, aiResult) {
+window.displayAiReport = function(fileName, data, fileBase64, fileMimeType) {
     const chatMessages = document.getElementById('chat-messages');
     if (!chatMessages) return;
 
-    // Get current language from UI if possible, default to English
-    const currentLang = document.documentElement.lang || 'en';
+    const currentLang = document.getElementById('current-lang')?.innerText || 'English';
+    const translationText = data.fullTranslation || "No translation available.";
     
-    const reportData = {
-        title: { ko: "CHECKIT 시스템 분석 리포트", en: "Medical Translation & Coding Data", ja: "結果翻訳および疾病コード情報" },
-        summary: { 
-            ko: "본 리포트는 원본 결과지의 한국어 내용을 정밀 분석한 데이터입니다. 실제 공시 질병코드를 기반으로 분석되었으며, 상세 내용은 아래와 같습니다.",
-            en: "This report is a precise analysis of the Korean medical content. It was analyzed based on official disease codes (KCD/ICD).",
-            ja: "本レポートは、韓国語の医療内容を精密に分析したデータです。公式な疾病コード（KCD/ICD）に基づいて分析されました。"
+    // Helper: View Original File
+    window.viewOriginalFile = function(base64, mime) {
+        try {
+            const byteCharacters = atob(base64);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], {type: mime});
+            const fileURL = URL.createObjectURL(blob);
+            window.open(fileURL, '_blank');
+        } catch (e) {
+            console.error("Error viewing file:", e);
+            alert("파일을 여는 중 오류가 발생했습니다.");
         }
     };
 
-    const translationText = aiResult?.fullTranslation || "Translation not available.";
-    const diseaseCodes = aiResult?.diseaseCodes || [];
+    // Helper: Download Translation
+    window.downloadTranslation = function(fileName, text) {
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `[CHECKIT]_Translated_${fileName}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
 
     let tableRows = '';
-    if (diseaseCodes.length > 0) {
-        diseaseCodes.forEach(item => {
-            tableRows += `
-                <tr style="border-bottom: 1px solid #f1f5f9;">
-                    <td style="padding: 12px; font-weight: 700; color: #0ea5e9;">${item.kcd8 || 'N/A'}</td>
-                    <td style="padding: 12px; color: #64748b;">${item.icd10 || 'N/A'}</td>
-                    <td style="padding: 12px; color: #1e293b; font-weight: 500;">${item.nameKr || 'N/A'}</td>
-                    <td style="padding: 12px; color: #0ea5e9; font-weight: 600;">${item.nameTranslated || 'N/A'}</td>
-                </tr>
-            `;
-        });
-    } else {
-        tableRows = '<tr><td colspan="4" style="padding: 20px; text-align: center; color: #94a3b8;">No disease codes identified.</td></tr>';
+    if (data.diseaseCodes && Array.isArray(data.diseaseCodes)) {
+        tableRows = data.diseaseCodes.map(code => `
+            <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 12px; font-weight: 600; color: #1e293b;">${code.kcd8 || '-'}</td>
+                <td style="padding: 12px; color: #64748b;">${code.icd10 || '-'}</td>
+                <td style="padding: 12px; color: #1e293b;">${code.nameKr || '-'}</td>
+                <td style="padding: 12px; color: #1e293b;">${code.nameTranslated || '-'}</td>
+            </tr>
+        `).join('');
     }
+
+    const reportData = {
+        title: { en: "AI Medical Analysis Report", ko: "AI 의료 리포트 분석 결과" },
+        summary: { 
+            en: "Automated analysis of your medical document has been completed. Below is the verbatim translation and identified disease codes.",
+            ko: "의료 문서의 자동 분석이 완료되었습니다. 아래에서 전체 번역본과 식별된 질병 코드를 확인하실 수 있습니다."
+        }
+    };
 
     const row = document.createElement('div');
     row.className = 'message-row coord';
@@ -307,7 +330,7 @@ window.displayAiReport = function(fileName, aiResult) {
             <div style="background: #64748b; padding: 15px 20px; color: white; display: flex; justify-content: space-between; align-items: center;">
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <i class="fa-solid fa-language" style="font-size: 1.2rem;"></i>
-                    <strong style="font-size: 1rem;">${reportData.title[currentLang] || reportData.title.en}</strong>
+                    <strong style="font-size: 1rem;">${reportData.title[currentLang] || reportData.title.ko}</strong>
                 </div>
                 <span style="font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 20px;">AI Analysis Complete</span>
             </div>
@@ -315,7 +338,7 @@ window.displayAiReport = function(fileName, aiResult) {
             <div style="padding: 20px;">
                 <div style="margin-bottom: 20px; padding: 15px; background: #f0f9ff; border-radius: 12px; border: 1px solid #bae6fd;">
                     <h5 style="margin: 0 0 8px; font-size: 0.9rem; color: #0369a1;"><i class="fa-solid fa-circle-info"></i> 분석 결과 안내</h5>
-                    <p style="margin: 0; font-size: 0.85rem; line-height: 1.6; color: #1e293b; font-weight: 500;">${reportData.summary[currentLang] || reportData.summary.en}</p>
+                    <p style="margin: 0; font-size: 0.85rem; line-height: 1.6; color: #1e293b; font-weight: 500;">${reportData.summary[currentLang] || reportData.summary.ko}</p>
                 </div>
 
                 <div style="margin-bottom: 25px;">
@@ -348,18 +371,18 @@ window.displayAiReport = function(fileName, aiResult) {
                             </tr>
                         </thead>
                         <tbody>
-                            ${tableRows}
+                            ${tableRows || '<tr><td colspan="4" style="padding:20px; text-align:center; color:#94a3b8;">분석된 질병 코드가 없습니다.</td></tr>'}
                         </tbody>
                     </table>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <a href="#" onclick="return false;" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; color: #475569; font-size: 0.85rem; font-weight: 600;">
+                    <button onclick="window.viewOriginalFile('${fileBase64}', '${fileMimeType}')" style="cursor: pointer; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #f8fafc; border-radius: 10px; color: #475569; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">
                         <i class="fa-solid fa-file-pdf"></i> 원본 파일 확인
-                    </a>
-                    <a href="#" onclick="return false;" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #10b981; color: white; border-radius: 10px; font-size: 0.85rem; font-weight: 700; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);">
+                    </button>
+                    <button onclick="window.downloadTranslation('${fileName}', \`${translationText.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`)" style="cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: #10b981; color: white; border-radius: 10px; font-size: 0.85rem; font-weight: 700; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); transition: all 0.2s;">
                         <i class="fa-solid fa-download"></i> 전체 번역본 다운로드
-                    </a>
+                    </button>
                 </div>
             </div>
             <div style="background: #f8fafc; padding: 10px 20px; font-size: 0.7rem; color: #94a3b8; text-align: center; border-top: 1px solid #f1f5f9;">
