@@ -43,6 +43,69 @@
 <body>
     <div class="bg-gradient"></div>
 
+    <!-- Toast Notification -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Mini Cart Panel -->
+    <div id="cart-panel" class="cart-panel">
+        <div class="cart-panel-header">
+            <h3><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</h3>
+            <button class="cart-panel-close" id="cart-panel-close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="cart-panel-body" id="cart-panel-body">
+            <!-- Cart items rendered by JS -->
+        </div>
+        <div class="cart-panel-footer" id="cart-panel-footer">
+            <!-- Footer rendered by JS -->
+        </div>
+    </div>
+    <div id="cart-overlay" class="cart-overlay"></div>
+
+    <!-- Payment Success Modal -->
+    <div id="payment-success-modal" class="payment-success-modal" style="display:none;">
+        <div class="payment-success-card">
+            <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h2>결제 완료!</h2>
+            <p id="payment-success-name"></p>
+            <p class="success-sub">예약 확인 및 상세 안내는 이메일로 전달됩니다.<br>담당 코디네이터가 24시간 내 연락 드립니다.</p>
+            <button class="btn-success-close" onclick="document.getElementById('payment-success-modal').style.display='none'">확인</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Mini Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-drawer-header">
+            <span><i class="fa-solid fa-cart-shopping"></i> 장바구니</span>
+            <button class="cart-drawer-close" id="cart-drawer-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-drawer-body" id="cart-drawer-body">
+            <!-- Items rendered by JS -->
+        </div>
+        <div class="cart-drawer-footer">
+            <div class="cart-drawer-total">
+                <span>합계</span>
+                <span id="cart-drawer-total-amount">$0.00</span>
+            </div>
+            <button class="btn-buy-now" id="cart-checkout-btn" style="margin-top:12px;">결제하러 가기</button>
+        </div>
+    </div>
+    <div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>
+
+    <!-- Order Success Modal -->
+    <div id="order-success-modal" class="order-modal" style="display:none;">
+        <div class="order-modal-box">
+            <div class="order-modal-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h2>결제가 완료되었습니다!</h2>
+            <p id="order-success-msg">서비스 이용이 시작되었습니다. 담당 코디네이터가 곧 연락드릴 예정입니다.</p>
+            <button class="btn-buy-now" onclick="document.getElementById('order-success-modal').style.display='none'" style="margin-top:20px;">확인</button>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <header id="navbar" class="glass-nav">
         <div class="container nav-container">
@@ -1584,41 +1647,6 @@
                     <button class="btn-secondary" onclick="printReport()"><i class="fa-solid fa-print"></i> Print</button>
                     <button class="btn-primary" onclick="downloadReport()"><i class="fa-solid fa-download"></i> Download Report</button>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Shopping Cart Drawer -->
-    <div id="cart-drawer" class="cart-drawer-overlay">
-        <div class="cart-drawer-content">
-            <div class="cart-drawer-header">
-                <h3><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</h3>
-                <button class="close-drawer-btn" id="close-cart-btn">&times;</button>
-            </div>
-            <div class="cart-drawer-body" id="cart-drawer-items">
-                <!-- Cart items dynamically rendered -->
-            </div>
-            <div class="cart-drawer-footer">
-                <div class="cart-total-row">
-                    <span>Total Amount:</span>
-                    <span id="cart-total-price">$0.00</span>
-                </div>
-                <button class="btn-checkout-now" id="checkout-cart-btn">PROCEED TO CHECKOUT</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Wishlist Modal -->
-    <div id="wishlist-modal" class="modal-overlay hidden-view">
-        <div class="premium-glass" style="max-width: 500px; width: 100%;">
-            <div class="modal-header">
-                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-heart" style="color: #e74c3c;"></i> My Wish List
-                </h3>
-                <button class="close-modal" id="close-wishlist-btn" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-light);">&times;</button>
-            </div>
-            <div class="modal-body" id="wishlist-modal-items" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
-                <!-- Wishlist items dynamically rendered -->
             </div>
         </div>
     </div>
