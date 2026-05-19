@@ -1588,6 +1588,41 @@
         </div>
     </div>
 
+    <!-- Shopping Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer-overlay">
+        <div class="cart-drawer-content">
+            <div class="cart-drawer-header">
+                <h3><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</h3>
+                <button class="close-drawer-btn" id="close-cart-btn">&times;</button>
+            </div>
+            <div class="cart-drawer-body" id="cart-drawer-items">
+                <!-- Cart items dynamically rendered -->
+            </div>
+            <div class="cart-drawer-footer">
+                <div class="cart-total-row">
+                    <span>Total Amount:</span>
+                    <span id="cart-total-price">$0.00</span>
+                </div>
+                <button class="btn-checkout-now" id="checkout-cart-btn">PROCEED TO CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlist-modal" class="modal-overlay hidden-view">
+        <div class="premium-glass" style="max-width: 500px; width: 100%;">
+            <div class="modal-header">
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-heart" style="color: #e74c3c;"></i> My Wish List
+                </h3>
+                <button class="close-modal" id="close-wishlist-btn" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-light);">&times;</button>
+            </div>
+            <div class="modal-body" id="wishlist-modal-items" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+                <!-- Wishlist items dynamically rendered -->
+            </div>
+        </div>
+    </div>
+
     <script src="main.js"></script>
 
 </body>
