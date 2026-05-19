@@ -488,6 +488,13 @@ ul {
     image-rendering: -webkit-optimize-contrast;
 }
 
+.hero-workflow.phase-2 .img-slide img {
+    object-fit: contain;
+    background: #ffffff; /* Add white background for the uncropped areas */
+    padding: 10px; /* Slight padding to look like a frame */
+    border: 1px solid #e2e8f0;
+}
+
 @media (max-width: 992px) {
     .img-slide img {
         width: 400px;
