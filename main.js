@@ -1507,9 +1507,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var footer = document.getElementById('cart-panel-footer');
         if (!body || !footer) return;
         if (cart.length === 0) {
-            body.innerHTML = '<div class="cart-panel-empty"><i class="fa-solid fa-bag-shopping"></i><p>' + 
-                '\uc7a5\ubc14\uad6c\ub2c8\uac00 \ube44\uc5b4\uc788\uc2b5\ub2c8\ub2e4.<br>\uc11c\ube45\uc2a4\ub97c \uc120\ud0dd\ud574 \ucd94\uac00\ud574 \ubcf4\uc138\uc694.' + 
-                '</p></div>';
+            body.innerHTML = '<div class="cart-panel-empty"><i class="fa-solid fa-bag-shopping"></i><p>?λ컮援щ땲媛 鍮꾩뼱?덉뒿?덈떎.<br>?쒕퉬?ㅻ? ?좏깮??異붽???蹂댁꽭??</p></div>';
             footer.innerHTML = '';
             return;
         }
@@ -1517,7 +1515,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cart.forEach(function(item, idx) {
             var price = (item.price + (item.unlimitedChanges ? 30 : 0)) * item.qty;
             html += '<div class="cart-item-card">' +
-                '<button class="cart-item-remove" onclick="removeCartItem(' + idx + ')"><i class="fa-solid fa-trash-can"></i> \uc0ad\uc81c</button>' +
+                '<button class="cart-item-remove" onclick="removeCartItem(' + idx + ')"><i class="fa-solid fa-trash-can"></i> ??젣</button>' +
                 '<div class="cart-item-name">' + item.name + '</div>' +
                 '<div class="cart-item-meta"><span><i class="fa-solid fa-user"></i> \u00d7' + item.qty + '\uba85</span>' +
                 (item.unlimitedChanges ? '<span><i class="fa-solid fa-infinity"></i> \ubb34\uc81c\ud55c \ubcc0\uacbd</span>' : '') + '</div>' +
@@ -2410,6 +2408,13 @@ if (authModal && loginBtn) {
             const pipaCheckbox = form.querySelector('#pipa-agree-signup');
             if (pipaCheckbox && !pipaCheckbox.checked) {
                 alert('Please agree to the Personal Information Collection & Usage terms.');
+                return;
+            }
+
+            // Check for Legal Disclaimer agreement
+            const legalCheckbox = form.querySelector('#legal-agree-1');
+            if (legalCheckbox && !legalCheckbox.checked) {
+                alert('서비스 이용을 위해 법적 고지사항 3가지에 모두 동의해 주세요.\n(Please agree to all 3 Service Legal Disclaimers.)');
                 return;
             }
 
