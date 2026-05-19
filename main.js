@@ -1707,8 +1707,7 @@ const workflowTranslations = {
             '니즈에 적합한 병원 리스트와<br><span class="highlight">의료기관 즉시 확인 기능</span>',
             '병원별 프로그램 항목 비교와<br><span class="highlight">본인 맞춤형 검진 자동 매칭</span>',
             '최종 병원 및 프로그램 결정 후<br><span class="highlight">본격적인 예약 절차 진행</span>',
-            '희망 항목이 있는 병원 검색 기능 및<br><span class="highlight">위치, 정보 구글/네이버 실시간 확인</span>'
-        ]
+            '희망 항목이 있는 병원 검색 기능 및<br><span class="highlight">위치, 정보 구글/네이버 실시간 확인</span>',\n            '검진 결과 원본 번역 및<br><span class="highlight">AI 기반 질병 코드 분석</span>',\n            'Original Document Translation &<br><span class="highlight">AI Disease Code Analysis</span>',\n            '健診結果の原本翻訳および<br><span class="highlight">AIベースの疾患コード分析</span>',\n            '体检结果原件翻译及<br><span class="highlight">基于AI的疾病代码分析</span>',\n            'Dịch Bản gốc Kết quả &<br><span class="highlight">Phân tích Mã Bệnh bằng AI</span>',\n            'แปลต้นฉบับผลการตรวจและ<br><span class="highlight">วิเคราะห์รหัสโรคด้วย AI</span>',\n            'Перевод оригинала результатов и<br><span class="highlight">ИИ-анализ кодов заболеваний</span>'\n        ]
     },
     'en': {
         phase: 'Hospital & Program Selection',
