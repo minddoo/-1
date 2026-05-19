@@ -8518,7 +8518,16 @@ if (document.getElementById('paypal-button-container')) {
             label:  'paypal'
         },
         createOrder: function(data, actions) {
-            const totalStr = document.getElementById('total-price-amount').innerText.replace('$', '');
+            let totalText = document.getElementById('total-price-amount').innerText || '300';
+            let totalStr = totalText.replace('$', '').replace(/,/g, '').trim();
+            
+            // Ensure valid format
+            let parsedTotal = parseFloat(totalStr);
+            if (isNaN(parsedTotal) || parsedTotal <= 0) {
+                parsedTotal = 300.00;
+            }
+            totalStr = parsedTotal.toFixed(2); // PayPal requires exact decimal format like "300.00"
+
             return actions.order.create({
                 purchase_units: [{
                     amount: {
@@ -8527,6 +8536,10 @@ if (document.getElementById('paypal-button-container')) {
                     description: 'Checkit Korea Health Check Concierge Service'
                 }]
             });
+        },
+        onError: function (err) {
+            console.error('PayPal Checkout Error:', err);
+            alert('결제 창을 불러오는 중 오류가 발생했습니다. 페이팔 계정 설정이 완전한지 확인해 주세요.\n(PayPal Error: ' + err.message + ')');
         },
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
