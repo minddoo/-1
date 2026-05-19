@@ -33,7 +33,7 @@
     
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=BAAxRZBg84Tq3nTAUZDbi90p9yNhPkYVIYoqdvgDypigyy7euASKm1xirfW82UWUqmllulaDKKIYmpF-Po&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAxRZBg84Tq3nTAUZDbi90p9yNhPkYVIYoqdvgDypigyy7euASKm1xirfW82UWUqmllulaDKKIYmpF-Po&currency=USD&disable-funding=card"></script>
     
     <!-- OCR & PDF Support -->
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
@@ -886,7 +886,10 @@
                         <!-- PayPal Button -->
                         <div class="paypal-wrapper">
                             <div id="paypal-button-container"></div>
-                            <p class="pay-security"><i class="fa-solid fa-lock"></i> Secured by PayPal</p>
+                            <button class="btn-domestic-pay" onclick="document.getElementById('domestic-pay-modal').style.display='flex'" style="width: 100%; background: #2d3748; color: white; padding: 14px; border: none; border-radius: 4px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 10px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.3s; font-family: 'Montserrat', sans-serif;">
+                                <i class="fa-solid fa-credit-card"></i> 국내 결제 (무통장입금 / 계좌이체)
+                            </button>
+                            <p class="pay-security"><i class="fa-solid fa-lock"></i> Secured by PayPal & CHECKIT</p>
                         </div>
                     </div>
                 </div>
@@ -1616,6 +1619,22 @@
                     <button class="btn-primary" onclick="downloadReport()"><i class="fa-solid fa-download"></i> Download Report</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Domestic Payment Modal -->
+    <div id="domestic-pay-modal" class="payment-success-modal" style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="payment-success-card" style="background: white; padding: 40px; border-radius: 12px; text-align: center; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            <div class="success-icon" style="color: #4a5568; font-size: 3rem; margin-bottom: 20px;"><i class="fa-solid fa-building-columns"></i></div>
+            <h2 style="color: #2d3748; margin-bottom: 15px; font-size: 1.5rem; font-family: 'Montserrat', sans-serif;">국내 결제 안내</h2>
+            <p style="font-size:0.95rem; line-height:1.6; margin-bottom: 25px; color: #4a5568;">
+                현재 원화(KRW) 전용 카드 결제 시스템(PG) 연동이 진행 중입니다.<br><br>
+                <strong style="color: #2d3748;">무통장 입금 계좌</strong><br>
+                <span style="font-size: 1.1rem; color: #3182ce; font-weight: bold;">국민은행 123456-00-123456</span><br>
+                예금주: 체킷글로벌(주)<br><br>
+                입금 후 고객센터 우측 하단 챗봇에 성함을 남겨주시면 즉시 예약이 확정됩니다.
+            </p>
+            <button class="btn-success-close" onclick="document.getElementById('domestic-pay-modal').style.display='none'" style="background:#2d3748; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%;">확인</button>
         </div>
     </div>
 
