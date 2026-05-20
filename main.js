@@ -2510,6 +2510,17 @@ if (authModal && loginBtn) {
                 firebase.auth().signInWithEmailAndPassword(email, password)
                     .then(cred => {
                         const displayName = cred.user.displayName || email.split('@')[0];
+                        
+                        // Sync profile to Firestore users collection
+                        const userRef = firebase.firestore().collection('users').doc(cred.user.uid);
+                        userRef.set({
+                            uid: cred.user.uid,
+                            email: email,
+                            displayName: displayName,
+                            lastLoginAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            role: 'user'
+                        }, { merge: true }).catch(err => console.error("Firestore sync error:", err));
+
                         localStorage.setItem('isLoggedIn', 'true');
                         localStorage.setItem('userName', displayName);
                         localStorage.setItem('userEmail', email);
@@ -2574,6 +2585,18 @@ if (authModal && loginBtn) {
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then(cred => {
                         return cred.user.updateProfile({ displayName: displayName }).then(() => cred);
+                    })
+                    .then(cred => {
+                        // Create user profile document in Firestore users collection
+                        return firebase.firestore().collection('users').doc(cred.user.uid).set({
+                            uid: cred.user.uid,
+                            email: email,
+                            displayName: displayName,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            myPageActive: false, // Default: inactive until payments complete
+                            paymentStatus: 'pending', // Default status
+                            role: 'user'
+                        }).then(() => cred);
                     })
                     .then((cred) => {
                         const successView = document.getElementById('signup-success');
