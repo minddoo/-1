@@ -698,8 +698,8 @@
                     const user = doc.data();
                     const id = doc.id;
 
-                    // Skip B2B users entirely on B2C-only Master Dashboard
-                    if (user.email && user.email.endsWith('.checkit.com')) {
+                    // Skip B2B users or incomplete/worker accounts entirely on B2C-only Master Dashboard
+                    if (!user.email || user.email.endsWith('.checkit.com') || user.role === 'worker') {
                         return;
                     }
 
