@@ -907,11 +907,41 @@
     
         // Action: View Customer My Page
         function viewCustomerMypage(email, name) {
-            localStorage.setItem('impersonate_email', email);
-            localStorage.setItem('impersonate_name', name);
-            localStorage.setItem('isLoggedIn', 'true');
-            window.location.href = 'index.html?view=mypage';
+            const iframe = document.getElementById('mypage-preview-iframe');
+            const title = document.getElementById('preview-modal-title');
+            const modal = document.getElementById('mypage-preview-modal');
+            
+            if (iframe && title && modal) {
+                title.innerHTML = `🔧 [실시간 조회] <strong>${name} (${email})</strong> 고객의 마이페이지`;
+                iframe.src = `index.html?view=mypage&impersonate_email=${encodeURIComponent(email)}&impersonate_name=${encodeURIComponent(name)}`;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // prevent dashboard scrolling
+            }
+        }
+        
+        function closeMypagePreview() {
+            const iframe = document.getElementById('mypage-preview-iframe');
+            const modal = document.getElementById('mypage-preview-modal');
+            if (iframe) iframe.src = '';
+            if (modal) modal.style.display = 'none';
+            document.body.style.overflow = ''; // restore dashboard scrolling
         }
     </script>
+
+    <!-- Customer My Page Preview Modal -->
+    <div id="mypage-preview-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:99999; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
+        <div style="background:white; width:90%; height:90%; border-radius:24px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.2);">
+            <div style="padding:15px 25px; border-bottom:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center; background:#f8fafc;">
+                <h3 id="preview-modal-title" style="margin:0; font-size:1.1rem; font-weight:700; color:#1e293b; font-family: 'Pretendard', sans-serif;">고객 마이페이지 실시간 조회</h3>
+                <button onclick="closeMypagePreview()" style="background:rgba(0,0,0,0.05); border:none; width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; justify-content:center; align-items:center; font-size:1.1rem; color:#475569; transition:all 0.2s;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div style="flex:1; width:100%; height:100%; position:relative;">
+                <iframe id="mypage-preview-iframe" src="" style="width:100%; height:100%; border:none; background:#f8fafc;"></iframe>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
