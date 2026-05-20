@@ -1609,6 +1609,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleEmailBtn = document.getElementById('toggle-email-form');
     const emailFormWrapper = document.getElementById('email-form-wrapper');
 
+    if (toggleEmailBtn && emailFormWrapper) {
+        toggleEmailBtn.addEventListener('click', () => {
+            const isVisible = emailFormWrapper.style.display === 'block';
+            emailFormWrapper.style.display = isVisible ? 'none' : 'block';
+            if (!isVisible) {
+                emailFormWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+    }
+
     // Q&A Accordion Toggle
     const qnaQuestions = document.querySelectorAll('.qna-question');
     qnaQuestions.forEach(question => {
