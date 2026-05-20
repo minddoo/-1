@@ -8515,8 +8515,7 @@ if (document.getElementById('paypal-button-container')) {
             layout: 'horizontal',
             color:  'gold',
             shape:  'rect',
-            label:  'paypal',
-            height: 45
+            label:  'paypal'
         },
         createOrder: function(data, actions) {
             let totalText = document.getElementById('total-price-amount').innerText || '300';
