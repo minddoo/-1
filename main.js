@@ -8614,4 +8614,17 @@ window.payForUnlimitedChanges = function() {
 
 window.addEventListener('load', () => {
     initDdayButtons();
+    
+    // Domestic payment modal robust close handler
+    const closeDomesticBtn = document.getElementById('btn-close-domestic-modal');
+    if (closeDomesticBtn) {
+        closeDomesticBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const modal = document.getElementById('domestic-pay-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
 });
