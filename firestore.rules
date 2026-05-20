@@ -11,7 +11,8 @@ service cloud.firestore {
     function isMaster() {
       return request.auth != null && 
              (request.auth.token.email == "master@checkit.com" || 
-              request.auth.token.email == "checkit082082@gmail.com");
+              request.auth.token.email == "checkit082082@gmail.com" ||
+              request.auth.token.email == "checkit082@gmail.com");
     }
 
     // Get the current user's profile data from the 'users' collection
@@ -89,6 +90,12 @@ service cloud.firestore {
     match /scheduled_notifications/{notifId} {
       allow create, update: if true;
       allow read, write: if isMaster();
+    }
+
+    // [7] BLOG_POSTS: Public read, admin/master write
+    match /blog_posts/{postId} {
+      allow read: if true;
+      allow write: if isMaster();
     }
   }
 }

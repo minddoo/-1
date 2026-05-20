@@ -8907,7 +8907,6 @@ const BLOG_SEED_DATA = [
 ];
 
 // Initialize blog data
-blogAllPosts = [...BLOG_SEED_DATA];
 
 // Category color map
 const BLOG_CAT_COLORS = {
@@ -9020,6 +9019,32 @@ window.closeBlogDetail = function() {
     document.getElementById('blog-detail-view').style.display = 'none';
     document.getElementById('blog-list-view').style.display = 'block';
 };
+
+// Initialize blog data from Firestore or fallback to seed data
+if (db) {
+    db.collection('blog_posts').orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+        if (!snapshot.empty) {
+            blogAllPosts = [];
+            snapshot.forEach(doc => {
+                blogAllPosts.push({
+                    id: doc.id,
+                    ...doc.data()
+                });
+            });
+        } else {
+            // Fallback to seeds if DB is empty
+            blogAllPosts = [...BLOG_SEED_DATA];
+        }
+        renderBlogGrid();
+    }, err => {
+        console.error("Firestore Blog Loading Error:", err);
+        blogAllPosts = [...BLOG_SEED_DATA];
+        renderBlogGrid();
+    });
+} else {
+    blogAllPosts = [...BLOG_SEED_DATA];
+    renderBlogGrid();
+}
 
 // Auto-render when blog view becomes visible
 const blogObserver = new MutationObserver((mutations) => {
