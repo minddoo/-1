@@ -2424,6 +2424,8 @@ ul {
 
 #google-login-btn {
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .social-btn-auth {
