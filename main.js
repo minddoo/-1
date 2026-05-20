@@ -2168,11 +2168,7 @@ function handleGoogleSignIn(response) {
     
     // Send Confirmation Email via Google Apps Script for Google Users
     if (user.email) {
-        // [MASTER ACCOUNT REDIRECTION]
-        if (user.email === "master@checkit.com" || user.email === "checkit082082@gmail.com") {
-            window.location.href = 'master_dashboard.html';
-            return;
-        }
+        // Master emails will be handled dynamically when clicking Go to My Page.
 
         fetch('https://script.google.com/macros/s/AKfycbxxyYRM6I6c1QIY2lQ9sGAm2DIzXz0xKAkm7ne2gUTA4car0s1VC-zMhExnBpLl6oYjIw/exec', {
 
@@ -2468,7 +2464,7 @@ if (authModal && loginBtn) {
                             if (successView) {
                                 successView.querySelector('h3').innerText = 'Welcome Back, Master!';
                                 successView.querySelector('p').innerText = 'Successfully logged in as Admin.';
-                                successView.querySelector('.redirect-text').innerText = 'Redirecting to Master Dashboard...';
+                                successView.querySelector('.redirect-text').innerText = 'Loading secure admin session...';
                                 
                                 loginForm.style.display = 'none';
                                 authTabs.style.display = 'none';
@@ -2487,8 +2483,6 @@ if (authModal && loginBtn) {
                                     submitBtn.innerText = originalText;
                                     submitBtn.disabled = false;
                                     loginForm.style.display = '';
-                                    
-                                    window.location.href = 'master_dashboard.html';
                                 }, 1500);
                             }
                         }).catch(err => {
@@ -2728,6 +2722,17 @@ window.showView = function(viewName) {
     const navbar = document.getElementById('navbar');
     
     if (viewName === 'mypage') {
+        const userEmail = localStorage.getItem('userEmail');
+        const MASTER_EMAILS = ['master@checkit.com', 'checkit082082@gmail.com', 'checkit082@gmail.com'];
+        if (MASTER_EMAILS.includes(userEmail)) {
+            if (mypageModal) {
+                mypageModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+            window.location.href = 'master_dashboard.html';
+            return;
+        }
+
         // Hide global navbar to prevent overlap with chat header
         if (navbar) navbar.style.display = 'none';
         
