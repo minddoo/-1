@@ -879,7 +879,7 @@
                             <!-- Secondary row: Cart + Domestic Payment -->
                             <div class="secondary-actions">
                                 <button class="btn-secondary" id="add-to-cart-btn">장바구니에 담기</button>
-                                <button type="button" class="btn-secondary" onclick="document.getElementById('domestic-pay-modal').classList.add('is-open')">💳 국내 결제</button>
+                                <button type="button" class="btn-secondary" onclick="if(window.requireLoginForPayment && window.requireLoginForPayment('국내 결제')) { document.getElementById('domestic-pay-modal').classList.add('is-open'); }">💳 국내 결제</button>
                             </div>
                         </div>
 

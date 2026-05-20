@@ -1560,6 +1560,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (addToCartBtn) {
         addToCartBtn.addEventListener('click', function() {
+            if (window.requireLoginForPayment && !window.requireLoginForPayment('장바구니 담기')) return;
+            
             var item = {
                 id: 'total-safe-global-plan', name: 'Total-Safe Global Plan', price: 300,
                 qty: parseInt((qtyInput ? qtyInput.value : 1) || 1),
@@ -8710,9 +8712,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+window.requireLoginForPayment = function(actionName) {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (!isLoggedIn) {
+        alert("회원가입 및 로그인 후 " + actionName + " 진행이 가능합니다.");
+        const authModal = document.getElementById('auth-modal');
+        if (authModal) {
+            authModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            if (typeof initGoogleLogin === 'function') initGoogleLogin();
+        }
+        return false;
+    }
+    return true;
+};
+
 // PayPal Integration Logic
 if (document.getElementById('paypal-button-container')) {
     paypal.Buttons({
+        onClick: function(data, actions) {
+            if (!window.requireLoginForPayment('페이팔 결제')) {
+                return actions.reject();
+            }
+            return actions.resolve();
+        },
         style: {
             layout: 'vertical',
             color:  'gold',
