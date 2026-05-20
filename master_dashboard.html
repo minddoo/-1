@@ -645,6 +645,37 @@
             loadUsersData();
         }
 
+        // Decode hex email format dynamically for B2B accounts
+        function tryDecodeHexEmail(email) {
+            if (!email) return '';
+            if (email.endsWith('.checkit.com')) {
+                const parts = email.split('@');
+                const localPart = parts[0];
+                const domainPart = parts[1] ? parts[1].split('.')[0] : '';
+                
+                const decodeHex = (hex) => {
+                    try {
+                        let str = '';
+                        for (let i = 0; i < hex.length; i += 2) {
+                            str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+                        }
+                        return str;
+                    } catch (e) {
+                        return hex;
+                    }
+                };
+
+                const isHex = (str) => /^[0-9a-fA-F]+$/.test(str);
+                
+                if (isHex(localPart) && isHex(domainPart)) {
+                    const decodedLocal = decodeHex(localPart);
+                    const decodedDomain = decodeHex(domainPart);
+                    return `<div style="font-size: 0.75rem; color: #3b82f6; margin-top: 2px; font-weight: 600;"><i class="fa-solid fa-link-slash"></i> B2B: ${decodedLocal}@${decodedDomain}</div>`;
+                }
+            }
+            return '';
+        }
+
         // --- Core Users Data Stream ---
         function loadUsersData() {
             // Read users collection in real-time
@@ -686,14 +717,35 @@
                     if (user.myPageActive) activeMypage++;
                     if (user.paymentStatus === 'paid') paidUsers++;
 
+                    // Determine User Type Badge
+                    let typeBadge = '';
+                    if (user.email) {
+                        if (user.email.endsWith('.checkit.com')) {
+                            if (user.email.startsWith('61646d696e')) {
+                                typeBadge = '<span style="font-size: 0.75rem; font-weight: 700; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; padding: 4px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-user-tie"></i> B2B 관리자</span>';
+                            } else {
+                                typeBadge = '<span style="font-size: 0.75rem; font-weight: 700; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; padding: 4px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-briefcase"></i> B2B 임직원</span>';
+                            }
+                        } else if (MASTER_EMAILS.includes(user.email)) {
+                            typeBadge = '<span style="font-size: 0.75rem; font-weight: 700; background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; padding: 4px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-crown"></i> MASTER</span>';
+                        } else {
+                            typeBadge = '<span style="font-size: 0.75rem; font-weight: 700; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; padding: 4px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-user"></i> B2C 일반고객</span>';
+                        }
+                    } else {
+                        typeBadge = '<span style="font-size: 0.75rem; font-weight: 700; background: #f3f4f6; color: #374151; border: 1px solid #e5e7eb; padding: 4px 10px; border-radius: 12px;">일반 회원</span>';
+                    }
+
                     // 1. Render Tab 1 (고객 회원가입 정보)
                     usersHtml += `
                         <tr>
                             <td style="font-size: 0.8rem; font-weight: 700; color: #888;">${createdStr}</td>
                             <td style="font-family: monospace; font-size: 0.8rem; color: #666;">${user.uid || id}</td>
-                            <td style="font-weight: 700; color: #1a1a1a;">${user.email}</td>
+                            <td>
+                                <div style="font-weight: 700; color: #1a1a1a;">${user.email}</div>
+                                ${tryDecodeHexEmail(user.email)}
+                            </td>
                             <td style="font-weight: 600;">${user.displayName || 'Unnamed User'}</td>
-                            <td><span style="font-size: 0.75rem; font-weight: 700; background: #e0e0e0; padding: 4px 10px; border-radius: 12px; text-transform: uppercase;">${user.role || 'user'}</span></td>
+                            <td>${typeBadge}</td>
                             <td style="font-size: 0.8rem; color: #888;">${loginStr}</td>
                         </tr>
                     `;
@@ -708,7 +760,10 @@
                                 <div style="font-weight: 700; color: #1a1a1a;">${user.displayName || 'Unnamed User'}</div>
                                 <div style="font-size: 0.75rem; color: #888; font-family: monospace;">UID: ${id}</div>
                             </td>
-                            <td style="font-weight: 600;">${user.email}</td>
+                            <td>
+                                <div style="font-weight: 600;">${user.email}</div>
+                                ${tryDecodeHexEmail(user.email)}
+                            </td>
                             <td>
                                 <span class="status-badge ${pStatus === 'paid' ? 'status-paid' : 'status-pending'}">
                                     <i class="fa-solid ${pStatus === 'paid' ? 'fa-circle-check' : 'fa-clock'}"></i>
