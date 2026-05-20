@@ -8512,7 +8512,7 @@ document.addEventListener('DOMContentLoaded', () => {
 if (document.getElementById('paypal-button-container')) {
     paypal.Buttons({
         style: {
-            layout: 'horizontal',
+            layout: 'vertical',
             color:  'gold',
             shape:  'rect',
             label:  'paypal'
