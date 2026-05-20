@@ -876,21 +876,20 @@
 
                         <!-- Action Buttons -->
                         <div class="product-actions">
-                            <button class="btn-buy-now">BUY IT NOW</button>
+                            <!-- PayPal: Full width, top (replaces BUY IT NOW) -->
+                            <div id="paypal-button-container" style="margin-bottom: 10px;"></div>
+
+                            <!-- Secondary row: Cart + Domestic Payment -->
                             <div class="secondary-actions">
-                                <button class="btn-secondary" id="add-to-cart-btn">ADD TO CART</button>
-                                <button class="btn-secondary" id="wishlist-btn"><i class="fa-regular fa-heart"></i> WISH LIST</button>
+                                <button class="btn-secondary" id="add-to-cart-btn">장바구니에 담기</button>
+                                <button type="button" class="btn-secondary" onclick="document.getElementById('domestic-pay-modal').classList.add('is-open')">💳 국내 결제</button>
                             </div>
                         </div>
 
-                        <!-- PayPal Button -->
+                        <!-- Payment Notice -->
                         <div class="paypal-wrapper">
-                            <div id="paypal-button-container"></div>
-                            <button type="button" class="btn-domestic-pay" onclick="document.getElementById('domestic-pay-modal').classList.add('is-open')" style="width: 100%; background: #2d3748; color: white; padding: 14px; border: none; border-radius: 4px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 10px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.3s; font-family: 'Montserrat', sans-serif;">
-                                <i class="fa-solid fa-credit-card"></i> 국내 결제 (무통장입금 / 계좌이체)
-                            </button>
-                            <p class="pay-security"><i class="fa-solid fa-lock"></i> Secured by PayPal & CHECKIT</p>
-                            <div style="background: #edf2f7; padding: 10px; border-radius: 8px; margin-top: 15px; text-align: left; font-size: 0.85rem; color: #4a5568; line-height: 1.5; font-family: 'Montserrat', sans-serif;">
+                            <p class="pay-security"><i class="fa-solid fa-lock"></i> PayPal 및 CHECKIT으로 안전하게 결제하세요.</p>
+                            <div style="background: #edf2f7; padding: 10px; border-radius: 8px; margin-top: 8px; text-align: left; font-size: 0.85rem; color: #4a5568; line-height: 1.5; font-family: 'Montserrat', sans-serif;">
                                 <i class="fa-solid fa-circle-info"></i> <strong>진행 안내:</strong> 결제(또는 입금) 완료 전에는 마이페이지 접속은 가능하나, <strong>예약 진행 단계가 활성화되지 않습니다.</strong> 결제 시 즉시 활성화됩니다.
                             </div>
                         </div>
