@@ -2824,6 +2824,15 @@ window.showView = function(viewName) {
         if (typeof initDashboard === 'function') {
             initDashboard();
         }
+        // Always re-subscribe to ensure self-test/step-1 visibility is correct
+        // (handles re-navigation to mypage without full re-init)
+        if (typeof window.subscribeToUserActiveState === 'function') {
+            const currentEmail = localStorage.getItem('userEmail') || '';
+            const alreadySubmitted = localStorage.getItem('consultationData_' + currentEmail);
+            if (!alreadySubmitted) {
+                window.subscribeToUserActiveState(currentEmail);
+            }
+        }
     } else if (viewName === 'home') {
         // Show global navbar
         if (navbar) navbar.style.display = 'block';
@@ -8689,59 +8698,7 @@ window.handleInlineFormSubmit = function() {
     localStorage.setItem(`consultationData_${localStorage.getItem('userEmail') || ''}`, JSON.stringify(data));
 };
 
-// Language Selection Logic
-document.addEventListener('DOMContentLoaded', () => {
-    const currentLang = document.querySelector('.current-lang');
-    const langDropdown = document.querySelector('.lang-dropdown');
-    const langOptions = document.querySelectorAll('.lang-option');
-    const currentLangText = document.getElementById('current-lang');
 
-    if (currentLang && langDropdown) {
-        currentLang.addEventListener('click', (e) => {
-            e.stopPropagation();
-            langDropdown.classList.toggle('show');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!currentLang.contains(e.target)) {
-                langDropdown.classList.remove('show');
-            }
-        });
-
-        langOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                const langCode = option.getAttribute('data-lang');
-                const langName = option.innerText;
-                
-                // Update UI
-                currentLangText.innerText = langName;
-                langDropdown.classList.remove('show');
-                
-                // Trigger Google Translate
-                const gtCombo = document.querySelector('.goog-te-combo');
-                if (gtCombo) {
-                    gtCombo.value = langCode;
-                    gtCombo.dispatchEvent(new Event('change'));
-                } else {
-                    // Set Google Translate cookie directly and reload
-                    document.cookie = "googtrans=/en/" + langCode + "; path=/";
-                    document.cookie = "googtrans=/en/" + langCode + "; domain=" + location.hostname + "; path=/";
-                    location.reload();
-                }
-            });
-        });
-        
-        // Auto-detect current language from Google Translate cookie on load
-        const match = document.cookie.match(/googtrans=\/en\/([^;]+)/);
-        if (match && match[1]) {
-            const currentCode = match[1];
-            const activeOption = document.querySelector(`.lang-option[data-lang="${currentCode}"]`);
-            if (activeOption) {
-                currentLangText.innerText = activeOption.innerText;
-            }
-        }
-    }
-});
 
 // Translation Optimization & Brand Protection
 document.addEventListener('DOMContentLoaded', () => {
