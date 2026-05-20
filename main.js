@@ -8556,7 +8556,7 @@ if (document.getElementById('paypal-button-container')) {
                 const nameEl = document.getElementById('payment-success-name');
                 if (modal && nameEl) {
                     nameEl.innerHTML = `<strong>${details.payer.name.given_name}</strong>님의 결제가 성공적으로 승인되었습니다.`;
-                    modal.style.display = 'flex';
+                    modal.classList.add('is-open');
                 } else {
                     alert('Transaction completed by ' + details.payer.name.given_name + '!');
                 }
@@ -8614,17 +8614,4 @@ window.payForUnlimitedChanges = function() {
 
 window.addEventListener('load', () => {
     initDdayButtons();
-    
-    // Domestic payment modal robust close handler
-    const closeDomesticBtn = document.getElementById('btn-close-domestic-modal');
-    if (closeDomesticBtn) {
-        closeDomesticBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const modal = document.getElementById('domestic-pay-modal');
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        });
-    }
 });

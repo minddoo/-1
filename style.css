@@ -4337,13 +4337,15 @@ body {
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 9998;
-    display: flex !important;
+    display: none;
     align-items: center;
     justify-content: center;
     padding: 20px;
 }
 
-.payment-success-modal[style*="display:none"] { display: none !important; }
+.payment-success-modal.is-open {
+    display: flex;
+}
 
 .payment-success-card {
     background: var(--white);
