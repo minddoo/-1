@@ -2444,7 +2444,12 @@ if (authModal && loginBtn) {
                     if (isCorrectPassword) {
                         firebase.auth().signInWithEmailAndPassword(email, password).catch(err => {
                             if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
-                                return firebase.auth().createUserWithEmailAndPassword(email, password);
+                                return firebase.auth().createUserWithEmailAndPassword(email, password).catch(createErr => {
+                                    if (createErr.code === 'auth/email-already-in-use') {
+                                        throw new Error("Incorrect password for Master Admin.");
+                                    }
+                                    throw createErr;
+                                });
                             }
                             throw err;
                         }).then(() => {
@@ -2501,7 +2506,7 @@ if (authModal && loginBtn) {
                     }
                 }
 
-                // Normal user Firebase Auth Login
+                // Normal user Firebase Auth Login (Strictly requires signup first)
                 firebase.auth().signInWithEmailAndPassword(email, password)
                     .then(cred => {
                         const displayName = cred.user.displayName || email.split('@')[0];
@@ -2512,14 +2517,16 @@ if (authModal && loginBtn) {
                         showWelcomeAndClose(displayName);
                     })
                     .catch(err => {
-                        // Fallback to mock successful login for testing
-                        console.warn("Auth error, using mock fallback:", err.message);
-                        const displayName = email.split('@')[0];
-                        localStorage.setItem('isLoggedIn', 'true');
-                        localStorage.setItem('userName', displayName);
-                        localStorage.setItem('userEmail', email);
-                        updateAuthUI();
-                        showWelcomeAndClose(displayName);
+                        console.error("Login failed:", err);
+                        let errMsg = "Incorrect email or password. Please try again.";
+                        if (err.code === 'auth/user-not-found') {
+                            errMsg = "No account found with this email. Please sign up first.";
+                        } else if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+                            errMsg = "Incorrect email or password. Please check your credentials.";
+                        }
+                        alert(errMsg);
+                        submitBtn.innerText = originalText;
+                        submitBtn.disabled = false;
                     });
 
                 function showWelcomeAndClose(displayName) {
@@ -2558,7 +2565,7 @@ if (authModal && loginBtn) {
                     }
                 }
             } else {
-                // SignUp Form Submission
+                // SignUp Form Submission (Real user creation in Firebase Auth)
                 const nameInput = form.querySelector('input[type="text"]');
                 const displayName = nameInput ? nameInput.value : 'User';
                 const passwordInput = form.querySelector('input[type="password"]');
@@ -2566,12 +2573,9 @@ if (authModal && loginBtn) {
 
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then(cred => {
-                        return cred.user.updateProfile({ displayName: displayName });
+                        return cred.user.updateProfile({ displayName: displayName }).then(() => cred);
                     })
-                    .catch(err => {
-                        console.warn("Auth signup error, using mock fallback:", err.message);
-                    })
-                    .finally(() => {
+                    .then((cred) => {
                         const successView = document.getElementById('signup-success');
                         const signupForm = document.getElementById('signup-form');
                         const authTabs = document.querySelector('.auth-tabs');
@@ -2616,6 +2620,20 @@ if (authModal && loginBtn) {
                                 signupForm.style.display = '';
                             }, 2500);
                         }
+                    })
+                    .catch(err => {
+                        console.error("Signup error:", err);
+                        let errMsg = "Registration failed. Please try again.";
+                        if (err.code === 'auth/email-already-in-use') {
+                            errMsg = "This email is already registered. Please sign in instead.";
+                        } else if (err.code === 'auth/weak-password') {
+                            errMsg = "Password should be at least 6 characters.";
+                        } else if (err.code === 'auth/invalid-email') {
+                            errMsg = "Please enter a valid email address.";
+                        }
+                        alert(errMsg);
+                        submitBtn.innerText = originalText;
+                        submitBtn.disabled = false;
                     });
             }
         });

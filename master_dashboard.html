@@ -727,7 +727,12 @@
                 auth.signInWithEmailAndPassword(email, password).catch(err => {
                     if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
                         // User does not exist or credentials issue (auto-fallback to create)
-                        return auth.createUserWithEmailAndPassword(email, password);
+                        return auth.createUserWithEmailAndPassword(email, password).catch(createErr => {
+                            if (createErr.code === 'auth/email-already-in-use') {
+                                throw new Error("Incorrect password for Master Admin.");
+                            }
+                            throw createErr;
+                        });
                     }
                     throw err;
                 }).catch(err => {
