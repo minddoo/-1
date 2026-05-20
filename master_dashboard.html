@@ -922,15 +922,22 @@
             let notifData = null;
 
             const usersQuery = db.collection('users').where('email', '==', email).limit(1).get();
+            // orderBy 제거 → 복합 인덱스 불필요, 클라이언트에서 정렬
             const notifQuery = db.collection('scheduled_notifications')
                 .where('userGoogleEmail', '==', email)
-                .orderBy('submittedAt', 'desc')
-                .limit(1)
                 .get();
 
             Promise.all([usersQuery, notifQuery]).then(([uSnap, nSnap]) => {
                 if (!uSnap.empty) userData = uSnap.docs[0].data();
-                if (!nSnap.empty) notifData = nSnap.docs[0].data();
+                if (!nSnap.empty) {
+                    // 클라이언트에서 submittedAt 기준 내림차순 정렬 후 첫 번째 항목 사용
+                    const sorted = nSnap.docs.sort((a, b) => {
+                        const tA = a.data().submittedAt ? a.data().submittedAt.toMillis() : 0;
+                        const tB = b.data().submittedAt ? b.data().submittedAt.toMillis() : 0;
+                        return tB - tA;
+                    });
+                    notifData = sorted[0].data();
+                }
                 body.innerHTML = renderCustomerMypageHTML(email, name, userData, notifData);
             }).catch(err => {
                 body.innerHTML = `<div style="text-align:center; padding:40px; color:#ef4444;"><i class="fa-solid fa-circle-exclamation" style="font-size:2rem; margin-bottom:10px; display:block;"></i>데이터 로드 오류: ${err.message}</div>`;
