@@ -2951,7 +2951,16 @@ function initDashboard() {
     window.loadChatHistory = function() {
         const history = JSON.parse(localStorage.getItem(`chat_history_${localStorage.getItem('userEmail') || ''}`) || '[]');
         if (history.length > 0) {
+            const selfTestEl = document.getElementById('step-self-test');
+            const stepConsultationEl = document.getElementById('step-consultation');
+            const welcomeEl = chatMessages.firstElementChild;
+            const welcomeClone = (welcomeEl && welcomeEl.classList.contains('coord')) ? welcomeEl.cloneNode(true) : null;
+            const selfTestClone = selfTestEl ? selfTestEl.cloneNode(true) : null;
+            const stepConsultationClone = stepConsultationEl ? stepConsultationEl.cloneNode(true) : null;
+
             chatMessages.innerHTML = '';
+            
+            if (welcomeClone) chatMessages.appendChild(welcomeClone);
             history.forEach(msg => {
                 const row = document.createElement('div');
                 row.className = `message-row ${msg.sender}`;
@@ -2996,6 +3005,10 @@ function initDashboard() {
                 }
                 chatMessages.appendChild(row);
             });
+            
+            if (selfTestClone) chatMessages.appendChild(selfTestClone);
+            if (stepConsultationClone) chatMessages.appendChild(stepConsultationClone);
+            
             chatMessages.scrollTop = chatMessages.scrollHeight;
         } else {
             updateWelcomeMessage(savedLang);
@@ -9381,10 +9394,14 @@ window.submitSelfTest = function() {
     const scoreEl = document.getElementById('self-test-score');
     const resultDiv = document.getElementById('self-test-result');
     
+    const submitBtn = document.getElementById('self-test-submit-btn');
     if (scoreEl && resultDiv) {
         scoreEl.innerText = score + '%';
         resultDiv.style.display = 'block';
-        form.style.display = 'none';
+        if (submitBtn) submitBtn.style.display = 'none';
+        
+        // Scroll to result smoothly
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 };
 
