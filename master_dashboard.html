@@ -857,7 +857,7 @@
                                 </span>
                             </td>
                             <td>
-                                <button class="btn-status-toggle ${isActive ? 'deactivate' : 'activate'}" onclick="toggleMypageActive('${id}', ${isActive})">
+                                <button class="btn-status-toggle ${isActive ? 'deactivate' : 'activate'}" onclick="toggleMypageActive('${id}', ${isActive}, '${user.email}')">
                                      <i class="fa-solid ${isActive ? 'fa-circle-xmark' : 'fa-circle-check'}"></i>
                                      ${isActive ? 'Deactivate Mypage' : 'Activate Mypage'}
                                  </button>
@@ -895,11 +895,20 @@
         }
 
         // Action: Toggle My Page Active
-        function toggleMypageActive(userId, currentStatus) {
-            db.collection('users').doc(userId).update({
-                myPageActive: !currentStatus
-            }).then(() => {
-                console.log(`Toggled mypage activation of user ${userId} to ${!currentStatus}`);
+        function toggleMypageActive(userId, currentStatus, userEmail) {
+            const newStatus = !currentStatus;
+            const batch = db.batch();
+            // Update users collection (primary store)
+            batch.update(db.collection('users').doc(userId), { myPageActive: newStatus });
+            // Update user_activations collection (publicly readable - customers don't need Firebase Auth)
+            if (userEmail) {
+                batch.set(db.collection('user_activations').doc(userEmail), {
+                    myPageActive: newStatus,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            }
+            batch.commit().then(() => {
+                console.log(`Toggled mypage activation of user ${userId} (${userEmail}) to ${newStatus}`);
             }).catch(err => {
                 alert(`Error toggling mypage state: ${err.message}`);
             });

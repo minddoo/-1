@@ -9327,53 +9327,61 @@ if (blogViewEl && blogViewEl.style.display !== 'none') {
 let userActiveListener = null;
 
 window.subscribeToUserActiveState = function(email) {
+    // Unsubscribe any previous listener
     if (userActiveListener) {
         userActiveListener();
         userActiveListener = null;
     }
-    if (!email || typeof db === 'undefined' || !db) {
-        const stepConsultation = document.getElementById('step-consultation');
-        const stepSelfTest = document.getElementById('step-self-test');
+
+    const stepConsultation = document.getElementById('step-consultation');
+    const stepSelfTest = document.getElementById('step-self-test');
+
+    // DEFAULT STATE: show self-test, hide consultation form
+    if (stepConsultation) stepConsultation.style.display = 'none';
+    if (stepSelfTest) stepSelfTest.style.display = 'block';
+
+    if (!email || typeof db === 'undefined' || !db) return;
+
+    // If user already submitted Step 1, hide everything (consultation already in history)
+    const savedData = localStorage.getItem('consultationData_' + email);
+    if (savedData) {
+        if (stepSelfTest) stepSelfTest.style.display = 'none';
         if (stepConsultation) stepConsultation.style.display = 'none';
-        if (stepSelfTest) stepSelfTest.style.display = 'block';
         return;
     }
 
-    let queryOrDoc;
-    if (window.impersonatedUserEmail) {
-        queryOrDoc = db.collection('users').where('email', '==', email);
-    } else {
-        const currentUser = firebase.auth().currentUser;
-        if (!currentUser) return;
-        queryOrDoc = db.collection('users').doc(currentUser.uid);
-    }
+    // Listen to user_activations collection (allow read: if true - no Firebase Auth needed)
+    // Master dashboard writes here when activating/deactivating a customer
+    userActiveListener = db.collection('user_activations').doc(email).onSnapshot(function(snapshot) {
+        const stepC = document.getElementById('step-consultation');
+        const stepS = document.getElementById('step-self-test');
+        const saved = localStorage.getItem('consultationData_' + email);
 
-    userActiveListener = queryOrDoc.onSnapshot(snapshot => {
-        let myPageActive = false;
-        if ((snapshot.empty === false) || snapshot.exists) {
-            const data = snapshot.data ? snapshot.data() : snapshot.docs[0].data();
-            myPageActive = data.myPageActive === true;
+        if (saved) {
+            if (stepS) stepS.style.display = 'none';
+            if (stepC) stepC.style.display = 'none';
+            return;
         }
 
-        const stepConsultation = document.getElementById('step-consultation');
-        const stepSelfTest = document.getElementById('step-self-test');
-        const savedData = localStorage.getItem(`consultationData_${email}`);
+        const myPageActive = snapshot.exists && snapshot.data().myPageActive === true;
 
-        if (savedData) {
-            if (stepSelfTest) stepSelfTest.style.display = 'none';
-            if (stepConsultation) stepConsultation.style.display = 'none';
+        if (myPageActive) {
+            // ACTIVATED by Master: self-test stays visible + show consultation form below
+            if (stepS) stepS.style.display = 'block';
+            if (stepC) stepC.style.display = 'block';
+            renderInlineConsultationForm();
         } else {
-            if (myPageActive) {
-                if (stepSelfTest) stepSelfTest.style.display = 'none';
-                if (stepConsultation) stepConsultation.style.display = 'block';
-                renderInlineConsultationForm();
-            } else {
-                if (stepConsultation) stepConsultation.style.display = 'none';
-                if (stepSelfTest) stepSelfTest.style.display = 'block';
-            }
+            // NOT YET ACTIVATED (pre-payment): only self-test visible
+            if (stepC) stepC.style.display = 'none';
+            if (stepS) stepS.style.display = 'block';
         }
-    }, err => {
-        console.error("Firestore user active listener error:", err);
+    }, function(err) {
+        console.error('Activation listener error:', err);
+        // On error, safe default: show self-test only
+        const stepC = document.getElementById('step-consultation');
+        const stepS = document.getElementById('step-self-test');
+        if (stepC) stepC.style.display = 'none';
+        if (stepS) stepS.style.display = 'block';
     });
 };
 
